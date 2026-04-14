@@ -167,11 +167,11 @@ export default function Home() {
             
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6 md:gap-8">
             {[
-              { src: "https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/68e574c17d6cef9aeff80637/6d9c58ace_.png", alt: "ועד עובדי כלל ביטוח" },
-              { src: "https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/68e574c17d6cef9aeff80637/97cb921a8_2.jpeg", alt: "צה״ל" },
-              { src: "https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/68e574c17d6cef9aeff80637/40f5d2b0c_2.png", alt: "Tokomni" },
-              { src: "https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/68e574c17d6cef9aeff80637/eb9cdb162_3.png", alt: "Omnitelecom" },
-              { src: "https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/68e574c17d6cef9aeff80637/4a76ee3ff_566.jpg", alt: "אוניברסיטת אריאל" },
+              { src: "/images/6d9c58ace_.png", alt: "ועד עובדי כלל ביטוח" },
+              { src: "/images/97cb921a8_2.jpeg", alt: "צה״ל" },
+              { src: "/images/40f5d2b0c_2.png", alt: "Tokomni" },
+              { src: "/images/eb9cdb162_3.png", alt: "Omnitelecom" },
+              { src: "/images/4a76ee3ff_566.jpg", alt: "אוניברסיטת אריאל" },
             ].map((logo, i) => (
               <motion.div
                 key={i}

@@ -107,7 +107,7 @@ export default function WhatsAppButton() {
 
           {/* אייקון וואטסאפ */}
           <motion.img
-            src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/68e574c17d6cef9aeff80637/e06702e0c_.png"
+            src="/images/e06702e0c_.png"
             alt="WhatsApp"
             className="w-full h-full object-cover relative z-10"
             animate={shouldReduceMotion ? {} : {

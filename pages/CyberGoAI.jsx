@@ -69,7 +69,7 @@ export default function CyberGoAI() {
       <nav className="bg-white border-b border-gray-100 sticky top-0 z-50 shadow-sm">
         <div className="max-w-6xl mx-auto px-6 py-3 flex justify-between items-center">
           <img
-            src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/68e574c17d6cef9aeff80637/c6e9d27b9_image.png"
+            src="/images/c6e9d27b9_image.png"
             alt="CyberGo AI Logo"
             className="h-14 w-auto"
           />

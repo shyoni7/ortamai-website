@@ -99,7 +99,7 @@ function LayoutInner({ children }) {
             {/* Logo */}
             <Link to={createPageUrl("Home")} className="flex items-center gap-3">
               <motion.img 
-                src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/user_67cebd73b55b6d545c36facb/47cae0727_image.png" 
+                src="/images/47cae0727_image.png" 
                 alt="ORTAM AI" 
                 className="h-12 w-auto"
                 whileHover={!shouldReduceMotion ? { scale: 1.05 } : {}}
@@ -190,7 +190,7 @@ function LayoutInner({ children }) {
             {/* Logo & Description */}
             <div className="col-span-1 md:col-span-2">
               <img 
-                src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/user_67cebd73b55b6d545c36facb/47cae0727_image.png" 
+                src="/images/47cae0727_image.png" 
                 alt="ORTAM AI" 
                 className="h-10 w-auto mb-4"
               />

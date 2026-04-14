@@ -67,10 +67,10 @@ export const t = {
         { name: "שי נחום", role: "מנהל תחום סייבר AI" }
       ],
       memberImages: [
-        "https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/68e574c17d6cef9aeff80637/5ef60b582___________________ortam_ai_____________________4k_pcqitx1aqs9138twyuwm_0.png",
-        "https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/68e574c17d6cef9aeff80637/d27b06cde_105.jpg",
-        "https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/68e574c17d6cef9aeff80637/d80b2174c_unnamed1.png",
-        "https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/68e574c17d6cef9aeff80637/7943cf8b8_WhatsAppImage2026-02-05at121308.jpeg"
+        "/images/5ef60b582___________________ortam_ai_____________________4k_pcqitx1aqs9138twyuwm_0.png",
+        "/images/d27b06cde_105.jpg",
+        "/images/d80b2174c_unnamed1.png",
+        "/images/7943cf8b8_WhatsAppImage2026-02-05at121308.jpeg"
       ]
     },
     incubator: {
@@ -195,10 +195,10 @@ export const t = {
         { name: "Shai Nachum", role: "Head of AI Cyber" }
       ],
       memberImages: [
-        "https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/68e574c17d6cef9aeff80637/5ef60b582___________________ortam_ai_____________________4k_pcqitx1aqs9138twyuwm_0.png",
-        "https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/68e574c17d6cef9aeff80637/d27b06cde_105.jpg",
-        "https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/68e574c17d6cef9aeff80637/d80b2174c_unnamed1.png",
-        "https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/68e574c17d6cef9aeff80637/7943cf8b8_WhatsAppImage2026-02-05at121308.jpeg"
+        "/images/5ef60b582___________________ortam_ai_____________________4k_pcqitx1aqs9138twyuwm_0.png",
+        "/images/d27b06cde_105.jpg",
+        "/images/d80b2174c_unnamed1.png",
+        "/images/7943cf8b8_WhatsAppImage2026-02-05at121308.jpeg"
       ]
     },
     incubator: {

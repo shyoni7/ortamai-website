@@ -190,7 +190,7 @@ export default function AccessibilityMenu() {
             aria-label="פתח תפריט נגישות"
           >
             <img 
-              src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/68e574c17d6cef9aeff80637/73e8a1f5d_images.png"
+              src="/images/73e8a1f5d_images.png"
               alt="נגישות"
               className="w-10 h-10"
             />
