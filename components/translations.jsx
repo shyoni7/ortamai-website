@@ -70,7 +70,7 @@ export const t = {
         "/images/5ef60b582___________________ortam_ai_____________________4k_pcqitx1aqs9138twyuwm_0.png",
         "/images/d27b06cde_105.jpg",
         "/images/d80b2174c_unnamed1.png",
-        "/images/7943cf8b8_WhatsAppImage2026-02-05at121308.jpeg"
+        "/images/c6e9d27b9_image.png"
       ]
     },
     incubator: {
@@ -198,7 +198,7 @@ export const t = {
         "/images/5ef60b582___________________ortam_ai_____________________4k_pcqitx1aqs9138twyuwm_0.png",
         "/images/d27b06cde_105.jpg",
         "/images/d80b2174c_unnamed1.png",
-        "/images/7943cf8b8_WhatsAppImage2026-02-05at121308.jpeg"
+        "/images/c6e9d27b9_image.png"
       ]
     },
     incubator: {
