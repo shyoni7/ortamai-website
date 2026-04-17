@@ -1,93 +1,112 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { Link, useLocation } from 'wouter';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Menu, X, Globe } from 'lucide-react';
 import { useLanguage } from '@/contexts/LanguageContext';
-import { Menu, X } from 'lucide-react';
-import { motion } from 'framer-motion';
 
 export default function Navigation() {
-  const { lang, setLang, t } = useLanguage();
+  const { lang, setLang, t, dir } = useLanguage();
   const [isOpen, setIsOpen] = useState(false);
-  const dir = lang === 'he' ? 'rtl' : 'ltr';
+  const [scrolled, setScrolled] = useState(false);
+  const [location] = useLocation();
 
-  const navItems = [
-    { label: t.nav.home, href: '#' },
-    { label: t.nav.incubator, href: '#' },
-    { label: t.nav.academy, href: '#' },
-    { label: t.nav.placement, href: '#' },
-    { label: t.nav.about, href: '#' },
-    { label: t.nav.contact, href: '#' },
+  useEffect(() => {
+    const handleScroll = () => setScrolled(window.scrollY > 20);
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  useEffect(() => { setIsOpen(false); }, [location]);
+
+  const navLinks = [
+    { href: '/', label: t.nav.home },
+    { href: '/incubator', label: t.nav.incubator },
+    { href: '/academy', label: t.nav.academy },
+    { href: '/placement', label: t.nav.placement },
+    { href: '/about', label: t.nav.about },
+    { href: '/contact', label: t.nav.contact },
   ];
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-md border-b border-border">
-      <div className="container mx-auto px-4">
-        <div className="flex justify-between items-center h-20">
-          {/* Logo */}
-          <motion.div
-            initial={{ opacity: 0, x: dir === 'rtl' ? 20 : -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            className="flex-shrink-0"
-          >
-            <div className="text-2xl font-bold bg-gradient-to-r from-cyan-400 to-purple-500 bg-clip-text text-transparent">
-              ORTAM AI
-            </div>
-          </motion.div>
+    <nav
+      role="navigation"
+      aria-label="ניווט ראשי"
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? 'glass-strong shadow-lg' : 'bg-transparent'}`}
+      dir={dir}
+    >
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex items-center justify-between h-16 md:h-20">
+          <Link href="/" aria-label="ORTAM AI - דף הבית">
+            <motion.div className="flex items-center gap-1 cursor-pointer" whileHover={{ scale: 1.02 }}>
+              <span className="text-2xl font-bold text-gradient-cyan">ORTAM</span>
+              <span className="text-2xl font-bold text-white"> AI</span>
+            </motion.div>
+          </Link>
 
-          {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center gap-8">
-            {navItems.map((item, index) => (
-              <motion.a
-                key={item.label}
-                href={item.href}
-                initial={{ opacity: 0, y: -10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.05 }}
-                className="text-sm font-medium text-foreground/80 hover:text-cyan-400 transition-colors relative group"
-              >
-                {item.label}
-                <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-cyan-400 to-purple-500 scale-x-0 group-hover:scale-x-100 transition-transform origin-left" />
-              </motion.a>
+          <div className="hidden lg:flex items-center gap-1">
+            {navLinks.map((link) => (
+              <Link key={link.href} href={link.href}>
+                <motion.span
+                  className={`px-3 py-2 rounded-lg text-sm font-medium cursor-pointer transition-colors duration-200 ${location === link.href ? 'text-cyan-400 bg-cyan-400/10' : 'text-gray-300 hover:text-white hover:bg-white/5'}`}
+                  whileHover={{ y: -1 }}
+                >
+                  {link.label}
+                </motion.span>
+              </Link>
             ))}
           </div>
 
-          {/* Language Toggle & CTA */}
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-3">
             <button
               onClick={() => setLang(lang === 'he' ? 'en' : 'he')}
-              className="px-3 py-1.5 rounded-full border border-cyan-400/50 text-xs font-semibold text-cyan-400 hover:bg-cyan-400/10 transition-colors"
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-medium text-gray-300 hover:text-white hover:bg-white/5 transition-colors"
+              aria-label={lang === 'he' ? 'Switch to English' : 'עבור לעברית'}
             >
-              {lang === 'he' ? 'EN' : 'עב'}
+              <Globe size={14} />
+              <span>{lang === 'he' ? 'EN' : 'עב'}</span>
             </button>
 
-            {/* Mobile Menu Button */}
+            <Link href="/contact">
+              <motion.button className="hidden md:block btn-primary text-sm px-5 py-2.5" whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
+                {t.nav.cta}
+              </motion.button>
+            </Link>
+
             <button
+              className="lg:hidden p-2 rounded-lg text-gray-300 hover:text-white hover:bg-white/5 transition-colors"
               onClick={() => setIsOpen(!isOpen)}
-              className="md:hidden p-2 hover:bg-white/10 rounded-lg transition-colors"
+              aria-label={isOpen ? 'סגור תפריט' : 'פתח תפריט'}
+              aria-expanded={isOpen}
             >
-              {isOpen ? <X size={24} /> : <Menu size={24} />}
+              {isOpen ? <X size={20} /> : <Menu size={20} />}
             </button>
           </div>
         </div>
+      </div>
 
-        {/* Mobile Navigation */}
+      <AnimatePresence>
         {isOpen && (
           <motion.div
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
-            className="md:hidden pb-4 space-y-2"
+            className="lg:hidden glass-strong border-t border-white/10"
           >
-            {navItems.map((item) => (
-              <a
-                key={item.label}
-                href={item.href}
-                className="block px-4 py-2 text-sm font-medium text-foreground/80 hover:text-cyan-400 hover:bg-white/5 rounded-lg transition-colors"
-              >
-                {item.label}
-              </a>
-            ))}
+            <div className="px-4 py-4 space-y-1">
+              {navLinks.map((link) => (
+                <Link key={link.href} href={link.href}>
+                  <span className={`block px-4 py-3 rounded-lg text-sm font-medium cursor-pointer transition-colors ${location === link.href ? 'text-cyan-400 bg-cyan-400/10' : 'text-gray-300 hover:text-white hover:bg-white/5'}`}>
+                    {link.label}
+                  </span>
+                </Link>
+              ))}
+              <Link href="/contact">
+                <button className="w-full btn-primary text-sm py-3 mt-3">{t.nav.cta}</button>
+              </Link>
+            </div>
           </motion.div>
         )}
-      </div>
+      </AnimatePresence>
     </nav>
   );
 }

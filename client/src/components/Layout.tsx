@@ -1,23 +1,30 @@
-import React, { ReactNode } from 'react';
-import { useLanguage } from '@/contexts/LanguageContext';
+import React from 'react';
+import { ReactNode } from 'react';
 import Navigation from './Navigation';
 import Footer from './Footer';
+import WhatsAppButton from './WhatsAppButton';
+import AccessibilityWidget from './AccessibilityWidget';
+import { useLanguage } from '@/contexts/LanguageContext';
 
 interface LayoutProps {
   children: ReactNode;
 }
 
 export default function Layout({ children }: LayoutProps) {
-  const { lang } = useLanguage();
-  const dir = lang === 'he' ? 'rtl' : 'ltr';
+  const { dir } = useLanguage();
 
   return (
-    <div className="min-h-screen flex flex-col bg-background text-foreground" dir={dir}>
+    <div className="min-h-screen bg-background text-foreground" dir={dir}>
+      <a href="#main-content" className="skip-link">
+        {dir === 'rtl' ? 'דלג לתוכן הראשי' : 'Skip to main content'}
+      </a>
       <Navigation />
-      <main className="flex-1">
+      <main id="main-content" className="pt-16 md:pt-20">
         {children}
       </main>
       <Footer />
+      <WhatsAppButton />
+      <AccessibilityWidget />
     </div>
   );
 }
