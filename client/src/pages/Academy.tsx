@@ -117,7 +117,7 @@ const trainingPrograms: TrainingProgram[] = [
     hours: '24',
     level: 'בינוני',
     levelEn: 'Intermediate',
-    image: `${CDN}/47cae0727_image_9f26f17d.png`,
+    image: `https://d2xsxph8kpxj0f.cloudfront.net/310519663445418346/oDFneUKwvw2xJYXYaumUdB/ai-hr-training-2pXxBJCLzZXaMJGK8nFghw.webp`,
     color: 'from-emerald-500 to-teal-600',
     modules: [
       { title: 'AI בגיוס ומיון', duration: '6 שעות', topics: ['סינון קורות חיים עם AI', 'ראיונות עבודה חכמים', 'הערכת מועמדים'] },
@@ -252,7 +252,7 @@ const trainingPrograms: TrainingProgram[] = [
     hours: '24',
     level: 'בינוני',
     levelEn: 'Intermediate',
-    image: `${CDN}/47cae0727_image_9f26f17d.png`,
+    image: `https://d2xsxph8kpxj0f.cloudfront.net/310519663445418346/oDFneUKwvw2xJYXYaumUdB/ai-sales-training-WwFySQp2o7ZLLoVoh8dAo3.webp`,
     color: 'from-pink-500 to-rose-600',
     modules: [
       { title: 'AI בתהליך המכירה', duration: '6 שעות', topics: ['חיפוש לידים עם AI', 'כתיבת הצעות מחיר', 'מעקב אחר לקוחות'] },
