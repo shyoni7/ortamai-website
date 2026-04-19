@@ -12,6 +12,7 @@ import Academy from "./pages/Academy";
 import Placement from "./pages/Placement";
 import Contact from "./pages/Contact";
 import AccessibilityStatement from "./pages/AccessibilityStatement";
+import PrivacyPolicy from "./pages/PrivacyPolicy";
 import NotFound from "./pages/NotFound";
 
 function Router() {
@@ -25,6 +26,7 @@ function Router() {
         <Route path="/placement" component={Placement} />
         <Route path="/contact" component={Contact} />
         <Route path="/accessibility" component={AccessibilityStatement} />
+        <Route path="/privacy" component={PrivacyPolicy} />
         <Route component={NotFound} />
       </Switch>
     </Layout>

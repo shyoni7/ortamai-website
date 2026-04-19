@@ -23,7 +23,7 @@
 - [x] Placement page
 - [x] Contact page with working form
 - [x] Accessibility Statement page
-- [ ] Privacy Policy page
+- [x] Privacy Policy page
 
 ## Components
 - [x] WhatsApp floating button (with ripple animation, inline SVG)

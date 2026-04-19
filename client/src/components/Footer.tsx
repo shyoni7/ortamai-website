@@ -52,6 +52,9 @@ export default function Footer() {
             <Link href="/accessibility">
               <span className="hover:text-cyan-400 transition-colors cursor-pointer">{t.footer.accessibility}</span>
             </Link>
+            <Link href="/privacy">
+              <span className="hover:text-cyan-400 transition-colors cursor-pointer">{lang === 'he' ? 'מדיניות פרטיות' : 'Privacy Policy'}</span>
+            </Link>
           </div>
         </div>
       </div>
