@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Accessibility, X, ZoomIn, ZoomOut, Eye, Type, Contrast } from 'lucide-react';
+import { X, ZoomIn, ZoomOut, Type, Contrast } from 'lucide-react';
 import { useLanguage } from '@/contexts/LanguageContext';
+
+const ACCESSIBILITY_LOGO = 'https://d2xsxph8kpxj0f.cloudfront.net/310519663445418346/oDFneUKwvw2xJYXYaumUdB/73e8a1f5d_images_f41438b1.png';
 
 export default function AccessibilityWidget() {
   const { lang } = useLanguage();
@@ -101,13 +103,17 @@ export default function AccessibilityWidget() {
 
       <motion.button
         onClick={() => setIsOpen(!isOpen)}
-        className="w-12 h-12 rounded-full glass-strong flex items-center justify-center text-cyan-400 hover:text-white hover:bg-cyan-400/20 transition-colors shadow-lg"
+        className="w-14 h-14 rounded-full overflow-hidden shadow-lg hover:scale-110 transition-transform"
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.95 }}
         aria-label={isHe ? 'פתח תפריט נגישות' : 'Open accessibility menu'}
         aria-expanded={isOpen}
       >
-        <Accessibility size={20} />
+        <img
+          src={ACCESSIBILITY_LOGO}
+          alt={isHe ? 'נגישות' : 'Accessibility'}
+          className="w-full h-full object-cover"
+        />
       </motion.button>
     </div>
   );
