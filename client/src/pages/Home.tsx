@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import { ArrowLeft, ArrowRight, Zap, Users, Briefcase, CheckCircle, Star, Award, TrendingUp } from 'lucide-react';
 import { useLanguage } from '@/contexts/LanguageContext';
 
+const HERO_VIDEO = 'https://files.manuscdn.com/user_upload_by_module/session_file/310519663445418346/sLtfKJCObxnFJgJI.mp4';
 const HERO_IMAGE = 'https://d2xsxph8kpxj0f.cloudfront.net/310519663445418346/oDFneUKwvw2xJYXYaumUdB/a00800906_______________ai______________1ztf6h7ulzz1cg0t1nwp_1_450c2a58.png';
 const TRAINING_IMAGE = 'https://d2xsxph8kpxj0f.cloudfront.net/310519663445418346/oDFneUKwvw2xJYXYaumUdB/81fe03d01_create_a_professional_and_modern_image_for_a_website_that_promotes_ai_training_programs_the_image_s_y01604j7g7gqe2rbe6tu_0_2b7c34bf.png';
 
@@ -150,21 +151,27 @@ export default function Home() {
               </motion.div>
             </motion.div>
 
-            {/* Hero image */}
+            {/* Hero video */}
             <motion.div
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 1, delay: 0.3 }}
               className="relative"
             >
-              <div className="relative rounded-2xl overflow-hidden glow-cyan">
-                <img
-                  src={HERO_IMAGE}
-                  alt={isRtl ? 'מרכז פיתוח AI' : 'AI Development Center'}
+              <div className="relative rounded-2xl overflow-hidden glow-cyan shadow-2xl">
+                <video
+                  src={HERO_VIDEO}
+                  autoPlay
+                  loop
+                  muted
+                  playsInline
+                  poster={HERO_IMAGE}
                   className="w-full h-auto object-cover rounded-2xl"
-                  loading="eager"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#0a0e27]/60 to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#0a0e27]/40 to-transparent pointer-events-none" />
+                {/* Decorative corner accents */}
+                <div className="absolute top-0 left-0 w-16 h-16 border-t-2 border-l-2 border-cyan-400/40 rounded-tl-2xl" />
+                <div className="absolute bottom-0 right-0 w-16 h-16 border-b-2 border-r-2 border-purple-400/40 rounded-br-2xl" />
               </div>
             </motion.div>
           </div>
