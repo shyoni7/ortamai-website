@@ -39,3 +39,21 @@ export const contactSubmissions = mysqlTable("contact_submissions", {
 
 export type ContactSubmission = typeof contactSubmissions.$inferSelect;
 export type InsertContactSubmission = typeof contactSubmissions.$inferInsert;
+
+// CV / Placement submissions
+export const cvSubmissions = mysqlTable("cv_submissions", {
+  id: int("id").autoincrement().primaryKey(),
+  name: varchar("name", { length: 255 }).notNull(),
+  email: varchar("email", { length: 320 }).notNull(),
+  phone: varchar("phone", { length: 50 }),
+  role: varchar("role", { length: 255 }),
+  field: varchar("field", { length: 100 }),
+  cvUrl: text("cvUrl"),
+  cvKey: text("cvKey"),
+  message: text("message"),
+  lang: varchar("lang", { length: 5 }).default("he"),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+});
+
+export type CvSubmission = typeof cvSubmissions.$inferSelect;
+export type InsertCvSubmission = typeof cvSubmissions.$inferInsert;

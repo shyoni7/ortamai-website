@@ -43,3 +43,10 @@
 ## Deployment
 - [x] Push final code to GitHub (shyoni7/ortamai-website)
 - [x] Deploy to Vercel (use Manus Publish button - full-stack app requires server hosting, not static Vercel)
+
+## Placement Page Enhancement
+- [x] Add cv_submissions DB table (name, email, phone, role, field, cv_url, message)
+- [x] Add S3 CV file upload tRPC procedure
+- [x] Add CV submission tRPC procedure with owner notification
+- [x] Build CV submission form UI on Placement page (file upload + personal details)
+- [x] Add vitest tests for CV submission backend
