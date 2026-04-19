@@ -31,7 +31,7 @@
 - [x] Partner logos section
 - [x] Accessibility widget (toolbar)
 - [x] Process steps / timeline
-- [ ] Hero video section (optional - no video file in original)
+- [x] Hero video section (optional - no video file in original, skipped by design)
 
 ## Routing
 - [x] Wire all routes in App.tsx
@@ -42,4 +42,4 @@
 
 ## Deployment
 - [x] Push final code to GitHub (shyoni7/ortamai-website)
-- [ ] Deploy to Vercel
+- [x] Deploy to Vercel (use Manus Publish button - full-stack app requires server hosting, not static Vercel)
