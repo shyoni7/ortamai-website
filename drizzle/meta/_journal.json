@@ -15,6 +15,13 @@
       "when": 1776406807734,
       "tag": "0001_jazzy_brother_voodoo",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "5",
+      "when": 1776584437631,
+      "tag": "0002_even_xorn",
+      "breakpoints": true
     }
   ]
 }
