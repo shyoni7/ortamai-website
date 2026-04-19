@@ -272,6 +272,20 @@ const trainingPrograms: TrainingProgram[] = [
   },
 ];
 
+interface PublicCourse {
+  title: string;
+  titleEn: string;
+  desc: string;
+  descEn: string;
+  duration: string;
+  durationEn: string;
+  level: string;
+  levelEn: string;
+  color: string;
+  icon: React.ElementType;
+  ministrySupervised?: boolean;
+}
+
 const publicCourses: PublicCourse[] = [
   {
     title: 'AI לעסקים',
@@ -332,6 +346,19 @@ const publicCourses: PublicCourse[] = [
     levelEn: 'Beginners',
     color: 'from-blue-500 to-indigo-600',
     icon: Building,
+  },
+  {
+    title: 'מטמיע מערכות AI',
+    titleEn: 'AI Systems Implementer',
+    desc: 'הקורס הרשמי היחיד בישראל להטמעת מערכות AI בארגונים. הכשרה מקצועית בפיקוח משרד העבודה.',
+    descEn: 'The only official course in Israel for AI systems implementation in organizations. Professional training supervised by the Ministry of Labor.',
+    duration: '3 חודשים',
+    durationEn: '3 months',
+    level: 'מתקדם',
+    levelEn: 'Advanced',
+    color: 'from-yellow-500 to-orange-600',
+    icon: Award,
+    ministrySupervised: true,
   },
 ];
 
@@ -420,10 +447,7 @@ export default function Academy() {
               <Award className="w-4 h-4 text-cyan-400" />
               <span className="text-sm text-gray-300">{isRtl ? 'קורס מוסמך' : 'Certified Course'}</span>
             </div>
-            <div className="glass px-4 py-2 rounded-full flex items-center gap-2">
-              <img src={MINISTRY_LOGO} alt="Ministry of Labor" className="h-5 object-contain" />
-              <span className="text-sm text-gray-300">{isRtl ? 'בשיתוף משרד העבודה' : 'In partnership with Ministry of Labor'}</span>
-            </div>
+
             <div className="glass px-4 py-2 rounded-full flex items-center gap-2">
               <Users className="w-4 h-4 text-purple-400" />
               <span className="text-sm text-gray-300">{isRtl ? '+500 בוגרים' : '+500 Graduates'}</span>
@@ -572,7 +596,7 @@ export default function Academy() {
                   <p className="text-gray-400 mb-4 text-sm leading-relaxed">
                     {isRtl ? course.desc : course.descEn}
                   </p>
-                  <div className="flex items-center justify-between mb-5">
+                  <div className="flex items-center justify-between mb-3">
                     <div className="flex items-center gap-2 text-gray-400 text-sm">
                       <Clock className="w-4 h-4" />
                       <span>{isRtl ? course.duration : course.durationEn}</span>
@@ -581,6 +605,14 @@ export default function Academy() {
                       {isRtl ? course.level : course.levelEn}
                     </span>
                   </div>
+                  {course.ministrySupervised && (
+                    <div className="flex items-center gap-2 mb-4 px-3 py-2 rounded-lg bg-yellow-500/10 border border-yellow-500/30">
+                      <Award className="w-4 h-4 text-yellow-400 flex-shrink-0" />
+                      <span className="text-xs text-yellow-300 font-medium">
+                        {isRtl ? 'בפיקוח משרד העבודה' : 'Supervised by Ministry of Labor'}
+                      </span>
+                    </div>
+                  )}
                   <Link href="/contact">
                     <button className="w-full btn-primary text-sm py-2.5">
                       {isRtl ? 'הירשם לקורס' : 'Enroll Now'}
