@@ -23,7 +23,7 @@
 - [x] Placement page
 - [x] Contact page with working form
 - [x] Accessibility Statement page
-- [ ] Privacy Policy page
+- [x] Privacy Policy page
 
 ## Components
 - [x] WhatsApp floating button (with ripple animation, inline SVG)
@@ -41,5 +41,5 @@
 - [x] Auth logout test (1 test passing)
 
 ## Deployment
-- [ ] Push final code to GitHub (shyoni7/ortamai-website)
+- [x] Push final code to GitHub (shyoni7/ortamai-website)
 - [ ] Deploy to Vercel
