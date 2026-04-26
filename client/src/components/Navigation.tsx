@@ -32,7 +32,7 @@ export default function Navigation() {
     <nav
       role="navigation"
       aria-label="ניווט ראשי"
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? 'glass-strong shadow-lg' : 'bg-transparent'}`}
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-white shadow-sm border-b border-gray-100`}
       dir={dir}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -51,7 +51,7 @@ export default function Navigation() {
             {navLinks.map((link) => (
               <Link key={link.href} href={link.href}>
                 <motion.span
-                  className={`px-3 py-2 rounded-lg text-sm font-medium cursor-pointer transition-colors duration-200 ${location === link.href ? 'text-orange-400 bg-orange-400/10' : 'text-gray-300 hover:text-white hover:bg-white/5'}`}
+                  className={`px-3 py-2 rounded-lg text-sm font-medium cursor-pointer transition-colors duration-200 ${location === link.href ? 'text-orange-500 bg-orange-50' : 'text-gray-700 hover:text-orange-500 hover:bg-orange-50'}`}
                   whileHover={{ y: -1 }}
                 >
                   {link.label}
@@ -63,7 +63,7 @@ export default function Navigation() {
           <div className="flex items-center gap-3">
             <button
               onClick={() => setLang(lang === 'he' ? 'en' : 'he')}
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-medium text-gray-300 hover:text-white hover:bg-white/5 transition-colors"
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-medium text-gray-600 hover:text-orange-500 hover:bg-orange-50 transition-colors"
               aria-label={lang === 'he' ? 'Switch to English' : 'עבור לעברית'}
             >
               <Globe size={14} />
@@ -77,7 +77,7 @@ export default function Navigation() {
             </div>
 
             <button
-              className="lg:hidden p-2 rounded-lg text-gray-300 hover:text-white hover:bg-white/5 transition-colors"
+              className="lg:hidden p-2 rounded-lg text-gray-600 hover:text-orange-500 hover:bg-orange-50 transition-colors"
               onClick={() => setIsOpen(!isOpen)}
               aria-label={isOpen ? 'סגור תפריט' : 'פתח תפריט'}
               aria-expanded={isOpen}
@@ -94,12 +94,12 @@ export default function Navigation() {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
-            className="lg:hidden glass-strong border-t border-white/10"
+            className="lg:hidden bg-white border-t border-gray-100 shadow-md"
           >
             <div className="px-4 py-4 space-y-1">
               {navLinks.map((link) => (
                 <Link key={link.href} href={link.href}>
-                  <span className={`block px-4 py-3 rounded-lg text-sm font-medium cursor-pointer transition-colors ${location === link.href ? 'text-orange-400 bg-orange-400/10' : 'text-gray-300 hover:text-white hover:bg-white/5'}`}>
+                  <span className={`block px-4 py-3 rounded-lg text-sm font-medium cursor-pointer transition-colors ${location === link.href ? 'text-orange-500 bg-orange-50' : 'text-gray-700 hover:text-orange-500 hover:bg-orange-50'}`}>
                     {link.label}
                   </span>
                 </Link>
