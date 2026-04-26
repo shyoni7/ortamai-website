@@ -10,87 +10,100 @@ interface GradientButtonProps {
 }
 
 /**
- * Animated CTA button — subtle rotating border glow (uiverse.io style)
- * Dark navy background with orange animated border + always-readable white text.
+ * Animated gradient CTA button — uiverse.io style, toned down.
+ * The original animation is preserved but with reduced brightness/saturation
+ * so the text stays readable at all times.
  */
 export default function GradientButton({ children, onClick, href, className = '', size = 'md' }: GradientButtonProps) {
-  const sizeClass: Record<string, string> = {
-    sm: 'text-sm px-5 py-2.5',
-    md: 'text-base px-8 py-3',
-    lg: 'text-lg px-10 py-4',
+  const sizeStyles: Record<string, React.CSSProperties> = {
+    sm: { fontSize: '0.85rem', padding: '9px 22px' },
+    md: { fontSize: '1rem',    padding: '12px 32px' },
+    lg: { fontSize: '1.1rem',  padding: '14px 40px' },
+  };
+
+  /* ── wrapper ── */
+  const wrapperStyle: React.CSSProperties = {
+    position: 'relative',
+    display: 'inline-flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    overflow: 'clip',
+    overflowClipMargin: '4px' as any,
+    border: '2px solid #F5A623',
+    borderRadius: '9999px',
+    fontFamily: '"Inter", sans-serif',
+    fontWeight: 600,
+    cursor: 'pointer',
+    textDecoration: 'none',
+    /* toned-down filter: less bright, less saturated than original */
+    filter: 'saturate(0.55) brightness(1.3)',
+    ...sizeStyles[size],
+  };
+
+  /* ── spinning gradient layer ── */
+  const gradLayerStyle: React.CSSProperties = {
+    position: 'absolute',
+    pointerEvents: 'none',
+    left: '-160px',
+    width: '500%',
+    aspectRatio: '1',
+    background: 'radial-gradient(ellipse at 65% 180%, #F5A623, #1B2A4A, #F5A623, #1B2A4A, #F5A623, #1B2A4A, #F5A623)',
+    mixBlendMode: 'difference',
+    animation: 'gradBtn-rotate 8s linear infinite',
+  };
+
+  const gradLayerBStyle: React.CSSProperties = {
+    ...gradLayerStyle,
+    mixBlendMode: 'color-dodge',
+    /* extra opacity reduction to prevent total wash-out */
+    opacity: 0.55,
+  };
+
+  /* ── dark overlay that keeps text readable ── */
+  const darkOverlayStyle: React.CSSProperties = {
+    position: 'absolute',
+    inset: 0,
+    borderRadius: '9999px',
+    background: 'rgba(15, 22, 40, 0.52)',   /* semi-transparent navy */
+    pointerEvents: 'none',
+    zIndex: 1,
+  };
+
+  /* ── text layer — always on top ── */
+  const textStyle: React.CSSProperties = {
+    position: 'relative',
+    zIndex: 2,
+    color: '#fff',
+    textShadow: '0 1px 4px rgba(0,0,0,0.7)',
+    display: 'flex',
+    alignItems: 'center',
+    gap: '6px',
+    letterSpacing: '0.05em',
   };
 
   const inner = (
-    <div className={`grad-btn-outer ${sizeClass[size]} ${className}`}>
+    <div style={wrapperStyle} className={`grad-btn-wrapper ${className}`}>
       <style>{`
-        .grad-btn-outer {
-          position: relative;
-          display: inline-flex;
-          align-items: center;
-          justify-content: center;
-          border-radius: 9999px;
-          cursor: pointer;
-          font-weight: 600;
-          font-family: inherit;
-          letter-spacing: 0.04em;
-          color: #fff;
-          background: #1B2A4A;
-          z-index: 0;
-          transition: transform 0.2s ease, box-shadow 0.2s ease;
-          text-decoration: none;
-          white-space: nowrap;
-          user-select: none;
+        @keyframes gradBtn-rotate {
+          0%   { transform: rotate(0deg); }
+          100% { transform: rotate(360deg); }
         }
-        .grad-btn-outer::before {
-          content: '';
-          position: absolute;
-          inset: -2px;
-          border-radius: 9999px;
-          background: conic-gradient(
-            from var(--grad-btn-angle, 0deg),
-            #F5A623 0%,
-            #fff3c0 15%,
-            #1B2A4A 30%,
-            #1B2A4A 60%,
-            #F5A623 75%,
-            #fff3c0 90%,
-            #F5A623 100%
-          );
-          animation: gradBtn-spin 3s linear infinite;
-          z-index: -1;
+        .grad-btn-wrapper:hover {
+          filter: saturate(0.7) brightness(1.5) !important;
+          box-shadow: 0 0 16px 3px rgba(245,166,35,0.3);
         }
-        .grad-btn-outer::after {
-          content: '';
-          position: absolute;
-          inset: 2px;
-          border-radius: 9999px;
-          background: #1B2A4A;
-          z-index: -1;
-        }
-        .grad-btn-outer:hover {
-          transform: scale(1.04);
-          box-shadow: 0 0 18px 4px rgba(245,166,35,0.35);
-        }
-        .grad-btn-outer:active {
+        .grad-btn-wrapper:active {
           transform: scale(0.97);
         }
-        @property --grad-btn-angle {
-          syntax: '<angle>';
-          initial-value: 0deg;
-          inherits: false;
-        }
-        @keyframes gradBtn-spin {
-          to { --grad-btn-angle: 360deg; }
-        }
       `}</style>
-      <span style={{ position: 'relative', zIndex: 1, color: '#fff', display: 'flex', alignItems: 'center', gap: '6px' }}>
-        {children}
-      </span>
+      <div style={gradLayerStyle} />
+      <div style={gradLayerBStyle} />
+      <div style={darkOverlayStyle} />
+      <span style={textStyle}>{children}</span>
     </div>
   );
 
   if (href) {
-    // Use wouter Link for internal routes, plain <a> for external
     const isExternal = href.startsWith('http') || href.startsWith('tel:') || href.startsWith('mailto:');
     if (isExternal) {
       return (
