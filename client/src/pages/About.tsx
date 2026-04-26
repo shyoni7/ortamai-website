@@ -22,8 +22,8 @@ const TEAM = [
   },
   {
     name: { he: 'שי נחום', en: 'Shai Nachum' },
-    role: { he: 'ראש מחלקת סייבר', en: 'Head of Cyber' },
-    img: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663445418346/oDFneUKwvw2xJYXYaumUdB/c6e9d27b9_image_e458dc33.png',
+    role: { he: 'CTO', en: 'CTO' },
+    img: 'https://files.manuscdn.com/user_upload_by_module/session_file/310519663445418346/rXJVQOjCqHBhECGn.jpeg',
   },
 ];
 
