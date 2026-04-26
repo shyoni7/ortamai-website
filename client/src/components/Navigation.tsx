@@ -39,10 +39,9 @@ export default function Navigation() {
           <Link href="/" aria-label="ORTAM AI - דף הבית">
             <motion.div className="flex items-center cursor-pointer" whileHover={{ scale: 1.02 }}>
               <img
-                src="/manus-storage/ortam-logo_c2bb44c9.jpeg"
+                src="/manus-storage/ortam-logo-transparent_8e0a3b81.webp"
                 alt="ORTAM AI"
                 className="h-10 w-auto object-contain"
-                style={{ mixBlendMode: 'screen' }}
               />
             </motion.div>
           </Link>
