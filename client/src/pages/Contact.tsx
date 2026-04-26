@@ -36,7 +36,7 @@ export default function Contact() {
     <div dir={dir}>
       {/* Hero */}
       <section className="relative py-32 overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-[#0a0e27] via-[#0d1235] to-[#0a0e27]" />
+        <div className="absolute inset-0 bg-gradient-to-br from-[#0d1628] via-[#1B2A4A] to-[#0d1628]" />
         <div className="absolute inset-0 grid-pattern opacity-20" />
         <div className="relative z-10 max-w-4xl mx-auto px-4 text-center">
           <motion.h1 initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }} className="text-5xl md:text-6xl font-bold text-gradient-cyan mb-6">
@@ -62,7 +62,7 @@ export default function Contact() {
                       type="text"
                       value={form.name}
                       onChange={e => setForm(p => ({ ...p, name: e.target.value }))}
-                      className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-gray-500 focus:outline-none focus:border-cyan-400/50 transition-colors"
+                      className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-gray-500 focus:outline-none focus:border-orange-400/50 transition-colors"
                       placeholder={isRtl ? 'ישראל ישראלי' : 'John Doe'}
                     />
                   </div>
@@ -72,7 +72,7 @@ export default function Contact() {
                       type="email"
                       value={form.email}
                       onChange={e => setForm(p => ({ ...p, email: e.target.value }))}
-                      className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-gray-500 focus:outline-none focus:border-cyan-400/50 transition-colors"
+                      className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-gray-500 focus:outline-none focus:border-orange-400/50 transition-colors"
                       placeholder="email@example.com"
                     />
                   </div>
@@ -84,7 +84,7 @@ export default function Contact() {
                       type="tel"
                       value={form.phone}
                       onChange={e => setForm(p => ({ ...p, phone: e.target.value }))}
-                      className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-gray-500 focus:outline-none focus:border-cyan-400/50 transition-colors"
+                      className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-gray-500 focus:outline-none focus:border-orange-400/50 transition-colors"
                       placeholder="050-000-0000"
                     />
                   </div>
@@ -94,7 +94,7 @@ export default function Contact() {
                       type="text"
                       value={form.company}
                       onChange={e => setForm(p => ({ ...p, company: e.target.value }))}
-                      className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-gray-500 focus:outline-none focus:border-cyan-400/50 transition-colors"
+                      className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-gray-500 focus:outline-none focus:border-orange-400/50 transition-colors"
                       placeholder={isRtl ? 'שם החברה' : 'Company name'}
                     />
                   </div>
@@ -105,7 +105,7 @@ export default function Contact() {
                     rows={5}
                     value={form.message}
                     onChange={e => setForm(p => ({ ...p, message: e.target.value }))}
-                    className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-gray-500 focus:outline-none focus:border-cyan-400/50 transition-colors resize-none"
+                    className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-gray-500 focus:outline-none focus:border-orange-400/50 transition-colors resize-none"
                     placeholder={isRtl ? 'ספר לנו כיצד נוכל לעזור...' : 'Tell us how we can help...'}
                   />
                 </div>
@@ -132,26 +132,26 @@ export default function Contact() {
                 <h2 className="text-3xl font-bold text-white mb-6">{t.contact.info_title}</h2>
                 <div className="space-y-4">
                   <div className="flex items-center gap-4">
-                    <div className="p-3 rounded-xl bg-cyan-400/10">
-                      <Mail className="w-5 h-5 text-cyan-400" />
+                    <div className="p-3 rounded-xl bg-orange-400/10">
+                      <Mail className="w-5 h-5 text-orange-400" />
                     </div>
                     <div>
                       <p className="text-gray-400 text-sm">{t.contact.email_label}</p>
-                      <a href="mailto:ortamai.il@gmail.com" className="text-white hover:text-cyan-400 transition-colors">ortamai.il@gmail.com</a>
+                      <a href="mailto:ortamai.il@gmail.com" className="text-white hover:text-orange-400 transition-colors">ortamai.il@gmail.com</a>
                     </div>
                   </div>
                   <div className="flex items-center gap-4">
-                    <div className="p-3 rounded-xl bg-cyan-400/10">
-                      <Phone className="w-5 h-5 text-cyan-400" />
+                    <div className="p-3 rounded-xl bg-orange-400/10">
+                      <Phone className="w-5 h-5 text-orange-400" />
                     </div>
                     <div>
                       <p className="text-gray-400 text-sm">{t.contact.phone_label}</p>
-                      <a href="tel:+972528083800" className="text-white hover:text-cyan-400 transition-colors">052-808-3800</a>
+                      <a href="tel:+972528083800" className="text-white hover:text-orange-400 transition-colors">052-808-3800</a>
                     </div>
                   </div>
                   <div className="flex items-center gap-4">
-                    <div className="p-3 rounded-xl bg-cyan-400/10">
-                      <MapPin className="w-5 h-5 text-cyan-400" />
+                    <div className="p-3 rounded-xl bg-orange-400/10">
+                      <MapPin className="w-5 h-5 text-orange-400" />
                     </div>
                     <div>
                       <p className="text-gray-400 text-sm">{isRtl ? 'מיקום' : 'Location'}</p>

@@ -110,16 +110,16 @@ export default function Placement() {
     });
   };
 
-  const inputClass = `w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-gray-500 focus:outline-none focus:border-cyan-400/60 focus:bg-white/8 transition-all`;
+  const inputClass = `w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-gray-500 focus:outline-none focus:border-orange-400/60 focus:bg-white/8 transition-all`;
 
   return (
     <div dir={dir}>
       {/* Hero */}
       <section className="relative py-32 overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-[#0a0e27] via-[#0d1235] to-[#0a0e27]" />
+        <div className="absolute inset-0 bg-gradient-to-br from-[#0d1628] via-[#1B2A4A] to-[#0d1628]" />
         <div className="absolute inset-0 grid-pattern opacity-20" />
-        <div className="absolute top-20 right-20 w-80 h-80 bg-cyan-500/10 rounded-full blur-3xl" />
-        <div className="absolute bottom-20 left-20 w-80 h-80 bg-purple-500/10 rounded-full blur-3xl" />
+        <div className="absolute top-20 right-20 w-80 h-80 bg-orange-500/10 rounded-full blur-3xl" />
+        <div className="absolute bottom-20 left-20 w-80 h-80 bg-blue-900/10 rounded-full blur-3xl" />
         <div className="relative z-10 max-w-4xl mx-auto px-4 text-center">
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
@@ -127,8 +127,8 @@ export default function Placement() {
             transition={{ duration: 0.6 }}
             className="inline-flex items-center gap-2 glass px-4 py-2 rounded-full mb-6"
           >
-            <Briefcase className="w-4 h-4 text-cyan-400" />
-            <span className="text-sm text-cyan-400 font-medium">{t.nav.placement}</span>
+            <Briefcase className="w-4 h-4 text-orange-400" />
+            <span className="text-sm text-orange-400 font-medium">{t.nav.placement}</span>
           </motion.div>
           <motion.h1
             initial={{ opacity: 0, y: 30 }}
@@ -154,8 +154,8 @@ export default function Placement() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div variants={stagger} initial="hidden" whileInView="visible" viewport={{ once: true }} className="grid grid-cols-1 lg:grid-cols-2 gap-8">
             {/* Candidates */}
-            <motion.div variants={fadeUp} className="glass rounded-2xl p-10 hover:border-cyan-400/40 transition-all">
-              <div className="inline-flex p-3 rounded-xl bg-gradient-to-br from-cyan-500 to-blue-600 mb-6">
+            <motion.div variants={fadeUp} className="glass rounded-2xl p-10 hover:border-orange-400/40 transition-all">
+              <div className="inline-flex p-3 rounded-xl bg-gradient-to-br from-orange-500 to-blue-600 mb-6">
                 <User className="w-6 h-6 text-white" />
               </div>
               <h2 className="text-2xl font-bold text-white mb-4">{t.placement.candidate_title}</h2>
@@ -163,7 +163,7 @@ export default function Placement() {
               <div className="space-y-3">
                 {benefits.map((b, i) => (
                   <div key={i} className="flex items-center gap-3">
-                    <CheckCircle className="w-5 h-5 text-cyan-400 flex-shrink-0" />
+                    <CheckCircle className="w-5 h-5 text-orange-400 flex-shrink-0" />
                     <span className="text-gray-300 text-sm">{b}</span>
                   </div>
                 ))}
@@ -171,8 +171,8 @@ export default function Placement() {
             </motion.div>
 
             {/* Employers */}
-            <motion.div variants={fadeUp} className="glass rounded-2xl p-10 hover:border-purple-400/40 transition-all">
-              <div className="inline-flex p-3 rounded-xl bg-gradient-to-br from-purple-500 to-pink-600 mb-6">
+            <motion.div variants={fadeUp} className="glass rounded-2xl p-10 hover:border-blue-900/30 transition-all">
+              <div className="inline-flex p-3 rounded-xl bg-gradient-to-br from-blue-900 to-pink-600 mb-6">
                 <Building className="w-6 h-6 text-white" />
               </div>
               <h2 className="text-2xl font-bold text-white mb-4">{t.placement.employer_title}</h2>
@@ -180,13 +180,13 @@ export default function Placement() {
               <div className="space-y-3 mb-8">
                 {benefits.map((b, i) => (
                   <div key={i} className="flex items-center gap-3">
-                    <CheckCircle className="w-5 h-5 text-purple-400 flex-shrink-0" />
+                    <CheckCircle className="w-5 h-5 text-blue-300 flex-shrink-0" />
                     <span className="text-gray-300 text-sm">{b}</span>
                   </div>
                 ))}
               </div>
               <Link href="/contact">
-                <button className="w-full py-3 rounded-xl border border-purple-400/50 text-purple-400 hover:bg-purple-400/10 transition-colors font-semibold">{t.placement.cta}</button>
+                <button className="w-full py-3 rounded-xl border border-blue-900/30 text-blue-300 hover:bg-blue-900/10 transition-colors font-semibold">{t.placement.cta}</button>
               </Link>
             </motion.div>
           </motion.div>
@@ -205,8 +205,8 @@ export default function Placement() {
             {/* Section Header */}
             <div className="text-center mb-10">
               <div className="inline-flex items-center gap-2 glass px-4 py-2 rounded-full mb-4">
-                <FileText className="w-4 h-4 text-cyan-400" />
-                <span className="text-sm text-cyan-400 font-medium">{t.placement.cv_form_title}</span>
+                <FileText className="w-4 h-4 text-orange-400" />
+                <span className="text-sm text-orange-400 font-medium">{t.placement.cv_form_title}</span>
               </div>
               <h2 className="text-3xl md:text-4xl font-bold text-white mb-3">{t.placement.cv_form_title}</h2>
               <p className="text-gray-400">{t.placement.cv_form_sub}</p>
@@ -302,9 +302,9 @@ export default function Placement() {
                         className={`${inputClass} appearance-none cursor-pointer`}
                         style={{ paddingInlineEnd: '2.5rem' }}
                       >
-                        <option value="" className="bg-[#0d1235]">{lang === 'he' ? 'בחר תחום...' : 'Select field...'}</option>
+                        <option value="" className="bg-[#1B2A4A]">{lang === 'he' ? 'בחר תחום...' : 'Select field...'}</option>
                         {fields.map(f => (
-                          <option key={f.value} value={f.value} className="bg-[#0d1235]">{f.label}</option>
+                          <option key={f.value} value={f.value} className="bg-[#1B2A4A]">{f.label}</option>
                         ))}
                       </select>
                       <ChevronDown className={`absolute top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 pointer-events-none ${isRtl ? 'left-3' : 'right-3'}`} />
@@ -321,10 +321,10 @@ export default function Placement() {
                       onClick={() => fileInputRef.current?.click()}
                       className={`relative border-2 border-dashed rounded-xl p-8 text-center cursor-pointer transition-all ${
                         isDragging
-                          ? 'border-cyan-400 bg-cyan-400/10'
+                          ? 'border-orange-400 bg-orange-400/10'
                           : cvFile
                           ? 'border-emerald-400/60 bg-emerald-400/5'
-                          : 'border-white/20 hover:border-cyan-400/50 hover:bg-white/5'
+                          : 'border-white/20 hover:border-orange-400/50 hover:bg-white/5'
                       }`}
                     >
                       <input
@@ -351,7 +351,7 @@ export default function Placement() {
                         </div>
                       ) : (
                         <div>
-                          <Upload className={`w-10 h-10 mx-auto mb-3 ${isDragging ? 'text-cyan-400' : 'text-gray-500'}`} />
+                          <Upload className={`w-10 h-10 mx-auto mb-3 ${isDragging ? 'text-orange-400' : 'text-gray-500'}`} />
                           <p className="text-gray-300 font-medium">{t.placement.cv_file_hint}</p>
                           <p className="text-gray-500 text-sm mt-1">PDF, DOC, DOCX · {lang === 'he' ? 'עד' : 'up to'} {MAX_FILE_SIZE_MB}MB</p>
                         </div>

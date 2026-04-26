@@ -50,3 +50,10 @@
 - [x] Add CV submission tRPC procedure with owner notification
 - [x] Build CV submission form UI on Placement page (file upload + personal details)
 - [x] Add vitest tests for CV submission backend
+
+## Brand Update
+- [x] Upload ORTAM AI logo to CDN
+- [x] Replace text logo in Navbar with logo image
+- [x] Update brand colors to dark navy (#1B2A4A) and orange (#F5A623) in index.css
+- [x] Update all cyan/purple accent references to orange across components
+- [x] Update gradient backgrounds to use navy/orange palette

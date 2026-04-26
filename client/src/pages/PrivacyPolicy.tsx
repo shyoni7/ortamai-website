@@ -13,13 +13,13 @@ export default function PrivacyPolicy() {
       {/* Hero */}
       <section className="relative py-20 overflow-hidden">
         <div className="absolute inset-0 grid-pattern opacity-20" />
-        <div className="absolute top-10 right-10 w-64 h-64 bg-cyan-500/10 rounded-full blur-3xl" />
-        <div className="absolute bottom-10 left-10 w-64 h-64 bg-purple-500/10 rounded-full blur-3xl" />
+        <div className="absolute top-10 right-10 w-64 h-64 bg-orange-500/10 rounded-full blur-3xl" />
+        <div className="absolute bottom-10 left-10 w-64 h-64 bg-blue-900/10 rounded-full blur-3xl" />
         <div className="container mx-auto px-4 relative z-10 text-center">
           <motion.div initial="hidden" animate="visible" variants={fadeUp}>
             <div className="inline-flex items-center gap-2 glass px-4 py-2 rounded-full mb-6">
-              <Shield className="w-4 h-4 text-cyan-400" />
-              <span className="text-sm text-cyan-400 font-medium">
+              <Shield className="w-4 h-4 text-orange-400" />
+              <span className="text-sm text-orange-400 font-medium">
                 {lang === 'he' ? 'מדיניות פרטיות' : 'Privacy Policy'}
               </span>
             </div>
@@ -116,8 +116,8 @@ export default function PrivacyPolicy() {
                   </p>
                   <div className="mt-3 glass rounded-xl p-4">
                     <p><strong className="text-white">ORTAM AI</strong></p>
-                    <p>דוא"ל: <a href="mailto:info@ortamai.co.il" className="text-cyan-400 hover:underline">info@ortamai.co.il</a></p>
-                    <p>טלפון: <a href="tel:+972524444474" className="text-cyan-400 hover:underline">052-4444474</a></p>
+                    <p>דוא"ל: <a href="mailto:info@ortamai.co.il" className="text-orange-400 hover:underline">info@ortamai.co.il</a></p>
+                    <p>טלפון: <a href="tel:+972524444474" className="text-orange-400 hover:underline">052-4444474</a></p>
                   </div>
                 </div>
               </>
@@ -195,8 +195,8 @@ export default function PrivacyPolicy() {
                   </p>
                   <div className="mt-3 glass rounded-xl p-4">
                     <p><strong className="text-white">ORTAM AI</strong></p>
-                    <p>Email: <a href="mailto:info@ortamai.co.il" className="text-cyan-400 hover:underline">info@ortamai.co.il</a></p>
-                    <p>Phone: <a href="tel:+972524444474" className="text-cyan-400 hover:underline">052-4444474</a></p>
+                    <p>Email: <a href="mailto:info@ortamai.co.il" className="text-orange-400 hover:underline">info@ortamai.co.il</a></p>
+                    <p>Phone: <a href="tel:+972524444474" className="text-orange-400 hover:underline">052-4444474</a></p>
                   </div>
                 </div>
               </>

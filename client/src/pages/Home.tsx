@@ -47,14 +47,14 @@ export default function Home() {
       title: isRtl ? 'אקסלרטור ליזמים ועסקים' : 'Business Accelerator',
       desc: isRtl ? 'בנו את העסק שלכם עם AI ותקדמו מהר יותר מאי פעם. ליווי אישי, כלים מתקדמים וקהילה תומכת.' : 'Build your business with AI and grow faster than ever. Personal guidance, advanced tools, and a supportive community.',
       href: '/incubator',
-      color: 'from-cyan-500 to-blue-600',
+      color: 'from-orange-500 to-blue-600',
     },
     {
       icon: Users,
       title: isRtl ? 'מרכז הכשרות' : 'Training Center',
       desc: isRtl ? 'קורסים מתקדמים בעולם ה-AI מהמומחים שלנו. הכשרות ייעודיות לארגונים, עסקים ואנשים פרטיים.' : 'Advanced AI courses from our experts. Dedicated training for organizations, businesses, and individuals.',
       href: '/academy',
-      color: 'from-purple-500 to-pink-600',
+      color: 'from-blue-900 to-pink-600',
     },
     {
       icon: Briefcase,
@@ -84,19 +84,19 @@ export default function Home() {
       {/* Hero Section */}
       <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
         {/* Background */}
-        <div className="absolute inset-0 bg-gradient-to-br from-[#0a0e27] via-[#0d1235] to-[#0a0e27]" />
+        <div className="absolute inset-0 bg-gradient-to-br from-[#0d1628] via-[#1B2A4A] to-[#0d1628]" />
         <div className="absolute inset-0 grid-pattern opacity-20" />
 
         {/* Animated orbs */}
         <motion.div
           animate={{ x: [0, 60, 0], y: [0, 40, 0] }}
           transition={{ duration: 10, repeat: Infinity, ease: 'easeInOut' }}
-          className="absolute top-1/4 right-1/4 w-96 h-96 bg-cyan-500/15 rounded-full blur-3xl"
+          className="absolute top-1/4 right-1/4 w-96 h-96 bg-orange-500/15 rounded-full blur-3xl"
         />
         <motion.div
           animate={{ x: [0, -60, 0], y: [0, -40, 0] }}
           transition={{ duration: 12, repeat: Infinity, ease: 'easeInOut', delay: 2 }}
-          className="absolute bottom-1/4 left-1/4 w-96 h-96 bg-purple-500/15 rounded-full blur-3xl"
+          className="absolute bottom-1/4 left-1/4 w-96 h-96 bg-blue-900/15 rounded-full blur-3xl"
         />
 
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
@@ -110,7 +110,7 @@ export default function Home() {
             >
               <motion.div variants={fadeUp} className="inline-flex items-center gap-2 mb-6">
                 <div className="glass px-4 py-2 rounded-full">
-                  <span className="text-sm font-semibold text-cyan-400">
+                  <span className="text-sm font-semibold text-orange-400">
                     {isRtl ? '🚀 מרכז פיתוח AI מוביל בישראל' : '🚀 Israel\'s Leading AI Development Center'}
                   </span>
                 </div>
@@ -168,10 +168,10 @@ export default function Home() {
                   poster={HERO_IMAGE}
                   className="w-full h-auto object-cover rounded-2xl"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#0a0e27]/40 to-transparent pointer-events-none" />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#0d1628]/40 to-transparent pointer-events-none" />
                 {/* Decorative corner accents */}
-                <div className="absolute top-0 left-0 w-16 h-16 border-t-2 border-l-2 border-cyan-400/40 rounded-tl-2xl" />
-                <div className="absolute bottom-0 right-0 w-16 h-16 border-b-2 border-r-2 border-purple-400/40 rounded-br-2xl" />
+                <div className="absolute top-0 left-0 w-16 h-16 border-t-2 border-l-2 border-orange-400/40 rounded-tl-2xl" />
+                <div className="absolute bottom-0 right-0 w-16 h-16 border-b-2 border-r-2 border-blue-900/30 rounded-br-2xl" />
               </div>
             </motion.div>
           </div>
@@ -180,7 +180,7 @@ export default function Home() {
 
       {/* Stats Section */}
       <section className="py-16 relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-r from-cyan-500/5 via-purple-500/5 to-cyan-500/5" />
+        <div className="absolute inset-0 bg-gradient-to-r from-orange-500/5 via-blue-900/30 to-orange-500/5" />
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             variants={stagger}
@@ -227,16 +227,16 @@ export default function Home() {
                   key={i}
                   variants={fadeUp}
                   whileHover={{ y: -8, transition: { duration: 0.2 } }}
-                  className="glass rounded-2xl p-8 hover:border-cyan-400/40 transition-all duration-300 group cursor-pointer"
+                  className="glass rounded-2xl p-8 hover:border-orange-400/40 transition-all duration-300 group cursor-pointer"
                 >
                   <Link href={pillar.href}>
                     <div>
                       <div className={`inline-flex p-3 rounded-xl bg-gradient-to-br ${pillar.color} mb-6`}>
                         <Icon className="w-6 h-6 text-white" />
                       </div>
-                      <h3 className="text-xl font-bold text-white mb-3 group-hover:text-cyan-400 transition-colors">{pillar.title}</h3>
+                      <h3 className="text-xl font-bold text-white mb-3 group-hover:text-orange-400 transition-colors">{pillar.title}</h3>
                       <p className="text-gray-400 leading-relaxed text-sm">{pillar.desc}</p>
-                      <div className="mt-6 flex items-center gap-2 text-cyan-400 text-sm font-medium">
+                      <div className="mt-6 flex items-center gap-2 text-orange-400 text-sm font-medium">
                         <span>{isRtl ? 'קרא עוד' : 'Learn more'}</span>
                         <ArrowIcon size={14} />
                       </div>
@@ -251,7 +251,7 @@ export default function Home() {
 
       {/* Why Us Section */}
       <section className="py-24 relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-purple-500/5 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-blue-900/30 to-transparent" />
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             <motion.div
@@ -284,8 +284,8 @@ export default function Home() {
                   const Icon = item.icon;
                   return (
                     <motion.div key={i} variants={fadeUp} className="flex items-start gap-4">
-                      <div className="flex-shrink-0 p-2 rounded-lg bg-cyan-400/10">
-                        <Icon className="w-5 h-5 text-cyan-400" />
+                      <div className="flex-shrink-0 p-2 rounded-lg bg-orange-400/10">
+                        <Icon className="w-5 h-5 text-orange-400" />
                       </div>
                       <div>
                         <h4 className="text-white font-semibold mb-1">{item.title}</h4>
@@ -323,10 +323,10 @@ export default function Home() {
             {steps.map((step, i) => (
               <motion.div key={i} variants={fadeUp} className="relative text-center">
                 {i < steps.length - 1 && (
-                  <div className="hidden lg:block absolute top-8 left-full w-full h-px bg-gradient-to-r from-cyan-400/50 to-transparent z-0" />
+                  <div className="hidden lg:block absolute top-8 left-full w-full h-px bg-gradient-to-r from-orange-400/50 to-transparent z-0" />
                 )}
                 <div className="relative z-10">
-                  <div className="w-16 h-16 rounded-full glass border border-cyan-400/30 flex items-center justify-center mx-auto mb-4">
+                  <div className="w-16 h-16 rounded-full glass border border-orange-400/30 flex items-center justify-center mx-auto mb-4">
                     <span className="text-2xl font-bold text-gradient-cyan">{step.num}</span>
                   </div>
                   <h4 className="text-white font-bold mb-2">{step.title}</h4>
@@ -362,7 +362,7 @@ export default function Home() {
               <motion.div
                 key={i}
                 variants={fadeUp}
-                className="glass rounded-xl p-4 flex items-center justify-center h-20 hover:border-cyan-400/30 transition-all"
+                className="glass rounded-xl p-4 flex items-center justify-center h-20 hover:border-orange-400/30 transition-all"
               >
                 <img
                   src={partner.url}
@@ -377,7 +377,7 @@ export default function Home() {
 
       {/* CTA Section */}
       <section className="py-24 relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-r from-cyan-500/10 via-purple-500/10 to-cyan-500/10" />
+        <div className="absolute inset-0 bg-gradient-to-r from-orange-500/10 via-blue-900/30 to-orange-500/10" />
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 30 }}

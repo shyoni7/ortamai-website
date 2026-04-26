@@ -44,9 +44,9 @@ export default function About() {
     <div dir={dir}>
       {/* Hero */}
       <section className="relative py-32 overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-[#0a0e27] via-[#0d1235] to-[#0a0e27]" />
+        <div className="absolute inset-0 bg-gradient-to-br from-[#0d1628] via-[#1B2A4A] to-[#0d1628]" />
         <div className="absolute inset-0 grid-pattern opacity-20" />
-        <motion.div animate={{ x: [0,50,0], y: [0,30,0] }} transition={{ duration: 10, repeat: Infinity }} className="absolute top-20 right-20 w-80 h-80 bg-cyan-500/10 rounded-full blur-3xl" />
+        <motion.div animate={{ x: [0,50,0], y: [0,30,0] }} transition={{ duration: 10, repeat: Infinity }} className="absolute top-20 right-20 w-80 h-80 bg-orange-500/10 rounded-full blur-3xl" />
         <div className="relative z-10 max-w-4xl mx-auto px-4 text-center">
           <motion.h1 initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }} className="text-5xl md:text-6xl font-bold text-gradient-cyan mb-6">
             {t.about.hero_title}
@@ -80,7 +80,7 @@ export default function About() {
 
       {/* Values */}
       <section className="py-20 relative">
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-purple-500/5 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-blue-900/30 to-transparent" />
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.h2 initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-4xl font-bold text-white text-center mb-12">
             {t.about.values_title}
@@ -89,9 +89,9 @@ export default function About() {
             {values.map((v, i) => {
               const Icon = v.icon;
               return (
-                <motion.div key={i} variants={fadeUp} className="glass rounded-2xl p-8 text-center hover:border-cyan-400/40 transition-all">
-                  <div className="inline-flex p-4 rounded-full bg-cyan-400/10 mb-4">
-                    <Icon className="w-8 h-8 text-cyan-400" />
+                <motion.div key={i} variants={fadeUp} className="glass rounded-2xl p-8 text-center hover:border-orange-400/40 transition-all">
+                  <div className="inline-flex p-4 rounded-full bg-orange-400/10 mb-4">
+                    <Icon className="w-8 h-8 text-orange-400" />
                   </div>
                   <h3 className="text-xl font-bold text-white mb-2">{v.title}</h3>
                   <p className="text-gray-400">{v.desc}</p>
@@ -111,14 +111,14 @@ export default function About() {
           </motion.div>
           <motion.div variants={stagger} initial="hidden" whileInView="visible" viewport={{ once: true }} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
             {TEAM.map((member, i) => (
-              <motion.div key={i} variants={fadeUp} className="glass rounded-2xl overflow-hidden hover:border-cyan-400/40 transition-all group">
+              <motion.div key={i} variants={fadeUp} className="glass rounded-2xl overflow-hidden hover:border-orange-400/40 transition-all group">
                 <div className="relative h-56 overflow-hidden">
                   <img src={member.img} alt={member.name[lang]} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#0a0e27] to-transparent" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#0d1628] to-transparent" />
                 </div>
                 <div className="p-4 text-center">
                   <h3 className="text-white font-bold">{member.name[lang]}</h3>
-                  <p className="text-cyan-400 text-sm">{member.role[lang]}</p>
+                  <p className="text-orange-400 text-sm">{member.role[lang]}</p>
                 </div>
               </motion.div>
             ))}
@@ -128,7 +128,7 @@ export default function About() {
 
       {/* CTA */}
       <section className="py-20 relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-r from-cyan-500/10 via-purple-500/10 to-cyan-500/10" />
+        <div className="absolute inset-0 bg-gradient-to-r from-orange-500/10 via-blue-900/30 to-orange-500/10" />
         <div className="max-w-3xl mx-auto px-4 text-center relative z-10">
           <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
             <h2 className="text-4xl font-bold text-white mb-4">{t.about.cta_title}</h2>

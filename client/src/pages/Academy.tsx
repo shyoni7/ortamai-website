@@ -60,7 +60,7 @@ const trainingPrograms: TrainingProgram[] = [
     level: 'בינוני',
     levelEn: 'Intermediate',
     image: `${CDN}/81fe03d01_create_a_professional_and_modern_image_for_a_website_that_promotes_ai_training_programs_the_image_s_y01604j7g7gqe2rbe6tu_0_2b7c34bf.png`,
-    color: 'from-cyan-500 to-blue-600',
+    color: 'from-orange-500 to-blue-600',
     modules: [
       { title: 'מבוא ל-AI ניהולי', duration: '4 שעות', topics: ['הבנת עולם ה-AI', 'כלים ניהוליים מבוססי AI', 'ChatGPT למנהלים'] },
       { title: 'קבלת החלטות עם AI', duration: '6 שעות', topics: ['ניתוח נתונים עם AI', 'דוחות אוטומטיים', 'תחזיות ומגמות'] },
@@ -89,7 +89,7 @@ const trainingPrograms: TrainingProgram[] = [
     level: 'בינוני',
     levelEn: 'Intermediate',
     image: `${CDN}/a00800906_______________ai______________1ztf6h7ulzz1cg0t1nwp_1_450c2a58.png`,
-    color: 'from-purple-500 to-pink-600',
+    color: 'from-blue-900 to-pink-600',
     modules: [
       { title: 'AI לכתיבת תוכן שיווקי', duration: '8 שעות', topics: ['כתיבת קופי עם AI', 'יצירת תוכן לרשתות חברתיות', 'SEO עם AI'] },
       { title: 'יצירת תמונות ווידאו עם AI', duration: '10 שעות', topics: ['Midjourney ו-DALL-E', 'עריכת וידאו עם AI', 'עיצוב גרפי אוטומטי'] },
@@ -296,7 +296,7 @@ const publicCourses: PublicCourse[] = [
     durationEn: '8 weeks',
     level: 'מתחילים',
     levelEn: 'Beginners',
-    color: 'from-cyan-500 to-blue-600',
+    color: 'from-orange-500 to-blue-600',
     icon: BookOpen,
   },
   {
@@ -308,7 +308,7 @@ const publicCourses: PublicCourse[] = [
     durationEn: '4 weeks',
     level: 'בינוני',
     levelEn: 'Intermediate',
-    color: 'from-purple-500 to-pink-600',
+    color: 'from-blue-900 to-pink-600',
     icon: Star,
   },
   {
@@ -391,30 +391,30 @@ export default function Academy() {
 
   const getLevelColor = (level: string) => {
     if (level === 'בינוני' || level === 'Intermediate') return 'bg-blue-500/20 text-blue-300 border border-blue-500/30';
-    if (level === 'מתקדמים' || level === 'Advanced') return 'bg-purple-500/20 text-purple-300 border border-purple-500/30';
-    return 'bg-cyan-500/20 text-cyan-300 border border-cyan-500/30';
+    if (level === 'מתקדמים' || level === 'Advanced') return 'bg-blue-900/20 text-blue-200 border border-blue-900/30';
+    return 'bg-orange-500/20 text-orange-300 border border-orange-500/30';
   };
 
   return (
     <div dir={dir} className="min-h-screen">
       {/* Hero Section */}
       <section className="relative py-32 overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-[#0a0e27] via-[#0d1235] to-[#0a0e27]" />
+        <div className="absolute inset-0 bg-gradient-to-br from-[#0d1628] via-[#1B2A4A] to-[#0d1628]" />
         <div className="absolute inset-0 grid-pattern opacity-20" />
         <motion.div
           animate={{ x: [0, 60, 0], y: [0, 30, 0] }}
           transition={{ duration: 10, repeat: Infinity }}
-          className="absolute top-20 left-20 w-80 h-80 bg-cyan-500/15 rounded-full blur-3xl"
+          className="absolute top-20 left-20 w-80 h-80 bg-orange-500/15 rounded-full blur-3xl"
         />
         <motion.div
           animate={{ x: [0, -40, 0], y: [0, -20, 0] }}
           transition={{ duration: 12, repeat: Infinity, delay: 2 }}
-          className="absolute bottom-20 right-20 w-96 h-96 bg-purple-500/15 rounded-full blur-3xl"
+          className="absolute bottom-20 right-20 w-96 h-96 bg-blue-900/15 rounded-full blur-3xl"
         />
         <div className="relative z-10 max-w-5xl mx-auto px-4 text-center">
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="inline-flex mb-6">
             <div className="glass px-4 py-2 rounded-full">
-              <span className="text-sm font-semibold text-cyan-400">
+              <span className="text-sm font-semibold text-orange-400">
                 {isRtl ? '📚 מרכז הכשרות AI' : '📚 AI Training Center'}
               </span>
             </div>
@@ -444,12 +444,12 @@ export default function Academy() {
             className="flex items-center justify-center gap-4 flex-wrap"
           >
             <div className="glass px-4 py-2 rounded-full flex items-center gap-2">
-              <Award className="w-4 h-4 text-cyan-400" />
+              <Award className="w-4 h-4 text-orange-400" />
               <span className="text-sm text-gray-300">{isRtl ? 'קורס מוסמך' : 'Certified Course'}</span>
             </div>
 
             <div className="glass px-4 py-2 rounded-full flex items-center gap-2">
-              <Users className="w-4 h-4 text-purple-400" />
+              <Users className="w-4 h-4 text-blue-300" />
               <span className="text-sm text-gray-300">{isRtl ? '+500 בוגרים' : '+500 Graduates'}</span>
             </div>
           </motion.div>
@@ -481,7 +481,7 @@ export default function Academy() {
                 onClick={() => setActiveFilter(f.key)}
                 className={`px-5 py-2 rounded-full text-sm font-medium transition-all ${
                   activeFilter === f.key
-                    ? 'bg-gradient-to-r from-cyan-500 to-purple-600 text-white shadow-lg shadow-cyan-500/25'
+                    ? 'bg-gradient-to-r from-orange-500 to-purple-600 text-white shadow-lg shadow-orange-500/20'
                     : 'glass text-gray-400 hover:text-white'
                 }`}
               >
@@ -502,7 +502,7 @@ export default function Academy() {
               <motion.div
                 key={program.id}
                 variants={fadeUp}
-                className="glass rounded-2xl overflow-hidden hover:border-cyan-400/40 transition-all group cursor-pointer"
+                className="glass rounded-2xl overflow-hidden hover:border-orange-400/40 transition-all group cursor-pointer"
                 onClick={() => setSelectedProgram(program)}
               >
                 {/* Card Image */}
@@ -512,7 +512,7 @@ export default function Academy() {
                     alt={isRtl ? program.title : program.titleEn}
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#0a0e27] via-[#0a0e27]/40 to-transparent" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#0d1628] via-[#0d1628]/40 to-transparent" />
                   <div className="absolute top-3 right-3">
                     <span className={`text-xs font-semibold px-3 py-1 rounded-full ${getLevelColor(isRtl ? program.level : program.levelEn)}`}>
                       {isRtl ? program.level : program.levelEn}
@@ -522,16 +522,16 @@ export default function Academy() {
 
                 {/* Card Content */}
                 <div className="p-6">
-                  <h3 className="text-lg font-bold text-white mb-3 group-hover:text-cyan-400 transition-colors leading-snug">
+                  <h3 className="text-lg font-bold text-white mb-3 group-hover:text-orange-400 transition-colors leading-snug">
                     {isRtl ? program.title : program.titleEn}
                   </h3>
                   <div className="flex items-center gap-4 text-sm text-gray-400 mb-5">
                     <div className="flex items-center gap-1.5">
-                      <Users className="w-4 h-4 text-cyan-400" />
+                      <Users className="w-4 h-4 text-orange-400" />
                       <span>{isRtl ? program.audience : program.audienceEn}</span>
                     </div>
                     <div className="flex items-center gap-1.5">
-                      <Clock className="w-4 h-4 text-purple-400" />
+                      <Clock className="w-4 h-4 text-blue-300" />
                       <span>{program.hours} {isRtl ? 'שעות' : 'hours'}</span>
                     </div>
                   </div>
@@ -544,7 +544,7 @@ export default function Academy() {
                     </button>
                     <Link href="/contact">
                       <button
-                        className="flex-1 glass text-sm py-2.5 text-center text-cyan-400 hover:text-white hover:bg-cyan-500/20 transition-all rounded-lg"
+                        className="flex-1 glass text-sm py-2.5 text-center text-orange-400 hover:text-white hover:bg-orange-500/20 transition-all rounded-lg"
                         onClick={(e) => e.stopPropagation()}
                       >
                         {isRtl ? 'לפרטים' : 'Details'}
@@ -560,7 +560,7 @@ export default function Academy() {
 
       {/* Public Courses Section */}
       <section className="py-20 relative">
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-purple-500/5 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-blue-900/30 to-transparent" />
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -586,11 +586,11 @@ export default function Academy() {
             {publicCourses.map((course, i) => {
               const Icon = course.icon;
               return (
-                <motion.div key={i} variants={fadeUp} className="glass rounded-2xl p-6 hover:border-cyan-400/40 transition-all group">
+                <motion.div key={i} variants={fadeUp} className="glass rounded-2xl p-6 hover:border-orange-400/40 transition-all group">
                   <div className={`inline-flex p-3 rounded-xl bg-gradient-to-br ${course.color} mb-4`}>
                     <Icon className="w-6 h-6 text-white" />
                   </div>
-                  <h3 className="text-xl font-bold text-white mb-2 group-hover:text-cyan-400 transition-colors">
+                  <h3 className="text-xl font-bold text-white mb-2 group-hover:text-orange-400 transition-colors">
                     {isRtl ? course.title : course.titleEn}
                   </h3>
                   <p className="text-gray-400 mb-4 text-sm leading-relaxed">
@@ -644,7 +644,7 @@ export default function Academy() {
               transition={{ duration: 0.8 }}
               className={isRtl ? 'text-right' : 'text-left'}
             >
-              <div className="inline-flex p-3 rounded-xl bg-gradient-to-br from-purple-500 to-pink-600 mb-6">
+              <div className="inline-flex p-3 rounded-xl bg-gradient-to-br from-blue-900 to-pink-600 mb-6">
                 <Building className="w-6 h-6 text-white" />
               </div>
               <h2 className="text-4xl font-bold text-white mb-4">
@@ -685,22 +685,22 @@ export default function Academy() {
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.9, y: 20 }}
               transition={{ duration: 0.3 }}
-              className="relative bg-[#0d1235] border border-white/10 rounded-3xl max-w-2xl w-full max-h-[85vh] overflow-y-auto shadow-2xl"
+              className="relative bg-[#1B2A4A] border border-white/10 rounded-3xl max-w-2xl w-full max-h-[85vh] overflow-y-auto shadow-2xl"
               onClick={(e) => e.stopPropagation()}
             >
               {/* Modal Header */}
-              <div className={`sticky top-0 bg-[#0d1235]/95 backdrop-blur-md border-b border-white/10 p-6 flex items-start justify-between gap-4 z-10`}>
+              <div className={`sticky top-0 bg-[#1B2A4A]/95 backdrop-blur-md border-b border-white/10 p-6 flex items-start justify-between gap-4 z-10`}>
                 <div>
                   <h2 className="text-2xl font-bold text-white leading-tight">
                     {isRtl ? selectedProgram.title : selectedProgram.titleEn}
                   </h2>
                   <div className="flex items-center gap-3 mt-2 flex-wrap">
                     <span className="flex items-center gap-1.5 text-sm text-gray-400">
-                      <Users className="w-4 h-4 text-cyan-400" />
+                      <Users className="w-4 h-4 text-orange-400" />
                       {isRtl ? selectedProgram.audience : selectedProgram.audienceEn}
                     </span>
                     <span className="flex items-center gap-1.5 text-sm text-gray-400">
-                      <Clock className="w-4 h-4 text-purple-400" />
+                      <Clock className="w-4 h-4 text-blue-300" />
                       {selectedProgram.hours} {isRtl ? 'שעות הכשרה' : 'training hours'}
                     </span>
                     <span className={`text-xs font-semibold px-3 py-1 rounded-full ${getLevelColor(isRtl ? selectedProgram.level : selectedProgram.levelEn)}`}>
@@ -719,7 +719,7 @@ export default function Academy() {
               <div className="p-6 space-y-6">
                 {/* Modules */}
                 <div>
-                  <h3 className="text-lg font-bold text-cyan-400 mb-4">
+                  <h3 className="text-lg font-bold text-orange-400 mb-4">
                     {isRtl ? '📋 מודולי ההכשרה' : '📋 Training Modules'}
                   </h3>
                   <div className="space-y-3">
@@ -730,7 +730,7 @@ export default function Academy() {
                           onClick={() => setExpandedModule(expandedModule === i ? null : i)}
                         >
                           <div className="flex items-center gap-3">
-                            <div className="w-7 h-7 rounded-full bg-gradient-to-br from-cyan-500 to-purple-600 flex items-center justify-center text-xs font-bold text-white flex-shrink-0">
+                            <div className="w-7 h-7 rounded-full bg-gradient-to-br from-orange-500 to-purple-600 flex items-center justify-center text-xs font-bold text-white flex-shrink-0">
                               {i + 1}
                             </div>
                             <div className={isRtl ? 'text-right' : 'text-left'}>
@@ -739,7 +739,7 @@ export default function Academy() {
                             </div>
                           </div>
                           {expandedModule === i ? (
-                            <ChevronUp className="w-4 h-4 text-cyan-400 flex-shrink-0" />
+                            <ChevronUp className="w-4 h-4 text-orange-400 flex-shrink-0" />
                           ) : (
                             <ChevronDown className="w-4 h-4 text-gray-400 flex-shrink-0" />
                           )}
@@ -757,7 +757,7 @@ export default function Academy() {
                                 <ul className="mt-3 space-y-2">
                                   {module.topics.map((topic, j) => (
                                     <li key={j} className="flex items-center gap-2 text-sm text-gray-300">
-                                      <div className="w-1.5 h-1.5 rounded-full bg-cyan-400 flex-shrink-0" />
+                                      <div className="w-1.5 h-1.5 rounded-full bg-orange-400 flex-shrink-0" />
                                       {topic}
                                     </li>
                                   ))}
@@ -773,12 +773,12 @@ export default function Academy() {
 
                 {/* Tools */}
                 <div>
-                  <h3 className="text-lg font-bold text-purple-400 mb-3">
+                  <h3 className="text-lg font-bold text-blue-300 mb-3">
                     {isRtl ? '🛠️ כלים שנלמד' : '🛠️ Tools We Cover'}
                   </h3>
                   <div className="flex flex-wrap gap-2">
                     {selectedProgram.tools.map((tool, i) => (
-                      <span key={i} className="px-3 py-1.5 glass rounded-full text-sm text-cyan-300 border border-cyan-500/20">
+                      <span key={i} className="px-3 py-1.5 glass rounded-full text-sm text-orange-300 border border-orange-500/20">
                         {tool}
                       </span>
                     ))}

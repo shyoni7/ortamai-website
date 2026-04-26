@@ -37,9 +37,13 @@ export default function Navigation() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 md:h-20">
           <Link href="/" aria-label="ORTAM AI - דף הבית">
-            <motion.div className="flex items-center gap-1 cursor-pointer" whileHover={{ scale: 1.02 }}>
-              <span className="text-2xl font-bold text-gradient-cyan">ORTAM</span>
-              <span className="text-2xl font-bold text-white"> AI</span>
+            <motion.div className="flex items-center cursor-pointer" whileHover={{ scale: 1.02 }}>
+              <img
+                src="/manus-storage/ortam-logo_c2bb44c9.jpeg"
+                alt="ORTAM AI"
+                className="h-10 w-auto object-contain"
+                style={{ mixBlendMode: 'screen' }}
+              />
             </motion.div>
           </Link>
 
@@ -47,7 +51,7 @@ export default function Navigation() {
             {navLinks.map((link) => (
               <Link key={link.href} href={link.href}>
                 <motion.span
-                  className={`px-3 py-2 rounded-lg text-sm font-medium cursor-pointer transition-colors duration-200 ${location === link.href ? 'text-cyan-400 bg-cyan-400/10' : 'text-gray-300 hover:text-white hover:bg-white/5'}`}
+                  className={`px-3 py-2 rounded-lg text-sm font-medium cursor-pointer transition-colors duration-200 ${location === link.href ? 'text-orange-400 bg-orange-400/10' : 'text-gray-300 hover:text-white hover:bg-white/5'}`}
                   whileHover={{ y: -1 }}
                 >
                   {link.label}
@@ -95,7 +99,7 @@ export default function Navigation() {
             <div className="px-4 py-4 space-y-1">
               {navLinks.map((link) => (
                 <Link key={link.href} href={link.href}>
-                  <span className={`block px-4 py-3 rounded-lg text-sm font-medium cursor-pointer transition-colors ${location === link.href ? 'text-cyan-400 bg-cyan-400/10' : 'text-gray-300 hover:text-white hover:bg-white/5'}`}>
+                  <span className={`block px-4 py-3 rounded-lg text-sm font-medium cursor-pointer transition-colors ${location === link.href ? 'text-orange-400 bg-orange-400/10' : 'text-gray-300 hover:text-white hover:bg-white/5'}`}>
                     {link.label}
                   </span>
                 </Link>
