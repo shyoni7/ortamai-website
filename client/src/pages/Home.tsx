@@ -3,6 +3,7 @@ import { Link } from 'wouter';
 import { motion } from 'framer-motion';
 import { ArrowLeft, ArrowRight, Zap, Users, Briefcase, CheckCircle, Star, Award, TrendingUp } from 'lucide-react';
 import { useLanguage } from '@/contexts/LanguageContext';
+import HologramCube from '@/components/HologramCube';
 
 const HERO_VIDEO = 'https://files.manuscdn.com/user_upload_by_module/session_file/310519663445418346/sLtfKJCObxnFJgJI.mp4';
 const HERO_IMAGE = 'https://d2xsxph8kpxj0f.cloudfront.net/310519663445418346/oDFneUKwvw2xJYXYaumUdB/a00800906_______________ai______________1ztf6h7ulzz1cg0t1nwp_1_450c2a58.png';
@@ -48,6 +49,8 @@ export default function Home() {
       desc: isRtl ? 'בנו את העסק שלכם עם AI ותקדמו מהר יותר מאי פעם. ליווי אישי, כלים מתקדמים וקהילה תומכת.' : 'Build your business with AI and grow faster than ever. Personal guidance, advanced tools, and a supportive community.',
       href: '/incubator',
       color: 'from-orange-500 to-blue-600',
+      cubeColor: '#F5A623',
+      holoLines: isRtl ? ['יזמות AI', 'ליווי אישי'] : ['AI Ventures', 'Personal Guidance'],
     },
     {
       icon: Users,
@@ -55,6 +58,8 @@ export default function Home() {
       desc: isRtl ? 'קורסים מתקדמים בעולם ה-AI מהמומחים שלנו. הכשרות ייעודיות לארגונים, עסקים ואנשים פרטיים.' : 'Advanced AI courses from our experts. Dedicated training for organizations, businesses, and individuals.',
       href: '/academy',
       color: 'from-blue-900 to-pink-600',
+      cubeColor: '#38bdf8',
+      holoLines: isRtl ? ['קורסי AI', 'הכשרות ייעודיות'] : ['AI Courses', 'Expert Training'],
     },
     {
       icon: Briefcase,
@@ -62,6 +67,8 @@ export default function Home() {
       desc: isRtl ? 'גישור בין מועמדים מוכשרים לארגונים מובילים. אנחנו מחברים בין כישרון לבין הזדמנות.' : 'Bridging talented candidates with leading organizations. We connect talent with opportunity.',
       href: '/placement',
       color: 'from-emerald-500 to-teal-600',
+      cubeColor: '#34d399',
+      holoLines: isRtl ? ['השמה מקצועית', 'כישרון + הזדמנות'] : ['Professional Placement', 'Talent + Opportunity'],
     },
   ];
 
@@ -220,31 +227,32 @@ export default function Home() {
             viewport={{ once: true }}
             className="grid grid-cols-1 md:grid-cols-3 gap-8"
           >
-            {pillars.map((pillar, i) => {
-              const Icon = pillar.icon;
-              return (
-                <motion.div
-                  key={i}
-                  variants={fadeUp}
-                  whileHover={{ y: -8, transition: { duration: 0.2 } }}
-                  className="glass rounded-2xl p-8 hover:border-orange-400/40 transition-all duration-300 group cursor-pointer"
-                >
-                  <Link href={pillar.href}>
-                    <div>
-                      <div className={`inline-flex p-3 rounded-xl bg-gradient-to-br ${pillar.color} mb-6`}>
-                        <Icon className="w-6 h-6 text-white" />
-                      </div>
-                      <h3 className="text-xl font-bold text-white mb-3 group-hover:text-orange-400 transition-colors">{pillar.title}</h3>
-                      <p className="text-gray-400 leading-relaxed text-sm">{pillar.desc}</p>
-                      <div className="mt-6 flex items-center gap-2 text-orange-400 text-sm font-medium">
-                        <span>{isRtl ? 'קרא עוד' : 'Learn more'}</span>
-                        <ArrowIcon size={14} />
-                      </div>
+            {pillars.map((pillar, i) => (
+              <motion.div
+                key={i}
+                variants={fadeUp}
+                whileHover={{ y: -8, transition: { duration: 0.2 } }}
+                className="glass rounded-2xl p-6 hover:border-orange-400/40 transition-all duration-300 group cursor-pointer overflow-hidden"
+              >
+                <Link href={pillar.href}>
+                  <div className="flex flex-col items-center text-center">
+                    {/* Hologram cube animation */}
+                    <HologramCube
+                      color={pillar.cubeColor}
+                      title={pillar.title}
+                      lines={pillar.holoLines}
+                    />
+                    {/* Card text */}
+                    <h3 className="text-xl font-bold text-white mt-4 mb-3 group-hover:text-orange-400 transition-colors">{pillar.title}</h3>
+                    <p className="text-gray-400 leading-relaxed text-sm">{pillar.desc}</p>
+                    <div className="mt-5 flex items-center gap-2 text-orange-400 text-sm font-medium">
+                      <span>{isRtl ? 'קרא עוד' : 'Learn more'}</span>
+                      <ArrowIcon size={14} />
                     </div>
-                  </Link>
-                </motion.div>
-              );
-            })}
+                  </div>
+                </Link>
+              </motion.div>
+            ))}
           </motion.div>
         </div>
       </section>
