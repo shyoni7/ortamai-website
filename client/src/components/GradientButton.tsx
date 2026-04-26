@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'wouter';
 
 interface GradientButtonProps {
   children: React.ReactNode;
@@ -9,148 +10,105 @@ interface GradientButtonProps {
 }
 
 /**
- * Animated gradient CTA button from uiverse.io by dexter-st
- * Adapted to ORTAM AI brand colors: navy (#1B2A4A) + orange (#F5A623)
+ * Animated CTA button — subtle rotating border glow (uiverse.io style)
+ * Dark navy background with orange animated border + always-readable white text.
  */
 export default function GradientButton({ children, onClick, href, className = '', size = 'md' }: GradientButtonProps) {
-  const sizeStyles: Record<string, React.CSSProperties> = {
-    sm: { fontSize: '0.85rem', padding: '8px 22px' },
-    md: { fontSize: '1rem',    padding: '12px 32px' },
-    lg: { fontSize: '1.15rem', padding: '14px 40px' },
-  };
-
-  const style: React.CSSProperties = {
-    // CSS custom properties for the animation
-    ['--rad' as string]: '32px',
-    ['--color-wrapper-border' as string]: '#F5A623',
-    ['--color-btn-bg' as string]: '#F5A623',
-    ['--color-btn-text' as string]: '#1B2A4A',
-    ['--color-btn-text-shadow' as string]: '#fff',
-    ['--color-btn-inset-shadow' as string]: '#1B2A4A',
-    ['--color-layer-a' as string]: '#F5A623',
-    ['--color-layer-b' as string]: '#1B2A4A',
-    ['--color-overlay-text' as string]: '#fff',
-    ['--color-overlay-glow' as string]: '#F5A623',
-    ['--color-overlay-shadow' as string]: '#0004',
-    ['--color-overlay-highlight' as string]: '#fff5',
-    position: 'relative',
-    display: 'inline-flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    overflow: 'clip',
-    overflowClipMargin: '4px' as any,
-    border: '2px solid var(--color-wrapper-border)',
-    borderRadius: 'var(--rad)',
-    fontFamily: '"Inter", sans-serif',
-    fontWeight: 600,
-    filter: 'saturate(0.65) brightness(1.8)',
-    cursor: 'pointer',
-    textDecoration: 'none',
-  } as React.CSSProperties;
-
-  const btnStyle: React.CSSProperties = {
-    position: 'relative',
-    zIndex: -1,
-    border: 'none',
-    borderRadius: 'var(--rad)',
-    fontFamily: 'inherit',
-    fontWeight: 'inherit',
-    letterSpacing: '0.12rem',
-    color: 'var(--color-btn-text)',
-    backgroundColor: 'var(--color-btn-bg)',
-    backgroundSize: '200% 200%',
-    boxShadow: 'inset 0 0 10px 9px var(--color-btn-inset-shadow)',
-    textShadow: '0 1px 3px var(--color-btn-text-shadow)',
-    cursor: 'pointer',
-    mixBlendMode: 'color-dodge',
-    transition: 'color 0.3s ease, text-shadow 0.3s ease',
-    background: 'none',
-    ...sizeStyles[size],
-  };
-
-  const gradientLayerStyle: React.CSSProperties = {
-    position: 'absolute',
-    pointerEvents: 'none',
-    left: '-160px',
-    width: '500%',
-    aspectRatio: '1',
-    background: 'radial-gradient(ellipse at 65% 180%, var(--color-layer-a), var(--color-layer-b), var(--color-layer-a), var(--color-layer-b), var(--color-layer-a), var(--color-layer-b), var(--color-layer-a))',
-    mixBlendMode: 'difference',
-    animation: 'gradBtn-rotate 8s linear infinite',
-  };
-
-  const gradientLayerBStyle: React.CSSProperties = {
-    ...gradientLayerStyle,
-    mixBlendMode: 'color-dodge',
-  };
-
-  const textOverlayStyle: React.CSSProperties = {
-    position: 'absolute',
-    pointerEvents: 'none',
-    zIndex: 2,
-    borderRadius: 'var(--rad)',
-    fontFamily: 'inherit',
-    fontWeight: 'inherit',
-    letterSpacing: '0.12rem',
-    color: 'var(--color-overlay-text)',
-    textShadow: '0 0 4px var(--color-overlay-glow)',
-    boxShadow: 'inset 0 -4px 4px 0 var(--color-overlay-shadow), inset 0 4px 4px 0 var(--color-overlay-highlight)',
-    mixBlendMode: 'multiply',
-    transition: 'transform 0.3s ease',
-    animation: 'gradBtn-opacityPulse 5s ease infinite',
-    ...sizeStyles[size],
-  };
-
-  const lightStyle: React.CSSProperties = {
-    position: 'absolute',
-    pointerEvents: 'none',
-    zIndex: 1,
-    borderRadius: '50px',
-    width: '80%',
-    height: '1.9rem',
-    aspectRatio: '1',
-    backgroundColor: '#fff5',
-    filter: 'blur(5px)',
-    animation: 'gradBtn-pulse 3s ease-in-out infinite',
+  const sizeClass: Record<string, string> = {
+    sm: 'text-sm px-5 py-2.5',
+    md: 'text-base px-8 py-3',
+    lg: 'text-lg px-10 py-4',
   };
 
   const inner = (
-    <div style={style} className={`grad-btn-wrapper ${className}`}>
+    <div className={`grad-btn-outer ${sizeClass[size]} ${className}`}>
       <style>{`
-        @keyframes gradBtn-rotate {
-          0%   { transform: rotate(0deg); }
-          100% { transform: rotate(360deg); }
+        .grad-btn-outer {
+          position: relative;
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          border-radius: 9999px;
+          cursor: pointer;
+          font-weight: 600;
+          font-family: inherit;
+          letter-spacing: 0.04em;
+          color: #fff;
+          background: #1B2A4A;
+          z-index: 0;
+          transition: transform 0.2s ease, box-shadow 0.2s ease;
+          text-decoration: none;
+          white-space: nowrap;
+          user-select: none;
         }
-        @keyframes gradBtn-pulse {
-          0%, 100% { opacity: 1; }
-          50%       { opacity: 0.1; }
+        .grad-btn-outer::before {
+          content: '';
+          position: absolute;
+          inset: -2px;
+          border-radius: 9999px;
+          background: conic-gradient(
+            from var(--grad-btn-angle, 0deg),
+            #F5A623 0%,
+            #fff3c0 15%,
+            #1B2A4A 30%,
+            #1B2A4A 60%,
+            #F5A623 75%,
+            #fff3c0 90%,
+            #F5A623 100%
+          );
+          animation: gradBtn-spin 3s linear infinite;
+          z-index: -1;
         }
-        @keyframes gradBtn-opacityPulse {
-          0%, 100% { opacity: 1; }
-          50%       { opacity: 0.5; }
+        .grad-btn-outer::after {
+          content: '';
+          position: absolute;
+          inset: 2px;
+          border-radius: 9999px;
+          background: #1B2A4A;
+          z-index: -1;
         }
-        .grad-btn-wrapper:hover .grad-btn-text-overlay { transform: scale(1.08); }
-        .grad-btn-wrapper:active .grad-btn-text-overlay { transform: scale(0.95); }
+        .grad-btn-outer:hover {
+          transform: scale(1.04);
+          box-shadow: 0 0 18px 4px rgba(245,166,35,0.35);
+        }
+        .grad-btn-outer:active {
+          transform: scale(0.97);
+        }
+        @property --grad-btn-angle {
+          syntax: '<angle>';
+          initial-value: 0deg;
+          inherits: false;
+        }
+        @keyframes gradBtn-spin {
+          to { --grad-btn-angle: 360deg; }
+        }
       `}</style>
-      <div style={gradientLayerStyle} />
-      <div style={gradientLayerBStyle} />
-      <button style={btnStyle} onClick={onClick}>
+      <span style={{ position: 'relative', zIndex: 1, color: '#fff', display: 'flex', alignItems: 'center', gap: '6px' }}>
         {children}
-      </button>
-      <div style={textOverlayStyle} className="grad-btn-text-overlay">
-        {children}
-      </div>
-      <div style={lightStyle} />
+      </span>
     </div>
   );
 
   if (href) {
+    // Use wouter Link for internal routes, plain <a> for external
+    const isExternal = href.startsWith('http') || href.startsWith('tel:') || href.startsWith('mailto:');
+    if (isExternal) {
+      return (
+        <a href={href} style={{ textDecoration: 'none', display: 'inline-flex' }} onClick={onClick}>
+          {inner}
+        </a>
+      );
+    }
     return (
-      <a href={href} style={{ textDecoration: 'none', display: 'inline-flex' }}>
+      <Link href={href} style={{ textDecoration: 'none', display: 'inline-flex' }} onClick={onClick}>
         {inner}
-      </a>
+      </Link>
     );
   }
 
-  return inner;
+  return (
+    <div onClick={onClick} style={{ display: 'inline-flex' }}>
+      {inner}
+    </div>
+  );
 }
