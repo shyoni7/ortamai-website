@@ -1,7 +1,7 @@
 import React from 'react';
 import { useLanguage } from '@/contexts/LanguageContext';
 
-const WHATSAPP_NUMBER = '972528083800';
+const WHATSAPP_NUMBER = '972523381822';
 const WHATSAPP_MESSAGE = encodeURIComponent('שלום, אני מעוניין לשמוע על שירותי ORTAM AI');
 
 export default function WhatsAppButton() {

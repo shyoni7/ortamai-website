@@ -36,12 +36,12 @@ export default function Footer() {
             <div className="space-y-2 text-sm text-gray-400">
               <p>ortamai.il@gmail.com</p>
               <a
-                href="https://wa.me/972528083800"
+                href="https://wa.me/972523381822"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="block hover:text-orange-400 transition-colors"
               >
-                WhatsApp: 052-808-3800
+                WhatsApp: 052-338-1822
               </a>
             </div>
           </div>

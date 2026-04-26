@@ -146,7 +146,7 @@ export default function Contact() {
                     </div>
                     <div>
                       <p className="text-gray-400 text-sm">{t.contact.phone_label}</p>
-                      <a href="tel:+972528083800" className="text-white hover:text-orange-400 transition-colors">052-808-3800</a>
+                      <a href="tel:+972523381822" className="text-white hover:text-orange-400 transition-colors">052-338-1822</a>
                     </div>
                   </div>
                   <div className="flex items-center gap-4">
@@ -163,7 +163,7 @@ export default function Contact() {
 
               {/* WhatsApp CTA */}
               <a
-                href="https://wa.me/972528083800"
+                href="https://wa.me/972523381822"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center gap-4 glass rounded-2xl p-6 hover:border-green-400/40 transition-all group"
@@ -175,7 +175,7 @@ export default function Contact() {
                 </div>
                 <div>
                   <p className="text-white font-semibold group-hover:text-green-400 transition-colors">{t.contact.whatsapp}</p>
-                  <p className="text-gray-400 text-sm">052-808-3800</p>
+                  <p className="text-gray-400 text-sm">052-338-1822</p>
                 </div>
               </a>
 

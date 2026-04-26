@@ -35,7 +35,7 @@ export default function AccessibilityStatement() {
                 <p>אם נתקלתם בבעיית נגישות באתר, אנא צרו איתנו קשר:</p>
                 <ul className="list-disc list-inside space-y-2">
                   <li>אימייל: ortamai.il@gmail.com</li>
-                  <li>טלפון: 052-808-3800</li>
+                  <li>טלפון: 052-338-1822</li>
                 </ul>
                 <p>נשתדל לטפל בפנייה בתוך 5 ימי עסקים.</p>
               </>
@@ -55,7 +55,7 @@ export default function AccessibilityStatement() {
                 <p>If you encounter an accessibility issue on the site, please contact us:</p>
                 <ul className="list-disc list-inside space-y-2">
                   <li>Email: ortamai.il@gmail.com</li>
-                  <li>Phone: 052-808-3800</li>
+                  <li>Phone: 052-338-1822</li>
                 </ul>
                 <p>We will try to handle your inquiry within 5 business days.</p>
               </>
