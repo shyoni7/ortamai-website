@@ -39,7 +39,7 @@ export default function Navigation() {
           <Link href="/" aria-label="ORTAM AI - דף הבית">
             <motion.div className="flex items-center cursor-pointer" whileHover={{ scale: 1.02 }}>
               <img
-                src="/manus-storage/ortam-logo-transparent_8e0a3b81.webp"
+                src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663445418346/IRPaHXJaeSVGQomy.webp"
                 alt="ORTAM AI"
                 className="h-10 w-auto object-contain"
               />
