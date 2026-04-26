@@ -3,6 +3,7 @@ import { Link, useLocation } from 'wouter';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X, Globe } from 'lucide-react';
 import { useLanguage } from '@/contexts/LanguageContext';
+import GradientButton from '@/components/GradientButton';
 
 export default function Navigation() {
   const { lang, setLang, t, dir } = useLanguage();
@@ -69,11 +70,11 @@ export default function Navigation() {
               <span>{lang === 'he' ? 'EN' : 'עב'}</span>
             </button>
 
-            <Link href="/contact">
-              <motion.button className="hidden md:block btn-primary text-sm px-5 py-2.5" whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
+            <div className="hidden md:block">
+              <GradientButton href="/contact" size="sm">
                 {t.nav.cta}
-              </motion.button>
-            </Link>
+              </GradientButton>
+            </div>
 
             <button
               className="lg:hidden p-2 rounded-lg text-gray-300 hover:text-white hover:bg-white/5 transition-colors"
@@ -103,9 +104,11 @@ export default function Navigation() {
                   </span>
                 </Link>
               ))}
-              <Link href="/contact">
-                <button className="w-full btn-primary text-sm py-3 mt-3">{t.nav.cta}</button>
-              </Link>
+              <div className="mt-3 flex justify-center">
+                <GradientButton href="/contact" size="sm">
+                  {t.nav.cta}
+                </GradientButton>
+              </div>
             </div>
           </motion.div>
         )}

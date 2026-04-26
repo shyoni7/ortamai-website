@@ -3,6 +3,7 @@ import { Link } from 'wouter';
 import { motion } from 'framer-motion';
 import { Award, Heart, Lightbulb } from 'lucide-react';
 import { useLanguage } from '@/contexts/LanguageContext';
+import GradientButton from '@/components/GradientButton';
 
 const TEAM = [
   {
@@ -133,11 +134,9 @@ export default function About() {
           <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
             <h2 className="text-4xl font-bold text-white mb-4">{t.about.cta_title}</h2>
             <p className="text-gray-300 text-lg mb-8">{t.about.cta_sub}</p>
-            <Link href="/contact">
-              <motion.button className="btn-primary text-lg px-10 py-4" whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.97 }}>
-                {t.about.cta_btn}
-              </motion.button>
-            </Link>
+            <GradientButton href="/contact" size="lg">
+              {t.about.cta_btn}
+            </GradientButton>
           </motion.div>
         </div>
       </section>

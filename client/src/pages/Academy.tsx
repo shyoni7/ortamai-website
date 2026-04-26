@@ -3,6 +3,7 @@ import { Link } from 'wouter';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Clock, Users, Award, BookOpen, X, ChevronDown, ChevronUp, Building, Star, CheckCircle } from 'lucide-react';
 import { useLanguage } from '@/contexts/LanguageContext';
+import GradientButton from '@/components/GradientButton';
 
 const CDN = 'https://d2xsxph8kpxj0f.cloudfront.net/310519663445418346/oDFneUKwvw2xJYXYaumUdB';
 const AI_TRAINING_IMAGE = `${CDN}/81fe03d01_create_a_professional_and_modern_image_for_a_website_that_promotes_ai_training_programs_the_image_s_y01604j7g7gqe2rbe6tu_0_2b7c34bf.png`;
@@ -613,11 +614,11 @@ export default function Academy() {
                       </span>
                     </div>
                   )}
-                  <Link href="/contact">
-                    <button className="w-full btn-primary text-sm py-2.5">
+                  <div className="w-full">
+                    <GradientButton href="/contact" size="sm" className="w-full justify-center">
                       {isRtl ? 'הירשם לקורס' : 'Enroll Now'}
-                    </button>
-                  </Link>
+                    </GradientButton>
+                  </div>
                 </motion.div>
               );
             })}
@@ -655,15 +656,9 @@ export default function Academy() {
                   ? 'אנו בונים תוכניות הכשרה מותאמות לצרכים הספציפיים של הארגון שלכם. נגיע אליכם, נלמד את התהליכים שלכם ונבנה הכשרה שמביאה תוצאות מדידות.'
                   : 'We build training programs tailored to your organization\'s specific needs. We\'ll come to you, learn your processes, and build training that delivers measurable results.'}
               </p>
-              <Link href="/contact">
-                <motion.button
-                  className="btn-primary text-base px-8 py-4"
-                  whileHover={{ scale: 1.03 }}
-                  whileTap={{ scale: 0.97 }}
-                >
-                  {isRtl ? 'צרו קשר לפרטים' : 'Contact Us for Details'}
-                </motion.button>
-              </Link>
+              <GradientButton href="/contact" size="md">
+                {isRtl ? 'צרו קשר לפרטים' : 'Contact Us for Details'}
+              </GradientButton>
             </motion.div>
           </div>
         </div>
@@ -802,14 +797,11 @@ export default function Academy() {
 
                 {/* CTA */}
                 <div className="pt-2">
-                  <Link href="/contact">
-                    <button
-                      className="w-full btn-primary py-3 text-base"
-                      onClick={() => setSelectedProgram(null)}
-                    >
+                  <div className="w-full">
+                    <GradientButton href="/contact" size="md" className="w-full justify-center" onClick={() => setSelectedProgram(null)}>
                       {isRtl ? 'מעוניינים בהכשרה? צרו קשר' : 'Interested? Contact Us'}
-                    </button>
-                  </Link>
+                    </GradientButton>
+                  </div>
                 </div>
               </div>
             </motion.div>

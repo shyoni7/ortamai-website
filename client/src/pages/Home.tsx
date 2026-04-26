@@ -3,6 +3,7 @@ import { Link } from 'wouter';
 import { motion } from 'framer-motion';
 import { ArrowLeft, ArrowRight, Zap, Users, Briefcase, CheckCircle, Star, Award, TrendingUp } from 'lucide-react';
 import { useLanguage } from '@/contexts/LanguageContext';
+import GradientButton from '@/components/GradientButton';
 import HologramCube from '@/components/HologramCube';
 
 const HERO_VIDEO = 'https://files.manuscdn.com/user_upload_by_module/session_file/310519663445418346/sLtfKJCObxnFJgJI.mp4';
@@ -136,16 +137,9 @@ export default function Home() {
               </motion.p>
 
               <motion.div variants={fadeUp} className="flex flex-wrap gap-4">
-                <Link href="/contact">
-                  <motion.button
-                    className="btn-primary text-base px-8 py-4 flex items-center gap-2"
-                    whileHover={{ scale: 1.03 }}
-                    whileTap={{ scale: 0.97 }}
-                  >
-                    {t.home.cta}
-                    <ArrowIcon size={18} />
-                  </motion.button>
-                </Link>
+                <GradientButton href="/contact" size="lg">
+                  {t.home.cta}
+                </GradientButton>
                 <Link href="/about">
                   <motion.button
                     className="btn-secondary text-base px-8 py-4"
@@ -395,16 +389,9 @@ export default function Home() {
           >
             <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">{t.home.final_title}</h2>
             <p className="text-gray-300 text-xl mb-10 max-w-2xl mx-auto">{t.home.final_sub}</p>
-            <Link href="/contact">
-              <motion.button
-                className="btn-primary text-lg px-10 py-5 inline-flex items-center gap-3"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.97 }}
-              >
-                {t.home.final_cta}
-                <ArrowIcon size={20} />
-              </motion.button>
-            </Link>
+            <GradientButton href="/contact" size="lg">
+              {t.home.final_cta}
+            </GradientButton>
           </motion.div>
         </div>
       </section>

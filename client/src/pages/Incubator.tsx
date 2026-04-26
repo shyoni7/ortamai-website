@@ -3,6 +3,7 @@ import { Link } from 'wouter';
 import { motion } from 'framer-motion';
 import { Users, Zap, Globe, DollarSign } from 'lucide-react';
 import { useLanguage } from '@/contexts/LanguageContext';
+import GradientButton from '@/components/GradientButton';
 
 const fadeUp = { hidden: { opacity: 0, y: 30 }, visible: { opacity: 1, y: 0, transition: { duration: 0.7 } } };
 const stagger = { hidden: {}, visible: { transition: { staggerChildren: 0.12 } } };
@@ -81,11 +82,9 @@ export default function Incubator() {
           <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
             <h2 className="text-4xl font-bold text-white mb-4">{t.incubator.apply_title}</h2>
             <p className="text-gray-300 text-lg mb-8">{t.incubator.apply_sub}</p>
-            <Link href="/contact">
-              <motion.button className="btn-primary text-lg px-10 py-4" whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.97 }}>
-                {t.incubator.apply_cta}
-              </motion.button>
-            </Link>
+            <GradientButton href="/contact" size="lg">
+              {t.incubator.apply_cta}
+            </GradientButton>
           </motion.div>
         </div>
       </section>
