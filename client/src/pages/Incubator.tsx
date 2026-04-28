@@ -265,7 +265,7 @@ export default function Incubator() {
             transition={{ duration: 0.5, delay: 0.45 }}
           >
             <Link href="/contact">
-              <button className="inline-flex items-center gap-2 text-white font-bold px-8 py-4 rounded-xl transition-all text-lg shadow-lg shadow-orange-500/20 hover:shadow-orange-500/40" style={{ background: '#F5A623' }} onMouseEnter={e => (e.currentTarget.style.background='#e09610')} onMouseLeave={e => (e.currentTarget.style.background='#F5A623')}>
+              <button className="incubator-cta-btn inline-flex items-center gap-2 font-bold px-8 py-4 rounded-xl text-lg uppercase tracking-wide">
                 {isRtl ? <ArrowLeft className="w-5 h-5" /> : null}
                 {c.hero_cta}
                 {!isRtl ? <ArrowLeft className="w-5 h-5 rotate-180" /> : null}
@@ -434,7 +434,7 @@ export default function Incubator() {
               <motion.button
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.97 }}
-                className="inline-flex items-center gap-2 text-white font-bold px-10 py-4 rounded-xl transition-all text-lg shadow-lg shadow-orange-500/20 hover:shadow-orange-500/40" style={{ background: '#F5A623' }} onMouseEnter={e => (e.currentTarget.style.background='#e09610')} onMouseLeave={e => (e.currentTarget.style.background='#F5A623')}
+                className="incubator-cta-btn inline-flex items-center gap-2 font-bold px-10 py-4 rounded-xl text-lg uppercase tracking-wide"
               >
                 {isRtl ? <ArrowLeft className="w-5 h-5" /> : null}
                 {c.cta_btn}

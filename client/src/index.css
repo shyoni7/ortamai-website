@@ -99,6 +99,30 @@
   }
 }
 
+/* ── Incubator CTA glow button ── */
+.incubator-cta-btn {
+  color: rgba(245, 166, 35, 0.75);
+  background: transparent;
+  border: 1px solid rgba(245, 166, 35, 0.6);
+  box-shadow: transparent;
+  text-shadow: none;
+  cursor: pointer;
+  transition: 0.5s ease;
+  user-select: none;
+}
+.incubator-cta-btn:hover,
+.incubator-cta-btn:focus {
+  color: #ffffff;
+  background: #F5A623;
+  border: 1px solid #F5A623;
+  text-shadow: 0 0 5px #ffffff, 0 0 10px #ffffff, 0 0 20px #ffffff;
+  box-shadow:
+    0 0 5px #F5A623,
+    0 0 20px #F5A623,
+    0 0 50px #F5A623,
+    0 0 100px rgba(245, 166, 35, 0.5);
+}
+
 /* Custom utility classes */
 @layer utilities {
   .glass {
