@@ -74,7 +74,7 @@ function AnimatedSection({
 // ─── Content ─────────────────────────────────────────────────────────────────
 const CONTENT = {
   he: {
-    badge: '🚀 אקסלרטור AI',
+    badge: 'אקסלרטור AI',
     hero_title: 'אקסלרטור ליזמים ועסקים',
     hero_desc:
       'עסק שלא יעבוד עם AI ישאר תקוע מאחור. בנינו את האקסלרטור שלנו כדי לוודא שאתם מתקדמים עם התקופה ולא נתקעים מאחור.',
@@ -139,7 +139,7 @@ const CONTENT = {
     cta_btn: 'ספרו לנו על העסק שלכם',
   },
   en: {
-    badge: '🚀 AI Accelerator',
+    badge: 'AI Accelerator',
     hero_title: 'Business & Entrepreneur Accelerator',
     hero_desc:
       "A business that doesn't work with AI will fall behind. We built our accelerator to ensure you advance with the times and don't get left behind.",
@@ -214,7 +214,7 @@ export default function Incubator() {
   return (
     <div dir={dir}>
       {/* ── Hero ─────────────────────────────────────────────────────────── */}
-      <section className="relative py-36 overflow-hidden">
+      <section className="relative py-20 overflow-hidden" style={{ minHeight: '60vh', display: 'flex', alignItems: 'center' }}>
         <div className="absolute inset-0 bg-gradient-to-br from-[#060d1f] via-[#0d1628] to-[#060d1f]" />
         <div className="absolute inset-0 grid-pattern opacity-20" />
         {/* Floating orbs */}
