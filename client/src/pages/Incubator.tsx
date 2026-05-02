@@ -449,15 +449,16 @@ export default function Incubator() {
                   initial="hidden"
                   animate={inView ? 'visible' : 'hidden'}
                   className="bg-white border border-gray-200 rounded-2xl p-8 shadow-sm hover:shadow-md hover:border-purple-300 transition-all"
+                  dir={isRtl ? 'rtl' : 'ltr'}
                 >
-                  <div className={`flex items-start gap-5 ${isRtl ? 'flex-row-reverse text-right' : ''}`}>
+                  <div className="flex items-start gap-5">
                     <div className={`flex-shrink-0 flex items-center justify-center w-14 h-14 rounded-2xl ${b.color} shadow-lg`}>
                       <Icon className="w-7 h-7 text-white" />
                     </div>
                     <div className="flex-1">
-                      <h3 className={`text-gray-900 font-bold text-xl mb-1 ${isRtl ? 'text-right' : ''}`}>{b.title}</h3>
-                      <p className={`text-gray-500 mb-4 text-sm ${isRtl ? 'text-right' : ''}`}>{b.desc}</p>
-                      <ul className={`space-y-2 ${isRtl ? 'text-right' : ''}`}>
+                      <h3 className="text-gray-900 font-bold text-xl mb-1">{b.title}</h3>
+                      <p className="text-gray-500 mb-4 text-sm">{b.desc}</p>
+                      <ul className="space-y-2">
                         {b.items.map((item, j) => (
                           <motion.li
                             key={j}
@@ -465,10 +466,10 @@ export default function Incubator() {
                             variants={fadeUp}
                             initial="hidden"
                             animate={inView ? 'visible' : 'hidden'}
-                            className={`flex items-center gap-2 text-gray-700 text-sm ${isRtl ? 'flex-row-reverse' : ''}`}
+                            className="flex items-center gap-2 text-gray-700 text-sm"
                           >
                             <CheckCircle2 className="w-4 h-4 text-purple-600 flex-shrink-0" />
-                            {item}
+                            <span>{item}</span>
                           </motion.li>
                         ))}
                       </ul>
@@ -507,7 +508,7 @@ export default function Incubator() {
                   <motion.div
                     whileHover={{ scale: 1.1, rotate: 5 }}
                     transition={{ type: 'spring', stiffness: 300 }}
-                    className="inline-flex p-4 rounded-2xl bg-purple-100 border border-purple-200 mb-5"
+                    className={`inline-flex p-4 rounded-2xl bg-purple-100 border border-purple-200 mb-5 ${isRtl ? '' : 'mx-auto'}`}
                   >
                     <Icon className="w-8 h-8 text-purple-600" />
                   </motion.div>
@@ -541,6 +542,7 @@ export default function Incubator() {
                   initial="hidden"
                   animate={inView ? 'visible' : 'hidden'}
                   className={`bg-white border border-gray-200 rounded-2xl p-6 shadow-sm relative ${isRtl ? 'text-right' : 'text-center'}`}
+                  dir={isRtl ? 'rtl' : 'ltr'}
                 >
                   {i < c.steps.length - 1 && (
                     <div className={`absolute top-1/2 ${isRtl ? '-left-2' : '-right-2'} w-4 h-0.5 bg-purple-300 hidden md:block`} />
@@ -549,7 +551,7 @@ export default function Incubator() {
                     initial={{ scale: 0 }}
                     animate={inView ? { scale: 1 } : {}}
                     transition={{ delay: i * 0.12 + 0.2, type: 'spring', stiffness: 300 }}
-                    className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-purple-600 text-white font-bold text-lg mb-4 mx-auto shadow-lg shadow-purple-200"
+                    className={`inline-flex items-center justify-center w-12 h-12 rounded-full bg-purple-600 text-white font-bold text-lg mb-4 shadow-lg shadow-purple-200 ${isRtl ? '' : 'mx-auto'}`}
                   >
                     {step.num}
                   </motion.div>
