@@ -5,7 +5,7 @@ import { useLanguage } from '@/contexts/LanguageContext';
 import { trpc } from '@/lib/trpc';
 import { toast } from 'sonner';
 
-const CONTACT_IMAGE = 'https://d2xsxph8kpxj0f.cloudfront.net/310519663445418346/oDFneUKwvw2xJYXYaumUdB/47cae0727_image_9f26f17d.png';
+
 
 export default function Contact() {
   const { t, lang, dir } = useLanguage();
@@ -201,7 +201,101 @@ export default function Contact() {
                 </div>
               </a>
 
-              <img src={CONTACT_IMAGE} alt="ORTAM AI" className="rounded-2xl w-full h-48 object-cover" />
+              {/* 3D Animated Envelope */}
+              <div className="relative w-full h-52 flex items-center justify-center overflow-hidden rounded-2xl bg-gradient-to-br from-purple-50 via-violet-50 to-indigo-100">
+                {/* Floating particles */}
+                <div className="absolute inset-0 overflow-hidden">
+                  {[...Array(6)].map((_, i) => (
+                    <div key={i} className="absolute rounded-full bg-purple-400/30" style={{
+                      width: `${4 + i * 2}px`, height: `${4 + i * 2}px`,
+                      left: `${10 + i * 15}%`, top: `${20 + (i % 3) * 25}%`,
+                      animation: `envelope-float ${2.5 + i * 0.4}s ease-in-out infinite`,
+                      animationDelay: `${i * 0.3}s`
+                    }} />
+                  ))}
+                </div>
+
+                {/* Envelope 3D */}
+                <div className="relative" style={{ perspective: '800px' }}>
+                  <div className="envelope-3d" style={{
+                    width: '200px', height: '136px', position: 'relative',
+                    transformStyle: 'preserve-3d',
+                    animation: 'envelope-fly 4s ease-in-out infinite',
+                  }}>
+                    {/* Envelope body */}
+                    <div style={{
+                      position: 'absolute', inset: 0,
+                      background: 'linear-gradient(135deg, #7c3aed 0%, #a855f7 50%, #c084fc 100%)',
+                      borderRadius: '8px',
+                      boxShadow: '0 20px 60px rgba(124,58,237,0.45), 0 4px 20px rgba(124,58,237,0.3)',
+                    }} />
+
+                    {/* Envelope flap (top triangle) */}
+                    <div style={{
+                      position: 'absolute', top: 0, left: 0, right: 0,
+                      height: '68px', overflow: 'hidden',
+                      animation: 'flap-open 4s ease-in-out infinite',
+                      transformOrigin: 'top center',
+                      transformStyle: 'preserve-3d',
+                    }}>
+                      <div style={{
+                        width: 0, height: 0,
+                        borderLeft: '100px solid transparent',
+                        borderRight: '100px solid transparent',
+                        borderTop: '68px solid #6d28d9',
+                        filter: 'drop-shadow(0 4px 8px rgba(109,40,217,0.4))',
+                      }} />
+                    </div>
+
+                    {/* V-fold lines */}
+                    <div style={{
+                      position: 'absolute', bottom: 0, left: 0,
+                      width: 0, height: 0,
+                      borderLeft: '100px solid #8b5cf6',
+                      borderBottom: '68px solid transparent',
+                    }} />
+                    <div style={{
+                      position: 'absolute', bottom: 0, right: 0,
+                      width: 0, height: 0,
+                      borderRight: '100px solid #8b5cf6',
+                      borderBottom: '68px solid transparent',
+                    }} />
+
+                    {/* Letter peeking out */}
+                    <div style={{
+                      position: 'absolute', left: '20px', right: '20px',
+                      top: '10px', height: '60px',
+                      background: 'white',
+                      borderRadius: '4px',
+                      boxShadow: '0 2px 8px rgba(0,0,0,0.15)',
+                      animation: 'letter-peek 4s ease-in-out infinite',
+                      transformOrigin: 'bottom center',
+                    }}>
+                      <div style={{ padding: '8px 10px' }}>
+                        <div style={{ height: '4px', background: '#e9d5ff', borderRadius: '2px', marginBottom: '5px' }} />
+                        <div style={{ height: '4px', background: '#e9d5ff', borderRadius: '2px', marginBottom: '5px', width: '70%' }} />
+                        <div style={{ height: '4px', background: '#e9d5ff', borderRadius: '2px', width: '85%' }} />
+                      </div>
+                    </div>
+
+                    {/* Shine overlay */}
+                    <div style={{
+                      position: 'absolute', inset: 0,
+                      background: 'linear-gradient(135deg, rgba(255,255,255,0.25) 0%, transparent 50%)',
+                      borderRadius: '8px',
+                      pointerEvents: 'none',
+                    }} />
+                  </div>
+                </div>
+
+                {/* Dotted trail */}
+                <div className="absolute" style={{ right: '15%', top: '30%', animation: 'trail-fade 4s ease-in-out infinite' }}>
+                  {[0,1,2].map(i => (
+                    <div key={i} className="inline-block w-1.5 h-1.5 rounded-full bg-purple-400/60 mx-0.5"
+                      style={{ animationDelay: `${i * 0.15}s`, animation: `trail-dot 4s ease-in-out infinite ${i * 0.15}s` }} />
+                  ))}
+                </div>
+              </div>
             </motion.div>
           </div>
         </div>

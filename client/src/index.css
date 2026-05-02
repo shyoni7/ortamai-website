@@ -313,3 +313,44 @@
     radial-gradient(circle at 50% 50%, #f3e8ff 0%, #e9d5ff 20%, #c084fc 50%, #a855f7 80%, #7c3aed 100%);
   filter: drop-shadow(0 18px 40px rgba(168,85,247,0.40));
 }
+
+/* ─── 3D Envelope Animations (Contact Page) ─────────────────────────────── */
+@keyframes envelope-fly {
+  0%   { transform: translateY(0px) rotate(-4deg) rotateY(-15deg); }
+  25%  { transform: translateY(-14px) rotate(2deg) rotateY(10deg); }
+  50%  { transform: translateY(-6px) rotate(-2deg) rotateY(-8deg); }
+  75%  { transform: translateY(-18px) rotate(3deg) rotateY(12deg); }
+  100% { transform: translateY(0px) rotate(-4deg) rotateY(-15deg); }
+}
+
+@keyframes flap-open {
+  0%   { transform: rotateX(0deg); }
+  30%  { transform: rotateX(-160deg); }
+  60%  { transform: rotateX(-160deg); }
+  85%  { transform: rotateX(0deg); }
+  100% { transform: rotateX(0deg); }
+}
+
+@keyframes letter-peek {
+  0%   { transform: translateY(0px); }
+  30%  { transform: translateY(-28px); }
+  60%  { transform: translateY(-28px); }
+  85%  { transform: translateY(0px); }
+  100% { transform: translateY(0px); }
+}
+
+@keyframes envelope-float {
+  0%, 100% { transform: translateY(0px) scale(1); opacity: 0.5; }
+  50%       { transform: translateY(-10px) scale(1.1); opacity: 0.9; }
+}
+
+@keyframes trail-fade {
+  0%, 100% { opacity: 0; }
+  40%, 60%  { opacity: 1; }
+}
+
+@keyframes trail-dot {
+  0%, 100% { transform: scale(0); opacity: 0; }
+  40%       { transform: scale(1); opacity: 1; }
+  60%       { transform: scale(0.8); opacity: 0.7; }
+}
