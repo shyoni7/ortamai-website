@@ -89,22 +89,21 @@ export default function Home() {
 
   return (
     <div dir={dir}>
-      {/* Hero Section */}
-      <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-        {/* Background */}
-        <div className="absolute inset-0 bg-gradient-to-br from-[#0d1628] via-[#1B2A4A] to-[#0d1628]" />
-        <div className="absolute inset-0 grid-pattern opacity-20" />
+      {/* Hero Section — light silver/white background with purple accents */}
+      <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-gray-50 via-white to-purple-50">
+        {/* Subtle grid pattern */}
+        <div className="absolute inset-0 grid-pattern opacity-40" />
 
-        {/* Animated orbs */}
+        {/* Soft purple orbs */}
         <motion.div
           animate={{ x: [0, 60, 0], y: [0, 40, 0] }}
           transition={{ duration: 10, repeat: Infinity, ease: 'easeInOut' }}
-          className="absolute top-1/4 right-1/4 w-96 h-96 bg-purple-500/15 rounded-full blur-3xl"
+          className="absolute top-1/4 right-1/4 w-96 h-96 bg-purple-200/40 rounded-full blur-3xl"
         />
         <motion.div
           animate={{ x: [0, -60, 0], y: [0, -40, 0] }}
           transition={{ duration: 12, repeat: Infinity, ease: 'easeInOut', delay: 2 }}
-          className="absolute bottom-1/4 left-1/4 w-96 h-96 bg-violet-900/15 rounded-full blur-3xl"
+          className="absolute bottom-1/4 left-1/4 w-96 h-96 bg-violet-200/30 rounded-full blur-3xl"
         />
 
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
@@ -117,8 +116,8 @@ export default function Home() {
               className={isRtl ? 'text-right' : 'text-left'}
             >
               <motion.div variants={fadeUp} className="inline-flex items-center gap-2 mb-6">
-                <div className="glass px-4 py-2 rounded-full">
-                  <span className="text-sm font-semibold text-purple-400">
+                <div className="bg-purple-100 border border-purple-200 px-4 py-2 rounded-full">
+                  <span className="text-sm font-semibold text-purple-700">
                     {isRtl ? '🚀 מרכז פיתוח AI מוביל בישראל' : '🚀 Israel\'s Leading AI Development Center'}
                   </span>
                 </div>
@@ -128,11 +127,11 @@ export default function Home() {
                 <span className="text-gradient-cyan">{t.home.hero_title}</span>
               </motion.h1>
 
-              <motion.p variants={fadeUp} className="text-xl md:text-2xl text-gray-300 mb-3 font-medium">
+              <motion.p variants={fadeUp} className="text-xl md:text-2xl text-gray-700 mb-3 font-medium">
                 {t.home.hero_subtitle}
               </motion.p>
 
-              <motion.p variants={fadeUp} className="text-base text-gray-400 mb-10">
+              <motion.p variants={fadeUp} className="text-base text-gray-500 mb-10">
                 {t.home.hero_desc}
               </motion.p>
 
@@ -159,7 +158,7 @@ export default function Home() {
               transition={{ duration: 1, delay: 0.3 }}
               className="relative"
             >
-              <div className="relative rounded-2xl overflow-hidden glow-cyan shadow-2xl">
+              <div className="relative rounded-2xl overflow-hidden shadow-2xl shadow-purple-200/50 border border-purple-100">
                 <video
                   src={HERO_VIDEO}
                   autoPlay
@@ -169,19 +168,17 @@ export default function Home() {
                   poster={HERO_IMAGE}
                   className="w-full h-auto object-cover rounded-2xl"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#0d1628]/40 to-transparent pointer-events-none" />
                 {/* Decorative corner accents */}
-                <div className="absolute top-0 left-0 w-16 h-16 border-t-2 border-l-2 border-purple-400/40 rounded-tl-2xl" />
-                <div className="absolute bottom-0 right-0 w-16 h-16 border-b-2 border-r-2 border-violet-900/30 rounded-br-2xl" />
+                <div className="absolute top-0 left-0 w-16 h-16 border-t-2 border-l-2 border-purple-400/50 rounded-tl-2xl" />
+                <div className="absolute bottom-0 right-0 w-16 h-16 border-b-2 border-r-2 border-purple-400/30 rounded-br-2xl" />
               </div>
             </motion.div>
           </div>
         </div>
       </section>
 
-      {/* Stats Section */}
-      <section className="py-16 relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-r from-purple-500/5 via-violet-900/30 to-purple-500/5" />
+      {/* Stats Section — light gray stripe */}
+      <section className="py-16 bg-gray-50 border-y border-gray-100">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             variants={stagger}
@@ -193,15 +190,15 @@ export default function Home() {
             {stats.map((stat, i) => (
               <motion.div key={i} variants={fadeUp} className="text-center">
                 <div className="text-4xl md:text-5xl font-bold text-gradient-cyan mb-2">{stat.value}</div>
-                <div className="text-gray-400 text-sm">{stat.label}</div>
+                <div className="text-gray-500 text-sm">{stat.label}</div>
               </motion.div>
             ))}
           </motion.div>
         </div>
       </section>
 
-      {/* Pillars Section */}
-      <section className="py-24 relative">
+      {/* Pillars Section — white background */}
+      <section className="py-24 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -210,8 +207,8 @@ export default function Home() {
             transition={{ duration: 0.7 }}
             className="text-center mb-16"
           >
-            <h2 className="text-4xl md:text-5xl font-bold mb-4 text-white">{t.home.pillars_title}</h2>
-            <p className="text-gray-400 text-lg max-w-2xl mx-auto">{t.home.pillars_sub}</p>
+            <h2 className="text-4xl md:text-5xl font-bold mb-4 text-gray-900">{t.home.pillars_title}</h2>
+            <p className="text-gray-500 text-lg max-w-2xl mx-auto">{t.home.pillars_sub}</p>
           </motion.div>
 
           <motion.div
@@ -226,7 +223,7 @@ export default function Home() {
                 key={i}
                 variants={fadeUp}
                 whileHover={{ y: -8, transition: { duration: 0.2 } }}
-                className="glass rounded-2xl p-6 hover:border-purple-400/40 transition-all duration-300 group cursor-pointer overflow-hidden"
+                className="bg-white border border-gray-100 rounded-2xl p-6 hover:border-purple-300 hover:shadow-lg hover:shadow-purple-100/50 transition-all duration-300 group cursor-pointer"
               >
                 <Link href={pillar.href}>
                   <div className="flex flex-col items-center text-center">
@@ -237,9 +234,9 @@ export default function Home() {
                       lines={pillar.holoLines}
                     />
                     {/* Card text */}
-                    <h3 className="text-xl font-bold text-white mt-4 mb-3 group-hover:text-purple-400 transition-colors">{pillar.title}</h3>
-                    <p className="text-gray-400 leading-relaxed text-sm">{pillar.desc}</p>
-                    <div className="mt-5 flex items-center gap-2 text-purple-400 text-sm font-medium">
+                    <h3 className="text-xl font-bold text-gray-900 mt-4 mb-3 group-hover:text-purple-600 transition-colors">{pillar.title}</h3>
+                    <p className="text-gray-500 leading-relaxed text-sm">{pillar.desc}</p>
+                    <div className="mt-5 flex items-center gap-2 text-purple-600 text-sm font-medium">
                       <span>{isRtl ? 'קרא עוד' : 'Learn more'}</span>
                       <ArrowIcon size={14} />
                     </div>
@@ -251,9 +248,8 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Why Us Section */}
-      <section className="py-24 relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-violet-900/30 to-transparent" />
+      {/* Why Us Section — light purple-tinted background */}
+      <section className="py-24 bg-gradient-to-br from-purple-50 via-gray-50 to-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             <motion.div
@@ -265,7 +261,7 @@ export default function Home() {
               <img
                 src={TRAINING_IMAGE}
                 alt={isRtl ? 'הכשרות AI' : 'AI Training'}
-                className="rounded-2xl w-full h-auto glow-purple"
+                className="rounded-2xl w-full h-auto shadow-xl shadow-purple-100/50"
               />
             </motion.div>
             <motion.div
@@ -275,10 +271,10 @@ export default function Home() {
               viewport={{ once: true }}
               className={isRtl ? 'text-right' : 'text-left'}
             >
-              <motion.h2 variants={fadeUp} className="text-4xl md:text-5xl font-bold text-white mb-4">
+              <motion.h2 variants={fadeUp} className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
                 {t.home.why_title}
               </motion.h2>
-              <motion.p variants={fadeUp} className="text-gray-400 text-lg mb-10">
+              <motion.p variants={fadeUp} className="text-gray-500 text-lg mb-10">
                 {t.home.why_sub}
               </motion.p>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
@@ -286,12 +282,12 @@ export default function Home() {
                   const Icon = item.icon;
                   return (
                     <motion.div key={i} variants={fadeUp} className="flex items-start gap-4">
-                      <div className="flex-shrink-0 p-2 rounded-lg bg-purple-400/10">
-                        <Icon className="w-5 h-5 text-purple-400" />
+                      <div className="flex-shrink-0 p-2 rounded-lg bg-purple-100">
+                        <Icon className="w-5 h-5 text-purple-600" />
                       </div>
                       <div>
-                        <h4 className="text-white font-semibold mb-1">{item.title}</h4>
-                        <p className="text-gray-400 text-sm">{item.desc}</p>
+                        <h4 className="text-gray-900 font-semibold mb-1">{item.title}</h4>
+                        <p className="text-gray-500 text-sm">{item.desc}</p>
                       </div>
                     </motion.div>
                   );
@@ -302,8 +298,8 @@ export default function Home() {
         </div>
       </section>
 
-      {/* How It Works */}
-      <section className="py-24 relative">
+      {/* How It Works — white background */}
+      <section className="py-24 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -311,8 +307,8 @@ export default function Home() {
             viewport={{ once: true }}
             className="text-center mb-16"
           >
-            <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">{t.home.how_title}</h2>
-            <p className="text-gray-400 text-lg">{t.home.how_sub}</p>
+            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">{t.home.how_title}</h2>
+            <p className="text-gray-500 text-lg">{t.home.how_sub}</p>
           </motion.div>
 
           <motion.div
@@ -325,14 +321,14 @@ export default function Home() {
             {steps.map((step, i) => (
               <motion.div key={i} variants={fadeUp} className="relative text-center">
                 {i < steps.length - 1 && (
-                  <div className="hidden lg:block absolute top-8 left-full w-full h-px bg-gradient-to-r from-purple-400/50 to-transparent z-0" />
+                  <div className="hidden lg:block absolute top-8 left-full w-full h-px bg-gradient-to-r from-purple-300/70 to-transparent z-0" />
                 )}
                 <div className="relative z-10">
-                  <div className="w-16 h-16 rounded-full glass border border-purple-400/30 flex items-center justify-center mx-auto mb-4">
+                  <div className="w-16 h-16 rounded-full bg-purple-50 border-2 border-purple-200 flex items-center justify-center mx-auto mb-4">
                     <span className="text-2xl font-bold text-gradient-cyan">{step.num}</span>
                   </div>
-                  <h4 className="text-white font-bold mb-2">{step.title}</h4>
-                  <p className="text-gray-400 text-sm">{step.desc}</p>
+                  <h4 className="text-gray-900 font-bold mb-2">{step.title}</h4>
+                  <p className="text-gray-500 text-sm">{step.desc}</p>
                 </div>
               </motion.div>
             ))}
@@ -340,8 +336,8 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Partners Section */}
-      <section className="py-20 relative overflow-hidden">
+      {/* Partners Section — light gray background */}
+      <section className="py-20 bg-gray-50 border-y border-gray-100">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -349,8 +345,8 @@ export default function Home() {
             viewport={{ once: true }}
             className="text-center mb-12"
           >
-            <h2 className="text-3xl font-bold text-white mb-2">{t.home.partners_title}</h2>
-            <p className="text-gray-400">{t.home.partners_sub}</p>
+            <h2 className="text-3xl font-bold text-gray-900 mb-2">{t.home.partners_title}</h2>
+            <p className="text-gray-500">{t.home.partners_sub}</p>
           </motion.div>
 
           <motion.div
@@ -364,12 +360,12 @@ export default function Home() {
               <motion.div
                 key={i}
                 variants={fadeUp}
-                className="glass rounded-xl p-4 flex items-center justify-center h-20 hover:border-purple-400/30 transition-all"
+                className="bg-white border border-gray-100 rounded-xl p-4 flex items-center justify-center h-20 hover:border-purple-200 hover:shadow-md transition-all"
               >
                 <img
                   src={partner.url}
                   alt={partner.name}
-                  className="max-h-12 max-w-full object-contain filter brightness-75 hover:brightness-100 transition-all"
+                  className="max-h-12 max-w-full object-contain opacity-70 hover:opacity-100 transition-all"
                 />
               </motion.div>
             ))}
@@ -377,9 +373,14 @@ export default function Home() {
         </div>
       </section>
 
-      {/* CTA Section */}
-      <section className="py-24 relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-r from-purple-500/10 via-violet-900/30 to-purple-500/10" />
+      {/* CTA Section — dark purple background for contrast */}
+      <section className="py-24 relative overflow-hidden bg-gradient-to-br from-[#1A1A2E] via-[#2D1B69] to-[#1A1A2E]">
+        <div className="absolute inset-0 grid-pattern opacity-10" />
+        <motion.div
+          animate={{ x: [0, 40, 0], y: [0, 20, 0] }}
+          transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut' }}
+          className="absolute top-1/2 left-1/4 w-64 h-64 bg-purple-500/20 rounded-full blur-3xl"
+        />
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
