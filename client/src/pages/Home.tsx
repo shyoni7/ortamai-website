@@ -99,30 +99,25 @@ export default function Home() {
           backgroundSize: '32px 32px',
         }} />
 
-        {/* Large 3D rotating gradient orb — back layer */}
+        {/* 3D Sphere — large, top-right */}
         <motion.div
-          animate={{ rotate: 360 }}
-          transition={{ duration: 30, repeat: Infinity, ease: 'linear' }}
-          className="absolute -top-32 -right-32 w-[600px] h-[600px] rounded-full opacity-20"
-          style={{ background: 'conic-gradient(from 0deg, #a855f7, #7c3aed, #c084fc, #a855f7)' }}
-        />
-        <motion.div
-          animate={{ rotate: -360 }}
-          transition={{ duration: 40, repeat: Infinity, ease: 'linear' }}
-          className="absolute -bottom-40 -left-40 w-[500px] h-[500px] rounded-full opacity-15"
-          style={{ background: 'conic-gradient(from 180deg, #7c3aed, #a855f7, #6d28d9, #7c3aed)' }}
+          animate={{ y: [0, -28, 0], x: [0, 12, 0] }}
+          transition={{ duration: 9, repeat: Infinity, ease: 'easeInOut' }}
+          className="sphere-3d sphere-3d-primary absolute -top-24 -right-24 w-[520px] h-[520px] opacity-70"
         />
 
-        {/* Soft blur orbs */}
+        {/* 3D Sphere — medium, bottom-left */}
         <motion.div
-          animate={{ x: [0, 50, 0], y: [0, 30, 0] }}
-          transition={{ duration: 10, repeat: Infinity, ease: 'easeInOut' }}
-          className="absolute top-1/3 right-1/3 w-80 h-80 bg-purple-300/25 rounded-full blur-3xl"
+          animate={{ y: [0, 22, 0], x: [0, -14, 0] }}
+          transition={{ duration: 11, repeat: Infinity, ease: 'easeInOut', delay: 1.5 }}
+          className="sphere-3d sphere-3d-secondary absolute -bottom-32 -left-32 w-[420px] h-[420px] opacity-60"
         />
+
+        {/* 3D Sphere — small accent, mid-scene */}
         <motion.div
-          animate={{ x: [0, -40, 0], y: [0, -25, 0] }}
-          transition={{ duration: 13, repeat: Infinity, ease: 'easeInOut', delay: 3 }}
-          className="absolute bottom-1/3 left-1/3 w-72 h-72 bg-violet-300/20 rounded-full blur-3xl"
+          animate={{ y: [0, -18, 0], x: [0, 20, 0] }}
+          transition={{ duration: 7, repeat: Infinity, ease: 'easeInOut', delay: 3 }}
+          className="sphere-3d sphere-3d-accent absolute top-1/2 left-[15%] w-48 h-48 opacity-50"
         />
 
 

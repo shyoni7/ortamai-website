@@ -257,3 +257,59 @@
 .skip-link:focus {
   top: 0;
 }
+
+/* ── 3D Hero Spheres ── */
+/* Technique: layered radial-gradients simulate a light source hitting a sphere:
+   1. Base color fill
+   2. Diffuse shading (dark on bottom-right)
+   3. Specular highlight (bright spot top-left)
+   4. Rim light (subtle bright edge bottom-right)
+   5. Drop shadow via filter
+*/
+
+.sphere-3d {
+  border-radius: 50%;
+  position: absolute;
+}
+
+/* Large primary sphere — top-right, purple */
+.sphere-3d-primary {
+  background:
+    /* Tiny sharp specular glint */
+    radial-gradient(circle at 32% 26%, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.0) 18%),
+    /* Broad soft highlight */
+    radial-gradient(circle at 38% 34%, rgba(255,255,255,0.40) 0%, rgba(255,255,255,0) 48%),
+    /* Rim light — bottom-right edge */
+    radial-gradient(circle at 78% 80%, rgba(192,132,252,0.55) 0%, rgba(192,132,252,0) 35%),
+    /* Core shadow — bottom-right */
+    radial-gradient(circle at 65% 70%, rgba(46,16,101,0.60) 0%, rgba(46,16,101,0) 55%),
+    /* Base sphere color */
+    radial-gradient(circle at 50% 50%, #d8b4fe 0%, #a855f7 30%, #7c3aed 60%, #4c1d95 85%, #2e1065 100%);
+  filter:
+    drop-shadow(0 40px 80px rgba(109,40,217,0.50))
+    drop-shadow(0 0 120px rgba(168,85,247,0.25));
+}
+
+/* Medium secondary sphere — bottom-left, deeper violet */
+.sphere-3d-secondary {
+  background:
+    radial-gradient(circle at 30% 26%, rgba(255,255,255,0.90) 0%, rgba(255,255,255,0) 16%),
+    radial-gradient(circle at 38% 36%, rgba(255,255,255,0.35) 0%, rgba(255,255,255,0) 45%),
+    radial-gradient(circle at 75% 78%, rgba(167,139,250,0.50) 0%, rgba(167,139,250,0) 32%),
+    radial-gradient(circle at 62% 68%, rgba(46,16,101,0.65) 0%, rgba(46,16,101,0) 52%),
+    radial-gradient(circle at 50% 50%, #c084fc 0%, #7c3aed 35%, #4c1d95 70%, #2e1065 100%);
+  filter:
+    drop-shadow(0 30px 65px rgba(76,29,149,0.55))
+    drop-shadow(0 0 90px rgba(124,58,237,0.20));
+}
+
+/* Small accent sphere — floats mid-scene, lighter lavender */
+.sphere-3d-accent {
+  background:
+    radial-gradient(circle at 30% 25%, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0) 20%),
+    radial-gradient(circle at 40% 38%, rgba(255,255,255,0.45) 0%, rgba(255,255,255,0) 42%),
+    radial-gradient(circle at 72% 76%, rgba(192,132,252,0.50) 0%, rgba(192,132,252,0) 30%),
+    radial-gradient(circle at 60% 65%, rgba(109,40,217,0.45) 0%, rgba(109,40,217,0) 48%),
+    radial-gradient(circle at 50% 50%, #f3e8ff 0%, #e9d5ff 20%, #c084fc 50%, #a855f7 80%, #7c3aed 100%);
+  filter: drop-shadow(0 18px 40px rgba(168,85,247,0.40));
+}
