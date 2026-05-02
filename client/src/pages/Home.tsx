@@ -1,10 +1,11 @@
 import React from 'react';
 import { Link } from 'wouter';
-import { motion } from 'framer-motion';
-import { ArrowLeft, ArrowRight, Zap, Users, Briefcase, CheckCircle, Star, Award, TrendingUp } from 'lucide-react';
+import { motion, useMotionValue, useTransform, useSpring } from 'framer-motion';
+import { ArrowLeft, ArrowRight, Zap, Users, Briefcase, CheckCircle, Star, Award, TrendingUp, Brain, Sparkles, Cpu, Rocket } from 'lucide-react';
 import { useLanguage } from '@/contexts/LanguageContext';
 import GradientButton from '@/components/GradientButton';
 import HologramCube from '@/components/HologramCube';
+import { useRef } from 'react';
 
 const HERO_VIDEO = 'https://files.manuscdn.com/user_upload_by_module/session_file/310519663445418346/sLtfKJCObxnFJgJI.mp4';
 const HERO_IMAGE = 'https://d2xsxph8kpxj0f.cloudfront.net/310519663445418346/oDFneUKwvw2xJYXYaumUdB/a00800906_______________ai______________1ztf6h7ulzz1cg0t1nwp_1_450c2a58.png';
@@ -89,41 +90,119 @@ export default function Home() {
 
   return (
     <div dir={dir}>
-      {/* Hero Section — light silver/white background with purple accents */}
-      <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-gray-50 via-white to-purple-50">
-        {/* Subtle grid pattern */}
-        <div className="absolute inset-0 grid-pattern opacity-40" />
+      {/* ── HERO ── Modern 3D redesign */}
+      <section className="relative min-h-screen flex items-center justify-center overflow-hidden" style={{ background: 'linear-gradient(135deg, #f8f7ff 0%, #ffffff 40%, #f3f0ff 70%, #ede9fe 100%)' }}>
 
-        {/* Soft purple orbs */}
+        {/* Animated dot-grid background */}
+        <div className="absolute inset-0" style={{
+          backgroundImage: 'radial-gradient(circle, #a855f720 1px, transparent 1px)',
+          backgroundSize: '32px 32px',
+        }} />
+
+        {/* Large 3D rotating gradient orb — back layer */}
         <motion.div
-          animate={{ x: [0, 60, 0], y: [0, 40, 0] }}
+          animate={{ rotate: 360 }}
+          transition={{ duration: 30, repeat: Infinity, ease: 'linear' }}
+          className="absolute -top-32 -right-32 w-[600px] h-[600px] rounded-full opacity-20"
+          style={{ background: 'conic-gradient(from 0deg, #a855f7, #7c3aed, #c084fc, #a855f7)' }}
+        />
+        <motion.div
+          animate={{ rotate: -360 }}
+          transition={{ duration: 40, repeat: Infinity, ease: 'linear' }}
+          className="absolute -bottom-40 -left-40 w-[500px] h-[500px] rounded-full opacity-15"
+          style={{ background: 'conic-gradient(from 180deg, #7c3aed, #a855f7, #6d28d9, #7c3aed)' }}
+        />
+
+        {/* Soft blur orbs */}
+        <motion.div
+          animate={{ x: [0, 50, 0], y: [0, 30, 0] }}
           transition={{ duration: 10, repeat: Infinity, ease: 'easeInOut' }}
-          className="absolute top-1/4 right-1/4 w-96 h-96 bg-purple-200/40 rounded-full blur-3xl"
+          className="absolute top-1/3 right-1/3 w-80 h-80 bg-purple-300/25 rounded-full blur-3xl"
         />
         <motion.div
-          animate={{ x: [0, -60, 0], y: [0, -40, 0] }}
-          transition={{ duration: 12, repeat: Infinity, ease: 'easeInOut', delay: 2 }}
-          className="absolute bottom-1/4 left-1/4 w-96 h-96 bg-violet-200/30 rounded-full blur-3xl"
+          animate={{ x: [0, -40, 0], y: [0, -25, 0] }}
+          transition={{ duration: 13, repeat: Infinity, ease: 'easeInOut', delay: 3 }}
+          className="absolute bottom-1/3 left-1/3 w-72 h-72 bg-violet-300/20 rounded-full blur-3xl"
         />
 
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            {/* Text content */}
+        {/* Floating 3D glass cards — decorative */}
+        <motion.div
+          animate={{ y: [0, -14, 0], rotate: [0, 3, 0] }}
+          transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut' }}
+          className="absolute top-28 right-8 lg:right-24 hidden md:flex items-center gap-3 px-4 py-3 rounded-2xl border border-purple-200/60 backdrop-blur-md shadow-xl"
+          style={{ background: 'rgba(255,255,255,0.7)', zIndex: 5 }}
+        >
+          <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-purple-500 to-violet-600 flex items-center justify-center shadow-lg">
+            <Brain className="w-5 h-5 text-white" />
+          </div>
+          <div>
+            <div className="text-xs font-bold text-gray-800">{isRtl ? 'AI חכם' : 'Smart AI'}</div>
+            <div className="text-xs text-gray-400">{isRtl ? 'פתרונות מתקדמים' : 'Advanced Solutions'}</div>
+          </div>
+        </motion.div>
+
+        <motion.div
+          animate={{ y: [0, 12, 0], rotate: [0, -2, 0] }}
+          transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut', delay: 1.5 }}
+          className="absolute bottom-32 right-8 lg:right-32 hidden md:flex items-center gap-3 px-4 py-3 rounded-2xl border border-violet-200/60 backdrop-blur-md shadow-xl"
+          style={{ background: 'rgba(255,255,255,0.75)', zIndex: 5 }}
+        >
+          <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-violet-500 to-purple-700 flex items-center justify-center shadow-lg">
+            <Rocket className="w-5 h-5 text-white" />
+          </div>
+          <div>
+            <div className="text-xs font-bold text-gray-800">{isRtl ? 'אקסלרטור' : 'Accelerator'}</div>
+            <div className="text-xs text-gray-400">{isRtl ? 'צמיחה מהירה' : 'Fast Growth'}</div>
+          </div>
+        </motion.div>
+
+        <motion.div
+          animate={{ y: [0, -10, 0], x: [0, 8, 0] }}
+          transition={{ duration: 7, repeat: Infinity, ease: 'easeInOut', delay: 0.8 }}
+          className="absolute top-40 left-6 lg:left-20 hidden lg:flex items-center gap-3 px-4 py-3 rounded-2xl border border-purple-200/50 backdrop-blur-md shadow-xl"
+          style={{ background: 'rgba(255,255,255,0.72)', zIndex: 5 }}
+        >
+          <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-purple-400 to-violet-500 flex items-center justify-center shadow-lg">
+            <Cpu className="w-5 h-5 text-white" />
+          </div>
+          <div>
+            <div className="text-xs font-bold text-gray-800">{isRtl ? 'הכשרות AI' : 'AI Training'}</div>
+            <div className="text-xs text-gray-400">300+ {isRtl ? 'בוגרים' : 'Graduates'}</div>
+          </div>
+        </motion.div>
+
+        {/* ── Main content ── */}
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+
+            {/* ── Left/Right: Text ── */}
             <motion.div
               variants={stagger}
               initial="hidden"
               animate="visible"
-              className={isRtl ? 'text-right' : 'text-left'}
+              className={isRtl ? 'text-right order-1' : 'text-left order-1'}
             >
-              <motion.div variants={fadeUp} className="inline-flex items-center gap-2 mb-6">
-                <div className="bg-purple-100 border border-purple-200 px-4 py-2 rounded-full">
+              {/* Badge */}
+              <motion.div variants={fadeUp} className="inline-flex items-center gap-2 mb-8">
+                <motion.div
+                  animate={{ boxShadow: ['0 0 0px #a855f740', '0 0 20px #a855f760', '0 0 0px #a855f740'] }}
+                  transition={{ duration: 2.5, repeat: Infinity }}
+                  className="flex items-center gap-2 bg-white border border-purple-300 px-4 py-2 rounded-full shadow-sm"
+                >
+                  <Sparkles className="w-4 h-4 text-purple-500" />
                   <span className="text-sm font-semibold text-purple-700">
-                    {isRtl ? '🚀 מרכז פיתוח AI מוביל בישראל' : '🚀 Israel\'s Leading AI Development Center'}
+                    {isRtl ? 'מרכז פיתוח AI מוביל בישראל' : "Israel's Leading AI Development Center"}
                   </span>
-                </div>
+                  <span className="w-2 h-2 rounded-full bg-purple-500 animate-pulse" />
+                </motion.div>
               </motion.div>
 
-              <motion.h1 variants={fadeUp} className="text-5xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight">
+              {/* Headline */}
+              <motion.h1
+                variants={fadeUp}
+                className="font-bold mb-6 leading-tight"
+                style={{ fontSize: 'clamp(2.5rem, 5vw, 4.5rem)' }}
+              >
                 <span className="text-gradient-cyan">{t.home.hero_title}</span>
               </motion.h1>
 
@@ -131,9 +210,19 @@ export default function Home() {
                 {t.home.hero_subtitle}
               </motion.p>
 
-              <motion.p variants={fadeUp} className="text-base text-gray-500 mb-10">
+              <motion.p variants={fadeUp} className="text-base text-gray-500 mb-10 leading-relaxed">
                 {t.home.hero_desc}
               </motion.p>
+
+              {/* Mini stats row */}
+              <motion.div variants={fadeUp} className="flex flex-wrap gap-6 mb-10">
+                {[{ v: '300+', l: isRtl ? 'בוגרים' : 'Graduates' }, { v: '98%', l: isRtl ? 'שביעות רצון' : 'Satisfaction' }, { v: '10+', l: isRtl ? 'שותפים' : 'Partners' }].map((s, i) => (
+                  <div key={i} className="text-center">
+                    <div className="text-2xl font-bold text-gradient-cyan">{s.v}</div>
+                    <div className="text-xs text-gray-400">{s.l}</div>
+                  </div>
+                ))}
+              </motion.div>
 
               <motion.div variants={fadeUp} className="flex flex-wrap gap-4">
                 <GradientButton href="/contact" size="lg">
@@ -151,14 +240,39 @@ export default function Home() {
               </motion.div>
             </motion.div>
 
-            {/* Hero video */}
+            {/* ── Right/Left: 3D video card ── */}
             <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 1, delay: 0.3 }}
-              className="relative"
+              initial={{ opacity: 0, y: 40, rotateY: isRtl ? 8 : -8 }}
+              animate={{ opacity: 1, y: 0, rotateY: 0 }}
+              transition={{ duration: 1.2, delay: 0.4, type: 'spring', stiffness: 60 }}
+              className="relative order-2"
+              style={{ perspective: '1000px' }}
             >
-              <div className="relative rounded-2xl overflow-hidden shadow-2xl shadow-purple-200/50 border border-purple-100">
+              {/* Glow ring behind card */}
+              <div className="absolute inset-0 rounded-3xl" style={{ background: 'radial-gradient(ellipse at center, #a855f730 0%, transparent 70%)', transform: 'scale(1.1)', zIndex: 0 }} />
+
+              {/* Main video card */}
+              <motion.div
+                animate={{ y: [0, -8, 0] }}
+                transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}
+                className="relative rounded-3xl overflow-hidden shadow-2xl border border-purple-200/60"
+                style={{
+                  background: 'rgba(255,255,255,0.6)',
+                  backdropFilter: 'blur(12px)',
+                  boxShadow: '0 30px 80px rgba(168,85,247,0.2), 0 0 0 1px rgba(168,85,247,0.15)',
+                  zIndex: 1,
+                }}
+              >
+                {/* Top bar — glass chrome */}
+                <div className="flex items-center gap-2 px-4 py-3 border-b border-purple-100/60" style={{ background: 'rgba(255,255,255,0.8)' }}>
+                  <div className="w-3 h-3 rounded-full bg-red-400" />
+                  <div className="w-3 h-3 rounded-full bg-yellow-400" />
+                  <div className="w-3 h-3 rounded-full bg-green-400" />
+                  <div className="flex-1 mx-3 h-5 rounded-full bg-gray-100 flex items-center px-3">
+                    <span className="text-xs text-gray-400">ortamai.ai</span>
+                  </div>
+                </div>
+
                 <video
                   src={HERO_VIDEO}
                   autoPlay
@@ -166,12 +280,49 @@ export default function Home() {
                   muted
                   playsInline
                   poster={HERO_IMAGE}
-                  className="w-full h-auto object-cover rounded-2xl"
+                  className="w-full h-auto object-cover"
                 />
-                {/* Decorative corner accents */}
-                <div className="absolute top-0 left-0 w-16 h-16 border-t-2 border-l-2 border-purple-400/50 rounded-tl-2xl" />
-                <div className="absolute bottom-0 right-0 w-16 h-16 border-b-2 border-r-2 border-purple-400/30 rounded-br-2xl" />
-              </div>
+
+                {/* Bottom overlay badge */}
+                <div className="absolute bottom-4 left-4 right-4 flex items-center justify-between">
+                  <motion.div
+                    animate={{ opacity: [0.8, 1, 0.8] }}
+                    transition={{ duration: 2, repeat: Infinity }}
+                    className="flex items-center gap-2 px-3 py-2 rounded-xl backdrop-blur-md border border-white/40"
+                    style={{ background: 'rgba(255,255,255,0.75)' }}
+                  >
+                    <div className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
+                    <span className="text-xs font-semibold text-gray-700">{isRtl ? 'AI פעיל' : 'AI Active'}</span>
+                  </motion.div>
+                  <motion.div
+                    animate={{ opacity: [0.8, 1, 0.8] }}
+                    transition={{ duration: 2.5, repeat: Infinity, delay: 0.5 }}
+                    className="flex items-center gap-2 px-3 py-2 rounded-xl backdrop-blur-md border border-purple-200/50"
+                    style={{ background: 'rgba(168,85,247,0.15)' }}
+                  >
+                    <Sparkles className="w-3 h-3 text-purple-600" />
+                    <span className="text-xs font-semibold text-purple-700">{isRtl ? 'מוביל בישראל' : 'Israel #1'}</span>
+                  </motion.div>
+                </div>
+              </motion.div>
+
+              {/* 3D depth shadow card behind */}
+              <div
+                className="absolute inset-0 rounded-3xl -z-10"
+                style={{
+                  background: 'linear-gradient(135deg, #a855f720, #7c3aed15)',
+                  transform: 'translate(12px, 12px) scale(0.97)',
+                  border: '1px solid rgba(168,85,247,0.2)',
+                }}
+              />
+              <div
+                className="absolute inset-0 rounded-3xl -z-20"
+                style={{
+                  background: 'linear-gradient(135deg, #a855f710, #7c3aed08)',
+                  transform: 'translate(22px, 22px) scale(0.94)',
+                  border: '1px solid rgba(168,85,247,0.1)',
+                }}
+              />
             </motion.div>
           </div>
         </div>
