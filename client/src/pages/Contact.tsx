@@ -40,11 +40,11 @@ export default function Contact() {
   return (
     <div dir={dir}>
       {/* Hero */}
-      <section className="relative py-32 overflow-hidden">
+      <section className="relative py-12 overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-gray-50 via-purple-50 to-gray-100" />
         <div className="absolute inset-0 grid-pattern opacity-20" />
         <div className="relative z-10 max-w-4xl mx-auto px-4 text-center">
-          <motion.h1 initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }} className="text-5xl md:text-6xl font-bold text-gray-900 mb-6">
+          <motion.h1 initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }} className="text-4xl md:text-5xl font-bold text-gray-900 mb-3">
             {t.contact.hero_title}
           </motion.h1>
           <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.2 }} className="text-xl text-gray-600">
@@ -54,15 +54,15 @@ export default function Contact() {
       </section>
 
       {/* Form + Info */}
-      <section className="py-20">
+      <section className="py-8">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
             {/* Form */}
             <motion.div initial={{ opacity: 0, x: isRtl ? 40 : -40 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.8 }}>
-              <form onSubmit={handleSubmit} className="bg-white border border-gray-200 rounded-2xl shadow-sm p-8 space-y-5">
+              <form onSubmit={handleSubmit} className="bg-white border border-gray-200 rounded-2xl shadow-sm p-6 space-y-3">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-sm font-medium text-gray-600 mb-2">{t.contact.form_name}</label>
+                    <label className="block text-sm font-medium text-gray-600 mb-1">{t.contact.form_name}</label>
                     <input
                       type="text"
                       value={form.name}
@@ -72,7 +72,7 @@ export default function Contact() {
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-600 mb-2">{t.contact.form_email}</label>
+                    <label className="block text-sm font-medium text-gray-600 mb-1">{t.contact.form_email}</label>
                     <input
                       type="email"
                       value={form.email}
@@ -84,7 +84,7 @@ export default function Contact() {
                 </div>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-sm font-medium text-gray-600 mb-2">{t.contact.form_phone}</label>
+                    <label className="block text-sm font-medium text-gray-600 mb-1">{t.contact.form_phone}</label>
                     <input
                       type="tel"
                       value={form.phone}
@@ -94,7 +94,7 @@ export default function Contact() {
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-600 mb-2">{t.contact.form_company}</label>
+                    <label className="block text-sm font-medium text-gray-600 mb-1">{t.contact.form_company}</label>
                     <input
                       type="text"
                       value={form.company}
@@ -105,9 +105,9 @@ export default function Contact() {
                   </div>
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-600 mb-2">{t.contact.form_message}</label>
+                  <label className="block text-sm font-medium text-gray-600 mb-1">{t.contact.form_message}</label>
                   <textarea
-                    rows={5}
+                    rows={3}
                     value={form.message}
                     onChange={e => setForm(p => ({ ...p, message: e.target.value }))}
                     className="w-full px-4 py-3 rounded-xl bg-gray-50 border border-gray-200 text-gray-900 placeholder-gray-400 focus:outline-none focus:border-orange-400/50 transition-colors resize-none"
@@ -149,9 +149,9 @@ export default function Contact() {
             </motion.div>
 
             {/* Info */}
-            <motion.div initial={{ opacity: 0, x: isRtl ? -40 : 40 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.8 }} className="space-y-8">
+            <motion.div initial={{ opacity: 0, x: isRtl ? -40 : 40 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.8 }} className="space-y-4">
               <div>
-                <h2 className="text-3xl font-bold text-gray-900 mb-6">{t.contact.info_title}</h2>
+                <h2 className="text-2xl font-bold text-gray-900 mb-3">{t.contact.info_title}</h2>
                 <div className="space-y-4">
                   <div className="flex items-center gap-4">
                     <div className="p-3 rounded-xl bg-orange-400/10">
@@ -202,7 +202,7 @@ export default function Contact() {
               </a>
 
               {/* 3D Animated Envelope */}
-              <div className="relative w-full h-52 flex items-center justify-center overflow-hidden rounded-2xl bg-gradient-to-br from-purple-50 via-violet-50 to-indigo-100">
+              <div className="relative w-full h-40 flex items-center justify-center overflow-hidden rounded-2xl bg-gradient-to-br from-purple-50 via-violet-50 to-indigo-100">
                 {/* Floating particles */}
                 <div className="absolute inset-0 overflow-hidden">
                   {[...Array(6)].map((_, i) => (
