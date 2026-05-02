@@ -262,86 +262,54 @@ export default function Incubator() {
               className="flex-shrink-0 relative"
               style={{ width: 190, height: 190 }}
             >
-              {/* Orbit ring 1 — tilted ~30deg */}
+              {/* ── BACK halves of rings (behind sphere) ── */}
+
+              {/* Ring 1 back half */}
               <motion.div
-                animate={{ rotateY: [0, 360] }}
+                animate={{ rotate: [0, 360] }}
                 transition={{ duration: 5, repeat: Infinity, ease: 'linear' }}
-                className="absolute inset-0"
-                style={{ transformStyle: 'preserve-3d' }}
+                className="absolute inset-0 pointer-events-none"
+                style={{ zIndex: 0 }}
               >
-                <div
-                  className="absolute inset-0 rounded-full border-2 border-purple-300/60"
-                  style={{ transform: 'rotateX(70deg) rotateZ(20deg)', boxShadow: '0 0 12px rgba(192,132,252,0.4)' }}
-                />
-                {/* Orbiting dot on ring 1 */}
-                <motion.div
-                  animate={{ rotate: [0, 360] }}
-                  transition={{ duration: 5, repeat: Infinity, ease: 'linear' }}
-                  className="absolute inset-0"
-                  style={{ transform: 'rotateX(70deg) rotateZ(20deg)' }}
-                >
-                  <div
-                    className="absolute w-3 h-3 rounded-full bg-white shadow-lg"
-                    style={{
-                      top: '50%',
-                      left: '-6px',
-                      marginTop: '-6px',
-                      boxShadow: '0 0 10px rgba(255,255,255,0.9), 0 0 20px rgba(192,132,252,0.8)',
-                    }}
-                  />
-                </motion.div>
+                <div className="absolute inset-0" style={{
+                  transform: 'rotateX(75deg)',
+                  borderRadius: '50%',
+                  border: '2px solid transparent',
+                  borderTopColor: 'rgba(192,132,252,0.0)',
+                  borderBottomColor: 'rgba(192,132,252,0.55)',
+                  borderLeftColor: 'rgba(192,132,252,0.55)',
+                  borderRightColor: 'rgba(192,132,252,0.0)',
+                  boxShadow: '0 0 8px rgba(192,132,252,0.3)',
+                }} />
               </motion.div>
 
-              {/* Orbit ring 2 — tilted ~-40deg */}
+              {/* Ring 2 back half */}
               <motion.div
-                animate={{ rotateY: [360, 0] }}
+                animate={{ rotate: [360, 0] }}
                 transition={{ duration: 7, repeat: Infinity, ease: 'linear' }}
-                className="absolute inset-0"
-                style={{ transformStyle: 'preserve-3d' }}
+                className="absolute inset-0 pointer-events-none"
+                style={{ zIndex: 0 }}
               >
-                <div
-                  className="absolute inset-0 rounded-full border-2 border-violet-300/50"
-                  style={{ transform: 'rotateX(70deg) rotateZ(-40deg)', boxShadow: '0 0 10px rgba(167,139,250,0.35)' }}
-                />
-                {/* Orbiting dot on ring 2 */}
-                <motion.div
-                  animate={{ rotate: [360, 0] }}
-                  transition={{ duration: 7, repeat: Infinity, ease: 'linear' }}
-                  className="absolute inset-0"
-                  style={{ transform: 'rotateX(70deg) rotateZ(-40deg)' }}
-                >
-                  <div
-                    className="absolute w-2.5 h-2.5 rounded-full bg-purple-200"
-                    style={{
-                      top: '-5px',
-                      left: '50%',
-                      marginLeft: '-5px',
-                      boxShadow: '0 0 8px rgba(192,132,252,0.9), 0 0 16px rgba(139,92,246,0.6)',
-                    }}
-                  />
-                </motion.div>
+                <div className="absolute inset-0" style={{
+                  transform: 'rotateX(65deg) rotateZ(45deg)',
+                  borderRadius: '50%',
+                  border: '2px solid transparent',
+                  borderTopColor: 'rgba(167,139,250,0.0)',
+                  borderBottomColor: 'rgba(167,139,250,0.5)',
+                  borderLeftColor: 'rgba(167,139,250,0.5)',
+                  borderRightColor: 'rgba(167,139,250,0.0)',
+                  boxShadow: '0 0 6px rgba(167,139,250,0.25)',
+                }} />
               </motion.div>
 
-              {/* Orbit ring 3 — near-vertical */}
-              <motion.div
-                animate={{ rotateZ: [0, 360] }}
-                transition={{ duration: 9, repeat: Infinity, ease: 'linear' }}
-                className="absolute inset-0"
-                style={{ transformStyle: 'preserve-3d' }}
-              >
-                <div
-                  className="absolute inset-0 rounded-full border border-indigo-300/40"
-                  style={{ transform: 'rotateX(80deg) rotateY(60deg)', boxShadow: '0 0 8px rgba(129,140,248,0.3)' }}
-                />
-              </motion.div>
-
-              {/* Core 3D sphere */}
+              {/* ── Core 3D sphere (middle layer) ── */}
               <motion.div
                 animate={{ scale: [1, 1.04, 1] }}
                 transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
                 className="absolute rounded-full"
                 style={{
-                  inset: '26px',
+                  inset: '22px',
+                  zIndex: 1,
                   background: [
                     'radial-gradient(circle at 32% 28%, rgba(255,255,255,0.85) 0%, rgba(255,255,255,0) 22%)',
                     'radial-gradient(circle at 70% 72%, rgba(46,16,101,0.7) 0%, rgba(46,16,101,0) 45%)',
@@ -350,7 +318,6 @@ export default function Incubator() {
                   boxShadow: '0 0 40px rgba(139,92,246,0.7), 0 0 80px rgba(109,40,217,0.4), inset 0 0 20px rgba(46,16,101,0.5)',
                 }}
               >
-                {/* AI label */}
                 <div className="absolute inset-0 flex items-center justify-center">
                   <span
                     className="font-black text-white select-none"
@@ -361,12 +328,72 @@ export default function Incubator() {
                 </div>
               </motion.div>
 
-              {/* Outer glow ring */}
+              {/* ── FRONT halves of rings (in front of sphere) ── */}
+
+              {/* Ring 1 front half + orbiting dot */}
+              <motion.div
+                animate={{ rotate: [0, 360] }}
+                transition={{ duration: 5, repeat: Infinity, ease: 'linear' }}
+                className="absolute inset-0 pointer-events-none"
+                style={{ zIndex: 2 }}
+              >
+                <div className="absolute inset-0" style={{
+                  transform: 'rotateX(75deg)',
+                  borderRadius: '50%',
+                  border: '2px solid transparent',
+                  borderTopColor: 'rgba(192,132,252,0.9)',
+                  borderBottomColor: 'rgba(192,132,252,0.0)',
+                  borderLeftColor: 'rgba(192,132,252,0.0)',
+                  borderRightColor: 'rgba(192,132,252,0.9)',
+                  boxShadow: '0 0 10px rgba(192,132,252,0.5)',
+                }} />
+                {/* Orbiting dot — top of ring (front) */}
+                <div
+                  className="absolute w-3 h-3 rounded-full bg-white"
+                  style={{
+                    top: '-5px',
+                    left: '50%',
+                    marginLeft: '-6px',
+                    boxShadow: '0 0 10px rgba(255,255,255,0.95), 0 0 20px rgba(192,132,252,0.9)',
+                  }}
+                />
+              </motion.div>
+
+              {/* Ring 2 front half + orbiting dot */}
+              <motion.div
+                animate={{ rotate: [360, 0] }}
+                transition={{ duration: 7, repeat: Infinity, ease: 'linear' }}
+                className="absolute inset-0 pointer-events-none"
+                style={{ zIndex: 2 }}
+              >
+                <div className="absolute inset-0" style={{
+                  transform: 'rotateX(65deg) rotateZ(45deg)',
+                  borderRadius: '50%',
+                  border: '2px solid transparent',
+                  borderTopColor: 'rgba(167,139,250,0.85)',
+                  borderBottomColor: 'rgba(167,139,250,0.0)',
+                  borderLeftColor: 'rgba(167,139,250,0.0)',
+                  borderRightColor: 'rgba(167,139,250,0.85)',
+                  boxShadow: '0 0 8px rgba(167,139,250,0.4)',
+                }} />
+                {/* Orbiting dot */}
+                <div
+                  className="absolute w-2.5 h-2.5 rounded-full bg-purple-200"
+                  style={{
+                    top: '-5px',
+                    left: '50%',
+                    marginLeft: '-5px',
+                    boxShadow: '0 0 8px rgba(192,132,252,0.9), 0 0 16px rgba(139,92,246,0.6)',
+                  }}
+                />
+              </motion.div>
+
+              {/* Outer glow */}
               <motion.div
                 animate={{ opacity: [0.4, 0.8, 0.4], scale: [1, 1.08, 1] }}
                 transition={{ duration: 2.5, repeat: Infinity, ease: 'easeInOut' }}
                 className="absolute inset-0 rounded-full pointer-events-none"
-                style={{ boxShadow: '0 0 50px rgba(139,92,246,0.5), 0 0 100px rgba(109,40,217,0.25)' }}
+                style={{ zIndex: 0, boxShadow: '0 0 50px rgba(139,92,246,0.5), 0 0 100px rgba(109,40,217,0.25)' }}
               />
             </motion.div>
 
