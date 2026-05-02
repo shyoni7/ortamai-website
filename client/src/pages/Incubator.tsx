@@ -215,64 +215,215 @@ export default function Incubator() {
     <div dir={dir} className="bg-white">
       {/* ── Hero ─────────────────────────────────────────────────────────── */}
       <section
-        className="relative py-20 overflow-hidden bg-gradient-to-br from-gray-50 via-purple-50 to-gray-100"
-        style={{ minHeight: '60vh', display: 'flex', alignItems: 'center' }}
+        className="relative overflow-hidden"
+        style={{
+          minHeight: '200px',
+          background: 'linear-gradient(135deg, #1a1560 0%, #2d1b8e 30%, #3b2aaa 55%, #1e1080 80%, #120d5e 100%)',
+          display: 'flex',
+          alignItems: 'center',
+        }}
       >
-        {/* Subtle purple orbs */}
-        <motion.div
-          animate={{ x: [0, 60, 0], y: [0, 40, 0] }}
-          transition={{ duration: 12, repeat: Infinity }}
-          className="absolute top-10 left-1/3 w-96 h-96 bg-purple-200/40 rounded-full blur-3xl pointer-events-none"
-        />
-        <motion.div
-          animate={{ x: [0, -40, 0], y: [0, 60, 0] }}
-          transition={{ duration: 15, repeat: Infinity, delay: 2 }}
-          className="absolute bottom-10 right-1/4 w-72 h-72 bg-violet-200/30 rounded-full blur-3xl pointer-events-none"
-        />
-
-        <div className="relative z-10 max-w-4xl mx-auto px-4 text-center w-full">
+        {/* ── Background glow blobs ── */}
+        <div className="absolute inset-0 pointer-events-none overflow-hidden">
+          {/* Right glow */}
           <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="inline-flex mb-6"
-          >
-            <div className="bg-purple-100 border border-purple-200 px-4 py-2 rounded-full">
-              <span className="text-sm font-semibold text-purple-700">{c.badge}</span>
-            </div>
-          </motion.div>
-
-          <motion.h1
-            initial={{ opacity: 0, y: 40 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.1 }}
-            className="text-5xl md:text-6xl font-bold text-gray-900 mb-6"
-          >
-            {c.hero_title}
-          </motion.h1>
-
-          <motion.p
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.25 }}
-            className="text-xl text-gray-600 max-w-2xl mx-auto mb-10 leading-relaxed"
-          >
-            {c.hero_desc}
-          </motion.p>
-
+            animate={{ scale: [1, 1.15, 1], opacity: [0.35, 0.55, 0.35] }}
+            transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}
+            className="absolute -right-20 top-1/2 -translate-y-1/2 w-[400px] h-[400px] rounded-full"
+            style={{ background: 'radial-gradient(circle, rgba(139,92,246,0.5) 0%, rgba(109,40,217,0.2) 50%, transparent 75%)' }}
+          />
+          {/* Left glow */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.5, delay: 0.45 }}
-          >
-            <Link href="/contact">
-              <button className="incubator-cta-btn inline-flex items-center gap-2 font-bold px-8 py-4 rounded-xl text-lg uppercase tracking-wide">
-                {isRtl ? <ArrowLeft className="w-5 h-5" /> : null}
-                {c.hero_cta}
-                {!isRtl ? <ArrowLeft className="w-5 h-5 rotate-180" /> : null}
-              </button>
-            </Link>
-          </motion.div>
+            animate={{ scale: [1, 1.1, 1], opacity: [0.2, 0.4, 0.2] }}
+            transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut', delay: 2 }}
+            className="absolute -left-10 top-1/2 -translate-y-1/2 w-[300px] h-[300px] rounded-full"
+            style={{ background: 'radial-gradient(circle, rgba(99,102,241,0.4) 0%, transparent 70%)' }}
+          />
+          {/* Subtle wave lines */}
+          <svg className="absolute inset-0 w-full h-full opacity-10" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <pattern id="wave-lines" x="0" y="0" width="80" height="80" patternUnits="userSpaceOnUse">
+                <path d="M0 40 Q20 20 40 40 Q60 60 80 40" stroke="rgba(167,139,250,0.6)" strokeWidth="1" fill="none" />
+              </pattern>
+            </defs>
+            <rect width="100%" height="100%" fill="url(#wave-lines)" />
+          </svg>
+        </div>
+
+        {/* ── Main content row ── */}
+        <div className="relative z-10 w-full max-w-6xl mx-auto px-6 py-12">
+          <div className={`flex items-center gap-10 ${isRtl ? 'flex-row-reverse' : 'flex-row'}`}>
+
+            {/* ── 3D AI Atom Sphere ── */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.6 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.9, ease: 'backOut' }}
+              className="flex-shrink-0 relative"
+              style={{ width: 190, height: 190 }}
+            >
+              {/* Orbit ring 1 — tilted ~30deg */}
+              <motion.div
+                animate={{ rotateY: [0, 360] }}
+                transition={{ duration: 5, repeat: Infinity, ease: 'linear' }}
+                className="absolute inset-0"
+                style={{ transformStyle: 'preserve-3d' }}
+              >
+                <div
+                  className="absolute inset-0 rounded-full border-2 border-purple-300/60"
+                  style={{ transform: 'rotateX(70deg) rotateZ(20deg)', boxShadow: '0 0 12px rgba(192,132,252,0.4)' }}
+                />
+                {/* Orbiting dot on ring 1 */}
+                <motion.div
+                  animate={{ rotate: [0, 360] }}
+                  transition={{ duration: 5, repeat: Infinity, ease: 'linear' }}
+                  className="absolute inset-0"
+                  style={{ transform: 'rotateX(70deg) rotateZ(20deg)' }}
+                >
+                  <div
+                    className="absolute w-3 h-3 rounded-full bg-white shadow-lg"
+                    style={{
+                      top: '50%',
+                      left: '-6px',
+                      marginTop: '-6px',
+                      boxShadow: '0 0 10px rgba(255,255,255,0.9), 0 0 20px rgba(192,132,252,0.8)',
+                    }}
+                  />
+                </motion.div>
+              </motion.div>
+
+              {/* Orbit ring 2 — tilted ~-40deg */}
+              <motion.div
+                animate={{ rotateY: [360, 0] }}
+                transition={{ duration: 7, repeat: Infinity, ease: 'linear' }}
+                className="absolute inset-0"
+                style={{ transformStyle: 'preserve-3d' }}
+              >
+                <div
+                  className="absolute inset-0 rounded-full border-2 border-violet-300/50"
+                  style={{ transform: 'rotateX(70deg) rotateZ(-40deg)', boxShadow: '0 0 10px rgba(167,139,250,0.35)' }}
+                />
+                {/* Orbiting dot on ring 2 */}
+                <motion.div
+                  animate={{ rotate: [360, 0] }}
+                  transition={{ duration: 7, repeat: Infinity, ease: 'linear' }}
+                  className="absolute inset-0"
+                  style={{ transform: 'rotateX(70deg) rotateZ(-40deg)' }}
+                >
+                  <div
+                    className="absolute w-2.5 h-2.5 rounded-full bg-purple-200"
+                    style={{
+                      top: '-5px',
+                      left: '50%',
+                      marginLeft: '-5px',
+                      boxShadow: '0 0 8px rgba(192,132,252,0.9), 0 0 16px rgba(139,92,246,0.6)',
+                    }}
+                  />
+                </motion.div>
+              </motion.div>
+
+              {/* Orbit ring 3 — near-vertical */}
+              <motion.div
+                animate={{ rotateZ: [0, 360] }}
+                transition={{ duration: 9, repeat: Infinity, ease: 'linear' }}
+                className="absolute inset-0"
+                style={{ transformStyle: 'preserve-3d' }}
+              >
+                <div
+                  className="absolute inset-0 rounded-full border border-indigo-300/40"
+                  style={{ transform: 'rotateX(80deg) rotateY(60deg)', boxShadow: '0 0 8px rgba(129,140,248,0.3)' }}
+                />
+              </motion.div>
+
+              {/* Core 3D sphere */}
+              <motion.div
+                animate={{ scale: [1, 1.04, 1] }}
+                transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
+                className="absolute rounded-full"
+                style={{
+                  inset: '26px',
+                  background: [
+                    'radial-gradient(circle at 32% 28%, rgba(255,255,255,0.85) 0%, rgba(255,255,255,0) 22%)',
+                    'radial-gradient(circle at 70% 72%, rgba(46,16,101,0.7) 0%, rgba(46,16,101,0) 45%)',
+                    'radial-gradient(circle at 50% 50%, #c084fc 0%, #7c3aed 40%, #4c1d95 75%, #2e1065 100%)',
+                  ].join(', '),
+                  boxShadow: '0 0 40px rgba(139,92,246,0.7), 0 0 80px rgba(109,40,217,0.4), inset 0 0 20px rgba(46,16,101,0.5)',
+                }}
+              >
+                {/* AI label */}
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <span
+                    className="font-black text-white select-none"
+                    style={{ fontSize: '22px', textShadow: '0 0 12px rgba(255,255,255,0.8)', letterSpacing: '-0.5px' }}
+                  >
+                    AI
+                  </span>
+                </div>
+              </motion.div>
+
+              {/* Outer glow ring */}
+              <motion.div
+                animate={{ opacity: [0.4, 0.8, 0.4], scale: [1, 1.08, 1] }}
+                transition={{ duration: 2.5, repeat: Infinity, ease: 'easeInOut' }}
+                className="absolute inset-0 rounded-full pointer-events-none"
+                style={{ boxShadow: '0 0 50px rgba(139,92,246,0.5), 0 0 100px rgba(109,40,217,0.25)' }}
+              />
+            </motion.div>
+
+            {/* ── Text column ── */}
+            <motion.div
+              initial={{ opacity: 0, x: isRtl ? 50 : -50 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.7, delay: 0.2 }}
+              className={`flex-1 ${isRtl ? 'text-right' : 'text-left'}`}
+            >
+              <motion.h1
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.3 }}
+                className="text-2xl md:text-3xl lg:text-4xl font-bold text-white mb-3 leading-tight"
+              >
+                {isRtl ? 'מוכנים לקחת את ה-AI שלכם לשלב הבא?' : 'Ready to take your AI to the next level?'}
+              </motion.h1>
+
+              <motion.p
+                initial={{ opacity: 0, y: 15 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.45 }}
+                className="text-purple-200 text-base md:text-lg mb-7 leading-relaxed"
+              >
+                {isRtl
+                  ? 'קבעו פגישת ייעוץ עם מומחי ה-AI של ORTAM.'
+                  : 'Schedule a consultation with ORTAM AI experts.'}
+              </motion.p>
+
+              <motion.div
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.6 }}
+              >
+                <Link href="/contact">
+                  <motion.button
+                    whileHover={{ scale: 1.04, x: isRtl ? -4 : 4 }}
+                    whileTap={{ scale: 0.97 }}
+                    className={`inline-flex items-center gap-3 bg-white text-[#2d1b8e] font-bold px-7 py-3.5 rounded-xl text-base shadow-lg hover:shadow-purple-500/30 transition-shadow ${
+                      isRtl ? 'flex-row-reverse' : ''
+                    }`}
+                    style={{ boxShadow: '0 4px 24px rgba(139,92,246,0.25)' }}
+                  >
+                    <span>{isRtl ? 'קבעו פגישת ייעוץ' : 'Schedule a Consultation'}</span>
+                    <motion.span
+                      animate={{ x: isRtl ? [-3, 0, -3] : [0, 4, 0] }}
+                      transition={{ duration: 1.5, repeat: Infinity, ease: 'easeInOut' }}
+                    >
+                      <ArrowLeft className={`w-5 h-5 ${isRtl ? '' : 'rotate-180'}`} />
+                    </motion.span>
+                  </motion.button>
+                </Link>
+              </motion.div>
+            </motion.div>
+
+          </div>
         </div>
       </section>
 
