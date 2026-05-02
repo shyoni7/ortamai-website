@@ -57,3 +57,18 @@ export const cvSubmissions = mysqlTable("cv_submissions", {
 
 export type CvSubmission = typeof cvSubmissions.$inferSelect;
 export type InsertCvSubmission = typeof cvSubmissions.$inferInsert;
+
+// Incubator / Accelerator consultation form submissions
+export const incubatorSubmissions = mysqlTable("incubator_submissions", {
+  id: int("id").autoincrement().primaryKey(),
+  businessName: varchar("businessName", { length: 255 }).notNull(),
+  firstName: varchar("firstName", { length: 255 }).notNull(),
+  email: varchar("email", { length: 320 }).notNull(),
+  phone: varchar("phone", { length: 50 }).notNull(),
+  about: text("about"),
+  lang: varchar("lang", { length: 5 }).default("he"),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+});
+
+export type IncubatorSubmission = typeof incubatorSubmissions.$inferSelect;
+export type InsertIncubatorSubmission = typeof incubatorSubmissions.$inferInsert;

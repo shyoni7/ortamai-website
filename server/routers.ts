@@ -4,7 +4,7 @@ import { systemRouter } from "./_core/systemRouter";
 import { publicProcedure, router } from "./_core/trpc";
 import { z } from "zod";
 import { getDb } from "./db";
-import { contactSubmissions, cvSubmissions } from "../drizzle/schema";
+import { contactSubmissions, cvSubmissions, incubatorSubmissions } from "../drizzle/schema";
 import { notifyOwner } from "./_core/notification";
 import { storagePut } from "./storage";
 
@@ -72,6 +72,38 @@ export const appRouter = router({
         await notifyOwner({
           title: `📄 קורות חיים חדשים מ-${input.name}`,
           content: `שם: ${input.name}\nאימייל: ${input.email}\nטלפון: ${input.phone ?? "לא צוין"}\nתפקיד מבוקש: ${input.role ?? "לא צוין"}\nתחום: ${input.field ?? "לא צוין"}\n${cvUrl ? `קישור לקורות חיים: ${cvUrl}` : "לא צורף קובץ"}\n\nהודעה:\n${input.message ?? "ללא הודעה"}`,
+        });
+
+        return { success: true };
+      }),
+  }),
+
+  incubator: router({
+    submitConsultation: publicProcedure
+      .input(z.object({
+        businessName: z.string().min(1).max(255),
+        firstName: z.string().min(1).max(255),
+        email: z.string().email().max(320),
+        phone: z.string().min(1).max(50),
+        about: z.string().max(3000).optional(),
+        lang: z.enum(["he", "en"]).default("he"),
+      }))
+      .mutation(async ({ input }) => {
+        const db = await getDb();
+        if (!db) throw new Error("Database not available");
+
+        await db.insert(incubatorSubmissions).values({
+          businessName: input.businessName,
+          firstName: input.firstName,
+          email: input.email,
+          phone: input.phone,
+          about: input.about ?? null,
+          lang: input.lang,
+        });
+
+        await notifyOwner({
+          title: `🚀 בקשת ייעוץ חדשה מ-${input.firstName} (${input.businessName})`,
+          content: `שם פרטי: ${input.firstName}\nשם עסק: ${input.businessName}\nאימייל: ${input.email}\nטלפון: ${input.phone}\n\nעל העסק:\n${input.about ?? "לא צוין"}`,
         });
 
         return { success: true };

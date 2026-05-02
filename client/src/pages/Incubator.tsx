@@ -1,13 +1,14 @@
 import React from 'react';
 import { Link } from 'wouter';
 import { motion, useInView } from 'framer-motion';
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import {
   Target, Lightbulb, Users, RefreshCw,
   Code2, Zap, CheckCircle2, Rocket,
-  ArrowLeft
+  ArrowLeft, Send, CheckCheck
 } from 'lucide-react';
 import { useLanguage } from '@/contexts/LanguageContext';
+import { trpc } from '@/lib/trpc';
 
 // ─── Reusable animation variants ─────────────────────────────────────────────
 const fadeUp = {
@@ -603,27 +604,170 @@ export default function Incubator() {
         </div>
       </section>
 
-      {/* ── CTA ──────────────────────────────────────────────────────────── */}
-      <section className="py-24 bg-gradient-to-br from-purple-700 via-violet-700 to-indigo-700 relative overflow-hidden">
-        <div className="absolute inset-0 opacity-10" style={{ backgroundImage: 'radial-gradient(circle at 30% 50%, white 1px, transparent 1px)', backgroundSize: '40px 40px' }} />
-        <div className="max-w-3xl mx-auto px-4 text-center relative z-10">
-          <AnimatedSection>
-            <h2 className={`text-4xl font-bold text-white mb-4 ${isRtl ? 'text-right' : 'text-center'}`}>{c.cta_title}</h2>
-            <p className={`text-purple-100 text-lg mb-8 ${isRtl ? 'text-right' : 'text-center'}`}>{c.cta_sub}</p>
-            <Link href="/contact">
-              <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.97 }}
-                className="inline-flex items-center gap-2 font-bold px-10 py-4 rounded-xl text-lg bg-white text-purple-700 hover:bg-purple-50 transition-colors shadow-lg"
-              >
-                {isRtl ? <ArrowLeft className="w-5 h-5" /> : null}
-                {c.cta_btn}
-                {!isRtl ? <ArrowLeft className="w-5 h-5 rotate-180" /> : null}
-              </motion.button>
-            </Link>
-          </AnimatedSection>
-        </div>
-      </section>
+      {/* ── Consultation Form ─────────────────────────────────────────────── */}
+      <ConsultationForm isRtl={isRtl} />
     </div>
+  );
+}
+
+// ─── Consultation Form Component ─────────────────────────────────────────────
+function ConsultationForm({ isRtl }: { isRtl: boolean }) {
+  const [form, setForm] = useState({ businessName: '', firstName: '', email: '', phone: '', about: '' });
+  const [submitted, setSubmitted] = useState(false);
+  const [error, setError] = useState('');
+
+  const mutation = trpc.incubator.submitConsultation.useMutation({
+    onSuccess: () => setSubmitted(true),
+    onError: (e) => setError(isRtl ? 'אירעה שגיאה. נסה שוב.' : 'An error occurred. Please try again.'),
+  });
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    setError('');
+    if (!form.businessName || !form.firstName || !form.email || !form.phone) {
+      setError(isRtl ? 'אנא מלא את כל השדות הנדרשים.' : 'Please fill in all required fields.');
+      return;
+    }
+    mutation.mutate({ ...form, lang: isRtl ? 'he' : 'en' });
+  };
+
+  const labels = {
+    title: isRtl ? 'ספרו לנו קצת על החברה שלכם' : 'Tell us about your company',
+    sub: isRtl ? 'נחזור אליכם תוך 24 שעות לתיאום שיחת האיפיון' : 'We\'ll get back to you within 24 hours',
+    businessName: isRtl ? 'שם העסק' : 'Business Name',
+    firstName: isRtl ? 'שם פרטי' : 'First Name',
+    email: isRtl ? 'אימייל' : 'Email',
+    phone: isRtl ? 'טלפון' : 'Phone',
+    about: isRtl ? 'ספר לנו קצת על העסק שלך' : 'Tell us about your business',
+    aboutPlaceholder: isRtl ? 'מה העסק עושה? מה האתגרים שלכם? כיצד AI יכול לעזור?' : 'What does your business do? What are your challenges?',
+    cta: isRtl ? 'תאם שיחת איפיון' : 'Schedule a Discovery Call',
+    successTitle: isRtl ? 'תודה! קיבלנו את הפנייה שלכם' : 'Thank you! We received your request',
+    successSub: isRtl ? 'נחזור אליכם בהקדם לתיאום שיחת האיפיון.' : 'We\'ll be in touch shortly to schedule your discovery call.',
+  };
+
+  return (
+    <section className="py-24 bg-gradient-to-br from-purple-700 via-violet-700 to-indigo-700 relative overflow-hidden" dir={isRtl ? 'rtl' : 'ltr'}>
+      <div className="absolute inset-0 opacity-10" style={{ backgroundImage: 'radial-gradient(circle at 30% 50%, white 1px, transparent 1px)', backgroundSize: '40px 40px' }} />
+      {/* decorative blobs */}
+      <div className="absolute top-0 left-0 w-96 h-96 bg-purple-500/20 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2" />
+      <div className="absolute bottom-0 right-0 w-80 h-80 bg-indigo-500/20 rounded-full blur-3xl translate-x-1/3 translate-y-1/3" />
+
+      <div className="max-w-2xl mx-auto px-4 relative z-10">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+        >
+          <h2 className="text-3xl md:text-4xl font-bold text-white mb-3 text-center">{labels.title}</h2>
+          <p className="text-purple-200 text-center mb-10">{labels.sub}</p>
+
+          {submitted ? (
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              className="bg-white/10 backdrop-blur-sm rounded-2xl p-10 text-center border border-white/20"
+            >
+              <div className="w-16 h-16 bg-green-400/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                <CheckCheck className="w-8 h-8 text-green-300" />
+              </div>
+              <h3 className="text-2xl font-bold text-white mb-2">{labels.successTitle}</h3>
+              <p className="text-purple-200">{labels.successSub}</p>
+            </motion.div>
+          ) : (
+            <form onSubmit={handleSubmit} className="bg-white/10 backdrop-blur-sm rounded-2xl p-8 border border-white/20 space-y-5">
+              {/* Row: business name + first name */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-purple-100 text-sm font-medium mb-1.5">
+                    {labels.businessName} <span className="text-red-300">*</span>
+                  </label>
+                  <input
+                    type="text"
+                    value={form.businessName}
+                    onChange={e => setForm(f => ({ ...f, businessName: e.target.value }))}
+                    placeholder={isRtl ? 'שם החברה / העסק' : 'Company name'}
+                    className="w-full bg-white/10 border border-white/25 rounded-xl px-4 py-3 text-white placeholder-purple-300/60 focus:outline-none focus:border-white/60 focus:bg-white/15 transition"
+                  />
+                </div>
+                <div>
+                  <label className="block text-purple-100 text-sm font-medium mb-1.5">
+                    {labels.firstName} <span className="text-red-300">*</span>
+                  </label>
+                  <input
+                    type="text"
+                    value={form.firstName}
+                    onChange={e => setForm(f => ({ ...f, firstName: e.target.value }))}
+                    placeholder={isRtl ? 'שמך הפרטי' : 'Your first name'}
+                    className="w-full bg-white/10 border border-white/25 rounded-xl px-4 py-3 text-white placeholder-purple-300/60 focus:outline-none focus:border-white/60 focus:bg-white/15 transition"
+                  />
+                </div>
+              </div>
+
+              {/* Row: email + phone */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-purple-100 text-sm font-medium mb-1.5">
+                    {labels.email} <span className="text-red-300">*</span>
+                  </label>
+                  <input
+                    type="email"
+                    value={form.email}
+                    onChange={e => setForm(f => ({ ...f, email: e.target.value }))}
+                    placeholder="name@company.com"
+                    className="w-full bg-white/10 border border-white/25 rounded-xl px-4 py-3 text-white placeholder-purple-300/60 focus:outline-none focus:border-white/60 focus:bg-white/15 transition"
+                    dir="ltr"
+                  />
+                </div>
+                <div>
+                  <label className="block text-purple-100 text-sm font-medium mb-1.5">
+                    {labels.phone} <span className="text-red-300">*</span>
+                  </label>
+                  <input
+                    type="tel"
+                    value={form.phone}
+                    onChange={e => setForm(f => ({ ...f, phone: e.target.value }))}
+                    placeholder="05X-XXX-XXXX"
+                    className="w-full bg-white/10 border border-white/25 rounded-xl px-4 py-3 text-white placeholder-purple-300/60 focus:outline-none focus:border-white/60 focus:bg-white/15 transition"
+                    dir="ltr"
+                  />
+                </div>
+              </div>
+
+              {/* About textarea */}
+              <div>
+                <label className="block text-purple-100 text-sm font-medium mb-1.5">{labels.about}</label>
+                <textarea
+                  value={form.about}
+                  onChange={e => setForm(f => ({ ...f, about: e.target.value }))}
+                  placeholder={labels.aboutPlaceholder}
+                  rows={4}
+                  className="w-full bg-white/10 border border-white/25 rounded-xl px-4 py-3 text-white placeholder-purple-300/60 focus:outline-none focus:border-white/60 focus:bg-white/15 transition resize-none"
+                />
+              </div>
+
+              {/* Error */}
+              {error && <p className="text-red-300 text-sm">{error}</p>}
+
+              {/* Submit */}
+              <motion.button
+                type="submit"
+                disabled={mutation.isPending}
+                whileHover={{ scale: mutation.isPending ? 1 : 1.02 }}
+                whileTap={{ scale: mutation.isPending ? 1 : 0.98 }}
+                className="w-full flex items-center justify-center gap-2 bg-white text-purple-700 font-bold py-4 rounded-xl text-lg hover:bg-purple-50 transition-colors shadow-lg disabled:opacity-60 disabled:cursor-not-allowed"
+              >
+                {mutation.isPending ? (
+                  <span className="animate-spin w-5 h-5 border-2 border-purple-400 border-t-purple-700 rounded-full" />
+                ) : (
+                  <Send className="w-5 h-5" />
+                )}
+                {labels.cta}
+              </motion.button>
+            </form>
+          )}
+        </motion.div>
+      </div>
+    </section>
   );
 }
