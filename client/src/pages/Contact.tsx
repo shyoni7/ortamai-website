@@ -159,7 +159,7 @@ export default function Contact() {
                     </div>
                     <div>
                       <p className="text-gray-500 text-sm">{t.contact.email_label}</p>
-                      <a href="mailto:ortamai.il@gmail.com" className="text-gray-900 hover:text-purple-600 transition-colors">ortamai.il@gmail.com</a>
+                      <a href="mailto:info@ortamai.com" className="text-gray-900 hover:text-purple-600 transition-colors">info@ortamai.com</a>
                     </div>
                   </div>
                   <div className="flex items-center gap-4">

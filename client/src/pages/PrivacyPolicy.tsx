@@ -97,7 +97,7 @@ export default function PrivacyPolicy() {
                 body: (
                   <div className="space-y-1 text-gray-600">
                     <p>{isRtl ? 'לשאלות בנוגע למדיניות הפרטיות:' : 'For questions about this Privacy Policy:'}</p>
-                    <p className="mt-3"><a href="mailto:yoni.ortam@gmail.com" className="text-purple-600 hover:underline">yoni.ortam@gmail.com</a></p>
+                    <p className="mt-3"><a href="mailto:info@ortamai.com" className="text-purple-600 hover:underline">info@ortamai.com</a></p>
                     <p><a href="tel:052-338-1822" className="text-purple-600 hover:underline">052-338-1822</a></p>
                     <p>{isRtl ? "רח' אילת 26, תל אביב יפו" : "26 Eilat St., Tel Aviv-Jaffa"}</p>
                   </div>

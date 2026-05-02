@@ -34,7 +34,7 @@ export default function Footer() {
           <div>
             <h3 className="text-[#1B2A4A] font-semibold mb-4">{lang === 'he' ? 'צור קשר' : 'Contact'}</h3>
             <div className="space-y-2 text-sm text-gray-500">
-              <p>ortamai.il@gmail.com</p>
+              <p>info@ortamai.com</p>
               <a
                 href="https://wa.me/972523381822"
                 target="_blank"

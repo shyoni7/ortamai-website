@@ -34,7 +34,7 @@ export default function AccessibilityStatement() {
                 <h2 className="text-xl font-bold text-white">יצירת קשר בנושא נגישות</h2>
                 <p>אם נתקלתם בבעיית נגישות באתר, אנא צרו איתנו קשר:</p>
                 <ul className="list-disc list-inside space-y-2">
-                  <li>אימייל: ortamai.il@gmail.com</li>
+                  <li>אימייל: info@ortamai.com</li>
                   <li>טלפון: 052-338-1822</li>
                 </ul>
                 <p>נשתדל לטפל בפנייה בתוך 5 ימי עסקים.</p>
@@ -54,7 +54,7 @@ export default function AccessibilityStatement() {
                 <h2 className="text-xl font-bold text-white">Contact Us About Accessibility</h2>
                 <p>If you encounter an accessibility issue on the site, please contact us:</p>
                 <ul className="list-disc list-inside space-y-2">
-                  <li>Email: ortamai.il@gmail.com</li>
+                  <li>Email: info@ortamai.com</li>
                   <li>Phone: 052-338-1822</li>
                 </ul>
                 <p>We will try to handle your inquiry within 5 business days.</p>
