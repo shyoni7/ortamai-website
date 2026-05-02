@@ -399,7 +399,7 @@ export default function Academy() {
   return (
     <div dir={dir} className="min-h-screen">
       {/* Hero Section */}
-      <section className="relative py-32 overflow-hidden">
+      <section className="relative py-12 overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-[#0d1628] via-[#1B2A4A] to-[#0d1628]" />
         <div className="absolute inset-0 grid-pattern opacity-20" />
         <motion.div
@@ -416,7 +416,7 @@ export default function Academy() {
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="inline-flex mb-6">
             <div className="glass px-4 py-2 rounded-full">
               <span className="text-sm font-semibold text-orange-400">
-                {isRtl ? '📚 מרכז הכשרות AI' : '📚 AI Training Center'}
+                {isRtl ? 'מרכז הכשרות AI' : 'AI Training Center'}
               </span>
             </div>
           </motion.div>
@@ -424,7 +424,7 @@ export default function Academy() {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
-            className="text-5xl md:text-6xl font-bold text-gradient-cyan mb-6"
+            className="text-4xl md:text-5xl font-bold text-gradient-cyan mb-4"
           >
             {isRtl ? 'מסלולי ההכשרה שלנו' : 'Our Training Programs'}
           </motion.h1>
@@ -432,7 +432,7 @@ export default function Academy() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="text-xl text-gray-300 mb-8 max-w-3xl mx-auto"
+            className="text-lg text-gray-300 mb-6 max-w-3xl mx-auto"
           >
             {isRtl
               ? 'הכשרות מותאמות לכל מחלקה ותפקיד. בנינו תוכניות ייחודיות שמביאות תוצאות מדידות לארגון שלכם.'
