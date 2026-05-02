@@ -93,8 +93,11 @@ export default function Home() {
       {/* ── HERO ── Modern 3D redesign */}
       <section className="relative min-h-screen flex items-center justify-center overflow-hidden" style={{ background: 'linear-gradient(135deg, #f8f7ff 0%, #ffffff 40%, #f3f0ff 70%, #ede9fe 100%)' }}>
 
-        {/* Animated dot-grid background (uiverse.io by SelfMadeSystem, adapted to ORTAM AI purple palette) */}
-        <div className="hero-dot-bg" aria-hidden="true" />
+        {/* Animated dot-grid background */}
+        <div className="absolute inset-0" style={{
+          backgroundImage: 'radial-gradient(circle, #a855f720 1px, transparent 1px)',
+          backgroundSize: '32px 32px',
+        }} />
 
         {/* Large 3D rotating gradient orb — back layer */}
         <motion.div
