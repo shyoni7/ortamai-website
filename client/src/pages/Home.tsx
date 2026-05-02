@@ -37,10 +37,10 @@ export default function Home() {
   const ArrowIcon = isRtl ? ArrowLeft : ArrowRight;
 
   const stats = [
-    { value: '50+', label: t.stats.programs },
+    { value: '30+', label: t.stats.programs },
     { value: '98%', label: t.stats.satisfaction },
-    { value: '1000+', label: t.stats.graduates },
-    { value: '20+', label: t.stats.partners },
+    { value: '300+', label: t.stats.graduates },
+    { value: '10+', label: t.stats.partners },
   ];
 
   const pillars = [
