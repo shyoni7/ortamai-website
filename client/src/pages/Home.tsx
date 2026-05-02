@@ -125,51 +125,7 @@ export default function Home() {
           className="absolute bottom-1/3 left-1/3 w-72 h-72 bg-violet-300/20 rounded-full blur-3xl"
         />
 
-        {/* Floating 3D glass cards — decorative */}
-        <motion.div
-          animate={{ y: [0, -14, 0], rotate: [0, 3, 0] }}
-          transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut' }}
-          className="absolute top-28 right-8 lg:right-24 hidden md:flex items-center gap-3 px-4 py-3 rounded-2xl border border-purple-200/60 backdrop-blur-md shadow-xl"
-          style={{ background: 'rgba(255,255,255,0.7)', zIndex: 5 }}
-        >
-          <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-purple-500 to-violet-600 flex items-center justify-center shadow-lg">
-            <Brain className="w-5 h-5 text-white" />
-          </div>
-          <div>
-            <div className="text-xs font-bold text-gray-800">{isRtl ? 'AI חכם' : 'Smart AI'}</div>
-            <div className="text-xs text-gray-400">{isRtl ? 'פתרונות מתקדמים' : 'Advanced Solutions'}</div>
-          </div>
-        </motion.div>
 
-        <motion.div
-          animate={{ y: [0, 12, 0], rotate: [0, -2, 0] }}
-          transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut', delay: 1.5 }}
-          className="absolute bottom-32 right-8 lg:right-32 hidden md:flex items-center gap-3 px-4 py-3 rounded-2xl border border-violet-200/60 backdrop-blur-md shadow-xl"
-          style={{ background: 'rgba(255,255,255,0.75)', zIndex: 5 }}
-        >
-          <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-violet-500 to-purple-700 flex items-center justify-center shadow-lg">
-            <Rocket className="w-5 h-5 text-white" />
-          </div>
-          <div>
-            <div className="text-xs font-bold text-gray-800">{isRtl ? 'אקסלרטור' : 'Accelerator'}</div>
-            <div className="text-xs text-gray-400">{isRtl ? 'צמיחה מהירה' : 'Fast Growth'}</div>
-          </div>
-        </motion.div>
-
-        <motion.div
-          animate={{ y: [0, -10, 0], x: [0, 8, 0] }}
-          transition={{ duration: 7, repeat: Infinity, ease: 'easeInOut', delay: 0.8 }}
-          className="absolute top-40 left-6 lg:left-20 hidden lg:flex items-center gap-3 px-4 py-3 rounded-2xl border border-purple-200/50 backdrop-blur-md shadow-xl"
-          style={{ background: 'rgba(255,255,255,0.72)', zIndex: 5 }}
-        >
-          <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-purple-400 to-violet-500 flex items-center justify-center shadow-lg">
-            <Cpu className="w-5 h-5 text-white" />
-          </div>
-          <div>
-            <div className="text-xs font-bold text-gray-800">{isRtl ? 'הכשרות AI' : 'AI Training'}</div>
-            <div className="text-xs text-gray-400">300+ {isRtl ? 'בוגרים' : 'Graduates'}</div>
-          </div>
-        </motion.div>
 
         {/* ── Main content ── */}
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
@@ -242,12 +198,43 @@ export default function Home() {
 
             {/* ── Right/Left: 3D video card ── */}
             <motion.div
-              initial={{ opacity: 0, y: 40, rotateY: isRtl ? 8 : -8 }}
-              animate={{ opacity: 1, y: 0, rotateY: 0 }}
+              initial={{ opacity: 0, y: 40 }}
+              animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1.2, delay: 0.4, type: 'spring', stiffness: 60 }}
-              className="relative order-2"
-              style={{ perspective: '1000px' }}
+              className="relative order-2 pt-8 pb-8 px-6"
             >
+              {/* Floating badge — top right of video column */}
+              <motion.div
+                animate={{ y: [0, -8, 0], rotate: [0, 2, 0] }}
+                transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut' }}
+                className="absolute -top-5 -right-4 z-20 hidden md:flex items-center gap-2 px-3 py-2 rounded-xl border border-purple-200/70 backdrop-blur-md shadow-lg"
+                style={{ background: 'rgba(255,255,255,0.88)' }}
+              >
+                <div className="w-7 h-7 rounded-lg bg-gradient-to-br from-purple-500 to-violet-600 flex items-center justify-center">
+                  <Brain className="w-4 h-4 text-white" />
+                </div>
+                <div>
+                  <div className="text-xs font-bold text-gray-800 leading-none">{isRtl ? 'AI חכם' : 'Smart AI'}</div>
+                  <div className="text-xs text-gray-400 leading-none mt-0.5">{isRtl ? 'פתרונות מתקדמים' : 'Advanced'}</div>
+                </div>
+              </motion.div>
+
+              {/* Floating badge — bottom left of video column */}
+              <motion.div
+                animate={{ y: [0, 8, 0], rotate: [0, -1.5, 0] }}
+                transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut', delay: 1.5 }}
+                className="absolute -bottom-5 -left-4 z-20 hidden md:flex items-center gap-2 px-3 py-2 rounded-xl border border-violet-200/70 backdrop-blur-md shadow-lg"
+                style={{ background: 'rgba(255,255,255,0.88)' }}
+              >
+                <div className="w-7 h-7 rounded-lg bg-gradient-to-br from-violet-500 to-purple-700 flex items-center justify-center">
+                  <Rocket className="w-4 h-4 text-white" />
+                </div>
+                <div>
+                  <div className="text-xs font-bold text-gray-800 leading-none">{isRtl ? 'אקסלרטור' : 'Accelerator'}</div>
+                  <div className="text-xs text-gray-400 leading-none mt-0.5">{isRtl ? 'צמיחה מהירה' : 'Fast Growth'}</div>
+                </div>
+              </motion.div>
+
               {/* Glow ring behind card */}
               <div className="absolute inset-0 rounded-3xl" style={{ background: 'radial-gradient(ellipse at center, #a855f730 0%, transparent 70%)', transform: 'scale(1.1)', zIndex: 0 }} />
 
