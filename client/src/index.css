@@ -42,45 +42,48 @@
   --color-sidebar-ring: var(--sidebar-ring);
 }
 
-/* ORTAM AI Brand Colors:
-   Navy:   #1B2A4A  → oklch(0.25 0.07 240)
-   Orange: #F5A623  → oklch(0.76 0.17 55)
+/* ORTAM AI Brand Colors (v2 Purple Palette):
+   Purple Light: #A855F7  → oklch(0.62 0.27 293)
+   Purple Dark:  #7C3AED  → oklch(0.50 0.26 293)
+   Background:   #0F172A  → oklch(0.13 0.04 264)
+   Gray:         #9CA3AF  → oklch(0.65 0.01 264)
+   White:        #F5F5F5
 */
 
 :root {
   --radius: 0.625rem;
-  /* ORTAM AI Dark Navy Theme */
-  --background:         oklch(0.10 0.04 240);   /* very dark navy */
-  --foreground:         oklch(0.95 0.01 240);
-  --card:               oklch(0.14 0.05 240);   /* dark navy card */
-  --card-foreground:    oklch(0.95 0.01 240);
-  --popover:            oklch(0.13 0.04 240);
-  --popover-foreground: oklch(0.95 0.01 240);
-  --primary:            oklch(0.76 0.17 55);    /* ORTAM orange */
-  --primary-foreground: oklch(0.10 0.04 240);
-  --secondary:          oklch(0.25 0.07 240);   /* ORTAM navy */
-  --secondary-foreground: oklch(0.95 0.01 240);
-  --muted:              oklch(0.18 0.04 240);
-  --muted-foreground:   oklch(0.60 0.03 240);
-  --accent:             oklch(0.76 0.17 55);    /* orange accent */
-  --accent-foreground:  oklch(0.10 0.04 240);
+  /* ORTAM AI Purple Dark Theme */
+  --background:         oklch(0.13 0.04 264);   /* #0F172A deep dark */
+  --foreground:         oklch(0.96 0.005 264);  /* near-white */
+  --card:               oklch(0.17 0.05 264);   /* slightly lighter dark */
+  --card-foreground:    oklch(0.96 0.005 264);
+  --popover:            oklch(0.16 0.04 264);
+  --popover-foreground: oklch(0.96 0.005 264);
+  --primary:            oklch(0.62 0.27 293);   /* #A855F7 purple */
+  --primary-foreground: oklch(0.98 0.005 264);  /* white text on purple */
+  --secondary:          oklch(0.50 0.26 293);   /* #7C3AED dark purple */
+  --secondary-foreground: oklch(0.98 0.005 264);
+  --muted:              oklch(0.20 0.04 264);
+  --muted-foreground:   oklch(0.65 0.01 264);   /* #9CA3AF gray */
+  --accent:             oklch(0.62 0.27 293);   /* purple accent */
+  --accent-foreground:  oklch(0.98 0.005 264);
   --destructive:        oklch(0.65 0.22 25);
-  --border:             oklch(0.25 0.05 240);
-  --input:              oklch(0.16 0.04 240);
-  --ring:               oklch(0.76 0.17 55);
-  --chart-1:            oklch(0.76 0.17 55);    /* orange */
-  --chart-2:            oklch(0.25 0.07 240);   /* navy */
+  --border:             oklch(0.25 0.06 264);
+  --input:              oklch(0.19 0.04 264);
+  --ring:               oklch(0.62 0.27 293);
+  --chart-1:            oklch(0.62 0.27 293);   /* purple */
+  --chart-2:            oklch(0.50 0.26 293);   /* dark purple */
   --chart-3:            oklch(0.70 0.15 160);
-  --chart-4:            oklch(0.72 0.17 55);
+  --chart-4:            oklch(0.72 0.20 293);
   --chart-5:            oklch(0.68 0.18 330);
-  --sidebar:            oklch(0.11 0.04 240);
-  --sidebar-foreground: oklch(0.95 0.01 240);
-  --sidebar-primary:    oklch(0.76 0.17 55);
-  --sidebar-primary-foreground: oklch(0.10 0.04 240);
-  --sidebar-accent:     oklch(0.16 0.04 240);
-  --sidebar-accent-foreground: oklch(0.95 0.01 240);
-  --sidebar-border:     oklch(0.25 0.05 240);
-  --sidebar-ring:       oklch(0.76 0.17 55);
+  --sidebar:            oklch(0.14 0.04 264);
+  --sidebar-foreground: oklch(0.96 0.005 264);
+  --sidebar-primary:    oklch(0.62 0.27 293);
+  --sidebar-primary-foreground: oklch(0.98 0.005 264);
+  --sidebar-accent:     oklch(0.19 0.04 264);
+  --sidebar-accent-foreground: oklch(0.96 0.005 264);
+  --sidebar-border:     oklch(0.25 0.06 264);
+  --sidebar-ring:       oklch(0.62 0.27 293);
 }
 
 @layer base {
@@ -101,9 +104,9 @@
 
 /* ── Incubator CTA glow button ── */
 .incubator-cta-btn {
-  color: rgba(245, 166, 35, 0.75);
+  color: rgba(168, 85, 247, 0.85);
   background: transparent;
-  border: 1px solid rgba(245, 166, 35, 0.6);
+  border: 1px solid rgba(168, 85, 247, 0.6);
   box-shadow: transparent;
   text-shadow: none;
   cursor: pointer;
@@ -113,53 +116,53 @@
 .incubator-cta-btn:hover,
 .incubator-cta-btn:focus {
   color: #ffffff;
-  background: #F5A623;
-  border: 1px solid #F5A623;
+  background: #A855F7;
+  border: 1px solid #A855F7;
   text-shadow: 0 0 5px #ffffff, 0 0 10px #ffffff, 0 0 20px #ffffff;
   box-shadow:
-    0 0 5px #F5A623,
-    0 0 20px #F5A623,
-    0 0 50px #F5A623,
-    0 0 100px rgba(245, 166, 35, 0.5);
+    0 0 5px #A855F7,
+    0 0 20px #A855F7,
+    0 0 50px #A855F7,
+    0 0 100px rgba(168, 85, 247, 0.5);
 }
 
 /* Custom utility classes */
 @layer utilities {
   .glass {
-    background: oklch(0.16 0.05 240 / 0.6);
+    background: oklch(0.17 0.05 264 / 0.6);
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
-    border: 1px solid oklch(0.76 0.17 55 / 0.15);
+    border: 1px solid oklch(0.62 0.27 293 / 0.15);
   }
 
   .glass-strong {
-    background: oklch(0.14 0.05 240 / 0.88);
+    background: oklch(0.16 0.05 264 / 0.88);
     backdrop-filter: blur(24px);
     -webkit-backdrop-filter: blur(24px);
-    border: 1px solid oklch(0.76 0.17 55 / 0.25);
+    border: 1px solid oklch(0.62 0.27 293 / 0.25);
   }
 
-  /* Orange glow — primary brand accent */
+  /* Purple glow — primary brand accent */
   .glow-cyan {
-    box-shadow: 0 0 20px oklch(0.76 0.17 55 / 0.35), 0 0 60px oklch(0.76 0.17 55 / 0.12);
+    box-shadow: 0 0 20px oklch(0.62 0.27 293 / 0.35), 0 0 60px oklch(0.62 0.27 293 / 0.12);
   }
 
-  /* Navy glow — secondary brand accent */
+  /* Dark purple glow — secondary brand accent */
   .glow-purple {
-    box-shadow: 0 0 20px oklch(0.35 0.09 240 / 0.5), 0 0 60px oklch(0.25 0.07 240 / 0.2);
+    box-shadow: 0 0 20px oklch(0.50 0.26 293 / 0.5), 0 0 60px oklch(0.50 0.26 293 / 0.2);
   }
 
-  /* Orange gradient text */
+  /* Purple gradient text */
   .text-gradient-cyan {
-    background: linear-gradient(135deg, oklch(0.88 0.18 55), oklch(0.65 0.15 40));
+    background: linear-gradient(135deg, oklch(0.75 0.27 293), oklch(0.55 0.25 293));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
   }
 
-  /* Navy-to-orange gradient text */
+  /* Purple-to-light gradient text */
   .text-gradient-purple {
-    background: linear-gradient(135deg, oklch(0.76 0.17 55), oklch(0.45 0.10 240));
+    background: linear-gradient(135deg, oklch(0.62 0.27 293), oklch(0.80 0.20 293));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -167,33 +170,33 @@
 
   .grid-pattern {
     background-image: 
-      linear-gradient(oklch(0.76 0.17 55 / 0.04) 1px, transparent 1px),
-      linear-gradient(90deg, oklch(0.76 0.17 55 / 0.04) 1px, transparent 1px);
+      linear-gradient(oklch(0.62 0.27 293 / 0.05) 1px, transparent 1px),
+      linear-gradient(90deg, oklch(0.62 0.27 293 / 0.05) 1px, transparent 1px);
     background-size: 50px 50px;
   }
 
   .btn-primary {
     @apply relative overflow-hidden px-8 py-4 rounded-xl font-semibold text-base transition-all duration-300;
-    background: linear-gradient(135deg, oklch(0.80 0.18 55), oklch(0.68 0.16 45));
-    color: oklch(0.10 0.04 240);
-    box-shadow: 0 0 20px oklch(0.76 0.17 55 / 0.4);
+    background: linear-gradient(135deg, oklch(0.62 0.27 293), oklch(0.50 0.26 293));
+    color: oklch(0.98 0.005 264);
+    box-shadow: 0 0 20px oklch(0.62 0.27 293 / 0.4);
   }
 
   .btn-primary:hover {
     transform: translateY(-2px);
-    box-shadow: 0 0 30px oklch(0.76 0.17 55 / 0.65);
+    box-shadow: 0 0 30px oklch(0.62 0.27 293 / 0.65);
   }
 
   .btn-secondary {
     @apply relative overflow-hidden px-8 py-4 rounded-xl font-semibold text-base transition-all duration-300;
-    border: 1px solid oklch(0.76 0.17 55 / 0.5);
-    color: oklch(0.76 0.17 55);
+    border: 1px solid oklch(0.62 0.27 293 / 0.5);
+    color: oklch(0.62 0.27 293);
     background: transparent;
   }
 
   .btn-secondary:hover {
-    background: oklch(0.76 0.17 55 / 0.1);
-    border-color: oklch(0.76 0.17 55);
+    background: oklch(0.62 0.27 293 / 0.1);
+    border-color: oklch(0.62 0.27 293);
     transform: translateY(-2px);
   }
 
@@ -208,8 +211,8 @@
 
   .card-hover:hover {
     transform: translateY(-6px);
-    border-color: oklch(0.76 0.17 55 / 0.5);
-    box-shadow: 0 20px 40px oklch(0 0 0 / 0.3), 0 0 20px oklch(0.76 0.17 55 / 0.12);
+    border-color: oklch(0.62 0.27 293 / 0.5);
+    box-shadow: 0 20px 40px oklch(0 0 0 / 0.3), 0 0 20px oklch(0.62 0.27 293 / 0.12);
   }
 }
 

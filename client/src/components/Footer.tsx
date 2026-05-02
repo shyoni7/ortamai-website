@@ -26,7 +26,7 @@ export default function Footer() {
                 { href: '/contact', label: t.nav.contact },
               ].map(link => (
                 <Link key={link.href} href={link.href}>
-                  <span className="block text-gray-500 hover:text-orange-500 text-sm transition-colors cursor-pointer">{link.label}</span>
+                  <span className="block text-gray-500 hover:text-purple-500 text-sm transition-colors cursor-pointer">{link.label}</span>
                 </Link>
               ))}
             </div>
@@ -39,7 +39,7 @@ export default function Footer() {
                 href="https://wa.me/972523381822"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="block hover:text-orange-500 transition-colors"
+                className="block hover:text-purple-500 transition-colors"
               >
                 WhatsApp: 052-338-1822
               </a>
@@ -50,10 +50,10 @@ export default function Footer() {
           <p>© {year} ORTAM AI. {t.footer.rights}</p>
           <div className="flex gap-4">
             <Link href="/accessibility">
-              <span className="hover:text-orange-500 transition-colors cursor-pointer">{t.footer.accessibility}</span>
+              <span className="hover:text-purple-500 transition-colors cursor-pointer">{t.footer.accessibility}</span>
             </Link>
             <Link href="/privacy">
-              <span className="hover:text-orange-500 transition-colors cursor-pointer">{lang === 'he' ? 'מדיניות פרטיות' : 'Privacy Policy'}</span>
+              <span className="hover:text-purple-500 transition-colors cursor-pointer">{lang === 'he' ? 'מדיניות פרטיות' : 'Privacy Policy'}</span>
             </Link>
           </div>
         </div>

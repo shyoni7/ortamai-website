@@ -49,8 +49,8 @@ export default function Home() {
       title: isRtl ? 'אקסלרטור ליזמים ועסקים' : 'Business Accelerator',
       desc: isRtl ? 'בנו את העסק שלכם עם AI ותקדמו מהר יותר מאי פעם. ליווי אישי, כלים מתקדמים וקהילה תומכת.' : 'Build your business with AI and grow faster than ever. Personal guidance, advanced tools, and a supportive community.',
       href: '/incubator',
-      color: 'from-orange-500 to-blue-600',
-      cubeColor: '#F5A623',
+      color: 'from-purple-500 to-violet-600',
+      cubeColor: '#A855F7',
       holoLines: isRtl ? ['יזמות AI', 'ליווי אישי'] : ['AI Ventures', 'Personal Guidance'],
     },
     {
@@ -58,8 +58,8 @@ export default function Home() {
       title: isRtl ? 'מרכז הכשרות' : 'Training Center',
       desc: isRtl ? 'קורסים מתקדמים בעולם ה-AI מהמומחים שלנו. הכשרות ייעודיות לארגונים, עסקים ואנשים פרטיים.' : 'Advanced AI courses from our experts. Dedicated training for organizations, businesses, and individuals.',
       href: '/academy',
-      color: 'from-blue-900 to-pink-600',
-      cubeColor: '#38bdf8',
+      color: 'from-violet-700 to-purple-400',
+      cubeColor: '#7C3AED',
       holoLines: isRtl ? ['קורסי AI', 'הכשרות ייעודיות'] : ['AI Courses', 'Expert Training'],
     },
     {
@@ -67,8 +67,8 @@ export default function Home() {
       title: isRtl ? 'מרכז השמה' : 'Placement Center',
       desc: isRtl ? 'גישור בין מועמדים מוכשרים לארגונים מובילים. אנחנו מחברים בין כישרון לבין הזדמנות.' : 'Bridging talented candidates with leading organizations. We connect talent with opportunity.',
       href: '/placement',
-      color: 'from-emerald-500 to-teal-600',
-      cubeColor: '#34d399',
+      color: 'from-purple-400 to-violet-500',
+      cubeColor: '#C084FC',
       holoLines: isRtl ? ['השמה מקצועית', 'כישרון + הזדמנות'] : ['Professional Placement', 'Talent + Opportunity'],
     },
   ];
@@ -99,12 +99,12 @@ export default function Home() {
         <motion.div
           animate={{ x: [0, 60, 0], y: [0, 40, 0] }}
           transition={{ duration: 10, repeat: Infinity, ease: 'easeInOut' }}
-          className="absolute top-1/4 right-1/4 w-96 h-96 bg-orange-500/15 rounded-full blur-3xl"
+          className="absolute top-1/4 right-1/4 w-96 h-96 bg-purple-500/15 rounded-full blur-3xl"
         />
         <motion.div
           animate={{ x: [0, -60, 0], y: [0, -40, 0] }}
           transition={{ duration: 12, repeat: Infinity, ease: 'easeInOut', delay: 2 }}
-          className="absolute bottom-1/4 left-1/4 w-96 h-96 bg-blue-900/15 rounded-full blur-3xl"
+          className="absolute bottom-1/4 left-1/4 w-96 h-96 bg-violet-900/15 rounded-full blur-3xl"
         />
 
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
@@ -118,7 +118,7 @@ export default function Home() {
             >
               <motion.div variants={fadeUp} className="inline-flex items-center gap-2 mb-6">
                 <div className="glass px-4 py-2 rounded-full">
-                  <span className="text-sm font-semibold text-orange-400">
+                  <span className="text-sm font-semibold text-purple-400">
                     {isRtl ? '🚀 מרכז פיתוח AI מוביל בישראל' : '🚀 Israel\'s Leading AI Development Center'}
                   </span>
                 </div>
@@ -171,8 +171,8 @@ export default function Home() {
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#0d1628]/40 to-transparent pointer-events-none" />
                 {/* Decorative corner accents */}
-                <div className="absolute top-0 left-0 w-16 h-16 border-t-2 border-l-2 border-orange-400/40 rounded-tl-2xl" />
-                <div className="absolute bottom-0 right-0 w-16 h-16 border-b-2 border-r-2 border-blue-900/30 rounded-br-2xl" />
+                <div className="absolute top-0 left-0 w-16 h-16 border-t-2 border-l-2 border-purple-400/40 rounded-tl-2xl" />
+                <div className="absolute bottom-0 right-0 w-16 h-16 border-b-2 border-r-2 border-violet-900/30 rounded-br-2xl" />
               </div>
             </motion.div>
           </div>
@@ -181,7 +181,7 @@ export default function Home() {
 
       {/* Stats Section */}
       <section className="py-16 relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-r from-orange-500/5 via-blue-900/30 to-orange-500/5" />
+        <div className="absolute inset-0 bg-gradient-to-r from-purple-500/5 via-violet-900/30 to-purple-500/5" />
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             variants={stagger}
@@ -226,7 +226,7 @@ export default function Home() {
                 key={i}
                 variants={fadeUp}
                 whileHover={{ y: -8, transition: { duration: 0.2 } }}
-                className="glass rounded-2xl p-6 hover:border-orange-400/40 transition-all duration-300 group cursor-pointer overflow-hidden"
+                className="glass rounded-2xl p-6 hover:border-purple-400/40 transition-all duration-300 group cursor-pointer overflow-hidden"
               >
                 <Link href={pillar.href}>
                   <div className="flex flex-col items-center text-center">
@@ -237,9 +237,9 @@ export default function Home() {
                       lines={pillar.holoLines}
                     />
                     {/* Card text */}
-                    <h3 className="text-xl font-bold text-white mt-4 mb-3 group-hover:text-orange-400 transition-colors">{pillar.title}</h3>
+                    <h3 className="text-xl font-bold text-white mt-4 mb-3 group-hover:text-purple-400 transition-colors">{pillar.title}</h3>
                     <p className="text-gray-400 leading-relaxed text-sm">{pillar.desc}</p>
-                    <div className="mt-5 flex items-center gap-2 text-orange-400 text-sm font-medium">
+                    <div className="mt-5 flex items-center gap-2 text-purple-400 text-sm font-medium">
                       <span>{isRtl ? 'קרא עוד' : 'Learn more'}</span>
                       <ArrowIcon size={14} />
                     </div>
@@ -253,7 +253,7 @@ export default function Home() {
 
       {/* Why Us Section */}
       <section className="py-24 relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-blue-900/30 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-violet-900/30 to-transparent" />
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             <motion.div
@@ -286,8 +286,8 @@ export default function Home() {
                   const Icon = item.icon;
                   return (
                     <motion.div key={i} variants={fadeUp} className="flex items-start gap-4">
-                      <div className="flex-shrink-0 p-2 rounded-lg bg-orange-400/10">
-                        <Icon className="w-5 h-5 text-orange-400" />
+                      <div className="flex-shrink-0 p-2 rounded-lg bg-purple-400/10">
+                        <Icon className="w-5 h-5 text-purple-400" />
                       </div>
                       <div>
                         <h4 className="text-white font-semibold mb-1">{item.title}</h4>
@@ -325,10 +325,10 @@ export default function Home() {
             {steps.map((step, i) => (
               <motion.div key={i} variants={fadeUp} className="relative text-center">
                 {i < steps.length - 1 && (
-                  <div className="hidden lg:block absolute top-8 left-full w-full h-px bg-gradient-to-r from-orange-400/50 to-transparent z-0" />
+                  <div className="hidden lg:block absolute top-8 left-full w-full h-px bg-gradient-to-r from-purple-400/50 to-transparent z-0" />
                 )}
                 <div className="relative z-10">
-                  <div className="w-16 h-16 rounded-full glass border border-orange-400/30 flex items-center justify-center mx-auto mb-4">
+                  <div className="w-16 h-16 rounded-full glass border border-purple-400/30 flex items-center justify-center mx-auto mb-4">
                     <span className="text-2xl font-bold text-gradient-cyan">{step.num}</span>
                   </div>
                   <h4 className="text-white font-bold mb-2">{step.title}</h4>
@@ -364,7 +364,7 @@ export default function Home() {
               <motion.div
                 key={i}
                 variants={fadeUp}
-                className="glass rounded-xl p-4 flex items-center justify-center h-20 hover:border-orange-400/30 transition-all"
+                className="glass rounded-xl p-4 flex items-center justify-center h-20 hover:border-purple-400/30 transition-all"
               >
                 <img
                   src={partner.url}
@@ -379,7 +379,7 @@ export default function Home() {
 
       {/* CTA Section */}
       <section className="py-24 relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-r from-orange-500/10 via-blue-900/30 to-orange-500/10" />
+        <div className="absolute inset-0 bg-gradient-to-r from-purple-500/10 via-violet-900/30 to-purple-500/10" />
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
