@@ -27,6 +27,7 @@ function Router() {
         <Route path="/contact" component={Contact} />
         <Route path="/accessibility" component={AccessibilityStatement} />
         <Route path="/privacy" component={PrivacyPolicy} />
+        <Route path="/privacy-policy" component={PrivacyPolicy} />
         <Route component={NotFound} />
       </Switch>
     </Layout>

@@ -12,6 +12,7 @@ export default function Contact() {
   const isRtl = lang === 'he';
 
   const [form, setForm] = useState({ name: '', email: '', phone: '', company: '', message: '' });
+  const [privacyConsent, setPrivacyConsent] = useState(false);
 
   const submitContact = trpc.contact.submit.useMutation({
     onSuccess: () => {
@@ -27,6 +28,10 @@ export default function Contact() {
     e.preventDefault();
     if (!form.name || !form.email || !form.message) {
       toast.error(isRtl ? 'אנא מלא את כל השדות הנדרשים' : 'Please fill all required fields');
+      return;
+    }
+    if (!privacyConsent) {
+      toast.error(isRtl ? 'יש לאשר את מדיניות הפרטיות' : 'Please accept the privacy policy');
       return;
     }
     submitContact.mutate({ ...form, lang });
@@ -109,9 +114,26 @@ export default function Contact() {
                     placeholder={isRtl ? 'ספר לנו כיצד נוכל לעזור...' : 'Tell us how we can help...'}
                   />
                 </div>
+                {/* Privacy consent */}
+                <div className="flex items-start gap-3" dir={isRtl ? 'rtl' : 'ltr'}>
+                  <input
+                    type="checkbox"
+                    id="contact-privacy"
+                    checked={privacyConsent}
+                    onChange={e => setPrivacyConsent(e.target.checked)}
+                    className="mt-1 w-4 h-4 accent-purple-600 cursor-pointer flex-shrink-0"
+                  />
+                  <label htmlFor="contact-privacy" className="text-sm text-gray-600 cursor-pointer leading-relaxed">
+                    {isRtl ? (
+                      <>אני מאשר/ת את <a href="/privacy-policy" className="text-purple-600 underline hover:text-purple-800" target="_blank" rel="noopener noreferrer">מדיניות הפרטיות</a> ומסכים/ה שהמידע שאני מספק/ת ישמר בהתאם לדרישות החוק</>
+                    ) : (
+                      <>I accept the <a href="/privacy-policy" className="text-purple-600 underline hover:text-purple-800" target="_blank" rel="noopener noreferrer">Privacy Policy</a> and agree that my information will be stored in accordance with legal requirements</>
+                    )}
+                  </label>
+                </div>
                 <motion.button
                   type="submit"
-                  disabled={submitContact.isPending}
+                  disabled={submitContact.isPending || !privacyConsent}
                   className="w-full btn-primary py-4 flex items-center justify-center gap-2 disabled:opacity-50"
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}

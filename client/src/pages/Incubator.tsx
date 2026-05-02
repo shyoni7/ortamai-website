@@ -615,6 +615,7 @@ function ConsultationForm({ isRtl }: { isRtl: boolean }) {
   const [form, setForm] = useState({ businessName: '', firstName: '', email: '', phone: '', about: '' });
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState('');
+  const [privacyConsent, setPrivacyConsent] = useState(false);
 
   const mutation = trpc.incubator.submitConsultation.useMutation({
     onSuccess: () => setSubmitted(true),
@@ -626,6 +627,10 @@ function ConsultationForm({ isRtl }: { isRtl: boolean }) {
     setError('');
     if (!form.businessName || !form.firstName || !form.email || !form.phone) {
       setError(isRtl ? 'אנא מלא את כל השדות הנדרשים.' : 'Please fill in all required fields.');
+      return;
+    }
+    if (!privacyConsent) {
+      setError(isRtl ? 'יש לאשר את מדיניות הפרטיות.' : 'Please accept the privacy policy.');
       return;
     }
     mutation.mutate({ ...form, lang: isRtl ? 'he' : 'en' });
@@ -746,13 +751,31 @@ function ConsultationForm({ isRtl }: { isRtl: boolean }) {
                 />
               </div>
 
+              {/* Privacy consent */}
+              <div className="flex items-start gap-3">
+                <input
+                  type="checkbox"
+                  id="incubator-privacy"
+                  checked={privacyConsent}
+                  onChange={e => setPrivacyConsent(e.target.checked)}
+                  className="mt-1 w-4 h-4 accent-white cursor-pointer flex-shrink-0"
+                />
+                <label htmlFor="incubator-privacy" className="text-sm text-purple-200 cursor-pointer leading-relaxed">
+                  {isRtl ? (
+                    <>אני מאשר/ת את{' '}<a href="/privacy-policy" className="text-white underline hover:text-purple-100" target="_blank" rel="noopener noreferrer">מדיניות הפרטיות</a>{' '}ומסכים/ה שהמידע שאני מספק/ת ישמר בהתאם לדרישות החוק</>
+                  ) : (
+                    <>I accept the{' '}<a href="/privacy-policy" className="text-white underline hover:text-purple-100" target="_blank" rel="noopener noreferrer">Privacy Policy</a>{' '}and agree that my information will be stored in accordance with legal requirements</>
+                  )}
+                </label>
+              </div>
+
               {/* Error */}
               {error && <p className="text-red-300 text-sm">{error}</p>}
 
               {/* Submit */}
               <motion.button
                 type="submit"
-                disabled={mutation.isPending}
+                disabled={mutation.isPending || !privacyConsent}
                 whileHover={{ scale: mutation.isPending ? 1 : 1.02 }}
                 whileTap={{ scale: mutation.isPending ? 1 : 0.98 }}
                 className="w-full flex items-center justify-center gap-2 bg-white text-purple-700 font-bold py-4 rounded-xl text-lg hover:bg-purple-50 transition-colors shadow-lg disabled:opacity-60 disabled:cursor-not-allowed"

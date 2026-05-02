@@ -40,6 +40,7 @@ export default function Placement() {
   const [cvFile, setCvFile] = useState<File | null>(null);
   const [isDragging, setIsDragging] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [privacyConsent, setPrivacyConsent] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const submitCv = trpc.placement.submitCv.useMutation({
@@ -79,6 +80,10 @@ export default function Placement() {
     e.preventDefault();
     if (!form.name || !form.email) {
       toast.error(lang === 'he' ? 'אנא מלא שם ואימייל' : 'Please fill in name and email');
+      return;
+    }
+    if (!privacyConsent) {
+      toast.error(lang === 'he' ? 'יש לאשר את מדיניות הפרטיות' : 'Please accept the privacy policy');
       return;
     }
 
@@ -371,10 +376,28 @@ export default function Placement() {
                     />
                   </div>
 
+                  {/* Privacy consent */}
+                  <div className="flex items-start gap-3" dir={lang === 'he' ? 'rtl' : 'ltr'}>
+                    <input
+                      type="checkbox"
+                      id="placement-privacy"
+                      checked={privacyConsent}
+                      onChange={e => setPrivacyConsent(e.target.checked)}
+                      className="mt-1 w-4 h-4 accent-purple-600 cursor-pointer flex-shrink-0"
+                    />
+                    <label htmlFor="placement-privacy" className="text-sm text-gray-600 cursor-pointer leading-relaxed">
+                      {lang === 'he' ? (
+                        <>אני מאשר/ת את{' '}<a href="/privacy-policy" className="text-purple-600 underline hover:text-purple-800" target="_blank" rel="noopener noreferrer">מדיניות הפרטיות</a>{' '}ומסכים/ה שהמידע שאני מספק/ת ישמר בהתאם לדרישות החוק</>
+                      ) : (
+                        <>I accept the{' '}<a href="/privacy-policy" className="text-purple-600 underline hover:text-purple-800" target="_blank" rel="noopener noreferrer">Privacy Policy</a>{' '}and agree that my information will be stored in accordance with legal requirements</>
+                      )}
+                    </label>
+                  </div>
+
                   {/* Submit */}
                   <button
                     type="submit"
-                    disabled={submitCv.isPending}
+                    disabled={submitCv.isPending || !privacyConsent}
                     className="btn-primary w-full py-4 text-base font-semibold flex items-center justify-center gap-2 disabled:opacity-60 disabled:cursor-not-allowed"
                   >
                     {submitCv.isPending ? (
