@@ -278,7 +278,7 @@ export default function Incubator() {
       {/* ── What You Get ─────────────────────────────────────────────────── */}
       <section className="py-24 relative">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-          <AnimatedSection className="text-center mb-16">
+          <AnimatedSection className={`mb-16 ${isRtl ? 'text-right' : 'text-center'}`}>
             <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">{c.what_title}</h2>
             <p className="text-gray-400 text-lg">{c.what_sub}</p>
           </AnimatedSection>
@@ -303,8 +303,8 @@ export default function Incubator() {
                       <Icon className="w-7 h-7 text-white" />
                     </div>
                     <div className="flex-1">
-                      <h3 className="text-white font-bold text-xl mb-1">{b.title}</h3>
-                      <p className="text-gray-400 mb-4 text-sm">{b.desc}</p>
+                      <h3 className={`text-white font-bold text-xl mb-1 ${isRtl ? 'text-right' : ''}`}>{b.title}</h3>
+                      <p className={`text-gray-400 mb-4 text-sm ${isRtl ? 'text-right' : ''}`}>{b.desc}</p>
                       <ul className={`space-y-2 ${isRtl ? 'text-right' : ''}`}>
                         {b.items.map((item, j) => (
                           <motion.li
@@ -333,7 +333,7 @@ export default function Incubator() {
       <section className="py-24 relative">
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-blue-900/10 to-transparent" />
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <AnimatedSection className="text-center mb-14">
+          <AnimatedSection className={`mb-14 ${isRtl ? 'text-right' : 'text-center'}`}>
             <h2 className="text-4xl font-bold text-white mb-4">{c.build_title}</h2>
             <p className="text-gray-400 text-lg">{c.build_sub}</p>
           </AnimatedSection>
@@ -351,7 +351,7 @@ export default function Incubator() {
                   variants={scaleIn}
                   initial="hidden"
                   animate={inView ? 'visible' : 'hidden'}
-                  className="glass rounded-2xl p-8 text-center hover:border-cyan-400/30 transition-all group"
+                  className={`glass rounded-2xl p-8 hover:border-cyan-400/30 transition-all group ${isRtl ? 'text-right' : 'text-center'}`}
                 >
                   <motion.div
                     whileHover={{ scale: 1.1, rotate: 5 }}
@@ -372,7 +372,7 @@ export default function Incubator() {
       {/* ── Process Steps ────────────────────────────────────────────────── */}
       <section className="py-24 relative">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-          <AnimatedSection className="text-center mb-14">
+          <AnimatedSection className={`mb-14 ${isRtl ? 'text-right' : 'text-center'}`}>
             <h2 className="text-4xl font-bold text-white mb-4">{c.process_title}</h2>
             <p className="text-gray-400 text-lg">{c.process_sub}</p>
           </AnimatedSection>
@@ -389,7 +389,7 @@ export default function Incubator() {
                   variants={fadeUp}
                   initial="hidden"
                   animate={inView ? 'visible' : 'hidden'}
-                  className="glass rounded-2xl p-6 text-center relative"
+                  className={`glass rounded-2xl p-6 relative ${isRtl ? 'text-right' : 'text-center'}`}
                 >
                   {i < c.steps.length - 1 && (
                     <div className={`absolute top-1/2 ${isRtl ? '-left-2' : '-right-2'} w-4 h-0.5 bg-cyan-500/40 hidden md:block`} />
@@ -416,8 +416,8 @@ export default function Incubator() {
         <div className="max-w-4xl mx-auto px-4 text-center">
           <AnimatedSection>
             <div className="glass rounded-2xl py-14 px-8">
-              <h2 className="text-3xl md:text-4xl font-bold text-white mb-3">{c.models_title}</h2>
-              <p className="text-gray-400 text-lg">{c.models_sub}</p>
+              <h2 className={`text-3xl md:text-4xl font-bold text-white mb-3 ${isRtl ? 'text-right' : 'text-center'}`}>{c.models_title}</h2>
+              <p className={`text-gray-400 text-lg ${isRtl ? 'text-right' : 'text-center'}`}>{c.models_sub}</p>
             </div>
           </AnimatedSection>
         </div>
@@ -428,8 +428,8 @@ export default function Incubator() {
         <div className="absolute inset-0 bg-gradient-to-r from-cyan-500/10 via-blue-900/30 to-cyan-500/10" />
         <div className="max-w-3xl mx-auto px-4 text-center relative z-10">
           <AnimatedSection>
-            <h2 className="text-4xl font-bold text-white mb-4">{c.cta_title}</h2>
-            <p className="text-gray-300 text-lg mb-8">{c.cta_sub}</p>
+            <h2 className={`text-4xl font-bold text-white mb-4 ${isRtl ? 'text-right' : 'text-center'}`}>{c.cta_title}</h2>
+            <p className={`text-gray-300 text-lg mb-8 ${isRtl ? 'text-right' : 'text-center'}`}>{c.cta_sub}</p>
             <Link href="/contact">
               <motion.button
                 whileHover={{ scale: 1.05 }}
