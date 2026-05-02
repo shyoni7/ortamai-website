@@ -110,31 +110,31 @@ export default function Placement() {
     });
   };
 
-  const inputClass = `w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-gray-500 focus:outline-none focus:border-orange-400/60 focus:bg-white/8 transition-all`;
+  const inputClass = `w-full px-4 py-3 rounded-xl bg-gray-50 border border-gray-200 text-gray-900 placeholder-gray-400 focus:outline-none focus:border-purple-400 focus:bg-white transition-all`;
 
   return (
     <div dir={dir}>
       {/* Hero */}
       <section className="relative py-32 overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-[#0d1628] via-[#1B2A4A] to-[#0d1628]" />
+        <div className="absolute inset-0 bg-gradient-to-br from-gray-50 via-purple-50 to-gray-100" />
         <div className="absolute inset-0 grid-pattern opacity-20" />
         <div className="absolute top-20 right-20 w-80 h-80 bg-orange-500/10 rounded-full blur-3xl" />
-        <div className="absolute bottom-20 left-20 w-80 h-80 bg-blue-900/10 rounded-full blur-3xl" />
+        <div className="absolute bottom-20 left-20 w-80 h-80 bg-purple-100/30 rounded-full blur-3xl" />
         <div className="relative z-10 max-w-4xl mx-auto px-4 text-center">
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.6 }}
-            className="inline-flex items-center gap-2 glass px-4 py-2 rounded-full mb-6"
+            className="inline-flex items-center gap-2 bg-white border border-gray-200 px-4 py-2 rounded-full mb-6"
           >
-            <Briefcase className="w-4 h-4 text-orange-400" />
-            <span className="text-sm text-orange-400 font-medium">{t.nav.placement}</span>
+            <Briefcase className="w-4 h-4 text-purple-600" />
+            <span className="text-sm text-purple-600 font-medium">{t.nav.placement}</span>
           </motion.div>
           <motion.h1
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
-            className="text-5xl md:text-6xl font-bold text-gradient-cyan mb-6"
+            className="text-5xl md:text-6xl font-bold text-gray-900 mb-6"
           >
             {t.placement.hero_title}
           </motion.h1>
@@ -142,7 +142,7 @@ export default function Placement() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="text-xl text-gray-300"
+            className="text-xl text-gray-600"
           >
             {t.placement.hero_sub}
           </motion.p>
@@ -154,39 +154,39 @@ export default function Placement() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div variants={stagger} initial="hidden" whileInView="visible" viewport={{ once: true }} className="grid grid-cols-1 lg:grid-cols-2 gap-8">
             {/* Candidates */}
-            <motion.div variants={fadeUp} className="glass rounded-2xl p-10 hover:border-orange-400/40 transition-all">
-              <div className="inline-flex p-3 rounded-xl bg-gradient-to-br from-orange-500 to-blue-600 mb-6">
+            <motion.div variants={fadeUp} className="bg-white border border-gray-200 rounded-2xl shadow-sm p-10 hover:border-purple-300 transition-all">
+              <div className="inline-flex p-3 rounded-xl bg-gradient-to-br from-purple-600 to-violet-600 mb-6">
                 <User className="w-6 h-6 text-white" />
               </div>
-              <h2 className="text-2xl font-bold text-white mb-4">{t.placement.candidate_title}</h2>
-              <p className="text-gray-300 leading-relaxed mb-6">{t.placement.candidate_desc}</p>
+              <h2 className="text-2xl font-bold text-gray-900 mb-4">{t.placement.candidate_title}</h2>
+              <p className="text-gray-600 leading-relaxed mb-6">{t.placement.candidate_desc}</p>
               <div className="space-y-3">
                 {benefits.map((b, i) => (
                   <div key={i} className="flex items-center gap-3">
-                    <CheckCircle className="w-5 h-5 text-orange-400 flex-shrink-0" />
-                    <span className="text-gray-300 text-sm">{b}</span>
+                    <CheckCircle className="w-5 h-5 text-purple-600 flex-shrink-0" />
+                    <span className="text-gray-600 text-sm">{b}</span>
                   </div>
                 ))}
               </div>
             </motion.div>
 
             {/* Employers */}
-            <motion.div variants={fadeUp} className="glass rounded-2xl p-10 hover:border-blue-900/30 transition-all">
-              <div className="inline-flex p-3 rounded-xl bg-gradient-to-br from-blue-900 to-pink-600 mb-6">
+            <motion.div variants={fadeUp} className="bg-white border border-gray-200 rounded-2xl shadow-sm p-10 hover:border-blue-900/30 transition-all">
+              <div className="inline-flex p-3 rounded-xl bg-gradient-to-br from-purple-600 to-pink-500 mb-6">
                 <Building className="w-6 h-6 text-white" />
               </div>
-              <h2 className="text-2xl font-bold text-white mb-4">{t.placement.employer_title}</h2>
-              <p className="text-gray-300 leading-relaxed mb-6">{t.placement.employer_desc}</p>
+              <h2 className="text-2xl font-bold text-gray-900 mb-4">{t.placement.employer_title}</h2>
+              <p className="text-gray-600 leading-relaxed mb-6">{t.placement.employer_desc}</p>
               <div className="space-y-3 mb-8">
                 {benefits.map((b, i) => (
                   <div key={i} className="flex items-center gap-3">
-                    <CheckCircle className="w-5 h-5 text-blue-300 flex-shrink-0" />
-                    <span className="text-gray-300 text-sm">{b}</span>
+                    <CheckCircle className="w-5 h-5 text-purple-600 flex-shrink-0" />
+                    <span className="text-gray-600 text-sm">{b}</span>
                   </div>
                 ))}
               </div>
               <Link href="/contact">
-                <button className="w-full py-3 rounded-xl border border-blue-900/30 text-blue-300 hover:bg-blue-900/10 transition-colors font-semibold">{t.placement.cta}</button>
+                <button className="w-full py-3 rounded-xl border border-blue-900/30 text-purple-600 hover:bg-purple-100/30 transition-colors font-semibold">{t.placement.cta}</button>
               </Link>
             </motion.div>
           </motion.div>
@@ -204,12 +204,12 @@ export default function Placement() {
           >
             {/* Section Header */}
             <div className="text-center mb-10">
-              <div className="inline-flex items-center gap-2 glass px-4 py-2 rounded-full mb-4">
-                <FileText className="w-4 h-4 text-orange-400" />
-                <span className="text-sm text-orange-400 font-medium">{t.placement.cv_form_title}</span>
+              <div className="inline-flex items-center gap-2 bg-white border border-gray-200 px-4 py-2 rounded-full mb-4">
+                <FileText className="w-4 h-4 text-purple-600" />
+                <span className="text-sm text-purple-600 font-medium">{t.placement.cv_form_title}</span>
               </div>
-              <h2 className="text-3xl md:text-4xl font-bold text-white mb-3">{t.placement.cv_form_title}</h2>
-              <p className="text-gray-400">{t.placement.cv_form_sub}</p>
+              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-3">{t.placement.cv_form_title}</h2>
+              <p className="text-gray-500">{t.placement.cv_form_sub}</p>
             </div>
 
             <AnimatePresence mode="wait">
@@ -219,13 +219,13 @@ export default function Placement() {
                   initial={{ opacity: 0, scale: 0.9 }}
                   animate={{ opacity: 1, scale: 1 }}
                   exit={{ opacity: 0 }}
-                  className="glass rounded-2xl p-12 text-center"
+                  className="bg-white border border-gray-200 rounded-2xl shadow-sm p-12 text-center"
                 >
                   <div className="w-20 h-20 rounded-full bg-gradient-to-br from-emerald-500 to-teal-600 flex items-center justify-center mx-auto mb-6">
-                    <CheckCircle className="w-10 h-10 text-white" />
+                    <CheckCircle className="w-10 h-10 text-purple-600" />
                   </div>
-                  <h3 className="text-2xl font-bold text-white mb-3">{t.placement.cv_success}</h3>
-                  <p className="text-gray-400 mb-6">{lang === 'he' ? 'נחזור אליך בהקדם האפשרי' : "We'll be in touch soon"}</p>
+                  <h3 className="text-2xl font-bold text-gray-900 mb-3">{t.placement.cv_success}</h3>
+                  <p className="text-gray-500 mb-6">{lang === 'he' ? 'נחזור אליך בהקדם האפשרי' : "We'll be in touch soon"}</p>
                   <button
                     onClick={() => setSubmitted(false)}
                     className="btn-primary px-8 py-3"
@@ -240,12 +240,12 @@ export default function Placement() {
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
                   onSubmit={handleSubmit}
-                  className="glass rounded-2xl p-8 md:p-10 space-y-6"
+                  className="bg-white border border-gray-200 rounded-2xl shadow-sm p-8 md:p-10 space-y-6"
                 >
                   {/* Name + Email */}
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
-                      <label className="block text-sm text-gray-400 mb-2">{t.placement.cv_name}</label>
+                      <label className="block text-sm text-gray-500 mb-2">{t.placement.cv_name}</label>
                       <input
                         type="text"
                         value={form.name}
@@ -256,7 +256,7 @@ export default function Placement() {
                       />
                     </div>
                     <div>
-                      <label className="block text-sm text-gray-400 mb-2">{t.placement.cv_email}</label>
+                      <label className="block text-sm text-gray-500 mb-2">{t.placement.cv_email}</label>
                       <input
                         type="email"
                         value={form.email}
@@ -271,7 +271,7 @@ export default function Placement() {
                   {/* Phone + Role */}
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
-                      <label className="block text-sm text-gray-400 mb-2">{t.placement.cv_phone}</label>
+                      <label className="block text-sm text-gray-500 mb-2">{t.placement.cv_phone}</label>
                       <input
                         type="tel"
                         value={form.phone}
@@ -281,7 +281,7 @@ export default function Placement() {
                       />
                     </div>
                     <div>
-                      <label className="block text-sm text-gray-400 mb-2">{t.placement.cv_role}</label>
+                      <label className="block text-sm text-gray-500 mb-2">{t.placement.cv_role}</label>
                       <input
                         type="text"
                         value={form.role}
@@ -294,7 +294,7 @@ export default function Placement() {
 
                   {/* Field of Work */}
                   <div>
-                    <label className="block text-sm text-gray-400 mb-2">{t.placement.cv_field}</label>
+                    <label className="block text-sm text-gray-500 mb-2">{t.placement.cv_field}</label>
                     <div className="relative">
                       <select
                         value={form.field}
@@ -302,18 +302,18 @@ export default function Placement() {
                         className={`${inputClass} appearance-none cursor-pointer`}
                         style={{ paddingInlineEnd: '2.5rem' }}
                       >
-                        <option value="" className="bg-[#1B2A4A]">{lang === 'he' ? 'בחר תחום...' : 'Select field...'}</option>
+                        <option value="" className="bg-white">{lang === 'he' ? 'בחר תחום...' : 'Select field...'}</option>
                         {fields.map(f => (
-                          <option key={f.value} value={f.value} className="bg-[#1B2A4A]">{f.label}</option>
+                          <option key={f.value} value={f.value} className="bg-white">{f.label}</option>
                         ))}
                       </select>
-                      <ChevronDown className={`absolute top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 pointer-events-none ${isRtl ? 'left-3' : 'right-3'}`} />
+                      <ChevronDown className={`absolute top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500 pointer-events-none ${isRtl ? 'left-3' : 'right-3'}`} />
                     </div>
                   </div>
 
                   {/* CV File Upload */}
                   <div>
-                    <label className="block text-sm text-gray-400 mb-2">{t.placement.cv_file}</label>
+                    <label className="block text-sm text-gray-500 mb-2">{t.placement.cv_file}</label>
                     <div
                       onDrop={onDrop}
                       onDragOver={onDragOver}
@@ -324,7 +324,7 @@ export default function Placement() {
                           ? 'border-orange-400 bg-orange-400/10'
                           : cvFile
                           ? 'border-emerald-400/60 bg-emerald-400/5'
-                          : 'border-white/20 hover:border-orange-400/50 hover:bg-white/5'
+                          : 'border-gray-200 hover:border-orange-400/50 hover:bg-gray-50'
                       }`}
                     >
                       <input
@@ -338,21 +338,21 @@ export default function Placement() {
                         <div className="flex items-center justify-center gap-3">
                           <FileText className="w-8 h-8 text-emerald-400" />
                           <div className={`${isRtl ? 'text-right' : 'text-left'}`}>
-                            <p className="text-white font-medium text-sm">{cvFile.name}</p>
-                            <p className="text-gray-400 text-xs">{(cvFile.size / 1024 / 1024).toFixed(2)} MB</p>
+                            <p className="text-gray-900 font-medium text-sm">{cvFile.name}</p>
+                            <p className="text-gray-500 text-xs">{(cvFile.size / 1024 / 1024).toFixed(2)} MB</p>
                           </div>
                           <button
                             type="button"
                             onClick={e => { e.stopPropagation(); setCvFile(null); if (fileInputRef.current) fileInputRef.current.value = ''; }}
-                            className="p-1 rounded-full hover:bg-white/10 text-gray-400 hover:text-white transition-colors"
+                            className="p-1 rounded-full hover:bg-white/10 text-gray-500 hover:text-gray-900 transition-colors"
                           >
                             <X className="w-4 h-4" />
                           </button>
                         </div>
                       ) : (
                         <div>
-                          <Upload className={`w-10 h-10 mx-auto mb-3 ${isDragging ? 'text-orange-400' : 'text-gray-500'}`} />
-                          <p className="text-gray-300 font-medium">{t.placement.cv_file_hint}</p>
+                          <Upload className={`w-10 h-10 mx-auto mb-3 ${isDragging ? 'text-purple-600' : 'text-gray-500'}`} />
+                          <p className="text-gray-600 font-medium">{t.placement.cv_file_hint}</p>
                           <p className="text-gray-500 text-sm mt-1">PDF, DOC, DOCX · {lang === 'he' ? 'עד' : 'up to'} {MAX_FILE_SIZE_MB}MB</p>
                         </div>
                       )}
@@ -361,7 +361,7 @@ export default function Placement() {
 
                   {/* Message */}
                   <div>
-                    <label className="block text-sm text-gray-400 mb-2">{t.placement.cv_message}</label>
+                    <label className="block text-sm text-gray-500 mb-2">{t.placement.cv_message}</label>
                     <textarea
                       value={form.message}
                       onChange={e => setForm(f => ({ ...f, message: e.target.value }))}

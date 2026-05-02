@@ -36,13 +36,13 @@ export default function Contact() {
     <div dir={dir}>
       {/* Hero */}
       <section className="relative py-32 overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-[#0d1628] via-[#1B2A4A] to-[#0d1628]" />
+        <div className="absolute inset-0 bg-gradient-to-br from-gray-50 via-purple-50 to-gray-100" />
         <div className="absolute inset-0 grid-pattern opacity-20" />
         <div className="relative z-10 max-w-4xl mx-auto px-4 text-center">
-          <motion.h1 initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }} className="text-5xl md:text-6xl font-bold text-gradient-cyan mb-6">
+          <motion.h1 initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }} className="text-5xl md:text-6xl font-bold text-gray-900 mb-6">
             {t.contact.hero_title}
           </motion.h1>
-          <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.2 }} className="text-xl text-gray-300">
+          <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.2 }} className="text-xl text-gray-600">
             {t.contact.hero_sub}
           </motion.p>
         </div>
@@ -54,58 +54,58 @@ export default function Contact() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
             {/* Form */}
             <motion.div initial={{ opacity: 0, x: isRtl ? 40 : -40 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.8 }}>
-              <form onSubmit={handleSubmit} className="glass rounded-2xl p-8 space-y-5">
+              <form onSubmit={handleSubmit} className="bg-white border border-gray-200 rounded-2xl shadow-sm p-8 space-y-5">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-sm font-medium text-gray-300 mb-2">{t.contact.form_name}</label>
+                    <label className="block text-sm font-medium text-gray-600 mb-2">{t.contact.form_name}</label>
                     <input
                       type="text"
                       value={form.name}
                       onChange={e => setForm(p => ({ ...p, name: e.target.value }))}
-                      className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-gray-500 focus:outline-none focus:border-orange-400/50 transition-colors"
+                      className="w-full px-4 py-3 rounded-xl bg-gray-50 border border-gray-200 text-gray-900 placeholder-gray-400 focus:outline-none focus:border-orange-400/50 transition-colors"
                       placeholder={isRtl ? 'ישראל ישראלי' : 'John Doe'}
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-300 mb-2">{t.contact.form_email}</label>
+                    <label className="block text-sm font-medium text-gray-600 mb-2">{t.contact.form_email}</label>
                     <input
                       type="email"
                       value={form.email}
                       onChange={e => setForm(p => ({ ...p, email: e.target.value }))}
-                      className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-gray-500 focus:outline-none focus:border-orange-400/50 transition-colors"
+                      className="w-full px-4 py-3 rounded-xl bg-gray-50 border border-gray-200 text-gray-900 placeholder-gray-400 focus:outline-none focus:border-orange-400/50 transition-colors"
                       placeholder="email@example.com"
                     />
                   </div>
                 </div>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-sm font-medium text-gray-300 mb-2">{t.contact.form_phone}</label>
+                    <label className="block text-sm font-medium text-gray-600 mb-2">{t.contact.form_phone}</label>
                     <input
                       type="tel"
                       value={form.phone}
                       onChange={e => setForm(p => ({ ...p, phone: e.target.value }))}
-                      className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-gray-500 focus:outline-none focus:border-orange-400/50 transition-colors"
+                      className="w-full px-4 py-3 rounded-xl bg-gray-50 border border-gray-200 text-gray-900 placeholder-gray-400 focus:outline-none focus:border-orange-400/50 transition-colors"
                       placeholder="050-000-0000"
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-300 mb-2">{t.contact.form_company}</label>
+                    <label className="block text-sm font-medium text-gray-600 mb-2">{t.contact.form_company}</label>
                     <input
                       type="text"
                       value={form.company}
                       onChange={e => setForm(p => ({ ...p, company: e.target.value }))}
-                      className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-gray-500 focus:outline-none focus:border-orange-400/50 transition-colors"
+                      className="w-full px-4 py-3 rounded-xl bg-gray-50 border border-gray-200 text-gray-900 placeholder-gray-400 focus:outline-none focus:border-orange-400/50 transition-colors"
                       placeholder={isRtl ? 'שם החברה' : 'Company name'}
                     />
                   </div>
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-300 mb-2">{t.contact.form_message}</label>
+                  <label className="block text-sm font-medium text-gray-600 mb-2">{t.contact.form_message}</label>
                   <textarea
                     rows={5}
                     value={form.message}
                     onChange={e => setForm(p => ({ ...p, message: e.target.value }))}
-                    className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-gray-500 focus:outline-none focus:border-orange-400/50 transition-colors resize-none"
+                    className="w-full px-4 py-3 rounded-xl bg-gray-50 border border-gray-200 text-gray-900 placeholder-gray-400 focus:outline-none focus:border-orange-400/50 transition-colors resize-none"
                     placeholder={isRtl ? 'ספר לנו כיצד נוכל לעזור...' : 'Tell us how we can help...'}
                   />
                 </div>
@@ -129,33 +129,33 @@ export default function Contact() {
             {/* Info */}
             <motion.div initial={{ opacity: 0, x: isRtl ? -40 : 40 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.8 }} className="space-y-8">
               <div>
-                <h2 className="text-3xl font-bold text-white mb-6">{t.contact.info_title}</h2>
+                <h2 className="text-3xl font-bold text-gray-900 mb-6">{t.contact.info_title}</h2>
                 <div className="space-y-4">
                   <div className="flex items-center gap-4">
                     <div className="p-3 rounded-xl bg-orange-400/10">
-                      <Mail className="w-5 h-5 text-orange-400" />
+                      <Mail className="w-5 h-5 text-purple-600" />
                     </div>
                     <div>
-                      <p className="text-gray-400 text-sm">{t.contact.email_label}</p>
-                      <a href="mailto:ortamai.il@gmail.com" className="text-white hover:text-orange-400 transition-colors">ortamai.il@gmail.com</a>
+                      <p className="text-gray-500 text-sm">{t.contact.email_label}</p>
+                      <a href="mailto:ortamai.il@gmail.com" className="text-gray-900 hover:text-purple-600 transition-colors">ortamai.il@gmail.com</a>
                     </div>
                   </div>
                   <div className="flex items-center gap-4">
                     <div className="p-3 rounded-xl bg-orange-400/10">
-                      <Phone className="w-5 h-5 text-orange-400" />
+                      <Phone className="w-5 h-5 text-purple-600" />
                     </div>
                     <div>
-                      <p className="text-gray-400 text-sm">{t.contact.phone_label}</p>
-                      <a href="tel:+972523381822" className="text-white hover:text-orange-400 transition-colors">052-338-1822</a>
+                      <p className="text-gray-500 text-sm">{t.contact.phone_label}</p>
+                      <a href="tel:+972523381822" className="text-gray-900 hover:text-purple-600 transition-colors">052-338-1822</a>
                     </div>
                   </div>
                   <div className="flex items-center gap-4">
                     <div className="p-3 rounded-xl bg-orange-400/10">
-                      <MapPin className="w-5 h-5 text-orange-400" />
+                      <MapPin className="w-5 h-5 text-purple-600" />
                     </div>
                     <div>
-                      <p className="text-gray-400 text-sm">{isRtl ? 'מיקום' : 'Location'}</p>
-                      <p className="text-white">{t.contact.address}</p>
+                      <p className="text-gray-500 text-sm">{isRtl ? 'מיקום' : 'Location'}</p>
+                      <p className="text-gray-900">{t.contact.address}</p>
                     </div>
                   </div>
                 </div>
@@ -166,7 +166,7 @@ export default function Contact() {
                 href="https://wa.me/972523381822"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-4 glass rounded-2xl p-6 hover:border-green-400/40 transition-all group"
+                className="flex items-center gap-4 bg-white border border-gray-200 rounded-2xl shadow-sm p-6 hover:border-green-400/40 transition-all group"
               >
                 <div className="w-12 h-12 rounded-full flex items-center justify-center flex-shrink-0" style={{ background: 'linear-gradient(135deg, #25D366, #128C7E)' }}>
                   <svg viewBox="0 0 24 24" className="w-6 h-6 fill-white" xmlns="http://www.w3.org/2000/svg">
@@ -174,8 +174,8 @@ export default function Contact() {
                   </svg>
                 </div>
                 <div>
-                  <p className="text-white font-semibold group-hover:text-green-400 transition-colors">{t.contact.whatsapp}</p>
-                  <p className="text-gray-400 text-sm">052-338-1822</p>
+                  <p className="text-gray-900 font-semibold group-hover:text-green-400 transition-colors">{t.contact.whatsapp}</p>
+                  <p className="text-gray-500 text-sm">052-338-1822</p>
                 </div>
               </a>
 

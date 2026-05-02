@@ -61,7 +61,7 @@ const trainingPrograms: TrainingProgram[] = [
     level: 'בינוני',
     levelEn: 'Intermediate',
     image: `${CDN}/81fe03d01_create_a_professional_and_modern_image_for_a_website_that_promotes_ai_training_programs_the_image_s_y01604j7g7gqe2rbe6tu_0_2b7c34bf.png`,
-    color: 'from-orange-500 to-blue-600',
+    color: 'from-purple-600 to-violet-600',
     modules: [
       { title: 'מבוא ל-AI ניהולי', duration: '4 שעות', topics: ['הבנת עולם ה-AI', 'כלים ניהוליים מבוססי AI', 'ChatGPT למנהלים'] },
       { title: 'קבלת החלטות עם AI', duration: '6 שעות', topics: ['ניתוח נתונים עם AI', 'דוחות אוטומטיים', 'תחזיות ומגמות'] },
@@ -90,7 +90,7 @@ const trainingPrograms: TrainingProgram[] = [
     level: 'בינוני',
     levelEn: 'Intermediate',
     image: `${CDN}/a00800906_______________ai______________1ztf6h7ulzz1cg0t1nwp_1_450c2a58.png`,
-    color: 'from-blue-900 to-pink-600',
+    color: 'from-purple-600 to-pink-500',
     modules: [
       { title: 'AI לכתיבת תוכן שיווקי', duration: '8 שעות', topics: ['כתיבת קופי עם AI', 'יצירת תוכן לרשתות חברתיות', 'SEO עם AI'] },
       { title: 'יצירת תמונות ווידאו עם AI', duration: '10 שעות', topics: ['Midjourney ו-DALL-E', 'עריכת וידאו עם AI', 'עיצוב גרפי אוטומטי'] },
@@ -297,7 +297,7 @@ const publicCourses: PublicCourse[] = [
     durationEn: '8 weeks',
     level: 'מתחילים',
     levelEn: 'Beginners',
-    color: 'from-orange-500 to-blue-600',
+    color: 'from-purple-600 to-violet-600',
     icon: BookOpen,
   },
   {
@@ -309,7 +309,7 @@ const publicCourses: PublicCourse[] = [
     durationEn: '4 weeks',
     level: 'בינוני',
     levelEn: 'Intermediate',
-    color: 'from-blue-900 to-pink-600',
+    color: 'from-purple-600 to-pink-500',
     icon: Star,
   },
   {
@@ -391,31 +391,31 @@ export default function Academy() {
   });
 
   const getLevelColor = (level: string) => {
-    if (level === 'בינוני' || level === 'Intermediate') return 'bg-blue-500/20 text-blue-300 border border-blue-500/30';
-    if (level === 'מתקדמים' || level === 'Advanced') return 'bg-blue-900/20 text-blue-200 border border-blue-900/30';
-    return 'bg-orange-500/20 text-orange-300 border border-orange-500/30';
+    if (level === 'בינוני' || level === 'Intermediate') return 'bg-blue-100 text-blue-700 border border-blue-200';
+    if (level === 'מתקדמים' || level === 'Advanced') return 'bg-blue-100 text-blue-700 border border-blue-200';
+    return 'bg-purple-100 text-purple-700 border border-purple-200';
   };
 
   return (
     <div dir={dir} className="min-h-screen">
       {/* Hero Section */}
       <section className="relative py-12 overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-[#0d1628] via-[#1B2A4A] to-[#0d1628]" />
+        <div className="absolute inset-0 bg-gradient-to-br from-gray-50 via-purple-50 to-gray-100" />
         <div className="absolute inset-0 grid-pattern opacity-20" />
         <motion.div
           animate={{ x: [0, 60, 0], y: [0, 30, 0] }}
           transition={{ duration: 10, repeat: Infinity }}
-          className="absolute top-20 left-20 w-80 h-80 bg-orange-500/15 rounded-full blur-3xl"
+          className="absolute top-20 left-20 w-80 h-80 bg-purple-200/40 rounded-full blur-3xl"
         />
         <motion.div
           animate={{ x: [0, -40, 0], y: [0, -20, 0] }}
           transition={{ duration: 12, repeat: Infinity, delay: 2 }}
-          className="absolute bottom-20 right-20 w-96 h-96 bg-blue-900/15 rounded-full blur-3xl"
+          className="absolute bottom-20 right-20 w-96 h-96 bg-purple-100/40 rounded-full blur-3xl"
         />
         <div className="relative z-10 max-w-5xl mx-auto px-4 text-center">
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="inline-flex mb-6">
-            <div className="glass px-4 py-2 rounded-full">
-              <span className="text-sm font-semibold text-orange-400">
+            <div className="bg-white border border-gray-200 px-4 py-2 rounded-full">
+              <span className="text-sm font-semibold text-purple-600">
                 {isRtl ? 'מרכז הכשרות AI' : 'AI Training Center'}
               </span>
             </div>
@@ -424,7 +424,7 @@ export default function Academy() {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
-            className="text-4xl md:text-5xl font-bold text-gradient-cyan mb-4"
+            className="text-4xl md:text-5xl font-bold text-gray-900 mb-4"
           >
             {isRtl ? 'מסלולי ההכשרה שלנו' : 'Our Training Programs'}
           </motion.h1>
@@ -432,7 +432,7 @@ export default function Academy() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="text-lg text-gray-300 mb-6 max-w-3xl mx-auto"
+            className="text-lg text-gray-600 mb-6 max-w-3xl mx-auto"
           >
             {isRtl
               ? 'הכשרות מותאמות לכל מחלקה ותפקיד. בנינו תוכניות ייחודיות שמביאות תוצאות מדידות לארגון שלכם.'
@@ -444,14 +444,14 @@ export default function Academy() {
             transition={{ delay: 0.4 }}
             className="flex items-center justify-center gap-4 flex-wrap"
           >
-            <div className="glass px-4 py-2 rounded-full flex items-center gap-2">
-              <Award className="w-4 h-4 text-orange-400" />
-              <span className="text-sm text-gray-300">{isRtl ? 'קורס מוסמך' : 'Certified Course'}</span>
+            <div className="bg-white border border-gray-200 px-4 py-2 rounded-full flex items-center gap-2">
+              <Award className="w-4 h-4 text-purple-600" />
+              <span className="text-sm text-gray-600">{isRtl ? 'קורס מוסמך' : 'Certified Course'}</span>
             </div>
 
-            <div className="glass px-4 py-2 rounded-full flex items-center gap-2">
-              <Users className="w-4 h-4 text-blue-300" />
-              <span className="text-sm text-gray-300">{isRtl ? '+500 בוגרים' : '+500 Graduates'}</span>
+            <div className="bg-white border border-gray-200 px-4 py-2 rounded-full flex items-center gap-2">
+              <Users className="w-4 h-4 text-purple-500" />
+              <span className="text-sm text-gray-600">{isRtl ? '+500 בוגרים' : '+500 Graduates'}</span>
             </div>
           </motion.div>
         </div>
@@ -466,10 +466,10 @@ export default function Academy() {
             viewport={{ once: true }}
             className="text-center mb-12"
           >
-            <h2 className="text-4xl font-bold text-white mb-4">
+            <h2 className="text-4xl font-bold text-gray-900 mb-4">
               {isRtl ? 'מסלולי ההכשרה הארגוניים שלנו' : 'Our Corporate Training Programs'}
             </h2>
-            <p className="text-gray-400 text-lg">
+            <p className="text-gray-500 text-lg">
               {isRtl ? 'הכשרות מותאמות לכל מחלקה ותפקיד' : 'Training tailored for every department and role'}
             </p>
           </motion.div>
@@ -482,8 +482,8 @@ export default function Academy() {
                 onClick={() => setActiveFilter(f.key)}
                 className={`px-5 py-2 rounded-full text-sm font-medium transition-all ${
                   activeFilter === f.key
-                    ? 'bg-gradient-to-r from-orange-500 to-purple-600 text-white shadow-lg shadow-orange-500/20'
-                    : 'glass text-gray-400 hover:text-white'
+                    ? 'bg-gradient-to-r from-purple-600 to-violet-600 text-white shadow-lg shadow-purple-200'
+                    : 'bg-white border border-gray-200 text-gray-500 hover:text-gray-900'
                 }`}
               >
                 {f.label}
@@ -503,7 +503,7 @@ export default function Academy() {
               <motion.div
                 key={program.id}
                 variants={fadeUp}
-                className="glass rounded-2xl overflow-hidden hover:border-orange-400/40 transition-all group cursor-pointer"
+                className="bg-white border border-gray-200 rounded-2xl shadow-sm overflow-hidden hover:border-purple-300 transition-all group cursor-pointer"
                 onClick={() => setSelectedProgram(program)}
               >
                 {/* Card Image */}
@@ -513,7 +513,7 @@ export default function Academy() {
                     alt={isRtl ? program.title : program.titleEn}
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#0d1628] via-[#0d1628]/40 to-transparent" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-gray-900/60 via-gray-900/20 to-transparent" />
                   <div className="absolute top-3 right-3">
                     <span className={`text-xs font-semibold px-3 py-1 rounded-full ${getLevelColor(isRtl ? program.level : program.levelEn)}`}>
                       {isRtl ? program.level : program.levelEn}
@@ -523,16 +523,16 @@ export default function Academy() {
 
                 {/* Card Content */}
                 <div className="p-6">
-                  <h3 className="text-lg font-bold text-white mb-3 group-hover:text-orange-400 transition-colors leading-snug">
+                  <h3 className="text-lg font-bold text-gray-900 mb-3 group-hover:text-purple-600 transition-colors leading-snug">
                     {isRtl ? program.title : program.titleEn}
                   </h3>
-                  <div className="flex items-center gap-4 text-sm text-gray-400 mb-5">
+                  <div className="flex items-center gap-4 text-sm text-gray-500 mb-5">
                     <div className="flex items-center gap-1.5">
-                      <Users className="w-4 h-4 text-orange-400" />
+                      <Users className="w-4 h-4 text-purple-600" />
                       <span>{isRtl ? program.audience : program.audienceEn}</span>
                     </div>
                     <div className="flex items-center gap-1.5">
-                      <Clock className="w-4 h-4 text-blue-300" />
+                      <Clock className="w-4 h-4 text-purple-500" />
                       <span>{program.hours} {isRtl ? 'שעות' : 'hours'}</span>
                     </div>
                   </div>
@@ -545,7 +545,7 @@ export default function Academy() {
                     </button>
                     <Link href="/contact">
                       <button
-                        className="flex-1 glass text-sm py-2.5 text-center text-orange-400 hover:text-white hover:bg-orange-500/20 transition-all rounded-lg"
+                        className="flex-1 bg-white border border-gray-200 text-sm py-2.5 text-center text-purple-600 hover:text-gray-900 hover:bg-purple-100 transition-all rounded-lg"
                         onClick={(e) => e.stopPropagation()}
                       >
                         {isRtl ? 'לפרטים' : 'Details'}
@@ -561,7 +561,7 @@ export default function Academy() {
 
       {/* Public Courses Section */}
       <section className="py-20 relative">
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-blue-900/30 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-purple-50 to-transparent" />
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -569,10 +569,10 @@ export default function Academy() {
             viewport={{ once: true }}
             className="text-center mb-12"
           >
-            <h2 className="text-4xl font-bold text-white mb-4">
+            <h2 className="text-4xl font-bold text-gray-900 mb-4">
               {isRtl ? 'קורסים פתוחים לציבור' : 'Public Courses'}
             </h2>
-            <p className="text-gray-400 text-lg">
+            <p className="text-gray-500 text-lg">
               {isRtl ? 'קורסים מקצועיים לאנשים פרטיים ועסקים קטנים' : 'Professional courses for individuals and small businesses'}
             </p>
           </motion.div>
@@ -587,18 +587,18 @@ export default function Academy() {
             {publicCourses.map((course, i) => {
               const Icon = course.icon;
               return (
-                <motion.div key={i} variants={fadeUp} className="glass rounded-2xl p-6 hover:border-orange-400/40 transition-all group">
+                <motion.div key={i} variants={fadeUp} className="bg-white border border-gray-200 rounded-2xl shadow-sm p-6 hover:border-purple-300 transition-all group">
                   <div className={`inline-flex p-3 rounded-xl bg-gradient-to-br ${course.color} mb-4`}>
                     <Icon className="w-6 h-6 text-white" />
                   </div>
-                  <h3 className="text-xl font-bold text-white mb-2 group-hover:text-orange-400 transition-colors">
+                  <h3 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-purple-600 transition-colors">
                     {isRtl ? course.title : course.titleEn}
                   </h3>
-                  <p className="text-gray-400 mb-4 text-sm leading-relaxed">
+                  <p className="text-gray-500 mb-4 text-sm leading-relaxed">
                     {isRtl ? course.desc : course.descEn}
                   </p>
                   <div className="flex items-center justify-between mb-3">
-                    <div className="flex items-center gap-2 text-gray-400 text-sm">
+                    <div className="flex items-center gap-2 text-gray-500 text-sm">
                       <Clock className="w-4 h-4" />
                       <span>{isRtl ? course.duration : course.durationEn}</span>
                     </div>
@@ -607,9 +607,9 @@ export default function Academy() {
                     </span>
                   </div>
                   {course.ministrySupervised && (
-                    <div className="flex items-center gap-2 mb-4 px-3 py-2 rounded-lg bg-yellow-500/10 border border-yellow-500/30">
-                      <Award className="w-4 h-4 text-yellow-400 flex-shrink-0" />
-                      <span className="text-xs text-yellow-300 font-medium">
+                    <div className="flex items-center gap-2 mb-4 px-3 py-2 rounded-lg bg-yellow-50 border border-yellow-500/30">
+                      <Award className="w-4 h-4 text-yellow-600 flex-shrink-0" />
+                      <span className="text-xs text-yellow-700 font-medium">
                         {isRtl ? 'בפיקוח משרד העבודה' : 'Supervised by Ministry of Labor'}
                       </span>
                     </div>
@@ -629,7 +629,7 @@ export default function Academy() {
       {/* Corporate Training CTA */}
       <section className="py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="glass rounded-3xl p-8 md:p-12 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          <div className="bg-white border border-gray-200 rounded-3xl shadow-sm p-8 md:p-12 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <motion.div
               initial={{ opacity: 0, x: isRtl ? 40 : -40 }}
               whileInView={{ opacity: 1, x: 0 }}
@@ -645,13 +645,13 @@ export default function Academy() {
               transition={{ duration: 0.8 }}
               className={isRtl ? 'text-right' : 'text-left'}
             >
-              <div className="inline-flex p-3 rounded-xl bg-gradient-to-br from-blue-900 to-pink-600 mb-6">
+              <div className="inline-flex p-3 rounded-xl bg-gradient-to-br from-purple-600 to-pink-500 mb-6">
                 <Building className="w-6 h-6 text-white" />
               </div>
-              <h2 className="text-4xl font-bold text-white mb-4">
+              <h2 className="text-4xl font-bold text-gray-900 mb-4">
                 {isRtl ? 'הכשרה ארגונית מותאמת אישית' : 'Customized Corporate Training'}
               </h2>
-              <p className="text-gray-300 text-lg leading-relaxed mb-8">
+              <p className="text-gray-600 text-lg leading-relaxed mb-8">
                 {isRtl
                   ? 'אנו בונים תוכניות הכשרה מותאמות לצרכים הספציפיים של הארגון שלכם. נגיע אליכם, נלמד את התהליכים שלכם ונבנה הכשרה שמביאה תוצאות מדידות.'
                   : 'We build training programs tailored to your organization\'s specific needs. We\'ll come to you, learn your processes, and build training that delivers measurable results.'}
@@ -680,22 +680,22 @@ export default function Academy() {
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.9, y: 20 }}
               transition={{ duration: 0.3 }}
-              className="relative bg-[#1B2A4A] border border-white/10 rounded-3xl max-w-2xl w-full max-h-[85vh] overflow-y-auto shadow-2xl"
+              className="relative bg-white border border-gray-200 rounded-3xl max-w-2xl w-full max-h-[85vh] overflow-y-auto shadow-2xl"
               onClick={(e) => e.stopPropagation()}
             >
               {/* Modal Header */}
-              <div className={`sticky top-0 bg-[#1B2A4A]/95 backdrop-blur-md border-b border-white/10 p-6 flex items-start justify-between gap-4 z-10`}>
+              <div className={`sticky top-0 bg-white/95 backdrop-blur-md border-b border-gray-200 p-6 flex items-start justify-between gap-4 z-10`}>
                 <div>
-                  <h2 className="text-2xl font-bold text-white leading-tight">
+                  <h2 className="text-2xl font-bold text-gray-900 leading-tight">
                     {isRtl ? selectedProgram.title : selectedProgram.titleEn}
                   </h2>
                   <div className="flex items-center gap-3 mt-2 flex-wrap">
-                    <span className="flex items-center gap-1.5 text-sm text-gray-400">
-                      <Users className="w-4 h-4 text-orange-400" />
+                    <span className="flex items-center gap-1.5 text-sm text-gray-500">
+                      <Users className="w-4 h-4 text-purple-600" />
                       {isRtl ? selectedProgram.audience : selectedProgram.audienceEn}
                     </span>
-                    <span className="flex items-center gap-1.5 text-sm text-gray-400">
-                      <Clock className="w-4 h-4 text-blue-300" />
+                    <span className="flex items-center gap-1.5 text-sm text-gray-500">
+                      <Clock className="w-4 h-4 text-purple-500" />
                       {selectedProgram.hours} {isRtl ? 'שעות הכשרה' : 'training hours'}
                     </span>
                     <span className={`text-xs font-semibold px-3 py-1 rounded-full ${getLevelColor(isRtl ? selectedProgram.level : selectedProgram.levelEn)}`}>
@@ -705,38 +705,38 @@ export default function Academy() {
                 </div>
                 <button
                   onClick={() => { setSelectedProgram(null); setExpandedModule(null); }}
-                  className="p-2 rounded-xl glass hover:bg-white/10 transition-colors flex-shrink-0"
+                  className="p-2 rounded-xl bg-white border border-gray-200 hover:bg-gray-100 transition-colors flex-shrink-0"
                 >
-                  <X className="w-5 h-5 text-gray-400" />
+                  <X className="w-5 h-5 text-gray-500" />
                 </button>
               </div>
 
               <div className="p-6 space-y-6">
                 {/* Modules */}
                 <div>
-                  <h3 className="text-lg font-bold text-orange-400 mb-4">
+                  <h3 className="text-lg font-bold text-purple-600 mb-4">
                     {isRtl ? '📋 מודולי ההכשרה' : '📋 Training Modules'}
                   </h3>
                   <div className="space-y-3">
                     {(isRtl ? selectedProgram.modules : selectedProgram.modulesEn).map((module, i) => (
-                      <div key={i} className="glass rounded-xl overflow-hidden">
+                      <div key={i} className="bg-white border border-gray-200 rounded-xl overflow-hidden">
                         <button
                           className="w-full flex items-center justify-between p-4 text-right hover:bg-white/5 transition-colors"
                           onClick={() => setExpandedModule(expandedModule === i ? null : i)}
                         >
                           <div className="flex items-center gap-3">
-                            <div className="w-7 h-7 rounded-full bg-gradient-to-br from-orange-500 to-purple-600 flex items-center justify-center text-xs font-bold text-white flex-shrink-0">
+                            <div className="w-7 h-7 rounded-full bg-gradient-to-br from-purple-600 to-violet-600 flex items-center justify-center text-xs font-bold text-white flex-shrink-0">
                               {i + 1}
                             </div>
                             <div className={isRtl ? 'text-right' : 'text-left'}>
-                              <p className="font-semibold text-white text-sm">{module.title}</p>
-                              <p className="text-xs text-gray-400">{module.duration}</p>
+                              <p className="font-semibold text-gray-900 text-sm">{module.title}</p>
+                              <p className="text-xs text-gray-500">{module.duration}</p>
                             </div>
                           </div>
                           {expandedModule === i ? (
-                            <ChevronUp className="w-4 h-4 text-orange-400 flex-shrink-0" />
+                            <ChevronUp className="w-4 h-4 text-purple-600 flex-shrink-0" />
                           ) : (
-                            <ChevronDown className="w-4 h-4 text-gray-400 flex-shrink-0" />
+                            <ChevronDown className="w-4 h-4 text-gray-500 flex-shrink-0" />
                           )}
                         </button>
                         <AnimatePresence>
@@ -748,11 +748,11 @@ export default function Academy() {
                               transition={{ duration: 0.2 }}
                               className="overflow-hidden"
                             >
-                              <div className="px-4 pb-4 border-t border-white/5">
+                              <div className="px-4 pb-4 border-t border-gray-100">
                                 <ul className="mt-3 space-y-2">
                                   {module.topics.map((topic, j) => (
-                                    <li key={j} className="flex items-center gap-2 text-sm text-gray-300">
-                                      <div className="w-1.5 h-1.5 rounded-full bg-orange-400 flex-shrink-0" />
+                                    <li key={j} className="flex items-center gap-2 text-sm text-gray-600">
+                                      <div className="w-1.5 h-1.5 rounded-full bg-purple-500 flex-shrink-0" />
                                       {topic}
                                     </li>
                                   ))}
@@ -768,12 +768,12 @@ export default function Academy() {
 
                 {/* Tools */}
                 <div>
-                  <h3 className="text-lg font-bold text-blue-300 mb-3">
+                  <h3 className="text-lg font-bold text-purple-700 mb-3">
                     {isRtl ? '🛠️ כלים שנלמד' : '🛠️ Tools We Cover'}
                   </h3>
                   <div className="flex flex-wrap gap-2">
                     {selectedProgram.tools.map((tool, i) => (
-                      <span key={i} className="px-3 py-1.5 glass rounded-full text-sm text-orange-300 border border-orange-500/20">
+                      <span key={i} className="px-3 py-1.5 bg-purple-100 border border-purple-200 rounded-full text-sm text-purple-600 border border-purple-200">
                         {tool}
                       </span>
                     ))}
@@ -782,13 +782,13 @@ export default function Academy() {
 
                 {/* Outcomes */}
                 <div>
-                  <h3 className="text-lg font-bold text-emerald-400 mb-3">
+                  <h3 className="text-lg font-bold text-emerald-700 mb-3">
                     {isRtl ? '✅ מה תקבלו בסיום?' : '✅ What You\'ll Gain'}
                   </h3>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                     {(isRtl ? selectedProgram.outcomes : selectedProgram.outcomesEn).map((outcome, i) => (
-                      <div key={i} className="flex items-center gap-2 text-sm text-gray-300">
-                        <CheckCircle className="w-4 h-4 text-emerald-400 flex-shrink-0" />
+                      <div key={i} className="flex items-center gap-2 text-sm text-gray-600">
+                        <CheckCircle className="w-4 h-4 text-emerald-600 flex-shrink-0" />
                         {outcome}
                       </div>
                     ))}
