@@ -354,3 +354,18 @@
   40%       { transform: scale(1); opacity: 1; }
   60%       { transform: scale(0.8); opacity: 0.7; }
 }
+
+/* ── Academy 3D object animations ── */
+@keyframes academy-orbit1 {
+  from { transform: rotateX(70deg) rotateZ(0deg); }
+  to   { transform: rotateX(70deg) rotateZ(360deg); }
+}
+@keyframes academy-orbit2 {
+  from { transform: rotateX(70deg) rotateZ(45deg); }
+  to   { transform: rotateX(70deg) rotateZ(-315deg); }
+}
+@keyframes academy-float {
+  0%, 100% { transform: translateY(0px) rotateY(0deg); }
+  25%       { transform: translateY(-8px) rotateY(8deg); }
+  75%       { transform: translateY(4px) rotateY(-5deg); }
+}

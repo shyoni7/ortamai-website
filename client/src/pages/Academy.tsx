@@ -368,27 +368,7 @@ export default function Academy() {
   const isRtl = lang === 'he';
   const dir = isRtl ? 'rtl' : 'ltr';
   const [selectedProgram, setSelectedProgram] = useState<TrainingProgram | null>(null);
-  const [activeFilter, setActiveFilter] = useState<string>('all');
   const [expandedModule, setExpandedModule] = useState<number | null>(null);
-
-  const filters = isRtl
-    ? [
-        { key: 'all', label: 'הכל' },
-        { key: 'intermediate', label: 'בינוני' },
-        { key: 'advanced', label: 'מתקדמים' },
-      ]
-    : [
-        { key: 'all', label: 'All' },
-        { key: 'intermediate', label: 'Intermediate' },
-        { key: 'advanced', label: 'Advanced' },
-      ];
-
-  const filteredPrograms = trainingPrograms.filter((p) => {
-    if (activeFilter === 'all') return true;
-    if (activeFilter === 'intermediate') return p.level === 'בינוני';
-    if (activeFilter === 'advanced') return p.level === 'מתקדמים';
-    return true;
-  });
 
   const getLevelColor = (level: string) => {
     if (level === 'בינוני' || level === 'Intermediate') return 'bg-blue-100 text-blue-700 border border-blue-200';
@@ -398,97 +378,160 @@ export default function Academy() {
 
   return (
     <div dir={dir} className="min-h-screen">
-      {/* Hero Section */}
-      <section className="relative py-12 overflow-hidden">
+      {/* Hero + Training Programs — unified single section */}
+      <section className="relative overflow-hidden">
+        {/* Background */}
         <div className="absolute inset-0 bg-gradient-to-br from-gray-50 via-purple-50 to-gray-100" />
         <div className="absolute inset-0 grid-pattern opacity-20" />
-        <motion.div
-          animate={{ x: [0, 60, 0], y: [0, 30, 0] }}
-          transition={{ duration: 10, repeat: Infinity }}
-          className="absolute top-20 left-20 w-80 h-80 bg-purple-200/40 rounded-full blur-3xl"
-        />
-        <motion.div
-          animate={{ x: [0, -40, 0], y: [0, -20, 0] }}
-          transition={{ duration: 12, repeat: Infinity, delay: 2 }}
-          className="absolute bottom-20 right-20 w-96 h-96 bg-purple-100/40 rounded-full blur-3xl"
-        />
-        <div className="relative z-10 max-w-5xl mx-auto px-4 text-center">
-          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="inline-flex mb-6">
-            <div className="bg-white border border-gray-200 px-4 py-2 rounded-full">
-              <span className="text-sm font-semibold text-purple-600">
-                {isRtl ? 'מרכז הכשרות AI' : 'AI Training Center'}
-              </span>
-            </div>
-          </motion.div>
-          <motion.h1
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            className="text-4xl md:text-5xl font-bold text-gray-900 mb-4"
-          >
-            {isRtl ? 'מסלולי ההכשרה שלנו' : 'Our Training Programs'}
-          </motion.h1>
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="text-lg text-gray-600 mb-6 max-w-3xl mx-auto"
-          >
-            {isRtl
-              ? 'הכשרות מותאמות לכל מחלקה ותפקיד. בנינו תוכניות ייחודיות שמביאות תוצאות מדידות לארגון שלכם.'
-              : 'Training tailored for every department and role. We built unique programs that deliver measurable results for your organization.'}
-          </motion.p>
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.4 }}
-            className="flex items-center justify-center gap-4 flex-wrap"
-          >
-            <div className="bg-white border border-gray-200 px-4 py-2 rounded-full flex items-center gap-2">
-              <Award className="w-4 h-4 text-purple-600" />
-              <span className="text-sm text-gray-600">{isRtl ? 'קורס מוסמך' : 'Certified Course'}</span>
+        <motion.div animate={{ x: [0, 60, 0], y: [0, 30, 0] }} transition={{ duration: 10, repeat: Infinity }}
+          className="absolute top-10 left-10 w-72 h-72 bg-purple-200/40 rounded-full blur-3xl" />
+        <motion.div animate={{ x: [0, -40, 0], y: [0, -20, 0] }} transition={{ duration: 12, repeat: Infinity, delay: 2 }}
+          className="absolute bottom-10 right-10 w-80 h-80 bg-purple-100/40 rounded-full blur-3xl" />
+
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 pb-10">
+          {/* Hero row: text left, 3D object right */}
+          <div className="flex flex-col lg:flex-row items-center gap-8 mb-12">
+            {/* Text */}
+            <div className="flex-1 text-center lg:text-right">
+              <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="inline-flex mb-4">
+                <div className="bg-white border border-gray-200 px-4 py-2 rounded-full">
+                  <span className="text-sm font-semibold text-purple-600">{isRtl ? 'מרכז הכשרות AI' : 'AI Training Center'}</span>
+                </div>
+              </motion.div>
+              <motion.h1 initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}
+                className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+                {isRtl ? 'מסלולי ההכשרה שלנו' : 'Our Training Programs'}
+              </motion.h1>
+              <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.2 }}
+                className="text-lg text-gray-600 mb-6 max-w-xl mx-auto lg:mx-0">
+                {isRtl
+                  ? 'הכשרות מותאמות לכל מחלקה ותפקיד. בנינו תוכניות ייחודיות שמביאות תוצאות מדידות לארגון שלכם.'
+                  : 'Training tailored for every department and role. We built unique programs that deliver measurable results for your organization.'}
+              </motion.p>
+              <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.4 }}
+                className="flex items-center justify-center lg:justify-end gap-4 flex-wrap">
+                <div className="bg-white border border-gray-200 px-4 py-2 rounded-full flex items-center gap-2">
+                  <Award className="w-4 h-4 text-purple-600" />
+                  <span className="text-sm text-gray-600">{isRtl ? 'קורס מוסמך' : 'Certified Course'}</span>
+                </div>
+                <div className="bg-white border border-gray-200 px-4 py-2 rounded-full flex items-center gap-2">
+                  <Users className="w-4 h-4 text-purple-500" />
+                  <span className="text-sm text-gray-600">{isRtl ? '+250 בוגרים' : '+250 Graduates'}</span>
+                </div>
+              </motion.div>
             </div>
 
-            <div className="bg-white border border-gray-200 px-4 py-2 rounded-full flex items-center gap-2">
-              <Users className="w-4 h-4 text-purple-500" />
-              <span className="text-sm text-gray-600">{isRtl ? '+500 בוגרים' : '+500 Graduates'}</span>
-            </div>
-          </motion.div>
-        </div>
-      </section>
+            {/* 3D Animated Education Object */}
+            <motion.div initial={{ opacity: 0, scale: 0.8 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 1 }}
+              className="flex-shrink-0 flex items-center justify-center" style={{ width: '280px', height: '280px' }}>
+              <div style={{ perspective: '800px', width: '220px', height: '220px' }}>
+                {/* Outer orbit ring */}
+                <div style={{
+                  position: 'absolute', width: '220px', height: '220px',
+                  borderRadius: '50%',
+                  border: '2px solid rgba(139,92,246,0.35)',
+                  animation: 'academy-orbit1 8s linear infinite',
+                  transformStyle: 'preserve-3d',
+                  transform: 'rotateX(70deg)',
+                }} />
+                {/* Inner orbit ring */}
+                <div style={{
+                  position: 'absolute', width: '160px', height: '160px',
+                  top: '30px', left: '30px',
+                  borderRadius: '50%',
+                  border: '2px solid rgba(168,85,247,0.4)',
+                  animation: 'academy-orbit2 5s linear infinite reverse',
+                  transformStyle: 'preserve-3d',
+                  transform: 'rotateX(70deg) rotateZ(45deg)',
+                }} />
 
-      {/* Corporate Training Programs */}
-      <section className="py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-center mb-12"
-          >
-            <h2 className="text-4xl font-bold text-gray-900 mb-4">
-              {isRtl ? 'מסלולי ההכשרה הארגוניים שלנו' : 'Our Corporate Training Programs'}
-            </h2>
-            <p className="text-gray-500 text-lg">
-              {isRtl ? 'הכשרות מותאמות לכל מחלקה ותפקיד' : 'Training tailored for every department and role'}
-            </p>
-          </motion.div>
+                {/* Central 3D book */}
+                <div style={{
+                  position: 'absolute', top: '60px', left: '60px',
+                  width: '100px', height: '100px',
+                  animation: 'academy-float 4s ease-in-out infinite',
+                  transformStyle: 'preserve-3d',
+                }}>
+                  {/* Book body */}
+                  <div style={{
+                    position: 'absolute', inset: 0,
+                    background: 'linear-gradient(135deg, #7c3aed 0%, #a855f7 50%, #c084fc 100%)',
+                    borderRadius: '6px 14px 14px 6px',
+                    boxShadow: '0 20px 50px rgba(124,58,237,0.5), 0 4px 15px rgba(124,58,237,0.3)',
+                  }} />
+                  {/* Book spine */}
+                  <div style={{
+                    position: 'absolute', top: 0, bottom: 0, left: 0, width: '14px',
+                    background: 'linear-gradient(180deg, #5b21b6, #7c3aed)',
+                    borderRadius: '6px 0 0 6px',
+                    boxShadow: 'inset -2px 0 4px rgba(0,0,0,0.2)',
+                  }} />
+                  {/* Book pages lines */}
+                  {[0,1,2,3].map(i => (
+                    <div key={i} style={{
+                      position: 'absolute',
+                      top: `${22 + i * 14}px`, left: '22px', right: '10px', height: '3px',
+                      background: 'rgba(255,255,255,0.3)',
+                      borderRadius: '2px',
+                    }} />
+                  ))}
+                  {/* AI text on book */}
+                  <div style={{
+                    position: 'absolute', top: '50%', left: '55%',
+                    transform: 'translate(-50%, -50%)',
+                    fontSize: '22px', fontWeight: 900, color: 'white',
+                    textShadow: '0 2px 8px rgba(0,0,0,0.3)',
+                    letterSpacing: '-1px',
+                  }}>AI</div>
+                  {/* Specular shine */}
+                  <div style={{
+                    position: 'absolute', inset: 0,
+                    background: 'linear-gradient(135deg, rgba(255,255,255,0.3) 0%, transparent 45%)',
+                    borderRadius: '6px 14px 14px 6px',
+                  }} />
+                </div>
 
-          {/* Filters */}
-          <div className="flex justify-center gap-3 mb-10 flex-wrap">
-            {filters.map((f) => (
-              <button
-                key={f.key}
-                onClick={() => setActiveFilter(f.key)}
-                className={`px-5 py-2 rounded-full text-sm font-medium transition-all ${
-                  activeFilter === f.key
-                    ? 'bg-gradient-to-r from-purple-600 to-violet-600 text-white shadow-lg shadow-purple-200'
-                    : 'bg-white border border-gray-200 text-gray-500 hover:text-gray-900'
-                }`}
-              >
-                {f.label}
-              </button>
-            ))}
+                {/* Orbiting dot 1 — graduation cap */}
+                <div style={{
+                  position: 'absolute', top: '0px', left: '100px',
+                  width: '28px', height: '28px',
+                  background: 'linear-gradient(135deg, #a855f7, #7c3aed)',
+                  borderRadius: '50%',
+                  boxShadow: '0 4px 12px rgba(168,85,247,0.6)',
+                  display: 'flex', alignItems: 'center', justifyContent: 'center',
+                  fontSize: '14px',
+                  animation: 'academy-orbit1 8s linear infinite',
+                  transformOrigin: '-86px 110px',
+                }}>🎓</div>
+
+                {/* Orbiting dot 2 — star */}
+                <div style={{
+                  position: 'absolute', top: '75px', left: '185px',
+                  width: '22px', height: '22px',
+                  background: 'linear-gradient(135deg, #c084fc, #a855f7)',
+                  borderRadius: '50%',
+                  boxShadow: '0 4px 10px rgba(192,132,252,0.6)',
+                  display: 'flex', alignItems: 'center', justifyContent: 'center',
+                  fontSize: '11px',
+                  animation: 'academy-orbit2 5s linear infinite reverse',
+                  transformOrigin: '-75px 35px',
+                }}>⭐</div>
+
+                {/* Orbiting dot 3 — lightbulb */}
+                <div style={{
+                  position: 'absolute', top: '180px', left: '90px',
+                  width: '24px', height: '24px',
+                  background: 'linear-gradient(135deg, #8b5cf6, #6d28d9)',
+                  borderRadius: '50%',
+                  boxShadow: '0 4px 10px rgba(139,92,246,0.6)',
+                  display: 'flex', alignItems: 'center', justifyContent: 'center',
+                  fontSize: '12px',
+                  animation: 'academy-orbit1 8s linear infinite',
+                  animationDelay: '-4s',
+                  transformOrigin: '20px -70px',
+                }}>💡</div>
+              </div>
+            </motion.div>
           </div>
 
           {/* Training Cards Grid */}
@@ -499,7 +542,7 @@ export default function Academy() {
             viewport={{ once: true }}
             className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
           >
-            {filteredPrograms.map((program) => (
+            {trainingPrograms.map((program) => (
               <motion.div
                 key={program.id}
                 variants={fadeUp}
@@ -514,11 +557,7 @@ export default function Academy() {
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-gray-900/60 via-gray-900/20 to-transparent" />
-                  <div className="absolute top-3 right-3">
-                    <span className={`text-xs font-semibold px-3 py-1 rounded-full ${getLevelColor(isRtl ? program.level : program.levelEn)}`}>
-                      {isRtl ? program.level : program.levelEn}
-                    </span>
-                  </div>
+
                 </div>
 
                 {/* Card Content */}
