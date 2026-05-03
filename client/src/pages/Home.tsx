@@ -317,7 +317,7 @@ export default function Home() {
             variants={stagger}
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: true }}
+            viewport={{ once: true, margin: "-100px", amount: 0 }}
             className="grid grid-cols-2 md:grid-cols-4 gap-8"
           >
             {stats.map((stat, i) => (
@@ -336,7 +336,7 @@ export default function Home() {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
+            viewport={{ once: true, margin: "-100px", amount: 0 }}
             transition={{ duration: 0.7 }}
             className="text-center mb-16"
           >
@@ -348,7 +348,7 @@ export default function Home() {
             variants={stagger}
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: true }}
+            viewport={{ once: true, margin: "-100px", amount: 0 }}
             className="grid grid-cols-1 md:grid-cols-3 gap-8"
           >
             {pillars.map((pillar, i) => (
@@ -388,7 +388,7 @@ export default function Home() {
             <motion.div
               initial={{ opacity: 0, x: isRtl ? 40 : -40 }}
               whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
+              viewport={{ once: true, margin: "-100px", amount: 0 }}
               transition={{ duration: 0.8 }}
             >
               <img
@@ -401,7 +401,7 @@ export default function Home() {
               variants={stagger}
               initial="hidden"
               whileInView="visible"
-              viewport={{ once: true }}
+              viewport={{ once: true, margin: "-100px", amount: 0 }}
               className={isRtl ? 'text-right' : 'text-left'}
             >
               <motion.h2 variants={fadeUp} className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
@@ -437,7 +437,7 @@ export default function Home() {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
+            viewport={{ once: true, margin: "-100px", amount: 0 }}
             className="text-center mb-16"
           >
             <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">{t.home.how_title}</h2>
@@ -448,7 +448,7 @@ export default function Home() {
             variants={stagger}
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: true }}
+            viewport={{ once: true, margin: "-100px", amount: 0 }}
             className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8"
           >
             {steps.map((step, i) => (
@@ -475,7 +475,7 @@ export default function Home() {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
+            viewport={{ once: true, margin: "-100px", amount: 0 }}
             className="text-center mb-12"
           >
             <h2 className="text-3xl font-bold text-gray-900 mb-2">{t.home.partners_title}</h2>
@@ -486,7 +486,7 @@ export default function Home() {
             variants={stagger}
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: true }}
+            viewport={{ once: true, margin: "-100px", amount: 0 }}
             className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6 items-center"
           >
             {PARTNERS.map((partner, i) => (
@@ -518,7 +518,7 @@ export default function Home() {
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
+            viewport={{ once: true, margin: "-100px", amount: 0 }}
             transition={{ duration: 0.8 }}
           >
             <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">{t.home.final_title}</h2>

@@ -62,12 +62,12 @@ export default function About() {
       <section className="py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-            <motion.div initial={{ opacity: 0, x: isRtl ? 40 : -40 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.8 }} className={isRtl ? 'text-right' : 'text-left'}>
+            <motion.div initial={{ opacity: 0, x: isRtl ? 40 : -40 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true, margin: "-100px", amount: 0 }} transition={{ duration: 0.8 }} className={isRtl ? 'text-right' : 'text-left'}>
               <h2 className="text-3xl font-bold text-gray-900 mb-6">{t.about.who}</h2>
               <p className="text-gray-600 mb-4 leading-relaxed">{t.about.p1}</p>
               <p className="text-gray-600 leading-relaxed">{t.about.p2}</p>
             </motion.div>
-            <motion.div initial={{ opacity: 0, x: isRtl ? -40 : 40 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.8 }} className="bg-white border border-gray-200 rounded-2xl shadow-sm p-8">
+            <motion.div initial={{ opacity: 0, x: isRtl ? -40 : 40 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true, margin: "-100px", amount: 0 }} transition={{ duration: 0.8 }} className="bg-white border border-gray-200 rounded-2xl shadow-sm p-8">
               <h3 className="text-2xl font-bold text-gray-900 mb-4">{t.about.vision_title}</h3>
               <p className="text-gray-600 leading-relaxed mb-6">{t.about.vision_text}</p>
               <h3 className="text-2xl font-bold text-gray-900 mb-4">{t.about.mission_title}</h3>
@@ -83,10 +83,10 @@ export default function About() {
       <section className="py-20 relative">
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-purple-50 to-transparent" />
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.h2 initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-4xl font-bold text-gray-900 text-center mb-12">
+          <motion.h2 initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-100px", amount: 0 }} className="text-4xl font-bold text-gray-900 text-center mb-12">
             {t.about.values_title}
           </motion.h2>
-          <motion.div variants={stagger} initial="hidden" whileInView="visible" viewport={{ once: true }} className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <motion.div variants={stagger} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px", amount: 0 }} className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {values.map((v, i) => {
               const Icon = v.icon;
               return (
@@ -106,11 +106,11 @@ export default function About() {
       {/* Team */}
       <section className="py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center mb-12">
+          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-100px", amount: 0 }} className="text-center mb-12">
             <h2 className="text-4xl font-bold text-gray-900 mb-4">{t.about.team_title}</h2>
             <p className="text-gray-500 text-lg">{t.about.team_sub}</p>
           </motion.div>
-          <motion.div variants={stagger} initial="hidden" whileInView="visible" viewport={{ once: true }} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+          <motion.div variants={stagger} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px", amount: 0 }} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
             {TEAM.map((member, i) => (
               <motion.div key={i} variants={fadeUp} className="bg-white border border-gray-200 rounded-2xl shadow-sm overflow-hidden hover:border-purple-300 transition-all group">
                 <div className="relative h-56 overflow-hidden">
@@ -131,7 +131,7 @@ export default function About() {
       <section className="py-20 relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-r from-orange-500/10 via-blue-900/30 to-orange-500/10" />
         <div className="max-w-3xl mx-auto px-4 text-center relative z-10">
-          <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
+          <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-100px", amount: 0 }}>
             <h2 className="text-4xl font-bold text-gray-900 mb-4">{t.about.cta_title}</h2>
             <p className="text-gray-600 text-lg mb-8">{t.about.cta_sub}</p>
             <GradientButton href="/contact" size="lg">

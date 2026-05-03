@@ -663,7 +663,7 @@ function ConsultationForm({ isRtl }: { isRtl: boolean }) {
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
+          viewport={{ once: true, margin: "-100px", amount: 0 }}
           transition={{ duration: 0.6 }}
         >
           <h2 className="text-3xl md:text-4xl font-bold text-white mb-3 text-center">{labels.title}</h2>

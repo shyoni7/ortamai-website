@@ -213,7 +213,7 @@ export default function Placement() {
       {/* Cards */}
       <section className="py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div variants={stagger} initial="hidden" whileInView="visible" viewport={{ once: true }} className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          <motion.div variants={stagger} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px", amount: 0 }} className="grid grid-cols-1 lg:grid-cols-2 gap-8">
             {/* Candidates */}
             <motion.div variants={fadeUp} className="bg-white border border-gray-200 rounded-2xl shadow-sm p-10 hover:border-purple-300 transition-all">
               <div className="inline-flex p-3 rounded-xl bg-gradient-to-br from-purple-600 to-violet-600 mb-6">
@@ -260,7 +260,7 @@ export default function Placement() {
           <motion.div
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: true }}
+            viewport={{ once: true, margin: "-100px", amount: 0 }}
             variants={fadeUp}
           >
             {/* Section Header */}
