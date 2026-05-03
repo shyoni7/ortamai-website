@@ -120,37 +120,93 @@ export default function Placement() {
   return (
     <div dir={dir}>
       {/* Hero */}
-      <section className="relative py-32 overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-gray-50 via-purple-50 to-gray-100" />
-        <div className="absolute inset-0 grid-pattern opacity-20" />
-        <div className="absolute top-20 right-20 w-80 h-80 bg-orange-500/10 rounded-full blur-3xl" />
-        <div className="absolute bottom-20 left-20 w-80 h-80 bg-purple-100/30 rounded-full blur-3xl" />
-        <div className="relative z-10 max-w-4xl mx-auto px-4 text-center">
+      <section
+        dir="rtl"
+        style={{
+          background: 'linear-gradient(135deg, #1a1060 0%, #2d1b8e 40%, #3b2aaa 70%, #1e0f6e 100%)',
+          position: 'relative',
+          overflow: 'hidden',
+          padding: '3.5rem 0',
+        }}
+      >
+        {/* Subtle glow blobs */}
+        <div style={{ position: 'absolute', top: '-60px', right: '-60px', width: '340px', height: '340px', borderRadius: '50%', background: 'radial-gradient(circle, rgba(139,92,246,0.25) 0%, transparent 70%)', pointerEvents: 'none' }} />
+        <div style={{ position: 'absolute', bottom: '-40px', left: '10%', width: '260px', height: '260px', borderRadius: '50%', background: 'radial-gradient(circle, rgba(245,158,11,0.12) 0%, transparent 70%)', pointerEvents: 'none' }} />
+
+        <div className="max-w-6xl mx-auto px-6" style={{ display: 'flex', alignItems: 'center', gap: '3rem', flexWrap: 'wrap' }}>
+          {/* Text — right side in RTL */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.6 }}
-            className="inline-flex items-center gap-2 bg-white border border-gray-200 px-4 py-2 rounded-full mb-6"
-          >
-            <Briefcase className="w-4 h-4" style={{ color: '#F59E0B' }} />
-            <span className="text-sm text-purple-600 font-medium">{t.nav.placement}</span>
-          </motion.div>
-          <motion.h1
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0, x: 40 }}
+            animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8 }}
-            className="text-5xl md:text-6xl font-bold text-gray-900 mb-6"
+            style={{ flex: '1 1 340px', minWidth: '280px' }}
           >
-            {t.placement.hero_title}
-          </motion.h1>
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="text-xl text-gray-600"
+            {/* Badge */}
+            <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', background: 'rgba(255,255,255,0.1)', border: '1px solid rgba(255,255,255,0.2)', borderRadius: '999px', padding: '6px 16px', marginBottom: '1.25rem' }}>
+              <Briefcase style={{ width: '14px', height: '14px', color: '#F59E0B' }} />
+              <span style={{ fontSize: '13px', color: 'rgba(255,255,255,0.85)', fontWeight: 600 }}>
+                {isRtl ? 'מרכז השמה' : 'Placement Center'}
+              </span>
+            </div>
+
+            <h1 style={{ fontSize: 'clamp(2rem, 4vw, 3rem)', fontWeight: 800, color: '#ffffff', lineHeight: 1.2, marginBottom: '1rem' }}>
+              {isRtl ? 'מרכז השמה מוכוון AI' : 'AI-Driven Placement Center'}
+            </h1>
+
+            <p style={{ fontSize: '1.05rem', color: 'rgba(255,255,255,0.75)', lineHeight: 1.7, marginBottom: '1.5rem', maxWidth: '480px' }}>
+              {isRtl
+                ? 'בשוק העבודה המשתנה יש צורך באיפיון משרות מתאימות לעולם ה-AI. אנו מתמחים במציאת עובדים שעברו הכשרת AI מותאמת לתפקידם.'
+                : 'In the changing job market, there is a need to define roles suited to the AI era. We specialize in finding employees who have undergone AI training tailored to their role.'}
+            </p>
+
+            <motion.a
+              href="#cv-form"
+              whileHover={{ scale: 1.04 }}
+              whileTap={{ scale: 0.97 }}
+              style={{
+                display: 'inline-flex', alignItems: 'center', gap: '8px',
+                background: '#ffffff', color: '#2d1b8e',
+                fontWeight: 700, fontSize: '1rem',
+                padding: '12px 28px', borderRadius: '12px',
+                textDecoration: 'none', boxShadow: '0 4px 20px rgba(0,0,0,0.25)',
+              }}
+            >
+              {isRtl ? 'שלח קורות חיים' : 'Submit CV'}
+              <span style={{ fontSize: '1.1rem' }}>←</span>
+            </motion.a>
+          </motion.div>
+
+          {/* Video — left side in RTL */}
+          <motion.div
+            initial={{ opacity: 0, x: -40 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.9, delay: 0.15 }}
+            style={{ flex: '1 1 340px', minWidth: '280px', maxWidth: '520px', position: 'relative' }}
           >
-            {t.placement.hero_sub}
-          </motion.p>
+            {/* Glow ring behind video */}
+            <div style={{
+              position: 'absolute', inset: '-12px',
+              borderRadius: '20px',
+              background: 'linear-gradient(135deg, rgba(139,92,246,0.4), rgba(245,158,11,0.2))',
+              filter: 'blur(18px)',
+              zIndex: 0,
+            }} />
+            <video
+              src="https://d2xsxph8kpxj0f.cloudfront.net/310519663445418346/oDFneUKwvw2xJYXYaumUdB/placement-hero_bf92ded4.mp4"
+              autoPlay
+              loop
+              muted
+              playsInline
+              style={{
+                width: '100%',
+                borderRadius: '16px',
+                position: 'relative',
+                zIndex: 1,
+                boxShadow: '0 20px 60px rgba(0,0,0,0.5)',
+                display: 'block',
+              }}
+            />
+          </motion.div>
         </div>
       </section>
 
