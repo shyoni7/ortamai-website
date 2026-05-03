@@ -255,7 +255,7 @@ export default function Placement() {
       </section>
 
       {/* CV Submission Form */}
-      <section className="py-20">
+      <section id="cv-form" className="py-20">
         <div className="max-w-3xl mx-auto px-4">
           <motion.div
             initial="hidden"
