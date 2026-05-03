@@ -192,7 +192,7 @@ export default function Placement() {
               zIndex: 0,
             }} />
             <video
-              src="https://d2xsxph8kpxj0f.cloudfront.net/310519663445418346/oDFneUKwvw2xJYXYaumUdB/placement-hero_bf92ded4.mp4"
+              src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663445418346/mYNIxIlFvGEcEMgl.mp4"
               autoPlay
               loop
               muted
