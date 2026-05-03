@@ -536,9 +536,10 @@ export default function Incubator() {
                   <motion.div
                     whileHover={{ scale: 1.1, rotate: 5 }}
                     transition={{ type: 'spring', stiffness: 300 }}
-                    className={`inline-flex p-4 rounded-2xl bg-purple-100 border border-purple-200 mb-5 ${isRtl ? '' : 'mx-auto'}`}
+                    className={`inline-flex p-4 rounded-2xl mb-5 ${isRtl ? '' : 'mx-auto'}`}
+                    style={{ background: i % 2 === 0 ? 'rgba(245,158,11,0.12)' : 'rgb(243 232 255)', border: i % 2 === 0 ? '1px solid rgba(245,158,11,0.3)' : '1px solid rgb(233 213 255)' }}
                   >
-                    <Icon className="w-8 h-8 text-purple-600" />
+                    <Icon className="w-8 h-8" style={{ color: i % 2 === 0 ? '#F59E0B' : '#9333ea' }} />
                   </motion.div>
                   <h3 className="text-gray-900 font-bold text-xl mb-3">{item.title}</h3>
                   <p className="text-gray-500 leading-relaxed">{item.desc}</p>
@@ -579,7 +580,8 @@ export default function Incubator() {
                     initial={{ scale: 0 }}
                     animate={inView ? { scale: 1 } : {}}
                     transition={{ delay: i * 0.12 + 0.2, type: 'spring', stiffness: 300 }}
-                    className={`inline-flex items-center justify-center w-12 h-12 rounded-full bg-purple-600 text-white font-bold text-lg mb-4 shadow-lg shadow-purple-200 ${isRtl ? '' : 'mx-auto'}`}
+                    className={`inline-flex items-center justify-center w-12 h-12 rounded-full text-white font-bold text-lg mb-4 shadow-lg ${isRtl ? '' : 'mx-auto'}`}
+                    style={{ background: i % 2 === 0 ? '#F59E0B' : '#9333ea', boxShadow: i % 2 === 0 ? '0 4px 14px rgba(245,158,11,0.35)' : '0 4px 14px rgba(147,51,234,0.35)' }}
                   >
                     {step.num}
                   </motion.div>

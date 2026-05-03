@@ -411,12 +411,12 @@ export default function Academy() {
               <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.4 }}
                 className="flex items-center justify-center lg:justify-end gap-4 flex-wrap">
                 <div className="bg-white border border-gray-200 px-4 py-2 rounded-full flex items-center gap-2">
-                  <Award className="w-4 h-4 text-purple-600" />
+                  <Award className="w-4 h-4" style={{ color: '#F59E0B' }} />
                   <span className="text-sm text-gray-600">{isRtl ? 'קורס מוסמך' : 'Certified Course'}</span>
                 </div>
                 <div className="bg-white border border-gray-200 px-4 py-2 rounded-full flex items-center gap-2">
                   <Users className="w-4 h-4 text-purple-500" />
-                  <span className="text-sm text-gray-600">{isRtl ? '+250 בוגרים' : '+250 Graduates'}</span>
+                  <span className="text-sm font-bold" style={{ color: '#F59E0B' }}>{isRtl ? '+250 בוגרים' : '+250 Graduates'}</span>
                 </div>
               </motion.div>
             </div>

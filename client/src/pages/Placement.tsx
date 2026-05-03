@@ -132,7 +132,7 @@ export default function Placement() {
             transition={{ duration: 0.6 }}
             className="inline-flex items-center gap-2 bg-white border border-gray-200 px-4 py-2 rounded-full mb-6"
           >
-            <Briefcase className="w-4 h-4 text-purple-600" />
+            <Briefcase className="w-4 h-4" style={{ color: '#F59E0B' }} />
             <span className="text-sm text-purple-600 font-medium">{t.nav.placement}</span>
           </motion.div>
           <motion.h1
@@ -168,7 +168,7 @@ export default function Placement() {
               <div className="space-y-3">
                 {benefits.map((b, i) => (
                   <div key={i} className="flex items-center gap-3">
-                    <CheckCircle className="w-5 h-5 text-purple-600 flex-shrink-0" />
+                    <CheckCircle className="w-5 h-5 flex-shrink-0" style={{ color: i % 2 === 0 ? '#F59E0B' : '#9333ea' }} />
                     <span className="text-gray-600 text-sm">{b}</span>
                   </div>
                 ))}
@@ -185,7 +185,7 @@ export default function Placement() {
               <div className="space-y-3 mb-8">
                 {benefits.map((b, i) => (
                   <div key={i} className="flex items-center gap-3">
-                    <CheckCircle className="w-5 h-5 text-purple-600 flex-shrink-0" />
+                    <CheckCircle className="w-5 h-5 flex-shrink-0" style={{ color: i % 2 === 0 ? '#9333ea' : '#F59E0B' }} />
                     <span className="text-gray-600 text-sm">{b}</span>
                   </div>
                 ))}

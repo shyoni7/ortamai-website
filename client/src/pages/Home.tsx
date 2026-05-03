@@ -169,7 +169,7 @@ export default function Home() {
               <motion.div variants={fadeUp} className="flex flex-wrap gap-6 mb-10">
                 {[{ v: '300+', l: isRtl ? 'בוגרים' : 'Graduates' }, { v: '98%', l: isRtl ? 'שביעות רצון' : 'Satisfaction' }, { v: '10+', l: isRtl ? 'שותפים' : 'Partners' }].map((s, i) => (
                   <div key={i} className="text-center">
-                    <div className="text-2xl font-bold text-gradient-cyan">{s.v}</div>
+                    <div className="text-2xl font-bold" style={{ color: '#F59E0B' }}>{s.v}</div>
                     <div className="text-xs text-gray-400">{s.l}</div>
                   </div>
                 ))}
@@ -322,7 +322,7 @@ export default function Home() {
           >
             {stats.map((stat, i) => (
               <motion.div key={i} variants={fadeUp} className="text-center">
-                <div className="text-4xl md:text-5xl font-bold text-gradient-cyan mb-2">{stat.value}</div>
+                <div className="text-4xl md:text-5xl font-bold mb-2" style={{ color: '#F59E0B' }}>{stat.value}</div>
                 <div className="text-gray-500 text-sm">{stat.label}</div>
               </motion.div>
             ))}
@@ -415,8 +415,8 @@ export default function Home() {
                   const Icon = item.icon;
                   return (
                     <motion.div key={i} variants={fadeUp} className="flex items-start gap-4">
-                      <div className="flex-shrink-0 p-2 rounded-lg bg-purple-100">
-                        <Icon className="w-5 h-5 text-purple-600" />
+                      <div className="flex-shrink-0 p-2 rounded-lg" style={{ background: i % 2 === 0 ? 'rgba(245,158,11,0.12)' : 'rgb(243 232 255)' }}>
+                        <Icon className="w-5 h-5" style={{ color: i % 2 === 0 ? '#F59E0B' : '#9333ea' }} />
                       </div>
                       <div>
                         <h4 className="text-gray-900 font-semibold mb-1">{item.title}</h4>
