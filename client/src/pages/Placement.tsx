@@ -213,9 +213,15 @@ export default function Placement() {
       {/* Cards */}
       <section className="py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div variants={stagger} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px", amount: 0 }} className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
             {/* Candidates */}
-            <motion.div variants={fadeUp} className="bg-white border border-gray-200 rounded-2xl shadow-sm p-10 hover:border-purple-300 transition-all">
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0 }}
+              transition={{ duration: 0.6 }}
+              className="bg-white border border-gray-200 rounded-2xl shadow-sm p-10 hover:border-purple-300 transition-all"
+            >
               <div className="inline-flex p-3 rounded-xl bg-gradient-to-br from-purple-600 to-violet-600 mb-6">
                 <User className="w-6 h-6 text-white" />
               </div>
@@ -232,7 +238,13 @@ export default function Placement() {
             </motion.div>
 
             {/* Employers */}
-            <motion.div variants={fadeUp} className="bg-white border border-gray-200 rounded-2xl shadow-sm p-10 hover:border-blue-900/30 transition-all">
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0 }}
+              transition={{ duration: 0.6, delay: 0.1 }}
+              className="bg-white border border-gray-200 rounded-2xl shadow-sm p-10 hover:border-blue-900/30 transition-all"
+            >
               <div className="inline-flex p-3 rounded-xl bg-gradient-to-br from-purple-600 to-pink-500 mb-6">
                 <Building className="w-6 h-6 text-white" />
               </div>
@@ -250,7 +262,7 @@ export default function Placement() {
                 <button className="w-full py-3 rounded-xl border border-blue-900/30 text-purple-600 hover:bg-purple-100/30 transition-colors font-semibold">{t.placement.cta}</button>
               </Link>
             </motion.div>
-          </motion.div>
+          </div>
         </div>
       </section>
 
@@ -258,10 +270,10 @@ export default function Placement() {
       <section id="cv-form" className="py-20">
         <div className="max-w-3xl mx-auto px-4">
           <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-100px", amount: 0 }}
-            variants={fadeUp}
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0 }}
+            transition={{ duration: 0.6 }}
           >
             {/* Section Header */}
             <div className="text-center mb-10">

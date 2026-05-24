@@ -535,17 +535,14 @@ export default function Academy() {
           </div>
 
           {/* Training Cards Grid */}
-          <motion.div
-            variants={stagger}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-100px", amount: 0 }}
-            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
-          >
-            {trainingPrograms.map((program) => (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {trainingPrograms.map((program, idx) => (
               <motion.div
                 key={program.id}
-                variants={fadeUp}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0 }}
+                transition={{ duration: 0.6, delay: idx * 0.1 }}
                 className="bg-white border border-gray-200 rounded-2xl shadow-sm overflow-hidden hover:border-purple-300 transition-all group cursor-pointer"
                 onClick={() => setSelectedProgram(program)}
               >
@@ -594,7 +591,7 @@ export default function Academy() {
                 </div>
               </motion.div>
             ))}
-          </motion.div>
+          </div>
         </div>
       </section>
 
@@ -616,17 +613,18 @@ export default function Academy() {
             </p>
           </motion.div>
 
-          <motion.div
-            variants={stagger}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-100px", amount: 0 }}
-            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
-          >
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {publicCourses.map((course, i) => {
               const Icon = course.icon;
               return (
-                <motion.div key={i} variants={fadeUp} className="bg-white border border-gray-200 rounded-2xl shadow-sm p-6 hover:border-purple-300 transition-all group">
+                <motion.div
+                  key={i}
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, amount: 0 }}
+                  transition={{ duration: 0.6, delay: i * 0.1 }}
+                  className="bg-white border border-gray-200 rounded-2xl shadow-sm p-6 hover:border-purple-300 transition-all group"
+                >
                   <div className={`inline-flex p-3 rounded-xl bg-gradient-to-br ${course.color} mb-4`}>
                     <Icon className="w-6 h-6 text-white" />
                   </div>
@@ -661,7 +659,7 @@ export default function Academy() {
                 </motion.div>
               );
             })}
-          </motion.div>
+          </div>
         </div>
       </section>
 

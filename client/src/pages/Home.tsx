@@ -313,20 +313,21 @@ export default function Home() {
       {/* Stats Section — light gray stripe */}
       <section className="py-16 bg-gray-50 border-y border-gray-100">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            variants={stagger}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-100px", amount: 0 }}
-            className="grid grid-cols-2 md:grid-cols-4 gap-8"
-          >
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
             {stats.map((stat, i) => (
-              <motion.div key={i} variants={fadeUp} className="text-center">
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0 }}
+                transition={{ duration: 0.6, delay: i * 0.1 }}
+                className="text-center"
+              >
                 <div className="text-4xl md:text-5xl font-bold mb-2" style={{ color: '#F59E0B' }}>{stat.value}</div>
                 <div className="text-gray-500 text-sm">{stat.label}</div>
               </motion.div>
             ))}
-          </motion.div>
+          </div>
         </div>
       </section>
 
@@ -344,17 +345,14 @@ export default function Home() {
             <p className="text-gray-500 text-lg max-w-2xl mx-auto">{t.home.pillars_sub}</p>
           </motion.div>
 
-          <motion.div
-            variants={stagger}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-100px", amount: 0 }}
-            className="grid grid-cols-1 md:grid-cols-3 gap-8"
-          >
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {pillars.map((pillar, i) => (
               <motion.div
                 key={i}
-                variants={fadeUp}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0 }}
+                transition={{ duration: 0.6, delay: i * 0.12 }}
                 whileHover={{ y: -8, transition: { duration: 0.2 } }}
                 className="bg-white border border-gray-100 rounded-2xl p-6 hover:border-purple-300 hover:shadow-lg hover:shadow-purple-100/50 transition-all duration-300 group cursor-pointer"
               >
@@ -377,7 +375,7 @@ export default function Home() {
                 </Link>
               </motion.div>
             ))}
-          </motion.div>
+          </div>
         </div>
       </section>
 
@@ -397,24 +395,37 @@ export default function Home() {
                 className="rounded-2xl w-full h-auto shadow-xl shadow-purple-100/50"
               />
             </motion.div>
-            <motion.div
-              variants={stagger}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, margin: "-100px", amount: 0 }}
-              className={isRtl ? 'text-right' : 'text-left'}
-            >
-              <motion.h2 variants={fadeUp} className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+            <div className={isRtl ? 'text-right' : 'text-left'}>
+              <motion.h2
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0 }}
+                transition={{ duration: 0.6 }}
+                className="text-4xl md:text-5xl font-bold text-gray-900 mb-4"
+              >
                 {t.home.why_title}
               </motion.h2>
-              <motion.p variants={fadeUp} className="text-gray-500 text-lg mb-10">
+              <motion.p
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0 }}
+                transition={{ duration: 0.6, delay: 0.1 }}
+                className="text-gray-500 text-lg mb-10"
+              >
                 {t.home.why_sub}
               </motion.p>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                 {whyUs.map((item, i) => {
                   const Icon = item.icon;
                   return (
-                    <motion.div key={i} variants={fadeUp} className="flex items-start gap-4">
+                    <motion.div
+                      key={i}
+                      initial={{ opacity: 0, y: 20 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true, amount: 0 }}
+                      transition={{ duration: 0.5, delay: i * 0.08 }}
+                      className="flex items-start gap-4"
+                    >
                       <div className="flex-shrink-0 p-2 rounded-lg" style={{ background: i % 2 === 0 ? 'rgba(245,158,11,0.12)' : 'rgb(243 232 255)' }}>
                         <Icon className="w-5 h-5" style={{ color: i % 2 === 0 ? '#F59E0B' : '#9333ea' }} />
                       </div>
@@ -426,7 +437,7 @@ export default function Home() {
                   );
                 })}
               </div>
-            </motion.div>
+            </div>
           </div>
         </div>
       </section>
@@ -444,15 +455,16 @@ export default function Home() {
             <p className="text-gray-500 text-lg">{t.home.how_sub}</p>
           </motion.div>
 
-          <motion.div
-            variants={stagger}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-100px", amount: 0 }}
-            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8"
-          >
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
             {steps.map((step, i) => (
-              <motion.div key={i} variants={fadeUp} className="relative text-center">
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0 }}
+                transition={{ duration: 0.6, delay: i * 0.1 }}
+                className="relative text-center"
+              >
                 {i < steps.length - 1 && (
                   <div className="hidden lg:block absolute top-8 left-full w-full h-px bg-gradient-to-r from-purple-300/70 to-transparent z-0" />
                 )}
@@ -465,7 +477,7 @@ export default function Home() {
                 </div>
               </motion.div>
             ))}
-          </motion.div>
+          </div>
         </div>
       </section>
 
@@ -482,17 +494,14 @@ export default function Home() {
             <p className="text-gray-500">{t.home.partners_sub}</p>
           </motion.div>
 
-          <motion.div
-            variants={stagger}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-100px", amount: 0 }}
-            className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6 items-center"
-          >
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6 items-center">
             {PARTNERS.map((partner, i) => (
               <motion.div
                 key={i}
-                variants={fadeUp}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0 }}
+                transition={{ duration: 0.5, delay: i * 0.08 }}
                 className="bg-white border border-gray-100 rounded-xl p-4 flex items-center justify-center h-20 hover:border-purple-200 hover:shadow-md transition-all"
               >
                 <img
@@ -502,7 +511,7 @@ export default function Home() {
                 />
               </motion.div>
             ))}
-          </motion.div>
+          </div>
         </div>
       </section>
 
