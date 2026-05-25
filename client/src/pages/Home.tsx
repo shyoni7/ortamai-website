@@ -2,7 +2,7 @@ import { Link } from 'wouter';
 import { motion } from 'framer-motion';
 import { ArrowLeft, ArrowRight, Zap, Users, Briefcase, CheckCircle, Star, Award, TrendingUp, Brain, Sparkles, Rocket } from 'lucide-react';
 import { useLanguage } from '@/contexts/LanguageContext';
-import HologramCube from '@/components/HologramCube';
+import MetallicSphere, { SphereVariant } from '@/components/MetallicSphere';
 
 const HERO_VIDEO = 'https://files.manuscdn.com/user_upload_by_module/session_file/310519663445418346/sLtfKJCObxnFJgJI.mp4';
 const HERO_IMAGE = 'https://d2xsxph8kpxj0f.cloudfront.net/310519663445418346/oDFneUKwvw2xJYXYaumUdB/a00800906_______________ai______________1ztf6h7ulzz1cg0t1nwp_1_450c2a58.png';
@@ -59,24 +59,21 @@ export default function Home() {
       title: isRtl ? 'אקסלרטור ליזמים ועסקים' : 'Business Accelerator',
       desc: isRtl ? 'בנו את העסק שלכם עם AI ותקדמו מהר יותר מאי פעם. ליווי אישי, כלים מתקדמים וקהילה תומכת.' : 'Build your business with AI and grow faster than ever.',
       href: '/incubator',
-      cubeColor: '#C8C8D0',
-      holoLines: isRtl ? ['יזמות AI', 'ליווי אישי'] : ['AI Ventures', 'Personal Guidance'],
+      sphereVariant: 'obsidian' as SphereVariant,
     },
     {
       icon: Users,
       title: isRtl ? 'מרכז הכשרות' : 'Training Center',
       desc: isRtl ? 'קורסים מתקדמים בעולם ה-AI מהמומחים שלנו. הכשרות ייעודיות לארגונים, עסקים ואנשים פרטיים.' : 'Advanced AI courses from our experts.',
       href: '/academy',
-      cubeColor: '#8B8FA8',
-      holoLines: isRtl ? ['קורסי AI', 'הכשרות ייעודיות'] : ['AI Courses', 'Expert Training'],
+      sphereVariant: 'platinum' as SphereVariant,
     },
     {
       icon: Briefcase,
       title: isRtl ? 'מרכז השמה' : 'Placement Center',
       desc: isRtl ? 'גישור בין מועמדים מוכשרים לארגונים מובילים. אנחנו מחברים בין כישרון לבין הזדמנות.' : 'Bridging talented candidates with leading organizations.',
       href: '/placement',
-      cubeColor: '#6B6B80',
-      holoLines: isRtl ? ['השמה מקצועית', 'כישרון + הזדמנות'] : ['Professional Placement', 'Talent + Opportunity'],
+      sphereVariant: 'pearl' as SphereVariant,
     },
   ];
 
@@ -386,7 +383,7 @@ export default function Home() {
                         el.style.transform = 'translateY(0)';
                       }}
                     >
-                      <HologramCube color={pillar.cubeColor} title={pillar.title} lines={pillar.holoLines} />
+                      <MetallicSphere variant={pillar.sphereVariant} size={110} />
                       <h3 className="text-lg md:text-xl font-bold mt-4 mb-3 transition-colors" style={{ color: OBS }}>{pillar.title}</h3>
                       <p className="text-gray-500 leading-relaxed text-sm flex-1">{pillar.desc}</p>
                       <div className="mt-5 flex items-center gap-2 text-sm font-semibold" style={{ color: '#555' }}>

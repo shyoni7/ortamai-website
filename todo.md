@@ -127,3 +127,12 @@
 - [x] Apply CSS classes to <html> for each accessibility feature
 - [x] Add CSS rules for a11y-high-contrast, a11y-no-animations, a11y-bold-text, a11y-mark-headings, a11y-mark-links
 - [x] RTL Hebrew panel layout with white background matching screenshot
+
+## Pillars Section – Metallic Spheres
+- [x] Create MetallicSphere component (obsidian / platinum / pearl variants)
+- [x] Float animation (sine wave up/down)
+- [x] Equatorial ring spin (CSS 3D perspective)
+- [x] Particle dots emanating upward from sphere surface
+- [x] Ground shadow that pulses with the float
+- [x] Replace HologramCube in Home.tsx pillars with MetallicSphere
+- [x] Assign obsidian → Accelerator, platinum → Academy, pearl → Placement
