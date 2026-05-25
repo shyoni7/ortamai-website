@@ -127,14 +127,14 @@ export default function Home() {
 
         {/* ── Main grid ── */}
         <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 md:py-24">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-16 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-16 items-center">
 
-            {/* Text column */}
+            {/* Text column — on mobile appears BELOW the video (order-2), on desktop left/right (order-1 lg:order-1) */}
             <motion.div
               variants={stagger}
               initial="hidden"
               animate="visible"
-              className={isRtl ? 'text-center md:text-right order-1' : 'text-center md:text-left order-1'}
+              className={isRtl ? 'text-center md:text-right order-2 lg:order-1' : 'text-center md:text-left order-2 lg:order-1'}
             >
               {/* Pill badge */}
               <motion.div variants={fadeUp} className="inline-flex mb-5 md:mb-8">
@@ -230,18 +230,18 @@ export default function Home() {
               </motion.div>
             </motion.div>
 
-            {/* Video column — desktop only */}
+            {/* Video column — mobile: order-1 (top), desktop: order-2 (right) */}
             <motion.div
               initial={{ opacity: 0, y: 36 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1.1, delay: 0.35, type: 'spring', stiffness: 55 }}
-              className="relative order-2 hidden lg:block"
+              className="relative order-1 lg:order-2"
             >
               {/* Floating badge top */}
               <motion.div
                 animate={{ y: [0, -7, 0] }}
                 transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut' }}
-                className="absolute -top-5 -right-4 z-20 flex items-center gap-2 px-3 py-2 rounded-xl border"
+                className="absolute -top-5 -right-4 z-20 hidden lg:flex items-center gap-2 px-3 py-2 rounded-xl border"
                 style={{ background: OBS2, borderColor: 'rgba(200,200,208,0.18)' }}
               >
                 <div className="w-7 h-7 rounded-lg flex items-center justify-center" style={{ background: OBS3, border: '1px solid rgba(200,200,208,0.2)' }}>
@@ -257,7 +257,7 @@ export default function Home() {
               <motion.div
                 animate={{ y: [0, 7, 0] }}
                 transition={{ duration: 6.5, repeat: Infinity, ease: 'easeInOut', delay: 1.5 }}
-                className="absolute -bottom-5 -left-4 z-20 flex items-center gap-2 px-3 py-2 rounded-xl border"
+                className="absolute -bottom-5 -left-4 z-20 hidden lg:flex items-center gap-2 px-3 py-2 rounded-xl border"
                 style={{ background: OBS2, borderColor: 'rgba(200,200,208,0.18)' }}
               >
                 <div className="w-7 h-7 rounded-lg flex items-center justify-center" style={{ background: OBS3, border: '1px solid rgba(200,200,208,0.2)' }}>
@@ -273,7 +273,7 @@ export default function Home() {
               <motion.div
                 animate={{ y: [0, -7, 0] }}
                 transition={{ duration: 7, repeat: Infinity, ease: 'easeInOut' }}
-                className="relative rounded-2xl overflow-hidden border"
+                className="relative rounded-2xl overflow-hidden border mx-2 lg:mx-0"
                 style={{
                   background: OBS2,
                   borderColor: 'rgba(200,200,208,0.14)',
@@ -317,29 +317,7 @@ export default function Home() {
         </motion.div>
       </section>
 
-      {/* ── Mobile video — below hero on small screens ── */}
-      <section className="lg:hidden px-4 py-6" style={{ background: OBS }}>
-        <div className="max-w-lg mx-auto">
-          <motion.div
-            initial={{ opacity: 0, y: 24 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.7 }}
-            className="relative rounded-2xl overflow-hidden border"
-            style={{ background: OBS2, borderColor: 'rgba(200,200,208,0.14)', boxShadow: `0 20px 60px rgba(0,0,0,0.55)` }}
-          >
-            <div className="flex items-center gap-2 px-4 py-2 border-b" style={{ background: 'rgba(255,255,255,0.03)', borderColor: 'rgba(200,200,208,0.1)' }}>
-              <div className="w-2.5 h-2.5 rounded-full" style={{ background: 'rgba(255,95,86,0.6)' }} />
-              <div className="w-2.5 h-2.5 rounded-full" style={{ background: 'rgba(255,189,46,0.6)' }} />
-              <div className="w-2.5 h-2.5 rounded-full" style={{ background: 'rgba(39,201,63,0.6)' }} />
-              <div className="flex-1 mx-3 h-4 rounded-full flex items-center px-3" style={{ background: 'rgba(255,255,255,0.05)' }}>
-                <span className="text-xs" style={{ color: DIM }}>ortamai.ai</span>
-              </div>
-            </div>
-            <video src={HERO_VIDEO} autoPlay loop muted playsInline poster={HERO_IMAGE} className="w-full h-auto object-cover" />
-          </motion.div>
-        </div>
-      </section>
+
 
       {/* ══════════════════════════════════════════
           STATS — Thin dark stripe
