@@ -43,9 +43,9 @@ export default function About() {
 
   const stats = [
     { icon: Users,    value: '+300', label: isRtl ? 'בוגרים' : 'Graduates' },
-    { icon: BookOpen, value: '+10',  label: isRtl ? 'תוכניות' : 'Programs' },
+    { icon: BookOpen, value: '+15',  label: isRtl ? 'תוכניות' : 'Programs' },
     { icon: Building2,value: '98%',  label: isRtl ? 'שביעות רצון' : 'Satisfaction' },
-    { icon: Star,     value: '+50',  label: isRtl ? 'שותפים עסקיים' : 'Partners' },
+    { icon: Star,     value: '+10',  label: isRtl ? 'שותפים עסקיים' : 'Partners' },
   ];
 
   return (
