@@ -50,9 +50,9 @@ export const translations = {
     about: {
       hero_title: "בואו להכיר אותנו",
       who: "מי אנחנו?",
-      who_text: "יזמי טכנולוגיה עם ניסיון עשיר בפיתוח, בהדרכה ובבינה מלאכותית.",
-      p1: "ORTAM AI פיתחה עבור משרד העבודה את הקורס הרשמי היחיד בארץ, המוכר ומפוקח על ידי המדינה ובשנתיים האחרונות אנו מכשירים גם חיילים וחיילות משוחררים מטעם משרד הביטחון.",
-      p2: "את הידע שצברנו לאורך 15 שנות יזמות טכנולוגית ורדיפה מתמדת אחרי חדשנות, אנו מתרגמים לפתרונות ידידותיים, פשוטים להבנה ומעשיים ללקוחותינו.",
+      who_text: "יזמי טכנולוגיה עם ניסיון עשיר בפיתוח, בהדרכה ובבינה מלאכותית. מתמחים בפיתוח תכנים ייעודיים ומותאמים לעולמות ה-AI.",
+      p1: "ORTAM AI פיתחנו קורסים רשמיים עבור המדינה, עבור גופים ומוסדות כמו משרד הביטחון, משרד העבודה ואוניברסיטאות מוכרות בארץ. בשנים האחרונות אנו מכשירים עובדים וסטודנטים בארגונים בכירים במשק.",
+      p2: "את הידע שצברנו לאורך 15 שנות יזמות טכנולוגית ורדיפה מתמדת אחרי חדשנות, אנו מתרגמים לפתרונות ידידותיים, פשוטים להבנה ומעשיים עבור לקוחותינו.",
       vision_title: "החזון שלנו",
       vision_text: "אנו ב-ORTAM AI חולמים על עולם שבו כל אדם מצויד ביכולת להתמודד עם כל משימה, עולם שבו אתגרים הופכים להזדמנויות. עולם של תבונה וקבלת החלטות נכונה. עולם שבו חדשנות וידע מהווים את \"אור התמיד\" – עם בינה מלאכותית במרכזו.",
       mission_title: "המשימה שלנו",
@@ -219,8 +219,8 @@ export const translations = {
     about: {
       hero_title: "Let's Get to Know Us",
       who: "Who We Are?",
-      who_text: "Technology entrepreneurs with rich experience in development, training, and artificial intelligence.",
-      p1: "ORTAM AI developed the only official course in the country for the Ministry of Labor, recognized and supervised by the state, and in recent years we have been training discharged soldiers on behalf of the Ministry of Defense.",
+      who_text: "Technology entrepreneurs with rich experience in development, training, and artificial intelligence. Specializing in developing dedicated content tailored to the AI world.",
+      p1: "ORTAM AI has developed official courses for the state, for bodies and institutions such as the Ministry of Defense, the Ministry of Labor, and recognized universities in Israel. In recent years we have been training employees and students in leading organizations in the economy.",
       p2: "The knowledge we have accumulated over 15 years of technological entrepreneurship and constant pursuit of innovation, we translate into friendly, easy-to-understand and practical solutions for our clients.",
       vision_title: "Our Vision",
       vision_text: "At ORTAM AI, we dream of a world where every person is equipped with the ability to handle any task, a world where challenges become opportunities. A world of wisdom and right decision-making. A world where innovation and knowledge constitute the eternal light – with artificial intelligence at its core.",

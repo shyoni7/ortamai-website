@@ -69,7 +69,8 @@ export default function About() {
               transition={{ duration: 0.8 }}
               className={isRtl ? 'text-right' : 'text-left'}
             >
-              <h2 className="text-3xl font-bold text-gray-900 mb-6">{t.about.who}</h2>
+              <h2 className="text-3xl font-bold text-gray-900 mb-3">{t.about.who}</h2>
+              <p className="text-lg text-purple-700 font-medium mb-5 leading-relaxed">{t.about.who_text}</p>
               <p className="text-gray-600 mb-4 leading-relaxed">{t.about.p1}</p>
               <p className="text-gray-600 leading-relaxed">{t.about.p2}</p>
             </motion.div>
