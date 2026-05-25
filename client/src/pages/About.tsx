@@ -84,7 +84,7 @@ export default function About() {
 
         {/* Content */}
         <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className={`flex flex-col ${isRtl ? 'items-end text-right' : 'items-start text-left'} max-w-2xl ${isRtl ? 'mr-0 ml-auto md:ml-0' : ''}`}>
+          <div className="flex flex-col items-center text-center md:items-end md:text-right max-w-2xl mx-auto md:mr-0 md:ml-auto">
 
             {/* Badge */}
             <motion.div
@@ -134,7 +134,7 @@ export default function About() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.4 }}
-              className="flex flex-wrap gap-4"
+              className="flex flex-wrap gap-4 justify-center md:justify-end w-full"
             >
               <GradientButton href="/contact" size="lg">
                 {isRtl ? 'צור קשר' : 'Contact Us'}
