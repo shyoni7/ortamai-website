@@ -57,3 +57,22 @@
 - [x] Update brand colors to dark navy (#1B2A4A) and orange (#F5A623) in index.css
 - [x] Update all cyan/purple accent references to orange across components
 - [x] Update gradient backgrounds to use navy/orange palette
+
+## Mobile Responsive Fixes
+- [x] Add global overflow-x: hidden to prevent horizontal scroll on mobile
+- [x] Fix Navigation: nav bar overflow on small screens, hamburger menu layout
+- [x] Fix Home hero: 3D spheres causing overflow, text sizing, button layout on mobile
+- [x] Fix Home pillars section: HologramCube cards on mobile
+- [x] Fix Incubator hero: flex row → column stack on mobile, fixed 190px atom sphere
+- [x] Fix Placement hero: inline styles with fixed min-widths causing overflow on mobile
+- [x] Fix Academy page: mobile layout audit and fixes
+- [x] Fix Contact page: single viewport fit on mobile
+- [x] Fix Partners grid: ensure 2-col on mobile looks good
+- [x] Fix all large text sizes (text-4xl/5xl) to be smaller on mobile
+- [x] Fix btn-secondary padding (px-8 py-4) to be smaller on mobile
+- [x] Fix WhatsApp and Accessibility buttons: smaller on mobile, adjusted position
+- [x] Fix Placement CV form: responsive padding on upload area
+- [x] Fix ManusDialog: responsive width on mobile
+- [x] Fix AccessibilityStatement: reduce py-32 and text-5xl for mobile
+- [x] Fix About hero: reduce py-32 and text-5xl for mobile
+- [x] Fix GradientButton: responsive padding on mobile

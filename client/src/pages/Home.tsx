@@ -22,7 +22,7 @@ const PARTNERS = [
   { name: 'אוניברסיטת אריאל', url: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663445418346/oDFneUKwvw2xJYXYaumUdB/4a76ee3ff_566_511a27c5.jpg' },
   { name: 'לומדים ומתקדמים', url: 'https://files.manuscdn.com/user_upload_by_module/session_file/310519663445418346/OmLeAhuLRydXUaQC.png' },
   { name: 'MAMRAM Alumni Association', url: 'https://files.manuscdn.com/user_upload_by_module/session_file/310519663445418346/IyhRDVcCPTdwTkiK.png', darkBg: true },
-  { name: 'ההסתדרות', url: 'https://files.manuscdn.com/user_upload_by_module/session_file/310519663445418346/WKUOzzJlnhdfzzJB.png' },
+  { name: 'ההסתדרות', url: 'https://files.manuscdn.com/user_upload_by_module/session_file/310519663445418346/WKUUzzJlnhdfzzJB.png' },
   { name: 'בנק לאומי', url: 'https://files.manuscdn.com/user_upload_by_module/session_file/310519663445418346/COWyaNxVzekIQanP.png' },
   { name: 'CyberGo', url: 'https://files.manuscdn.com/user_upload_by_module/session_file/310519663445418346/ZMeUfaAopZDjYSah.webp' },
 ];
@@ -104,34 +104,32 @@ export default function Home() {
           backgroundSize: '32px 32px',
         }} />
 
-        {/* 3D Sphere — large, top-right */}
+        {/* 3D Sphere — large, top-right — hidden on mobile to prevent overflow */}
         <motion.div
           animate={{ y: [0, -28, 0], x: [0, 12, 0] }}
           transition={{ duration: 9, repeat: Infinity, ease: 'easeInOut' }}
-          className="sphere-3d sphere-3d-primary absolute -top-24 -right-24 w-[520px] h-[520px] opacity-70"
+          className="sphere-3d sphere-3d-primary absolute -top-24 -right-24 w-[320px] h-[320px] md:w-[520px] md:h-[520px] opacity-60 md:opacity-70 pointer-events-none"
         />
 
-        {/* 3D Sphere — medium, bottom-left */}
+        {/* 3D Sphere — medium, bottom-left — smaller on mobile */}
         <motion.div
           animate={{ y: [0, 22, 0], x: [0, -14, 0] }}
           transition={{ duration: 11, repeat: Infinity, ease: 'easeInOut', delay: 1.5 }}
-          className="sphere-3d sphere-3d-secondary absolute -bottom-32 -left-32 w-[420px] h-[420px] opacity-60"
+          className="sphere-3d sphere-3d-secondary absolute -bottom-32 -left-32 w-[260px] h-[260px] md:w-[420px] md:h-[420px] opacity-50 md:opacity-60 pointer-events-none"
         />
 
-        {/* 3D Sphere — small accent, mid-scene */}
+        {/* 3D Sphere — small accent — hidden on mobile */}
         <motion.div
           animate={{ y: [0, -18, 0], x: [0, 20, 0] }}
           transition={{ duration: 7, repeat: Infinity, ease: 'easeInOut', delay: 3 }}
-          className="sphere-3d sphere-3d-accent absolute top-1/2 left-[15%] w-48 h-48 opacity-50"
+          className="sphere-3d sphere-3d-accent absolute top-1/2 left-[15%] w-48 h-48 opacity-50 hidden md:block pointer-events-none"
         />
 
-
-
         {/* ── Main content ── */}
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+        <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center">
 
-            {/* ── Left/Right: Text ── */}
+            {/* ── Text column ── */}
             <motion.div
               variants={stagger}
               initial="hidden"
@@ -139,14 +137,14 @@ export default function Home() {
               className={isRtl ? 'text-right order-1' : 'text-left order-1'}
             >
               {/* Badge */}
-              <motion.div variants={fadeUp} className="inline-flex items-center gap-2 mb-8">
+              <motion.div variants={fadeUp} className="inline-flex items-center gap-2 mb-6 md:mb-8">
                 <motion.div
                   animate={{ boxShadow: ['0 0 0px #a855f740', '0 0 20px #a855f760', '0 0 0px #a855f740'] }}
                   transition={{ duration: 2.5, repeat: Infinity }}
-                  className="flex items-center gap-2 bg-white border border-purple-300 px-4 py-2 rounded-full shadow-sm"
+                  className="flex items-center gap-2 bg-white border border-purple-300 px-3 py-1.5 md:px-4 md:py-2 rounded-full shadow-sm"
                 >
-                  <Sparkles className="w-4 h-4 text-purple-500" />
-                  <span className="text-sm font-semibold text-purple-700">
+                  <Sparkles className="w-3 h-3 md:w-4 md:h-4 text-purple-500" />
+                  <span className="text-xs md:text-sm font-semibold text-purple-700">
                     {isRtl ? 'מרכז פיתוח AI מוביל בישראל' : "Israel's Leading AI Development Center"}
                   </span>
                   <span className="w-2 h-2 rounded-full bg-purple-500 animate-pulse" />
@@ -156,37 +154,37 @@ export default function Home() {
               {/* Headline */}
               <motion.h1
                 variants={fadeUp}
-                className="font-bold mb-6 leading-tight"
-                style={{ fontSize: 'clamp(2.5rem, 5vw, 4.5rem)' }}
+                className="font-bold mb-4 md:mb-6 leading-tight"
+                style={{ fontSize: 'clamp(2rem, 6vw, 4.5rem)' }}
               >
                 <span className="text-gradient-cyan">{t.home.hero_title}</span>
               </motion.h1>
 
-              <motion.p variants={fadeUp} className="text-xl md:text-2xl text-gray-700 mb-3 font-medium">
+              <motion.p variants={fadeUp} className="text-lg md:text-xl lg:text-2xl text-gray-700 mb-3 font-medium">
                 {t.home.hero_subtitle}
               </motion.p>
 
-              <motion.p variants={fadeUp} className="text-base text-gray-500 mb-10 leading-relaxed">
+              <motion.p variants={fadeUp} className="text-sm md:text-base text-gray-500 mb-8 md:mb-10 leading-relaxed">
                 {t.home.hero_desc}
               </motion.p>
 
               {/* Mini stats row */}
-              <motion.div variants={fadeUp} className="flex flex-wrap gap-6 mb-10">
+              <motion.div variants={fadeUp} className="flex flex-wrap gap-4 md:gap-6 mb-8 md:mb-10">
                 {[{ v: '300+', l: isRtl ? 'בוגרים' : 'Graduates' }, { v: '98%', l: isRtl ? 'שביעות רצון' : 'Satisfaction' }, { v: '10+', l: isRtl ? 'שותפים' : 'Partners' }].map((s, i) => (
                   <div key={i} className="text-center">
-                    <div className="text-2xl font-bold" style={{ color: '#F59E0B' }}>{s.v}</div>
+                    <div className="text-xl md:text-2xl font-bold" style={{ color: '#F59E0B' }}>{s.v}</div>
                     <div className="text-xs text-gray-400">{s.l}</div>
                   </div>
                 ))}
               </motion.div>
 
-              <motion.div variants={fadeUp} className="flex flex-wrap gap-4">
-                <GradientButton href="/contact" size="lg">
+              <motion.div variants={fadeUp} className="flex flex-wrap gap-3 md:gap-4">
+                <GradientButton href="/contact" size="md">
                   {t.home.cta}
                 </GradientButton>
                 <Link href="/about">
                   <motion.button
-                    className="btn-secondary text-base px-8 py-4"
+                    className="btn-secondary text-sm md:text-base px-5 py-3 md:px-8 md:py-4"
                     whileHover={{ scale: 1.03 }}
                     whileTap={{ scale: 0.97 }}
                   >
@@ -196,18 +194,18 @@ export default function Home() {
               </motion.div>
             </motion.div>
 
-            {/* ── Right/Left: 3D video card ── */}
+            {/* ── Video/visual column ── */}
             <motion.div
               initial={{ opacity: 0, y: 40 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1.2, delay: 0.4, type: 'spring', stiffness: 60 }}
-              className="relative order-2 pt-8 pb-8 px-6"
+              className="relative order-2 pt-4 pb-4 px-2 md:pt-8 md:pb-8 md:px-6"
             >
-              {/* Floating badge — top right of video column */}
+              {/* Floating badge — top right of video column — hidden on small mobile */}
               <motion.div
                 animate={{ y: [0, -8, 0], rotate: [0, 2, 0] }}
                 transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut' }}
-                className="absolute -top-5 -right-4 z-20 hidden md:flex items-center gap-2 px-3 py-2 rounded-xl border border-purple-200/70 backdrop-blur-md shadow-lg"
+                className="absolute -top-5 -right-4 z-20 hidden sm:flex items-center gap-2 px-3 py-2 rounded-xl border border-purple-200/70 backdrop-blur-md shadow-lg"
                 style={{ background: 'rgba(255,255,255,0.88)' }}
               >
                 <div className="w-7 h-7 rounded-lg bg-gradient-to-br from-purple-500 to-violet-600 flex items-center justify-center">
@@ -219,11 +217,11 @@ export default function Home() {
                 </div>
               </motion.div>
 
-              {/* Floating badge — bottom left of video column */}
+              {/* Floating badge — bottom left of video column — hidden on small mobile */}
               <motion.div
                 animate={{ y: [0, 8, 0], rotate: [0, -1.5, 0] }}
                 transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut', delay: 1.5 }}
-                className="absolute -bottom-5 -left-4 z-20 hidden md:flex items-center gap-2 px-3 py-2 rounded-xl border border-violet-200/70 backdrop-blur-md shadow-lg"
+                className="absolute -bottom-5 -left-4 z-20 hidden sm:flex items-center gap-2 px-3 py-2 rounded-xl border border-violet-200/70 backdrop-blur-md shadow-lg"
                 style={{ background: 'rgba(255,255,255,0.88)' }}
               >
                 <div className="w-7 h-7 rounded-lg bg-gradient-to-br from-violet-500 to-purple-700 flex items-center justify-center">
@@ -242,7 +240,7 @@ export default function Home() {
               <motion.div
                 animate={{ y: [0, -8, 0] }}
                 transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}
-                className="relative rounded-3xl overflow-hidden shadow-2xl border border-purple-200/60"
+                className="relative rounded-2xl md:rounded-3xl overflow-hidden shadow-2xl border border-purple-200/60"
                 style={{
                   background: 'rgba(255,255,255,0.6)',
                   backdropFilter: 'blur(12px)',
@@ -251,11 +249,11 @@ export default function Home() {
                 }}
               >
                 {/* Top bar — glass chrome */}
-                <div className="flex items-center gap-2 px-4 py-3 border-b border-purple-100/60" style={{ background: 'rgba(255,255,255,0.8)' }}>
-                  <div className="w-3 h-3 rounded-full bg-red-400" />
-                  <div className="w-3 h-3 rounded-full bg-yellow-400" />
-                  <div className="w-3 h-3 rounded-full bg-green-400" />
-                  <div className="flex-1 mx-3 h-5 rounded-full bg-gray-100 flex items-center px-3">
+                <div className="flex items-center gap-2 px-4 py-2 md:py-3 border-b border-purple-100/60" style={{ background: 'rgba(255,255,255,0.8)' }}>
+                  <div className="w-2.5 h-2.5 md:w-3 md:h-3 rounded-full bg-red-400" />
+                  <div className="w-2.5 h-2.5 md:w-3 md:h-3 rounded-full bg-yellow-400" />
+                  <div className="w-2.5 h-2.5 md:w-3 md:h-3 rounded-full bg-green-400" />
+                  <div className="flex-1 mx-3 h-4 md:h-5 rounded-full bg-gray-100 flex items-center px-3">
                     <span className="text-xs text-gray-400">ortamai.ai</span>
                   </div>
                 </div>
@@ -271,11 +269,11 @@ export default function Home() {
                 />
 
                 {/* Bottom overlay badge */}
-                <div className="absolute bottom-4 left-4 right-4 flex items-center justify-between">
+                <div className="absolute bottom-3 left-3 right-3 md:bottom-4 md:left-4 md:right-4 flex items-center justify-between">
                   <motion.div
                     animate={{ opacity: [0.8, 1, 0.8] }}
                     transition={{ duration: 2, repeat: Infinity }}
-                    className="flex items-center gap-2 px-3 py-2 rounded-xl backdrop-blur-md border border-white/40"
+                    className="flex items-center gap-1.5 md:gap-2 px-2 py-1.5 md:px-3 md:py-2 rounded-xl backdrop-blur-md border border-white/40"
                     style={{ background: 'rgba(255,255,255,0.75)' }}
                   >
                     <div className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
@@ -284,7 +282,7 @@ export default function Home() {
                   <motion.div
                     animate={{ opacity: [0.8, 1, 0.8] }}
                     transition={{ duration: 2.5, repeat: Infinity, delay: 0.5 }}
-                    className="flex items-center gap-2 px-3 py-2 rounded-xl backdrop-blur-md border border-purple-200/50"
+                    className="flex items-center gap-1.5 md:gap-2 px-2 py-1.5 md:px-3 md:py-2 rounded-xl backdrop-blur-md border border-purple-200/50"
                     style={{ background: 'rgba(168,85,247,0.15)' }}
                   >
                     <Sparkles className="w-3 h-3 text-purple-600" />
@@ -293,9 +291,9 @@ export default function Home() {
                 </div>
               </motion.div>
 
-              {/* 3D depth shadow card behind */}
+              {/* 3D depth shadow cards behind — hidden on mobile for cleanliness */}
               <div
-                className="absolute inset-0 rounded-3xl -z-10"
+                className="absolute inset-0 rounded-3xl -z-10 hidden sm:block"
                 style={{
                   background: 'linear-gradient(135deg, #a855f720, #7c3aed15)',
                   transform: 'translate(12px, 12px) scale(0.97)',
@@ -303,7 +301,7 @@ export default function Home() {
                 }}
               />
               <div
-                className="absolute inset-0 rounded-3xl -z-20"
+                className="absolute inset-0 rounded-3xl -z-20 hidden sm:block"
                 style={{
                   background: 'linear-gradient(135deg, #a855f710, #7c3aed08)',
                   transform: 'translate(22px, 22px) scale(0.94)',
@@ -316,16 +314,16 @@ export default function Home() {
       </section>
 
       {/* Stats Section — light gray stripe */}
-      <section className="py-16 bg-gray-50 border-y border-gray-100">
+      <section className="py-10 md:py-16 bg-gray-50 border-y border-gray-100">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8">
             {stats.map((stat, i) => (
               <div
                 key={i}
                 className="text-center"
               >
-                <div className="text-4xl md:text-5xl font-bold mb-2" style={{ color: '#F59E0B' }}>{stat.value}</div>
-                <div className="text-gray-500 text-sm">{stat.label}</div>
+                <div className="text-3xl md:text-4xl lg:text-5xl font-bold mb-2" style={{ color: '#F59E0B' }}>{stat.value}</div>
+                <div className="text-gray-500 text-xs md:text-sm">{stat.label}</div>
               </div>
             ))}
           </div>
@@ -333,24 +331,24 @@ export default function Home() {
       </section>
 
       {/* Pillars Section — white background */}
-      <section className="py-24 bg-white">
+      <section className="py-16 md:py-24 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-100px", amount: 0 }}
             transition={{ duration: 0.7 }}
-            className="text-center mb-16"
+            className="text-center mb-10 md:mb-16"
           >
-            <h2 className="text-4xl md:text-5xl font-bold mb-4 text-gray-900">{t.home.pillars_title}</h2>
-            <p className="text-gray-500 text-lg max-w-2xl mx-auto">{t.home.pillars_sub}</p>
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4 text-gray-900">{t.home.pillars_title}</h2>
+            <p className="text-gray-500 text-base md:text-lg max-w-2xl mx-auto">{t.home.pillars_sub}</p>
           </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
             {pillars.map((pillar, i) => (
               <div
                 key={i}
-                className="bg-white border border-gray-100 rounded-2xl p-6 hover:border-purple-300 hover:shadow-lg hover:shadow-purple-100/50 transition-all duration-300 group cursor-pointer"
+                className="bg-white border border-gray-100 rounded-2xl p-5 md:p-6 hover:border-purple-300 hover:shadow-lg hover:shadow-purple-100/50 transition-all duration-300 group cursor-pointer"
               >
                 <Link href={pillar.href}>
                   <div className="flex flex-col items-center text-center">
@@ -361,7 +359,7 @@ export default function Home() {
                       lines={pillar.holoLines}
                     />
                     {/* Card text */}
-                    <h3 className="text-xl font-bold text-gray-900 mt-4 mb-3 group-hover:text-purple-600 transition-colors">{pillar.title}</h3>
+                    <h3 className="text-lg md:text-xl font-bold text-gray-900 mt-4 mb-3 group-hover:text-purple-600 transition-colors">{pillar.title}</h3>
                     <p className="text-gray-500 leading-relaxed text-sm">{pillar.desc}</p>
                     <div className="mt-5 flex items-center gap-2 text-purple-600 text-sm font-medium">
                       <span>{isRtl ? 'קרא עוד' : 'Learn more'}</span>
@@ -376,9 +374,9 @@ export default function Home() {
       </section>
 
       {/* Why Us Section — light purple-tinted background */}
-      <section className="py-24 bg-gradient-to-br from-purple-50 via-gray-50 to-white">
+      <section className="py-16 md:py-24 bg-gradient-to-br from-purple-50 via-gray-50 to-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
             <motion.div
               initial={{ opacity: 0, x: isRtl ? 40 : -40 }}
               whileInView={{ opacity: 1, x: 0 }}
@@ -397,7 +395,7 @@ export default function Home() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, amount: 0 }}
                 transition={{ duration: 0.6 }}
-                className="text-4xl md:text-5xl font-bold text-gray-900 mb-4"
+                className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-4"
               >
                 {t.home.why_title}
               </motion.h2>
@@ -406,24 +404,24 @@ export default function Home() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, amount: 0 }}
                 transition={{ duration: 0.6, delay: 0.1 }}
-                className="text-gray-500 text-lg mb-10"
+                className="text-gray-500 text-base md:text-lg mb-8 md:mb-10"
               >
                 {t.home.why_sub}
               </motion.p>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 md:gap-6">
                 {whyUs.map((item, i) => {
                   const Icon = item.icon;
                   return (
                     <div
                       key={i}
-                      className="flex items-start gap-4"
+                      className="flex items-start gap-3 md:gap-4"
                     >
                       <div className="flex-shrink-0 p-2 rounded-lg" style={{ background: i % 2 === 0 ? 'rgba(245,158,11,0.12)' : 'rgb(243 232 255)' }}>
                         <Icon className="w-5 h-5" style={{ color: i % 2 === 0 ? '#F59E0B' : '#9333ea' }} />
                       </div>
                       <div>
-                        <h4 className="text-gray-900 font-semibold mb-1">{item.title}</h4>
-                        <p className="text-gray-500 text-sm">{item.desc}</p>
+                        <h4 className="text-gray-900 font-semibold mb-1 text-sm md:text-base">{item.title}</h4>
+                        <p className="text-gray-500 text-xs md:text-sm">{item.desc}</p>
                       </div>
                     </div>
                   );
@@ -435,19 +433,20 @@ export default function Home() {
       </section>
 
       {/* How It Works — white background */}
-      <section className="py-24 bg-white">
+      <section className="py-16 md:py-24 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-100px", amount: 0 }}
-            className="text-center mb-16"
+            transition={{ duration: 0.7 }}
+            className="text-center mb-10 md:mb-16"
           >
-            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">{t.home.how_title}</h2>
-            <p className="text-gray-500 text-lg">{t.home.how_sub}</p>
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-4">{t.home.how_title}</h2>
+            <p className="text-gray-500 text-base md:text-lg">{t.home.how_sub}</p>
           </motion.div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
             {steps.map((step, i) => (
               <div
                 key={i}
@@ -457,11 +456,11 @@ export default function Home() {
                   <div className="hidden lg:block absolute top-8 left-full w-full h-px bg-gradient-to-r from-purple-300/70 to-transparent z-0" />
                 )}
                 <div className="relative z-10">
-                  <div className="w-16 h-16 rounded-full bg-purple-50 border-2 border-purple-200 flex items-center justify-center mx-auto mb-4">
-                    <span className="text-2xl font-bold text-gradient-cyan">{step.num}</span>
+                  <div className="w-14 h-14 md:w-16 md:h-16 rounded-full bg-purple-50 border-2 border-purple-200 flex items-center justify-center mx-auto mb-4">
+                    <span className="text-xl md:text-2xl font-bold text-gradient-cyan">{step.num}</span>
                   </div>
-                  <h4 className="text-gray-900 font-bold mb-2">{step.title}</h4>
-                  <p className="text-gray-500 text-sm">{step.desc}</p>
+                  <h4 className="text-gray-900 font-bold mb-2 text-sm md:text-base">{step.title}</h4>
+                  <p className="text-gray-500 text-xs md:text-sm">{step.desc}</p>
                 </div>
               </div>
             ))}
@@ -470,23 +469,23 @@ export default function Home() {
       </section>
 
       {/* Partners Section — light gray background */}
-      <section className="py-20 bg-gray-50 border-y border-gray-100">
+      <section className="py-14 md:py-20 bg-gray-50 border-y border-gray-100">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-100px", amount: 0 }}
-            className="text-center mb-12"
+            className="text-center mb-8 md:mb-12"
           >
-            <h2 className="text-3xl font-bold text-gray-900 mb-2">{t.home.partners_title}</h2>
-            <p className="text-gray-500">{t.home.partners_sub}</p>
+            <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-2">{t.home.partners_title}</h2>
+            <p className="text-gray-500 text-sm md:text-base">{t.home.partners_sub}</p>
           </motion.div>
 
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6 items-center">
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 md:gap-6 items-center">
             {PARTNERS.map((partner, i) => (
               <div
                 key={i}
-                className={`border rounded-xl p-4 flex items-center justify-center h-24 hover:border-purple-200 hover:shadow-md transition-all ${
+                className={`border rounded-xl p-3 md:p-4 flex items-center justify-center h-20 md:h-24 hover:border-purple-200 hover:shadow-md transition-all ${
                   (partner as any).darkBg
                     ? 'bg-gray-800 border-gray-700'
                     : 'bg-white border-gray-100'
@@ -495,7 +494,7 @@ export default function Home() {
                 <img
                   src={partner.url}
                   alt={partner.name}
-                  className="max-h-14 max-w-full object-contain opacity-80 hover:opacity-100 transition-all"
+                  className="max-h-10 md:max-h-14 max-w-full object-contain opacity-80 hover:opacity-100 transition-all"
                 />
               </div>
             ))}
@@ -504,12 +503,12 @@ export default function Home() {
       </section>
 
       {/* CTA Section — dark purple background for contrast */}
-      <section className="py-24 relative overflow-hidden bg-gradient-to-br from-[#1A1A2E] via-[#2D1B69] to-[#1A1A2E]">
+      <section className="py-16 md:py-24 relative overflow-hidden bg-gradient-to-br from-[#1A1A2E] via-[#2D1B69] to-[#1A1A2E]">
         <div className="absolute inset-0 grid-pattern opacity-10" />
         <motion.div
           animate={{ x: [0, 40, 0], y: [0, 20, 0] }}
           transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut' }}
-          className="absolute top-1/2 left-1/4 w-64 h-64 bg-purple-500/20 rounded-full blur-3xl"
+          className="absolute top-1/2 left-1/4 w-64 h-64 bg-purple-500/20 rounded-full blur-3xl pointer-events-none"
         />
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
           <motion.div
@@ -518,8 +517,8 @@ export default function Home() {
             viewport={{ once: true, margin: "-100px", amount: 0 }}
             transition={{ duration: 0.8 }}
           >
-            <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">{t.home.final_title}</h2>
-            <p className="text-gray-300 text-xl mb-10 max-w-2xl mx-auto">{t.home.final_sub}</p>
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4 md:mb-6">{t.home.final_title}</h2>
+            <p className="text-gray-300 text-base md:text-xl mb-8 md:mb-10 max-w-2xl mx-auto">{t.home.final_sub}</p>
             <GradientButton href="/contact" size="lg">
               {t.home.final_cta}
             </GradientButton>

@@ -176,7 +176,7 @@
   }
 
   .btn-primary {
-    @apply relative overflow-hidden px-8 py-4 rounded-xl font-semibold text-base transition-all duration-300;
+    @apply relative overflow-hidden px-5 py-3 md:px-8 md:py-4 rounded-xl font-semibold text-sm md:text-base transition-all duration-300;
     background: linear-gradient(135deg, oklch(0.62 0.27 293), oklch(0.50 0.26 293));
     color: oklch(0.98 0.005 264);
     box-shadow: 0 4px 15px oklch(0.62 0.27 293 / 0.3);
@@ -188,7 +188,7 @@
   }
 
   .btn-secondary {
-    @apply relative overflow-hidden px-8 py-4 rounded-xl font-semibold text-base transition-all duration-300;
+    @apply relative overflow-hidden px-5 py-3 md:px-8 md:py-4 rounded-xl font-semibold text-sm md:text-base transition-all duration-300;
     border: 1px solid oklch(0.62 0.27 293 / 0.5);
     color: oklch(0.62 0.27 293);
     background: transparent;
@@ -201,7 +201,7 @@
   }
 
   .section-title {
-    @apply text-4xl md:text-5xl font-bold mb-4;
+    @apply text-2xl md:text-4xl lg:text-5xl font-bold mb-4;
     font-family: 'Space Grotesk', sans-serif;
   }
 

@@ -413,7 +413,7 @@ export default function Academy() {
                 </div>
               </motion.div>
               <motion.h1 initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}
-                className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+                className="text-3xl md:text-5xl font-bold text-gray-900 mb-4">
                 {isRtl ? 'מסלולי ההכשרה שלנו' : 'Our Training Programs'}
               </motion.h1>
               <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.2 }}
@@ -437,7 +437,7 @@ export default function Academy() {
 
             {/* 3D Animated Education Object */}
             <motion.div initial={{ opacity: 0, scale: 0.8 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 1 }}
-              className="flex-shrink-0 flex items-center justify-center" style={{ width: '280px', height: '280px' }}>
+              className="flex-shrink-0 flex items-center justify-center" style={{ width: 'min(220px, 60vw)', height: 'min(220px, 60vw)' }}>
               <div style={{ perspective: '800px', width: '220px', height: '220px' }}>
                 {/* Outer orbit ring */}
                 <div style={{
@@ -615,7 +615,7 @@ export default function Academy() {
             viewport={{ once: true, margin: "-100px", amount: 0 }}
             className="text-center mb-12"
           >
-            <h2 className="text-4xl font-bold text-gray-900 mb-4">
+            <h2 className="text-2xl md:text-4xl font-bold text-gray-900 mb-4">
               {isRtl ? 'קורסים פתוחים לציבור' : 'Public Courses'}
             </h2>
             <p className="text-gray-500 text-lg">
@@ -699,7 +699,7 @@ export default function Academy() {
               <div className="inline-flex p-3 rounded-xl bg-gradient-to-br from-purple-600 to-pink-500 mb-6">
                 <Building className="w-6 h-6 text-white" />
               </div>
-              <h2 className="text-4xl font-bold text-gray-900 mb-4">
+              <h2 className="text-2xl md:text-4xl font-bold text-gray-900 mb-4">
                 {isRtl ? 'הכשרה ארגונית מותאמת אישית' : 'Customized Corporate Training'}
               </h2>
               <p className="text-gray-600 text-lg leading-relaxed mb-8">

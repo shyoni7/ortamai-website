@@ -15,10 +15,12 @@ interface GradientButtonProps {
  * so the text stays readable at all times.
  */
 export default function GradientButton({ children, onClick, href, className = '', size = 'md' }: GradientButtonProps) {
+  // Use window.innerWidth to detect mobile for SSR-safe inline styles
+  const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
   const sizeStyles: Record<string, React.CSSProperties> = {
-    sm: { fontSize: '0.85rem', padding: '9px 22px' },
-    md: { fontSize: '1rem',    padding: '12px 32px' },
-    lg: { fontSize: '1.1rem',  padding: '14px 40px' },
+    sm: { fontSize: '0.8rem',  padding: isMobile ? '7px 16px'  : '9px 22px' },
+    md: { fontSize: isMobile ? '0.875rem' : '1rem',    padding: isMobile ? '10px 20px' : '12px 32px' },
+    lg: { fontSize: isMobile ? '0.95rem'  : '1.1rem',  padding: isMobile ? '11px 24px' : '14px 40px' },
   };
 
   /* ── wrapper ── */

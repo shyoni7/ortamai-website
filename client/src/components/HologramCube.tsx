@@ -14,7 +14,7 @@ export default function HologramCube({ color = '#F5A623', title, lines = [] }: H
   const uid = useId().replace(/:/g, '');
 
   return (
-    <div className="hologram-cube-wrapper" style={{ position: 'relative', width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+    <div className="hologram-cube-wrapper" style={{ position: 'relative', width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', transform: typeof window !== 'undefined' && window.innerWidth < 400 ? 'scale(0.75)' : typeof window !== 'undefined' && window.innerWidth < 640 ? 'scale(0.85)' : 'scale(1)', transformOrigin: 'top center' }}>
       <style>{`
         .hc-${uid} #svg-global { overflow: visible; }
 

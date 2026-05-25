@@ -45,7 +45,7 @@ export default function AccessibilityWidget() {
   const isHe = lang === 'he';
 
   return (
-    <div className="fixed bottom-6 right-6 z-50">
+    <div className="fixed bottom-4 right-4 md:bottom-6 md:right-6 z-50">
       <AnimatePresence>
         {isOpen && (
           <motion.div
@@ -103,7 +103,7 @@ export default function AccessibilityWidget() {
 
       <motion.button
         onClick={() => setIsOpen(!isOpen)}
-        className="w-14 h-14 rounded-full overflow-hidden shadow-lg hover:scale-110 transition-transform"
+        className="w-11 h-11 md:w-14 md:h-14 rounded-full overflow-hidden shadow-lg hover:scale-110 transition-transform"
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.95 }}
         aria-label={isHe ? 'פתח תפריט נגישות' : 'Open accessibility menu'}

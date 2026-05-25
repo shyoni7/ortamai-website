@@ -126,20 +126,20 @@ export default function Placement() {
           background: 'linear-gradient(135deg, #1a1060 0%, #2d1b8e 40%, #3b2aaa 70%, #1e0f6e 100%)',
           position: 'relative',
           overflow: 'hidden',
-          padding: '3.5rem 0',
+          padding: 'clamp(2rem, 5vw, 3.5rem) 0',
         }}
       >
         {/* Subtle glow blobs */}
         <div style={{ position: 'absolute', top: '-60px', right: '-60px', width: '340px', height: '340px', borderRadius: '50%', background: 'radial-gradient(circle, rgba(139,92,246,0.25) 0%, transparent 70%)', pointerEvents: 'none' }} />
         <div style={{ position: 'absolute', bottom: '-40px', left: '10%', width: '260px', height: '260px', borderRadius: '50%', background: 'radial-gradient(circle, rgba(245,158,11,0.12) 0%, transparent 70%)', pointerEvents: 'none' }} />
 
-        <div className="max-w-6xl mx-auto px-6" style={{ display: 'flex', alignItems: 'center', gap: '3rem', flexWrap: 'wrap' }}>
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 flex flex-col md:flex-row items-center gap-8 md:gap-12">
           {/* Text — right side in RTL */}
           <motion.div
             initial={{ opacity: 0, x: 40 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8 }}
-            style={{ flex: '1 1 340px', minWidth: '280px' }}
+            className="flex-1 w-full text-right"
           >
             {/* Badge */}
             <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', background: 'rgba(255,255,255,0.1)', border: '1px solid rgba(255,255,255,0.2)', borderRadius: '999px', padding: '6px 16px', marginBottom: '1.25rem' }}>
@@ -149,7 +149,7 @@ export default function Placement() {
               </span>
             </div>
 
-            <h1 style={{ fontSize: 'clamp(2rem, 4vw, 3rem)', fontWeight: 800, color: '#ffffff', lineHeight: 1.2, marginBottom: '1rem' }}>
+            <h1 style={{ fontSize: 'clamp(1.6rem, 5vw, 3rem)', fontWeight: 800, color: '#ffffff', lineHeight: 1.2, marginBottom: '1rem' }}>
               {isRtl ? 'מרכז השמה מוכוון AI' : 'AI-Driven Placement Center'}
             </h1>
 
@@ -181,7 +181,7 @@ export default function Placement() {
             initial={{ opacity: 0, x: -40 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.9, delay: 0.15 }}
-            style={{ flex: '1 1 340px', minWidth: '280px', maxWidth: '520px', position: 'relative' }}
+            className="flex-1 w-full max-w-lg relative"
           >
             {/* Glow ring behind video */}
             <div style={{
@@ -216,7 +216,7 @@ export default function Placement() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
             {/* Candidates */}
             <div
-              className="bg-white border border-gray-200 rounded-2xl shadow-sm p-10 hover:border-purple-300 transition-all"
+              className="bg-white border border-gray-200 rounded-2xl shadow-sm p-6 md:p-10 hover:border-purple-300 transition-all"
             >
               <div className="inline-flex p-3 rounded-xl bg-gradient-to-br from-purple-600 to-violet-600 mb-6">
                 <User className="w-6 h-6 text-white" />
@@ -235,7 +235,7 @@ export default function Placement() {
 
             {/* Employers */}
             <div
-              className="bg-white border border-gray-200 rounded-2xl shadow-sm p-10 hover:border-blue-900/30 transition-all"
+              className="bg-white border border-gray-200 rounded-2xl shadow-sm p-6 md:p-10 hover:border-blue-900/30 transition-all"
             >
               <div className="inline-flex p-3 rounded-xl bg-gradient-to-br from-purple-600 to-pink-500 mb-6">
                 <Building className="w-6 h-6 text-white" />
@@ -379,7 +379,7 @@ export default function Placement() {
                       onDragOver={onDragOver}
                       onDragLeave={onDragLeave}
                       onClick={() => fileInputRef.current?.click()}
-                      className={`relative border-2 border-dashed rounded-xl p-8 text-center cursor-pointer transition-all ${
+                      className={`relative border-2 border-dashed rounded-xl p-5 md:p-8 text-center cursor-pointer transition-all ${
                         isDragging
                           ? 'border-orange-400 bg-orange-400/10'
                           : cvFile

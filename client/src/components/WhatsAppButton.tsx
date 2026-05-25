@@ -43,8 +43,8 @@ export default function WhatsAppButton() {
           --time-animation: 2s;
           position: relative;
           border-radius: 50%;
-          width: 60px;
-          height: 60px;
+          width: 50px;
+          height: 50px;
           box-shadow:
             0 0 25px 0 var(--color-three),
             0 20px 50px 0 var(--color-four);
@@ -106,8 +106,8 @@ export default function WhatsAppButton() {
         target="_blank"
         rel="noopener noreferrer"
         aria-label={t.whatsapp.tooltip}
-        className="fixed bottom-6 left-6 z-50 cursor-pointer"
-        style={{ display: 'block', width: 60, height: 60 }}
+        className="fixed bottom-4 left-4 md:bottom-6 md:left-6 z-50 cursor-pointer"
+        style={{ display: 'block', width: 50, height: 50 }}
       >
         <div className="wa-btn-outer">
           <div className="wa-btn-fill" />

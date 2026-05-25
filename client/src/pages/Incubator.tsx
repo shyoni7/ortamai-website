@@ -252,16 +252,16 @@ export default function Incubator() {
         </div>
 
         {/* ── Main content row ── */}
-        <div className="relative z-10 w-full max-w-6xl mx-auto px-6 py-12">
-          <div className={`flex items-center gap-10 ${isRtl ? 'flex-row-reverse' : 'flex-row'}`}>
+        <div className="relative z-10 w-full max-w-6xl mx-auto px-4 sm:px-6 py-10 md:py-12">
+          <div className={`flex flex-col md:items-center md:gap-10 gap-8 ${isRtl ? 'md:flex-row-reverse' : 'md:flex-row'}`}>
 
             {/* ── 3D AI Atom Sphere ── */}
             <motion.div
               initial={{ opacity: 0, scale: 0.6 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.9, ease: 'backOut' }}
-              className="flex-shrink-0 relative"
-              style={{ width: 190, height: 190 }}
+              className="flex-shrink-0 relative self-center md:self-auto"
+              style={{ width: 150, height: 150 }}
             >
               {/* ── BACK halves of rings (behind sphere) ── */}
 
@@ -403,13 +403,13 @@ export default function Incubator() {
               initial={{ opacity: 0, x: isRtl ? 50 : -50 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.7, delay: 0.2 }}
-              className={`flex-1 ${isRtl ? 'text-right' : 'text-left'}`}
+              className={`flex-1 w-full ${isRtl ? 'text-right' : 'text-left'}`}
             >
               <motion.h1
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.3 }}
-                className="text-2xl md:text-3xl lg:text-4xl font-bold text-white mb-3 leading-tight"
+                className="text-xl md:text-3xl lg:text-4xl font-bold text-white mb-3 leading-tight"
               >
                 {isRtl ? 'מוכנים לקחת את ה-AI שלכם לשלב הבא?' : 'Ready to take your AI to the next level?'}
               </motion.h1>
@@ -459,7 +459,7 @@ export default function Incubator() {
       <section className="py-24 bg-white">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <AnimatedSection className={`mb-16 ${isRtl ? 'text-right' : 'text-center'}`}>
-            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">{c.what_title}</h2>
+            <h2 className="text-2xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-4">{c.what_title}</h2>
             <p className="text-gray-500 text-lg">{c.what_sub}</p>
           </AnimatedSection>
 
@@ -514,7 +514,7 @@ export default function Incubator() {
       <section className="py-24 bg-gray-50">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <AnimatedSection className={`mb-14 ${isRtl ? 'text-right' : 'text-center'}`}>
-            <h2 className="text-4xl font-bold text-gray-900 mb-4">{c.build_title}</h2>
+            <h2 className="text-2xl md:text-4xl font-bold text-gray-900 mb-4">{c.build_title}</h2>
             <p className="text-gray-500 text-lg">{c.build_sub}</p>
           </AnimatedSection>
 
@@ -554,7 +554,7 @@ export default function Incubator() {
       <section className="py-24 bg-white">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <AnimatedSection className={`mb-14 ${isRtl ? 'text-right' : 'text-center'}`}>
-            <h2 className="text-4xl font-bold text-gray-900 mb-4">{c.process_title}</h2>
+            <h2 className="text-2xl md:text-4xl font-bold text-gray-900 mb-4">{c.process_title}</h2>
             <p className="text-gray-500 text-lg">{c.process_sub}</p>
           </AnimatedSection>
 

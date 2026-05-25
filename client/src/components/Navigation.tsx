@@ -36,13 +36,13 @@ export default function Navigation() {
       dir={dir}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16 md:h-20">
+        <div className="flex items-center justify-between h-14 md:h-20">
           <Link href="/" aria-label="ORTAM AI - דף הבית">
             <motion.div className="flex items-center cursor-pointer" whileHover={{ scale: 1.02 }}>
               <img
                 src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663445418346/DUvoZJgmUPGXkGcy.png"
                 alt="ORTAM AI"
-                className="h-10 w-auto object-contain"
+                className="h-8 md:h-10 w-auto object-contain"
               />
             </motion.div>
           </Link>
@@ -75,13 +75,13 @@ export default function Navigation() {
                 href="https://app.ortamai.com/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-bold text-white shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-xl active:scale-95"
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold text-white shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-xl active:scale-95"
                 style={{
                   background: 'linear-gradient(135deg, #25D366 0%, #128C7E 100%)',
                   boxShadow: '0 4px 15px rgba(37, 211, 102, 0.4)',
                 }}
               >
-                <Bot size={15} className="shrink-0" />
+                <Bot size={13} className="shrink-0" />
                 <span>{lang === 'he' ? 'צרו סוכן אוטומטי לוואטסאפ' : 'Create WhatsApp AI Agent'}</span>
               </a>
             </div>
