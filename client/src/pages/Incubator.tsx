@@ -250,9 +250,9 @@ export default function Incubator() {
         </div>
 
         {/* ── Main hero content ── */}
-        <div className="relative z-10 w-full max-w-6xl mx-auto px-4 sm:px-6 py-8 md:py-16">
+        <div className="relative z-10 w-full max-w-6xl mx-auto px-4 sm:px-6 py-4 md:py-16">
           {/* Hero text - centered on mobile, full width */}
-          <div className="flex flex-col items-center text-center md:items-end md:text-right max-w-2xl mx-auto md:mr-0 md:ml-auto mb-10 md:mb-16">
+          <div className="flex flex-col items-center text-center md:items-end md:text-right max-w-2xl mx-auto md:mr-0 md:ml-auto mb-6 md:mb-16">
             {/* Badge */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -270,7 +270,7 @@ export default function Incubator() {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.1 }}
-              className="text-3xl sm:text-4xl lg:text-6xl font-bold text-white mb-5 leading-tight"
+              className="text-2xl sm:text-4xl lg:text-6xl font-bold text-white mb-3 leading-tight"
             >
               {isRtl ? (
                 <>{c.hero_title}<br /><span style={{ color: '#C8C8D0' }}>עם ORTAM AI</span></>
@@ -283,7 +283,7 @@ export default function Incubator() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.25 }}
-              className="text-base md:text-lg text-gray-900 mb-8 leading-relaxed max-w-xl"
+              className="text-sm md:text-lg text-gray-900 mb-5 leading-relaxed max-w-xl"
             >
               {c.hero_desc}
             </motion.p>
@@ -307,7 +307,45 @@ export default function Incubator() {
             </motion.div>
           </div>
 
-          {/* CTA with atom sphere row — hidden on mobile to keep hero in first viewport */}
+          {/* Mobile-only: atom sphere shown below text, above the CTA row */}
+          <div className="flex md:hidden justify-center mb-4">
+            <motion.div
+              initial={{ opacity: 0, scale: 0.6 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.9, ease: 'backOut' }}
+              className="relative flex-shrink-0"
+              style={{ width: 110, height: 110 }}
+            >
+              {/* Ring 1 back */}
+              <motion.div animate={{ rotate: [0, 360] }} transition={{ duration: 5, repeat: Infinity, ease: 'linear' }} className="absolute inset-0 pointer-events-none" style={{ zIndex: 0 }}>
+                <div className="absolute inset-0" style={{ transform: 'rotateX(75deg)', borderRadius: '50%', border: '2px solid transparent', borderTopColor: 'rgba(136,153,187,0.0)', borderBottomColor: 'rgba(136,153,187,0.55)', borderLeftColor: 'rgba(136,153,187,0.55)', borderRightColor: 'rgba(136,153,187,0.0)', boxShadow: '0 0 8px rgba(136,153,187,0.3)' }} />
+              </motion.div>
+              {/* Ring 2 back */}
+              <motion.div animate={{ rotate: [360, 0] }} transition={{ duration: 7, repeat: Infinity, ease: 'linear' }} className="absolute inset-0 pointer-events-none" style={{ zIndex: 0 }}>
+                <div className="absolute inset-0" style={{ transform: 'rotateX(65deg) rotateZ(45deg)', borderRadius: '50%', border: '2px solid transparent', borderTopColor: 'rgba(136,153,187,0.0)', borderBottomColor: 'rgba(136,153,187,0.5)', borderLeftColor: 'rgba(136,153,187,0.5)', borderRightColor: 'rgba(136,153,187,0.0)', boxShadow: '0 0 6px rgba(136,153,187,0.25)' }} />
+              </motion.div>
+              {/* Core sphere */}
+              <motion.div animate={{ scale: [1, 1.04, 1] }} transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }} className="absolute rounded-full" style={{ inset: '16px', zIndex: 1, background: ['radial-gradient(circle at 32% 28%, rgba(255,255,255,0.85) 0%, rgba(255,255,255,0) 22%)', 'radial-gradient(circle at 70% 72%, rgba(20,28,60,0.7) 0%, rgba(20,28,60,0) 45%)', 'radial-gradient(circle at 50% 50%, #C8C8D0 0%, #08080C 40%, #08080C 75%, #0d1228 100%)'].join(', '), boxShadow: '0 0 30px rgba(200,200,208,0.5), 0 0 60px rgba(8,8,12,0.4), inset 0 0 16px rgba(20,28,60,0.5)' }}>
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <span className="font-black text-white select-none" style={{ fontSize: '20px', textShadow: '0 0 12px rgba(255,255,255,0.8)', letterSpacing: '-0.5px' }}>AI</span>
+                </div>
+              </motion.div>
+              {/* Ring 1 front */}
+              <motion.div animate={{ rotate: [0, 360] }} transition={{ duration: 5, repeat: Infinity, ease: 'linear' }} className="absolute inset-0 pointer-events-none" style={{ zIndex: 2 }}>
+                <div className="absolute inset-0" style={{ transform: 'rotateX(75deg)', borderRadius: '50%', border: '2px solid transparent', borderTopColor: 'rgba(136,153,187,0.9)', borderBottomColor: 'rgba(136,153,187,0.0)', borderLeftColor: 'rgba(136,153,187,0.0)', borderRightColor: 'rgba(136,153,187,0.9)', boxShadow: '0 0 10px rgba(136,153,187,0.5)' }} />
+                <div className="absolute w-3 h-3 rounded-full bg-white" style={{ top: '-5px', left: '50%', marginLeft: '-6px', boxShadow: '0 0 10px rgba(255,255,255,0.95), 0 0 20px rgba(136,153,187,0.9)' }} />
+              </motion.div>
+              {/* Ring 2 front */}
+              <motion.div animate={{ rotate: [360, 0] }} transition={{ duration: 7, repeat: Infinity, ease: 'linear' }} className="absolute inset-0 pointer-events-none" style={{ zIndex: 2 }}>
+                <div className="absolute inset-0" style={{ transform: 'rotateX(65deg) rotateZ(45deg)', borderRadius: '50%', border: '2px solid transparent', borderTopColor: 'rgba(136,153,187,0.85)', borderBottomColor: 'rgba(136,153,187,0.0)', borderLeftColor: 'rgba(136,153,187,0.0)', borderRightColor: 'rgba(136,153,187,0.85)', boxShadow: '0 0 8px rgba(136,153,187,0.4)' }} />
+                <div className="absolute w-2.5 h-2.5 rounded-full" style={{ background: '#E8E8F0', top: '-5px', left: '50%', marginLeft: '-5px', boxShadow: '0 0 8px rgba(200,200,208,0.9), 0 0 16px rgba(200,200,208,0.4)' }} />
+              </motion.div>
+              {/* Outer glow */}
+              <motion.div animate={{ opacity: [0.4, 0.8, 0.4], scale: [1, 1.08, 1] }} transition={{ duration: 2.5, repeat: Infinity, ease: 'easeInOut' }} className="absolute inset-0 rounded-full pointer-events-none" style={{ zIndex: 0, boxShadow: '0 0 40px rgba(200,200,208,0.2), 0 0 80px rgba(200,200,208,0.08)' }} />
+            </motion.div>
+          </div>
+
+          {/* CTA with atom sphere row — desktop only */}
           <div className={`hidden md:flex md:items-center md:gap-10 ${isRtl ? 'md:flex-row-reverse' : 'md:flex-row'}`}>
 
             {/* ── 3D AI Atom Sphere ── */}
