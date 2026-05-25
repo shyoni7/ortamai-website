@@ -52,7 +52,7 @@ export default function About() {
     <div dir={dir}>
       {/* ── HERO ── */}
       <section
-        className="relative min-h-[92vh] flex items-center justify-center overflow-hidden"
+        className="relative min-h-[100svh] flex items-center justify-center overflow-hidden"
         style={{ background: 'linear-gradient(135deg, #f0f4fb 0%, #ffffff 35%, #eaf0f8 65%, #dce8f5 100%)' }}
       >
         {/* Dot-grid background */}

@@ -393,7 +393,7 @@ export default function Academy() {
   return (
     <div dir={dir} className="min-h-screen">
       {/* Hero + Training Programs — unified single section */}
-      <section className="relative overflow-hidden">
+      <section className="relative overflow-hidden flex flex-col justify-center" style={{ minHeight: '100svh' }}>
         {/* Background */}
         <div className="absolute inset-0 bg-gradient-to-br from-gray-50 via-blue-50 to-gray-100" />
         <div className="absolute inset-0 grid-pattern opacity-20" />

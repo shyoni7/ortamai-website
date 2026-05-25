@@ -123,23 +123,25 @@ export default function Placement() {
       <section
         dir="rtl"
         style={{
-          background: 'linear-gradient(135deg, #1a1060 0%, #2d1b8e 40%, #3b2aaa 70%, #1e0f6e 100%)',
+          background: 'linear-gradient(135deg, #0d1228 0%, #1a2240 40%, #2D3A6B 70%, #1a2240 100%)',
           position: 'relative',
           overflow: 'hidden',
-          padding: 'clamp(2rem, 5vw, 3.5rem) 0',
+          minHeight: '100svh',
+          display: 'flex',
+          alignItems: 'center',
         }}
       >
         {/* Subtle glow blobs */}
         <div style={{ position: 'absolute', top: '-60px', right: '-60px', width: '340px', height: '340px', borderRadius: '50%', background: 'radial-gradient(circle, rgba(139,92,246,0.25) 0%, transparent 70%)', pointerEvents: 'none' }} />
         <div style={{ position: 'absolute', bottom: '-40px', left: '10%', width: '260px', height: '260px', borderRadius: '50%', background: 'radial-gradient(circle, rgba(245,158,11,0.12) 0%, transparent 70%)', pointerEvents: 'none' }} />
 
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 flex flex-col md:flex-row items-center gap-8 md:gap-12">
+        <div className="w-full max-w-6xl mx-auto px-4 sm:px-6 py-10 md:py-16 flex flex-col md:flex-row items-center gap-8 md:gap-12">
           {/* Text — right side in RTL */}
           <motion.div
             initial={{ opacity: 0, x: 40 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8 }}
-            className="flex-1 w-full text-right"
+            className="flex-1 w-full text-center md:text-right"
           >
             {/* Badge */}
             <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', background: 'rgba(255,255,255,0.1)', border: '1px solid rgba(255,255,255,0.2)', borderRadius: '999px', padding: '6px 16px', marginBottom: '1.25rem' }}>
@@ -159,6 +161,7 @@ export default function Placement() {
                 : 'In the changing job market, there is a need to define roles suited to the AI era. We specialize in finding employees who have undergone AI training tailored to their role.'}
             </p>
 
+            <div style={{ display: 'flex', justifyContent: 'center' }} className="md:justify-start">
             <motion.a
               href="#cv-form"
               whileHover={{ scale: 1.04 }}
@@ -174,6 +177,7 @@ export default function Placement() {
               {isRtl ? 'שלח קורות חיים' : 'Submit CV'}
               <span style={{ fontSize: '1.1rem' }}>←</span>
             </motion.a>
+            </div>
           </motion.div>
 
           {/* Video — left side in RTL */}
@@ -181,7 +185,7 @@ export default function Placement() {
             initial={{ opacity: 0, x: -40 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.9, delay: 0.15 }}
-            className="flex-1 w-full max-w-lg relative"
+            className="flex-1 w-full max-w-lg relative hidden sm:block"
           >
             {/* Glow ring behind video */}
             <div style={{

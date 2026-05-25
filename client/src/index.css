@@ -376,3 +376,38 @@
   25%       { transform: translateY(-8px) rotateY(8deg); }
   75%       { transform: translateY(4px) rotateY(-5deg); }
 }
+
+/* ── Mobile-first hero guarantee ── */
+/* Ensure 100svh works on all mobile browsers (iOS Safari, Chrome Android) */
+@supports not (height: 100svh) {
+  .min-h-\[100svh\] {
+    min-height: 100vh;
+    min-height: -webkit-fill-available;
+  }
+}
+
+/* On very small phones (< 375px), tighten hero padding */
+@media (max-width: 374px) {
+  .hero-content-tight {
+    padding-top: 1rem !important;
+    padding-bottom: 1rem !important;
+  }
+}
+
+/* Prevent any section from causing horizontal overflow on mobile */
+@media (max-width: 767px) {
+  section, .section-wrapper {
+    max-width: 100vw;
+    overflow-x: hidden;
+  }
+
+  /* Reduce section padding on mobile globally */
+  .py-24 {
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+  }
+  .py-16 {
+    padding-top: 2.5rem;
+    padding-bottom: 2.5rem;
+  }
+}

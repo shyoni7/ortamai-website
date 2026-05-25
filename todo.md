@@ -91,3 +91,13 @@
 - [x] Replace purple in Footer.tsx
 - [x] Replace purple in WhatsAppButton.tsx
 - [x] Replace purple in AccessibilityWidget.tsx
+
+## Mobile Hero Polish (Round 2)
+- [ ] Home: hero fits in first viewport on mobile, no overflow
+- [ ] About: hero fits in first viewport on mobile
+- [ ] Incubator: hero fits in first viewport on mobile
+- [ ] Academy: hero fits in first viewport on mobile
+- [ ] Placement: hero fits in first viewport on mobile
+- [ ] Contact: hero fits in first viewport on mobile
+- [ ] Global: nav height consistent, no elements hidden behind nav
+- [ ] Global: all section paddings tightened for mobile

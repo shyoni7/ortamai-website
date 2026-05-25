@@ -96,7 +96,7 @@ export default function Home() {
   return (
     <div dir={dir}>
       {/* ── HERO ── Modern 3D redesign */}
-      <section className="relative min-h-screen flex items-center justify-center overflow-hidden" style={{ background: 'linear-gradient(135deg, #f0f4fb 0%, #ffffff 40%, #eaf0f8 70%, #dce8f5 100%)' }}>
+      <section className="relative min-h-[100svh] flex items-center justify-center overflow-hidden" style={{ background: 'linear-gradient(135deg, #f0f4fb 0%, #ffffff 40%, #eaf0f8 70%, #dce8f5 100%)' }}>
 
         {/* Animated dot-grid background */}
         <div className="absolute inset-0" style={{
@@ -126,8 +126,8 @@ export default function Home() {
         />
 
         {/* ── Main content ── */}
-        <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center">
+        <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-10 md:py-24">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-16 items-center">
 
             {/* ── Text column ── */}
             <motion.div
@@ -137,7 +137,7 @@ export default function Home() {
               className={isRtl ? 'text-right order-1' : 'text-left order-1'}
             >
               {/* Badge */}
-              <motion.div variants={fadeUp} className="inline-flex items-center gap-2 mb-6 md:mb-8">
+              <motion.div variants={fadeUp} className="inline-flex items-center gap-2 mb-3 md:mb-8">
                 <motion.div
                   animate={{ boxShadow: ['0 0 0px #4B6CB740', '0 0 20px #4B6CB760', '0 0 0px #4B6CB740'] }}
                   transition={{ duration: 2.5, repeat: Infinity }}
@@ -154,7 +154,7 @@ export default function Home() {
               {/* Headline */}
               <motion.h1
                 variants={fadeUp}
-                className="font-bold mb-4 md:mb-6 leading-tight"
+                className="font-bold mb-2 md:mb-6 leading-tight"
                 style={{ fontSize: 'clamp(2rem, 6vw, 4.5rem)' }}
               >
                 <span className="text-gradient-cyan">{t.home.hero_title}</span>
@@ -164,12 +164,12 @@ export default function Home() {
                 {t.home.hero_subtitle}
               </motion.p>
 
-              <motion.p variants={fadeUp} className="text-sm md:text-base text-gray-500 mb-8 md:mb-10 leading-relaxed">
+              <motion.p variants={fadeUp} className="text-sm md:text-base text-gray-500 mb-4 md:mb-10 leading-relaxed">
                 {t.home.hero_desc}
               </motion.p>
 
               {/* Mini stats row */}
-              <motion.div variants={fadeUp} className="flex flex-wrap gap-4 md:gap-6 mb-8 md:mb-10">
+              <motion.div variants={fadeUp} className="flex flex-wrap gap-3 md:gap-6 mb-5 md:mb-10">
                 {[{ v: '300+', l: isRtl ? 'בוגרים' : 'Graduates' }, { v: '98%', l: isRtl ? 'שביעות רצון' : 'Satisfaction' }, { v: '10+', l: isRtl ? 'שותפים' : 'Partners' }].map((s, i) => (
                   <div key={i} className="text-center">
                     <div className="text-xl md:text-2xl font-bold" style={{ color: '#F59E0B' }}>{s.v}</div>
@@ -199,7 +199,7 @@ export default function Home() {
               initial={{ opacity: 0, y: 40 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1.2, delay: 0.4, type: 'spring', stiffness: 60 }}
-              className="relative order-2 pt-4 pb-4 px-2 md:pt-8 md:pb-8 md:px-6"
+              className="relative order-2 pt-2 pb-2 px-1 md:pt-8 md:pb-8 md:px-6"
             >
               {/* Floating badge — top right of video column — hidden on small mobile */}
               <motion.div

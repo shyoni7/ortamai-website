@@ -216,12 +216,10 @@ export default function Incubator() {
     <div dir={dir} className="bg-white">
       {/* ── Hero ─────────────────────────────────────────────────────────── */}
       <section
-        className="relative overflow-hidden"
+        className="relative overflow-hidden flex items-center"
         style={{
-          minHeight: '200px',
-          background: 'linear-gradient(135deg, #1a1560 0%, #2d1b8e 30%, #3b2aaa 55%, #1e1080 80%, #120d5e 100%)',
-          display: 'flex',
-          alignItems: 'center',
+          minHeight: '100svh',
+          background: 'linear-gradient(135deg, #0d1228 0%, #1a2240 30%, #2D3A6B 55%, #1a2240 80%, #0d1228 100%)',
         }}
       >
         {/* ── Background glow blobs ── */}
@@ -251,8 +249,65 @@ export default function Incubator() {
           </svg>
         </div>
 
-        {/* ── Main content row ── */}
-        <div className="relative z-10 w-full max-w-6xl mx-auto px-4 sm:px-6 py-10 md:py-12">
+        {/* ── Main hero content ── */}
+        <div className="relative z-10 w-full max-w-6xl mx-auto px-4 sm:px-6 py-8 md:py-16">
+          {/* Hero text - centered on mobile, full width */}
+          <div className="flex flex-col items-center text-center md:items-end md:text-right max-w-2xl mx-auto md:mr-0 md:ml-auto mb-10 md:mb-16">
+            {/* Badge */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-full mb-5"
+              style={{ background: 'rgba(255,255,255,0.1)', border: '1px solid rgba(255,255,255,0.2)' }}
+            >
+              <span className="w-2 h-2 rounded-full bg-blue-400 animate-pulse" />
+              <span className="text-sm font-semibold text-blue-200">{isRtl ? 'אקסלרטור AI' : 'AI Accelerator'}</span>
+            </motion.div>
+
+            {/* Main heading */}
+            <motion.h1
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.1 }}
+              className="text-3xl sm:text-4xl lg:text-6xl font-bold text-white mb-5 leading-tight"
+            >
+              {isRtl ? (
+                <>{c.hero_title}<br /><span style={{ color: '#8899BB' }}>עם ORTAM AI</span></>
+              ) : (
+                <>{c.hero_title}<br /><span style={{ color: '#8899BB' }}>with ORTAM AI</span></>
+              )}
+            </motion.h1>
+
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.25 }}
+              className="text-base md:text-lg text-blue-200 mb-8 leading-relaxed max-w-xl"
+            >
+              {c.hero_desc}
+            </motion.p>
+
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.4 }}
+              className="flex flex-wrap gap-4 justify-center md:justify-end"
+            >
+              <Link href="/contact">
+                <motion.button
+                  whileHover={{ scale: 1.04 }}
+                  whileTap={{ scale: 0.97 }}
+                  className="inline-flex items-center gap-2 bg-white text-blue-900 font-bold px-6 py-3 rounded-xl text-base shadow-lg"
+                >
+                  {c.hero_cta}
+                  <ArrowLeft className={`w-4 h-4 ${isRtl ? '' : 'rotate-180'}`} />
+                </motion.button>
+              </Link>
+            </motion.div>
+          </div>
+
+          {/* CTA with atom sphere row */}
           <div className={`flex flex-col md:items-center md:gap-10 gap-8 ${isRtl ? 'md:flex-row-reverse' : 'md:flex-row'}`}>
 
             {/* ── 3D AI Atom Sphere ── */}

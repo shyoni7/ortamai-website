@@ -40,14 +40,22 @@ export default function Contact() {
   return (
     <div dir={dir}>
       {/* Hero */}
-      <section className="relative py-12 overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-gray-50 via-blue-50 to-gray-100" />
-        <div className="absolute inset-0 grid-pattern opacity-20" />
-        <div className="relative z-10 max-w-4xl mx-auto px-4 text-center">
-          <motion.h1 initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }} className="text-2xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-3">
+      <section className="relative flex items-center justify-center overflow-hidden" style={{ minHeight: '60svh', background: 'linear-gradient(135deg, #f0f4fb 0%, #ffffff 40%, #eaf0f8 70%, #dce8f5 100%)' }}>
+        {/* Dot-grid */}
+        <div className="absolute inset-0" style={{ backgroundImage: 'radial-gradient(circle, #4B6CB720 1px, transparent 1px)', backgroundSize: '32px 32px' }} />
+        {/* Sphere accents */}
+        <div className="sphere-3d sphere-3d-primary absolute -top-16 -right-16 w-48 h-48 sm:w-72 sm:h-72 opacity-50 pointer-events-none" />
+        <div className="sphere-3d sphere-3d-secondary absolute -bottom-16 -left-16 w-36 h-36 sm:w-56 sm:h-56 opacity-40 pointer-events-none" />
+        <div className="relative z-10 max-w-4xl mx-auto px-4 py-14 text-center">
+          {/* Badge */}
+          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/80 border border-blue-200 shadow-sm mb-5">
+            <span className="w-2 h-2 rounded-full bg-blue-600 animate-pulse" />
+            <span className="text-sm font-semibold text-blue-700">{isRtl ? 'אנחנו כאן בשבילכם' : 'We\'re here for you'}</span>
+          </motion.div>
+          <motion.h1 initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }} className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-4 leading-tight">
             {t.contact.hero_title}
           </motion.h1>
-          <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.2 }} className="text-xl text-gray-600">
+          <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.2 }} className="text-lg md:text-xl text-gray-600 max-w-xl mx-auto">
             {t.contact.hero_sub}
           </motion.p>
         </div>
