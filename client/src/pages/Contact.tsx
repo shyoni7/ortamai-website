@@ -41,7 +41,7 @@ export default function Contact() {
     <div dir={dir}>
       {/* Hero */}
       <section className="relative py-12 overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-gray-50 via-purple-50 to-gray-100" />
+        <div className="absolute inset-0 bg-gradient-to-br from-gray-50 via-blue-50 to-gray-100" />
         <div className="absolute inset-0 grid-pattern opacity-20" />
         <div className="relative z-10 max-w-4xl mx-auto px-4 text-center">
           <motion.h1 initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }} className="text-2xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-3">
@@ -121,13 +121,13 @@ export default function Contact() {
                     id="contact-privacy"
                     checked={privacyConsent}
                     onChange={e => setPrivacyConsent(e.target.checked)}
-                    className="mt-1 w-4 h-4 accent-purple-600 cursor-pointer flex-shrink-0"
+                    className="mt-1 w-4 h-4 accent-blue-600 cursor-pointer flex-shrink-0"
                   />
                   <label htmlFor="contact-privacy" className="text-sm text-gray-600 cursor-pointer leading-relaxed">
                     {isRtl ? (
-                      <>אני מאשר/ת את <a href="/privacy-policy" className="text-purple-600 underline hover:text-purple-800" target="_blank" rel="noopener noreferrer">מדיניות הפרטיות</a> ומסכים/ה שהמידע שאני מספק/ת ישמר בהתאם לדרישות החוק</>
+                      <>אני מאשר/ת את <a href="/privacy-policy" className="text-blue-700 underline hover:text-blue-900" target="_blank" rel="noopener noreferrer">מדיניות הפרטיות</a> ומסכים/ה שהמידע שאני מספק/ת ישמר בהתאם לדרישות החוק</>
                     ) : (
-                      <>I accept the <a href="/privacy-policy" className="text-purple-600 underline hover:text-purple-800" target="_blank" rel="noopener noreferrer">Privacy Policy</a> and agree that my information will be stored in accordance with legal requirements</>
+                      <>I accept the <a href="/privacy-policy" className="text-blue-700 underline hover:text-blue-900" target="_blank" rel="noopener noreferrer">Privacy Policy</a> and agree that my information will be stored in accordance with legal requirements</>
                     )}
                   </label>
                 </div>
@@ -155,25 +155,25 @@ export default function Contact() {
                 <div className="space-y-4">
                   <div className="flex items-center gap-4">
                     <div className="p-3 rounded-xl bg-orange-400/10">
-                      <Mail className="w-5 h-5 text-purple-600" />
+                      <Mail className="w-5 h-5 text-blue-700" />
                     </div>
                     <div>
                       <p className="text-gray-500 text-sm">{t.contact.email_label}</p>
-                      <a href="mailto:info@ortamai.com" className="text-gray-900 hover:text-purple-600 transition-colors">info@ortamai.com</a>
+                      <a href="mailto:info@ortamai.com" className="text-gray-900 hover:text-blue-700 transition-colors">info@ortamai.com</a>
                     </div>
                   </div>
                   <div className="flex items-center gap-4">
                     <div className="p-3 rounded-xl bg-orange-400/10">
-                      <Phone className="w-5 h-5 text-purple-600" />
+                      <Phone className="w-5 h-5 text-blue-700" />
                     </div>
                     <div>
                       <p className="text-gray-500 text-sm">{t.contact.phone_label}</p>
-                      <a href="tel:+972523381822" className="text-gray-900 hover:text-purple-600 transition-colors">052-338-1822</a>
+                      <a href="tel:+972523381822" className="text-gray-900 hover:text-blue-700 transition-colors">052-338-1822</a>
                     </div>
                   </div>
                   <div className="flex items-center gap-4">
                     <div className="p-3 rounded-xl bg-orange-400/10">
-                      <MapPin className="w-5 h-5 text-purple-600" />
+                      <MapPin className="w-5 h-5 text-blue-700" />
                     </div>
                     <div>
                       <p className="text-gray-500 text-sm">{isRtl ? 'מיקום' : 'Location'}</p>
@@ -202,11 +202,11 @@ export default function Contact() {
               </a>
 
               {/* 3D Animated Envelope */}
-              <div className="relative w-full h-40 flex items-center justify-center overflow-hidden rounded-2xl bg-gradient-to-br from-purple-50 via-violet-50 to-indigo-100">
+              <div className="relative w-full h-40 flex items-center justify-center overflow-hidden rounded-2xl bg-gradient-to-br from-blue-600 via-blue-100 to-slate-200">
                 {/* Floating particles */}
                 <div className="absolute inset-0 overflow-hidden">
                   {[...Array(6)].map((_, i) => (
-                    <div key={i} className="absolute rounded-full bg-purple-400/30" style={{
+                    <div key={i} className="absolute rounded-full bg-blue-500/30" style={{
                       width: `${4 + i * 2}px`, height: `${4 + i * 2}px`,
                       left: `${10 + i * 15}%`, top: `${20 + (i % 3) * 25}%`,
                       animation: `envelope-float ${2.5 + i * 0.4}s ease-in-out infinite`,
@@ -225,9 +225,9 @@ export default function Contact() {
                     {/* Envelope body */}
                     <div style={{
                       position: 'absolute', inset: 0,
-                      background: 'linear-gradient(135deg, #7c3aed 0%, #a855f7 50%, #c084fc 100%)',
+                      background: 'linear-gradient(135deg, #2D3A6B 0%, #4B6CB7 50%, #8899BB 100%)',
                       borderRadius: '8px',
-                      boxShadow: '0 20px 60px rgba(124,58,237,0.45), 0 4px 20px rgba(124,58,237,0.3)',
+                      boxShadow: '0 20px 60px rgba(45,58,107,0.45), 0 4px 20px rgba(45,58,107,0.3)',
                     }} />
 
                     {/* Envelope flap (top triangle) */}
@@ -242,8 +242,8 @@ export default function Contact() {
                         width: 0, height: 0,
                         borderLeft: '100px solid transparent',
                         borderRight: '100px solid transparent',
-                        borderTop: '68px solid #6d28d9',
-                        filter: 'drop-shadow(0 4px 8px rgba(109,40,217,0.4))',
+                        borderTop: '68px solid #2D3A6B',
+                        filter: 'drop-shadow(0 4px 8px rgba(45,58,107,0.4))',
                       }} />
                     </div>
 
@@ -251,13 +251,13 @@ export default function Contact() {
                     <div style={{
                       position: 'absolute', bottom: 0, left: 0,
                       width: 0, height: 0,
-                      borderLeft: '100px solid #8b5cf6',
+                      borderLeft: '100px solid #4B6CB7',
                       borderBottom: '68px solid transparent',
                     }} />
                     <div style={{
                       position: 'absolute', bottom: 0, right: 0,
                       width: 0, height: 0,
-                      borderRight: '100px solid #8b5cf6',
+                      borderRight: '100px solid #4B6CB7',
                       borderBottom: '68px solid transparent',
                     }} />
 
@@ -272,9 +272,9 @@ export default function Contact() {
                       transformOrigin: 'bottom center',
                     }}>
                       <div style={{ padding: '8px 10px' }}>
-                        <div style={{ height: '4px', background: '#e9d5ff', borderRadius: '2px', marginBottom: '5px' }} />
-                        <div style={{ height: '4px', background: '#e9d5ff', borderRadius: '2px', marginBottom: '5px', width: '70%' }} />
-                        <div style={{ height: '4px', background: '#e9d5ff', borderRadius: '2px', width: '85%' }} />
+                        <div style={{ height: '4px', background: '#c8d4ec', borderRadius: '2px', marginBottom: '5px' }} />
+                        <div style={{ height: '4px', background: '#c8d4ec', borderRadius: '2px', marginBottom: '5px', width: '70%' }} />
+                        <div style={{ height: '4px', background: '#c8d4ec', borderRadius: '2px', width: '85%' }} />
                       </div>
                     </div>
 
@@ -291,7 +291,7 @@ export default function Contact() {
                 {/* Dotted trail */}
                 <div className="absolute" style={{ right: '15%', top: '30%', animation: 'trail-fade 4s ease-in-out infinite' }}>
                   {[0,1,2].map(i => (
-                    <div key={i} className="inline-block w-1.5 h-1.5 rounded-full bg-purple-400/60 mx-0.5"
+                    <div key={i} className="inline-block w-1.5 h-1.5 rounded-full bg-blue-500/60 mx-0.5"
                       style={{ animationDelay: `${i * 0.15}s`, animation: `trail-dot 4s ease-in-out infinite ${i * 0.15}s` }} />
                   ))}
                 </div>

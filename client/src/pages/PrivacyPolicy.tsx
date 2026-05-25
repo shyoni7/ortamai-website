@@ -11,7 +11,7 @@ export default function PrivacyPolicy() {
   return (
     <div className="min-h-screen bg-gray-50" dir={isRtl ? 'rtl' : 'ltr'}>
       {/* Hero */}
-      <section className="bg-gradient-to-br from-purple-700 via-violet-700 to-indigo-700 py-16 px-4">
+      <section className="bg-gradient-to-br from-slate-700 via-blue-800 to-slate-900 py-16 px-4">
         <div className="max-w-3xl mx-auto text-center">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -24,7 +24,7 @@ export default function PrivacyPolicy() {
             <h1 className="text-3xl md:text-4xl font-bold text-white mb-3">
               {isRtl ? 'מדיניות פרטיות' : 'Privacy Policy'}
             </h1>
-            <p className="text-purple-200 text-lg">
+            <p className="text-blue-300 text-lg">
               {isRtl ? 'אנו מכבדים את פרטיותכם ופועלים על פי חוק הגנת הפרטיות' : 'We respect your privacy and comply with privacy protection law'}
             </p>
           </motion.div>
@@ -36,7 +36,7 @@ export default function PrivacyPolicy() {
         <div className="max-w-3xl mx-auto">
           {/* Back link */}
           <Link href="/">
-            <a className="inline-flex items-center gap-2 text-purple-600 hover:text-purple-800 text-sm font-medium mb-8 transition-colors">
+            <a className="inline-flex items-center gap-2 text-blue-700 hover:text-blue-900 text-sm font-medium mb-8 transition-colors">
               <ArrowRight className="w-4 h-4" />
               {isRtl ? 'חזרה לדף הבית' : 'Back to Home'}
             </a>
@@ -97,8 +97,8 @@ export default function PrivacyPolicy() {
                 body: (
                   <div className="space-y-1 text-gray-600">
                     <p>{isRtl ? 'לשאלות בנוגע למדיניות הפרטיות:' : 'For questions about this Privacy Policy:'}</p>
-                    <p className="mt-3"><a href="mailto:info@ortamai.com" className="text-purple-600 hover:underline">info@ortamai.com</a></p>
-                    <p><a href="tel:052-338-1822" className="text-purple-600 hover:underline">052-338-1822</a></p>
+                    <p className="mt-3"><a href="mailto:info@ortamai.com" className="text-blue-700 hover:underline">info@ortamai.com</a></p>
+                    <p><a href="tel:052-338-1822" className="text-blue-700 hover:underline">052-338-1822</a></p>
                     <p>{isRtl ? "רח' אילת 26, תל אביב יפו" : "26 Eilat St., Tel Aviv-Jaffa"}</p>
                   </div>
                 ),

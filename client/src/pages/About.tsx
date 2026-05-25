@@ -45,7 +45,7 @@ export default function About() {
     <div dir={dir}>
       {/* Hero */}
       <section className="relative py-16 md:py-32 overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-gray-50 via-purple-50 to-gray-100" />
+        <div className="absolute inset-0 bg-gradient-to-br from-gray-50 via-blue-50 to-gray-100" />
         <div className="absolute inset-0 grid-pattern opacity-20" />
         <motion.div animate={{ x: [0,50,0], y: [0,30,0] }} transition={{ duration: 10, repeat: Infinity }} className="absolute top-20 right-20 w-80 h-80 bg-orange-500/10 rounded-full blur-3xl" />
         <div className="relative z-10 max-w-4xl mx-auto px-4 text-center">
@@ -70,7 +70,7 @@ export default function About() {
               className={isRtl ? 'text-right' : 'text-left'}
             >
               <h2 className="text-3xl font-bold text-gray-900 mb-3">{t.about.who}</h2>
-              <p className="text-lg text-purple-700 font-medium mb-5 leading-relaxed">{t.about.who_text}</p>
+              <p className="text-lg text-blue-800 font-medium mb-5 leading-relaxed">{t.about.who_text}</p>
               <p className="text-gray-600 mb-4 leading-relaxed">{t.about.p1}</p>
               <p className="text-gray-600 leading-relaxed">{t.about.p2}</p>
             </motion.div>
@@ -94,7 +94,7 @@ export default function About() {
 
       {/* Values */}
       <section className="py-20 relative">
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-purple-50 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-blue-100/30 to-transparent" />
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
@@ -111,10 +111,10 @@ export default function About() {
               return (
                 <div
                   key={i}
-                  className="bg-white border border-gray-200 rounded-2xl shadow-sm p-8 text-center hover:border-purple-300 transition-all"
+                  className="bg-white border border-gray-200 rounded-2xl shadow-sm p-8 text-center hover:border-blue-300 transition-all"
                 >
                   <div className="inline-flex p-4 rounded-full bg-orange-400/10 mb-4">
-                    <Icon className="w-8 h-8 text-purple-600" />
+                    <Icon className="w-8 h-8 text-blue-700" />
                   </div>
                   <h3 className="text-xl font-bold text-gray-900 mb-2">{v.title}</h3>
                   <p className="text-gray-500">{v.desc}</p>
@@ -142,7 +142,7 @@ export default function About() {
             {TEAM.map((member, i) => (
               <div
                 key={i}
-                className="bg-white border border-gray-200 rounded-2xl shadow-sm overflow-hidden hover:border-purple-300 transition-all group"
+                className="bg-white border border-gray-200 rounded-2xl shadow-sm overflow-hidden hover:border-blue-300 transition-all group"
               >
                 <div className="relative h-56 overflow-hidden">
                   <img src={member.img} alt={member.name[lang]} className={`w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ${'imgPosition' in member ? (member as any).imgPosition : 'object-center'}`} />
@@ -150,7 +150,7 @@ export default function About() {
                 </div>
                 <div className="p-4 text-center">
                   <h3 className="text-gray-900 font-bold">{member.name[lang]}</h3>
-                  <p className="text-purple-600 text-sm">{member.role[lang]}</p>
+                  <p className="text-blue-700 text-sm">{member.role[lang]}</p>
                 </div>
               </div>
             ))}
@@ -160,7 +160,7 @@ export default function About() {
 
       {/* CTA */}
       <section className="py-20 relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-r from-orange-500/10 via-blue-900/30 to-orange-500/10" />
+        <div className="absolute inset-0 bg-gradient-to-r from-orange-500/10 via-blue-200/30 to-orange-500/10" />
         <div className="max-w-3xl mx-auto px-4 text-center relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 30 }}

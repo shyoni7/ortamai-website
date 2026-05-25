@@ -115,7 +115,7 @@ export default function Placement() {
     });
   };
 
-  const inputClass = `w-full px-4 py-3 rounded-xl bg-gray-50 border border-gray-200 text-gray-900 placeholder-gray-400 focus:outline-none focus:border-purple-400 focus:bg-white transition-all`;
+  const inputClass = `w-full px-4 py-3 rounded-xl bg-gray-50 border border-gray-200 text-gray-900 placeholder-gray-400 focus:outline-none focus:border-blue-300 focus:bg-white transition-all`;
 
   return (
     <div dir={dir}>
@@ -216,9 +216,9 @@ export default function Placement() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
             {/* Candidates */}
             <div
-              className="bg-white border border-gray-200 rounded-2xl shadow-sm p-6 md:p-10 hover:border-purple-300 transition-all"
+              className="bg-white border border-gray-200 rounded-2xl shadow-sm p-6 md:p-10 hover:border-blue-300 transition-all"
             >
-              <div className="inline-flex p-3 rounded-xl bg-gradient-to-br from-purple-600 to-violet-600 mb-6">
+              <div className="inline-flex p-3 rounded-xl bg-gradient-to-br from-blue-700 to-blue-900 mb-6">
                 <User className="w-6 h-6 text-white" />
               </div>
               <h2 className="text-2xl font-bold text-gray-900 mb-4">{t.placement.candidate_title}</h2>
@@ -226,7 +226,7 @@ export default function Placement() {
               <div className="space-y-3">
                 {benefits.map((b, i) => (
                   <div key={i} className="flex items-center gap-3">
-                    <CheckCircle className="w-5 h-5 flex-shrink-0" style={{ color: i % 2 === 0 ? '#F59E0B' : '#9333ea' }} />
+                    <CheckCircle className="w-5 h-5 flex-shrink-0" style={{ color: i % 2 === 0 ? '#F59E0B' : '#3A5298' }} />
                     <span className="text-gray-600 text-sm">{b}</span>
                   </div>
                 ))}
@@ -237,7 +237,7 @@ export default function Placement() {
             <div
               className="bg-white border border-gray-200 rounded-2xl shadow-sm p-6 md:p-10 hover:border-blue-900/30 transition-all"
             >
-              <div className="inline-flex p-3 rounded-xl bg-gradient-to-br from-purple-600 to-pink-500 mb-6">
+              <div className="inline-flex p-3 rounded-xl bg-gradient-to-br from-blue-700 to-slate-500 mb-6">
                 <Building className="w-6 h-6 text-white" />
               </div>
               <h2 className="text-2xl font-bold text-gray-900 mb-4">{t.placement.employer_title}</h2>
@@ -245,13 +245,13 @@ export default function Placement() {
               <div className="space-y-3 mb-8">
                 {benefits.map((b, i) => (
                   <div key={i} className="flex items-center gap-3">
-                    <CheckCircle className="w-5 h-5 flex-shrink-0" style={{ color: i % 2 === 0 ? '#9333ea' : '#F59E0B' }} />
+                    <CheckCircle className="w-5 h-5 flex-shrink-0" style={{ color: i % 2 === 0 ? '#3A5298' : '#F59E0B' }} />
                     <span className="text-gray-600 text-sm">{b}</span>
                   </div>
                 ))}
               </div>
               <Link href="/contact">
-                <button className="w-full py-3 rounded-xl border border-blue-900/30 text-purple-600 hover:bg-purple-100/30 transition-colors font-semibold">{t.placement.cta}</button>
+                <button className="w-full py-3 rounded-xl border border-blue-900/30 text-blue-700 hover:bg-blue-100/30 transition-colors font-semibold">{t.placement.cta}</button>
               </Link>
             </div>
           </div>
@@ -265,8 +265,8 @@ export default function Placement() {
             {/* Section Header */}
             <div className="text-center mb-10">
               <div className="inline-flex items-center gap-2 bg-white border border-gray-200 px-4 py-2 rounded-full mb-4">
-                <FileText className="w-4 h-4 text-purple-600" />
-                <span className="text-sm text-purple-600 font-medium">{t.placement.cv_form_title}</span>
+                <FileText className="w-4 h-4 text-blue-700" />
+                <span className="text-sm text-blue-700 font-medium">{t.placement.cv_form_title}</span>
               </div>
               <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-3">{t.placement.cv_form_title}</h2>
               <p className="text-gray-500">{t.placement.cv_form_sub}</p>
@@ -282,7 +282,7 @@ export default function Placement() {
                   className="bg-white border border-gray-200 rounded-2xl shadow-sm p-12 text-center"
                 >
                   <div className="w-20 h-20 rounded-full bg-gradient-to-br from-emerald-500 to-teal-600 flex items-center justify-center mx-auto mb-6">
-                    <CheckCircle className="w-10 h-10 text-purple-600" />
+                    <CheckCircle className="w-10 h-10 text-blue-700" />
                   </div>
                   <h3 className="text-2xl font-bold text-gray-900 mb-3">{t.placement.cv_success}</h3>
                   <p className="text-gray-500 mb-6">{lang === 'he' ? 'נחזור אליך בהקדם האפשרי' : "We'll be in touch soon"}</p>
@@ -411,7 +411,7 @@ export default function Placement() {
                         </div>
                       ) : (
                         <div>
-                          <Upload className={`w-10 h-10 mx-auto mb-3 ${isDragging ? 'text-purple-600' : 'text-gray-500'}`} />
+                          <Upload className={`w-10 h-10 mx-auto mb-3 ${isDragging ? 'text-blue-700' : 'text-gray-500'}`} />
                           <p className="text-gray-600 font-medium">{t.placement.cv_file_hint}</p>
                           <p className="text-gray-500 text-sm mt-1">PDF, DOC, DOCX · {lang === 'he' ? 'עד' : 'up to'} {MAX_FILE_SIZE_MB}MB</p>
                         </div>
@@ -438,13 +438,13 @@ export default function Placement() {
                       id="placement-privacy"
                       checked={privacyConsent}
                       onChange={e => setPrivacyConsent(e.target.checked)}
-                      className="mt-1 w-4 h-4 accent-purple-600 cursor-pointer flex-shrink-0"
+                      className="mt-1 w-4 h-4 accent-blue-600 cursor-pointer flex-shrink-0"
                     />
                     <label htmlFor="placement-privacy" className="text-sm text-gray-600 cursor-pointer leading-relaxed">
                       {lang === 'he' ? (
-                        <>אני מאשר/ת את{' '}<a href="/privacy-policy" className="text-purple-600 underline hover:text-purple-800" target="_blank" rel="noopener noreferrer">מדיניות הפרטיות</a>{' '}ומסכים/ה שהמידע שאני מספק/ת ישמר בהתאם לדרישות החוק</>
+                        <>אני מאשר/ת את{' '}<a href="/privacy-policy" className="text-blue-700 underline hover:text-blue-900" target="_blank" rel="noopener noreferrer">מדיניות הפרטיות</a>{' '}ומסכים/ה שהמידע שאני מספק/ת ישמר בהתאם לדרישות החוק</>
                       ) : (
-                        <>I accept the{' '}<a href="/privacy-policy" className="text-purple-600 underline hover:text-purple-800" target="_blank" rel="noopener noreferrer">Privacy Policy</a>{' '}and agree that my information will be stored in accordance with legal requirements</>
+                        <>I accept the{' '}<a href="/privacy-policy" className="text-blue-700 underline hover:text-blue-900" target="_blank" rel="noopener noreferrer">Privacy Policy</a>{' '}and agree that my information will be stored in accordance with legal requirements</>
                       )}
                     </label>
                   </div>

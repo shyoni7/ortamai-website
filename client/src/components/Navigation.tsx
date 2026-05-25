@@ -51,7 +51,7 @@ export default function Navigation() {
             {navLinks.map((link) => (
               <Link key={link.href} href={link.href}>
                 <motion.span
-                  className={`px-3 py-2 rounded-lg text-sm font-medium cursor-pointer transition-colors duration-200 ${location === link.href ? 'text-purple-600 bg-purple-50' : 'text-gray-700 hover:text-purple-600 hover:bg-purple-50'}`}
+                  className={`px-3 py-2 rounded-lg text-sm font-medium cursor-pointer transition-colors duration-200 ${location === link.href ? 'text-blue-700 bg-blue-50' : 'text-gray-700 hover:text-blue-700 hover:bg-blue-50'}`}
                   whileHover={{ y: -1 }}
                 >
                   {link.label}
@@ -63,7 +63,7 @@ export default function Navigation() {
           <div className="flex items-center gap-3">
             <button
               onClick={() => setLang(lang === 'he' ? 'en' : 'he')}
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-medium text-gray-600 hover:text-purple-600 hover:bg-purple-50 transition-colors"
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-medium text-gray-600 hover:text-blue-700 hover:bg-blue-50 transition-colors"
               aria-label={lang === 'he' ? 'Switch to English' : 'עבור לעברית'}
             >
               <Globe size={14} />
@@ -87,7 +87,7 @@ export default function Navigation() {
             </div>
 
             <button
-              className="lg:hidden p-2 rounded-lg text-gray-600 hover:text-purple-600 hover:bg-purple-50 transition-colors"
+              className="lg:hidden p-2 rounded-lg text-gray-600 hover:text-blue-700 hover:bg-blue-50 transition-colors"
               onClick={() => setIsOpen(!isOpen)}
               aria-label={isOpen ? 'סגור תפריט' : 'פתח תפריט'}
               aria-expanded={isOpen}
@@ -109,7 +109,7 @@ export default function Navigation() {
             <div className="px-4 py-4 space-y-1">
               {navLinks.map((link) => (
                 <Link key={link.href} href={link.href}>
-                  <span className={`block px-4 py-3 rounded-lg text-sm font-medium cursor-pointer transition-colors ${location === link.href ? 'text-purple-600 bg-purple-50' : 'text-gray-700 hover:text-purple-600 hover:bg-purple-50'}`}>
+                  <span className={`block px-4 py-3 rounded-lg text-sm font-medium cursor-pointer transition-colors ${location === link.href ? 'text-blue-700 bg-blue-50' : 'text-gray-700 hover:text-blue-700 hover:bg-blue-50'}`}>
                     {link.label}
                   </span>
                 </Link>

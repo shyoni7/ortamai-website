@@ -61,7 +61,7 @@ const trainingPrograms: TrainingProgram[] = [
     level: 'בינוני',
     levelEn: 'Intermediate',
     image: `${CDN}/81fe03d01_create_a_professional_and_modern_image_for_a_website_that_promotes_ai_training_programs_the_image_s_y01604j7g7gqe2rbe6tu_0_2b7c34bf.png`,
-    color: 'from-purple-600 to-violet-600',
+    color: 'from-blue-700 to-blue-900',
     modules: [
       { title: 'מבוא ל-AI ניהולי', duration: '4 שעות', topics: ['הבנת עולם ה-AI', 'כלים ניהוליים מבוססי AI', 'ChatGPT למנהלים'] },
       { title: 'קבלת החלטות עם AI', duration: '6 שעות', topics: ['ניתוח נתונים עם AI', 'דוחות אוטומטיים', 'תחזיות ומגמות'] },
@@ -90,7 +90,7 @@ const trainingPrograms: TrainingProgram[] = [
     level: 'בינוני',
     levelEn: 'Intermediate',
     image: `${CDN}/a00800906_______________ai______________1ztf6h7ulzz1cg0t1nwp_1_450c2a58.png`,
-    color: 'from-purple-600 to-pink-500',
+    color: 'from-blue-700 to-slate-500',
     modules: [
       { title: 'AI לכתיבת תוכן שיווקי', duration: '8 שעות', topics: ['כתיבת קופי עם AI', 'יצירת תוכן לרשתות חברתיות', 'SEO עם AI'] },
       { title: 'יצירת תמונות ווידאו עם AI', duration: '10 שעות', topics: ['Midjourney ו-DALL-E', 'עריכת וידאו עם AI', 'עיצוב גרפי אוטומטי'] },
@@ -254,7 +254,7 @@ const trainingPrograms: TrainingProgram[] = [
     level: 'בינוני',
     levelEn: 'Intermediate',
     image: `https://d2xsxph8kpxj0f.cloudfront.net/310519663445418346/oDFneUKwvw2xJYXYaumUdB/ai-sales-training-WwFySQp2o7ZLLoVoh8dAo3.webp`,
-    color: 'from-pink-500 to-rose-600',
+    color: 'from-slate-500 to-slate-700',
     modules: [
       { title: 'AI בתהליך המכירה', duration: '6 שעות', topics: ['חיפוש לידים עם AI', 'כתיבת הצעות מחיר', 'מעקב אחר לקוחות'] },
       { title: 'CRM ו-AI', duration: '6 שעות', topics: ['Salesforce AI', 'HubSpot AI', 'ניהול פייפליין'] },
@@ -298,7 +298,7 @@ const publicCourses: PublicCourse[] = [
     durationEn: '8 weeks',
     level: 'מתחילים',
     levelEn: 'Beginners',
-    color: 'from-purple-600 to-violet-600',
+    color: 'from-blue-700 to-blue-900',
     icon: BookOpen,
   },
   {
@@ -310,7 +310,7 @@ const publicCourses: PublicCourse[] = [
     durationEn: '4 weeks',
     level: 'בינוני',
     levelEn: 'Intermediate',
-    color: 'from-purple-600 to-pink-500',
+    color: 'from-blue-700 to-slate-500',
     icon: Star,
   },
   {
@@ -387,7 +387,7 @@ export default function Academy() {
   const getLevelColor = (level: string) => {
     if (level === 'בינוני' || level === 'Intermediate') return 'bg-blue-100 text-blue-700 border border-blue-200';
     if (level === 'מתקדמים' || level === 'Advanced') return 'bg-blue-100 text-blue-700 border border-blue-200';
-    return 'bg-purple-100 text-purple-700 border border-purple-200';
+    return 'bg-blue-100 text-blue-800 border border-blue-300';
   };
 
   return (
@@ -395,12 +395,12 @@ export default function Academy() {
       {/* Hero + Training Programs — unified single section */}
       <section className="relative overflow-hidden">
         {/* Background */}
-        <div className="absolute inset-0 bg-gradient-to-br from-gray-50 via-purple-50 to-gray-100" />
+        <div className="absolute inset-0 bg-gradient-to-br from-gray-50 via-blue-50 to-gray-100" />
         <div className="absolute inset-0 grid-pattern opacity-20" />
         <motion.div animate={{ x: [0, 60, 0], y: [0, 30, 0] }} transition={{ duration: 10, repeat: Infinity }}
-          className="absolute top-10 left-10 w-72 h-72 bg-purple-200/40 rounded-full blur-3xl" />
+          className="absolute top-10 left-10 w-72 h-72 bg-blue-200/40 rounded-full blur-3xl" />
         <motion.div animate={{ x: [0, -40, 0], y: [0, -20, 0] }} transition={{ duration: 12, repeat: Infinity, delay: 2 }}
-          className="absolute bottom-10 right-10 w-80 h-80 bg-purple-100/40 rounded-full blur-3xl" />
+          className="absolute bottom-10 right-10 w-80 h-80 bg-blue-100/40 rounded-full blur-3xl" />
 
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 pb-10">
           {/* Hero row: text left, 3D object right */}
@@ -409,7 +409,7 @@ export default function Academy() {
             <div className="flex-1 text-center lg:text-right">
               <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="inline-flex mb-4">
                 <div className="bg-white border border-gray-200 px-4 py-2 rounded-full">
-                  <span className="text-sm font-semibold text-purple-600">{isRtl ? 'מרכז הכשרות AI' : 'AI Training Center'}</span>
+                  <span className="text-sm font-semibold text-blue-700">{isRtl ? 'מרכז הכשרות AI' : 'AI Training Center'}</span>
                 </div>
               </motion.div>
               <motion.h1 initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}
@@ -429,7 +429,7 @@ export default function Academy() {
                   <span className="text-sm text-gray-600">{isRtl ? 'קורס מוסמך' : 'Certified Course'}</span>
                 </div>
                 <div className="bg-white border border-gray-200 px-4 py-2 rounded-full flex items-center gap-2">
-                  <Users className="w-4 h-4 text-purple-500" />
+                  <Users className="w-4 h-4 text-blue-600" />
                   <span className="text-sm font-bold" style={{ color: '#F59E0B' }}>{isRtl ? '+250 בוגרים' : '+250 Graduates'}</span>
                 </div>
               </motion.div>
@@ -453,7 +453,7 @@ export default function Academy() {
                   position: 'absolute', width: '160px', height: '160px',
                   top: '30px', left: '30px',
                   borderRadius: '50%',
-                  border: '2px solid rgba(168,85,247,0.4)',
+                  border: '2px solid rgba(75,108,183,0.4)',
                   animation: 'academy-orbit2 5s linear infinite reverse',
                   transformStyle: 'preserve-3d',
                   transform: 'rotateX(70deg) rotateZ(45deg)',
@@ -469,14 +469,14 @@ export default function Academy() {
                   {/* Book body */}
                   <div style={{
                     position: 'absolute', inset: 0,
-                    background: 'linear-gradient(135deg, #7c3aed 0%, #a855f7 50%, #c084fc 100%)',
+                    background: 'linear-gradient(135deg, #2D3A6B 0%, #4B6CB7 50%, #8899BB 100%)',
                     borderRadius: '6px 14px 14px 6px',
-                    boxShadow: '0 20px 50px rgba(124,58,237,0.5), 0 4px 15px rgba(124,58,237,0.3)',
+                    boxShadow: '0 20px 50px rgba(45,58,107,0.5), 0 4px 15px rgba(45,58,107,0.3)',
                   }} />
                   {/* Book spine */}
                   <div style={{
                     position: 'absolute', top: 0, bottom: 0, left: 0, width: '14px',
-                    background: 'linear-gradient(180deg, #5b21b6, #7c3aed)',
+                    background: 'linear-gradient(180deg, #5b21b6, #2D3A6B)',
                     borderRadius: '6px 0 0 6px',
                     boxShadow: 'inset -2px 0 4px rgba(0,0,0,0.2)',
                   }} />
@@ -509,9 +509,9 @@ export default function Academy() {
                 <div style={{
                   position: 'absolute', top: '0px', left: '100px',
                   width: '28px', height: '28px',
-                  background: 'linear-gradient(135deg, #a855f7, #7c3aed)',
+                  background: 'linear-gradient(135deg, #4B6CB7, #2D3A6B)',
                   borderRadius: '50%',
-                  boxShadow: '0 4px 12px rgba(168,85,247,0.6)',
+                  boxShadow: '0 4px 12px rgba(75,108,183,0.6)',
                   display: 'flex', alignItems: 'center', justifyContent: 'center',
                   fontSize: '14px',
                   animation: 'academy-orbit1 8s linear infinite',
@@ -522,9 +522,9 @@ export default function Academy() {
                 <div style={{
                   position: 'absolute', top: '75px', left: '185px',
                   width: '22px', height: '22px',
-                  background: 'linear-gradient(135deg, #c084fc, #a855f7)',
+                  background: 'linear-gradient(135deg, #8899BB, #4B6CB7)',
                   borderRadius: '50%',
-                  boxShadow: '0 4px 10px rgba(192,132,252,0.6)',
+                  boxShadow: '0 4px 10px rgba(136,153,187,0.6)',
                   display: 'flex', alignItems: 'center', justifyContent: 'center',
                   fontSize: '11px',
                   animation: 'academy-orbit2 5s linear infinite reverse',
@@ -535,7 +535,7 @@ export default function Academy() {
                 <div style={{
                   position: 'absolute', top: '180px', left: '90px',
                   width: '24px', height: '24px',
-                  background: 'linear-gradient(135deg, #8b5cf6, #6d28d9)',
+                  background: 'linear-gradient(135deg, #4B6CB7, #2D3A6B)',
                   borderRadius: '50%',
                   boxShadow: '0 4px 10px rgba(139,92,246,0.6)',
                   display: 'flex', alignItems: 'center', justifyContent: 'center',
@@ -553,7 +553,7 @@ export default function Academy() {
             {trainingPrograms.map((program, idx) => (
               <div
                 key={program.id}
-                className="bg-white border border-gray-200 rounded-2xl shadow-sm overflow-hidden hover:border-purple-300 transition-all group cursor-pointer"
+                className="bg-white border border-gray-200 rounded-2xl shadow-sm overflow-hidden hover:border-blue-300 transition-all group cursor-pointer"
                 onClick={() => setSelectedProgram(program)}
               >
                 {/* Card Image */}
@@ -569,16 +569,16 @@ export default function Academy() {
 
                 {/* Card Content */}
                 <div className="p-6">
-                  <h3 className="text-lg font-bold text-gray-900 mb-3 group-hover:text-purple-600 transition-colors leading-snug">
+                  <h3 className="text-lg font-bold text-gray-900 mb-3 group-hover:text-blue-700 transition-colors leading-snug">
                     {isRtl ? program.title : program.titleEn}
                   </h3>
                   <div className="flex items-center gap-4 text-sm text-gray-500 mb-5">
                     <div className="flex items-center gap-1.5">
-                      <Users className="w-4 h-4 text-purple-600" />
+                      <Users className="w-4 h-4 text-blue-700" />
                       <span>{isRtl ? program.audience : program.audienceEn}</span>
                     </div>
                     <div className="flex items-center gap-1.5">
-                      <Clock className="w-4 h-4 text-purple-500" />
+                      <Clock className="w-4 h-4 text-blue-600" />
                       <span>{program.hours} {isRtl ? 'שעות' : 'hours'}</span>
                     </div>
                   </div>
@@ -591,7 +591,7 @@ export default function Academy() {
                     </button>
                     <Link href="/contact">
                       <button
-                        className="flex-1 bg-white border border-gray-200 text-sm py-2.5 text-center text-purple-600 hover:text-gray-900 hover:bg-purple-100 transition-all rounded-lg"
+                        className="flex-1 bg-white border border-gray-200 text-sm py-2.5 text-center text-blue-700 hover:text-gray-900 hover:bg-blue-100 transition-all rounded-lg"
                         onClick={(e) => e.stopPropagation()}
                       >
                         {isRtl ? 'לפרטים' : 'Details'}
@@ -607,7 +607,7 @@ export default function Academy() {
 
       {/* Public Courses Section */}
       <section className="py-20 relative">
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-purple-50 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-blue-100/30 to-transparent" />
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -629,12 +629,12 @@ export default function Academy() {
               return (
                 <div
                   key={i}
-                  className="bg-white border border-gray-200 rounded-2xl shadow-sm p-6 hover:border-purple-300 transition-all group"
+                  className="bg-white border border-gray-200 rounded-2xl shadow-sm p-6 hover:border-blue-300 transition-all group"
                 >
                   <div className={`inline-flex p-3 rounded-xl bg-gradient-to-br ${course.color} mb-4`}>
                     <Icon className="w-6 h-6 text-white" />
                   </div>
-                  <h3 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-purple-600 transition-colors">
+                  <h3 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-blue-700 transition-colors">
                     {isRtl ? course.title : course.titleEn}
                   </h3>
                   <p className="text-gray-500 mb-4 text-sm leading-relaxed">
@@ -696,7 +696,7 @@ export default function Academy() {
               transition={{ duration: 0.8 }}
               className={isRtl ? 'text-right' : 'text-left'}
             >
-              <div className="inline-flex p-3 rounded-xl bg-gradient-to-br from-purple-600 to-pink-500 mb-6">
+              <div className="inline-flex p-3 rounded-xl bg-gradient-to-br from-blue-700 to-slate-500 mb-6">
                 <Building className="w-6 h-6 text-white" />
               </div>
               <h2 className="text-2xl md:text-4xl font-bold text-gray-900 mb-4">
@@ -742,11 +742,11 @@ export default function Academy() {
                   </h2>
                   <div className="flex items-center gap-3 mt-2 flex-wrap">
                     <span className="flex items-center gap-1.5 text-sm text-gray-500">
-                      <Users className="w-4 h-4 text-purple-600" />
+                      <Users className="w-4 h-4 text-blue-700" />
                       {isRtl ? selectedProgram.audience : selectedProgram.audienceEn}
                     </span>
                     <span className="flex items-center gap-1.5 text-sm text-gray-500">
-                      <Clock className="w-4 h-4 text-purple-500" />
+                      <Clock className="w-4 h-4 text-blue-600" />
                       {selectedProgram.hours} {isRtl ? 'שעות הכשרה' : 'training hours'}
                     </span>
                     <span className={`text-xs font-semibold px-3 py-1 rounded-full ${getLevelColor(isRtl ? selectedProgram.level : selectedProgram.levelEn)}`}>
@@ -765,7 +765,7 @@ export default function Academy() {
               <div className="p-6 space-y-6">
                 {/* Modules */}
                 <div>
-                  <h3 className="text-lg font-bold text-purple-600 mb-4">
+                  <h3 className="text-lg font-bold text-blue-700 mb-4">
                     {isRtl ? '📋 מודולי ההכשרה' : '📋 Training Modules'}
                   </h3>
                   <div className="space-y-3">
@@ -776,7 +776,7 @@ export default function Academy() {
                           onClick={() => setExpandedModule(expandedModule === i ? null : i)}
                         >
                           <div className="flex items-center gap-3">
-                            <div className="w-7 h-7 rounded-full bg-gradient-to-br from-purple-600 to-violet-600 flex items-center justify-center text-xs font-bold text-white flex-shrink-0">
+                            <div className="w-7 h-7 rounded-full bg-gradient-to-br from-blue-700 to-blue-900 flex items-center justify-center text-xs font-bold text-white flex-shrink-0">
                               {i + 1}
                             </div>
                             <div className={isRtl ? 'text-right' : 'text-left'}>
@@ -785,7 +785,7 @@ export default function Academy() {
                             </div>
                           </div>
                           {expandedModule === i ? (
-                            <ChevronUp className="w-4 h-4 text-purple-600 flex-shrink-0" />
+                            <ChevronUp className="w-4 h-4 text-blue-700 flex-shrink-0" />
                           ) : (
                             <ChevronDown className="w-4 h-4 text-gray-500 flex-shrink-0" />
                           )}
@@ -803,7 +803,7 @@ export default function Academy() {
                                 <ul className="mt-3 space-y-2">
                                   {module.topics.map((topic, j) => (
                                     <li key={j} className="flex items-center gap-2 text-sm text-gray-600">
-                                      <div className="w-1.5 h-1.5 rounded-full bg-purple-500 flex-shrink-0" />
+                                      <div className="w-1.5 h-1.5 rounded-full bg-blue-500 flex-shrink-0" />
                                       {topic}
                                     </li>
                                   ))}
@@ -819,12 +819,12 @@ export default function Academy() {
 
                 {/* Tools */}
                 <div>
-                  <h3 className="text-lg font-bold text-purple-700 mb-3">
+                  <h3 className="text-lg font-bold text-blue-800 mb-3">
                     {isRtl ? '🛠️ כלים שנלמד' : '🛠️ Tools We Cover'}
                   </h3>
                   <div className="flex flex-wrap gap-2">
                     {selectedProgram.tools.map((tool, i) => (
-                      <span key={i} className="px-3 py-1.5 bg-purple-100 border border-purple-200 rounded-full text-sm text-purple-600 border border-purple-200">
+                      <span key={i} className="px-3 py-1.5 bg-blue-100 border border-blue-300 rounded-full text-sm text-blue-700 border border-blue-300">
                         {tool}
                       </span>
                     ))}
