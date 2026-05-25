@@ -230,7 +230,7 @@ export default function Placement() {
               <div className="space-y-3">
                 {benefits.map((b, i) => (
                   <div key={i} className="flex items-center gap-3">
-                    <CheckCircle className="w-5 h-5 flex-shrink-0" style={{ color: i % 2 === 0 ? '#F59E0B' : '#1A1A22' }} />
+                    <CheckCircle className="w-5 h-5 flex-shrink-0" style={{ color: i % 2 === 0 ? '#C8C8D0' : '#1A1A22' }} />
                     <span className="text-gray-600 text-sm">{b}</span>
                   </div>
                 ))}
@@ -249,7 +249,7 @@ export default function Placement() {
               <div className="space-y-3 mb-8">
                 {benefits.map((b, i) => (
                   <div key={i} className="flex items-center gap-3">
-                    <CheckCircle className="w-5 h-5 flex-shrink-0" style={{ color: i % 2 === 0 ? '#1A1A22' : '#F59E0B' }} />
+                    <CheckCircle className="w-5 h-5 flex-shrink-0" style={{ color: i % 2 === 0 ? '#1A1A22' : '#C8C8D0' }} />
                     <span className="text-gray-600 text-sm">{b}</span>
                   </div>
                 ))}
@@ -285,8 +285,8 @@ export default function Placement() {
                   exit={{ opacity: 0 }}
                   className="bg-white border border-gray-200 rounded-2xl shadow-sm p-12 text-center"
                 >
-                  <div className="w-20 h-20 rounded-full bg-gradient-to-br from-emerald-500 to-teal-600 flex items-center justify-center mx-auto mb-6">
-                    <CheckCircle className="w-10 h-10 text-gray-900" />
+                  <div className="w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6" style={{ background: 'linear-gradient(135deg, #1A1A22 0%, #2A2A32 100%)', border: '1px solid rgba(200,200,208,0.25)' }}>
+                    <CheckCircle className="w-10 h-10" style={{ color: '#C8C8D0' }} />
                   </div>
                   <h3 className="text-2xl font-bold text-gray-900 mb-3">{t.placement.cv_success}</h3>
                   <p className="text-gray-500 mb-6">{lang === 'he' ? 'נחזור אליך בהקדם האפשרי' : "We'll be in touch soon"}</p>
@@ -385,10 +385,10 @@ export default function Placement() {
                       onClick={() => fileInputRef.current?.click()}
                       className={`relative border-2 border-dashed rounded-xl p-5 md:p-8 text-center cursor-pointer transition-all ${
                         isDragging
-                          ? 'border-orange-400 bg-orange-400/10'
+                          ? 'border-[#C8C8D0] bg-[#C8C8D0]/10'
                           : cvFile
-                          ? 'border-emerald-400/60 bg-emerald-400/5'
-                          : 'border-gray-200 hover:border-orange-400/50 hover:bg-gray-50'
+                          ? 'border-[#C8C8D0]/60 bg-[#C8C8D0]/5'
+                          : 'border-gray-200 hover:border-[#C8C8D0]/50 hover:bg-gray-50'
                       }`}
                     >
                       <input
@@ -400,7 +400,7 @@ export default function Placement() {
                       />
                       {cvFile ? (
                         <div className="flex items-center justify-center gap-3">
-                          <FileText className="w-8 h-8 text-emerald-400" />
+                          <FileText className="w-8 h-8 text-[#C8C8D0]" />
                           <div className={`${isRtl ? 'text-right' : 'text-left'}`}>
                             <p className="text-gray-900 font-medium text-sm">{cvFile.name}</p>
                             <p className="text-gray-500 text-xs">{(cvFile.size / 1024 / 1024).toFixed(2)} MB</p>

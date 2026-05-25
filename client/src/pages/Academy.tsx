@@ -119,7 +119,7 @@ const trainingPrograms: TrainingProgram[] = [
     level: 'בינוני',
     levelEn: 'Intermediate',
     image: `https://d2xsxph8kpxj0f.cloudfront.net/310519663445418346/oDFneUKwvw2xJYXYaumUdB/ai-hr-training-2pXxBJCLzZXaMJGK8nFghw.webp`,
-    color: 'from-emerald-500 to-teal-600',
+    color: 'from-[#1A1A22] to-[#111116]',
     modules: [
       { title: 'AI בגיוס ומיון', duration: '6 שעות', topics: ['סינון קורות חיים עם AI', 'ראיונות עבודה חכמים', 'הערכת מועמדים'] },
       { title: 'ניהול עובדים עם AI', duration: '6 שעות', topics: ['מעקב ביצועים', 'תכנון הכשרות', 'שימור עובדים'] },
@@ -146,7 +146,7 @@ const trainingPrograms: TrainingProgram[] = [
     level: 'מתקדמים',
     levelEn: 'Advanced',
     image: `${CDN}/df766e802_________ai_____________pcmer0eadzd5v32fb1re_1_0986f3c0.png`,
-    color: 'from-yellow-500 to-orange-600',
+    color: 'from-[#2A2A32] to-[#1A1A22]',
     modules: [
       { title: 'AI כאסטרטגיה עסקית', duration: '5 שעות', topics: ['מגמות AI גלובליות', 'הזדמנויות עסקיות', 'ניהול סיכונים'] },
       { title: 'הטמעת AI בארגון', duration: '5 שעות', topics: ['מפת דרכים לאימוץ AI', 'ניהול שינוי', 'ROI של AI'] },
@@ -173,7 +173,7 @@ const trainingPrograms: TrainingProgram[] = [
     level: 'מתקדמים',
     levelEn: 'Advanced',
     image: `${CDN}/81fe03d01_create_a_professional_and_modern_image_for_a_website_that_promotes_ai_training_programs_the_image_s_y01604j7g7gqe2rbe6tu_0_2b7c34bf.png`,
-    color: 'from-gray-900 to-indigo-600',
+    color: 'from-[#08080C] to-[#1A1A22]',
     modules: [
       { title: 'AI בניהול מוצר', duration: '8 שעות', topics: ['מחקר משתמשים עם AI', 'כתיבת PRD', 'תעדוף פיצ\'רים'] },
       { title: 'ניהול פרויקטים חכם', duration: '8 שעות', topics: ['תכנון פרויקטים עם AI', 'ניהול סיכונים', 'מעקב אחר התקדמות'] },
@@ -200,7 +200,7 @@ const trainingPrograms: TrainingProgram[] = [
     level: 'מתקדמים',
     levelEn: 'Advanced',
     image: `${CDN}/df766e802_________ai_____________pcmer0eadzd5v32fb1re_1_0986f3c0.png`,
-    color: 'from-green-500 to-emerald-600',
+    color: 'from-[#1A1A22] to-[#111116]',
     modules: [
       { title: 'AI-Assisted Coding', duration: '10 שעות', topics: ['GitHub Copilot', 'Code review עם AI', 'Debugging אוטומטי'] },
       { title: 'בניית אפליקציות AI', duration: '10 שעות', topics: ['OpenAI API', 'LangChain', 'RAG ו-Vector DBs'] },
@@ -227,7 +227,7 @@ const trainingPrograms: TrainingProgram[] = [
     level: 'בינוני',
     levelEn: 'Intermediate',
     image: `${CDN}/a00800906_______________ai______________1ztf6h7ulzz1cg0t1nwp_1_450c2a58.png`,
-    color: 'from-orange-500 to-red-600',
+    color: 'from-[#2A2A32] to-[#08080C]',
     modules: [
       { title: 'AI בניתוח פיננסי', duration: '7 שעות', topics: ['ניתוח דוחות כספיים', 'חיזוי תזרים מזומנים', 'ניתוח סיכונים'] },
       { title: 'אוטומציה חשבונאית', duration: '7 שעות', topics: ['הנהלת חשבונות אוטומטית', 'עיבוד חשבוניות', 'דיווח אוטומטי'] },
@@ -322,7 +322,7 @@ const publicCourses: PublicCourse[] = [
     durationEn: '6 weeks',
     level: 'בינוני',
     levelEn: 'Intermediate',
-    color: 'from-emerald-500 to-teal-600',
+    color: 'from-[#1A1A22] to-[#111116]',
     icon: Award,
   },
   {
@@ -334,7 +334,7 @@ const publicCourses: PublicCourse[] = [
     durationEn: '6 weeks',
     level: 'מתקדם',
     levelEn: 'Advanced',
-    color: 'from-orange-500 to-red-600',
+    color: 'from-[#2A2A32] to-[#08080C]',
     icon: CheckCircle,
   },
   {
@@ -346,7 +346,7 @@ const publicCourses: PublicCourse[] = [
     durationEn: '5 weeks',
     level: 'מתחילים',
     levelEn: 'Beginners',
-    color: 'from-gray-900 to-indigo-600',
+    color: 'from-[#08080C] to-[#1A1A22]',
     icon: Building,
   },
   {
@@ -358,7 +358,7 @@ const publicCourses: PublicCourse[] = [
     durationEn: '3 months',
     level: 'מתקדם',
     levelEn: 'Advanced',
-    color: 'from-yellow-500 to-orange-600',
+    color: 'from-[#2A2A32] to-[#1A1A22]',
     icon: Award,
     ministrySupervised: true,
   },
@@ -655,9 +655,9 @@ export default function Academy() {
                     </span>
                   </div>
                   {course.ministrySupervised && (
-                    <div className="flex items-center gap-2 mb-4 px-3 py-2 rounded-lg bg-yellow-50 border border-yellow-500/30">
-                      <Award className="w-4 h-4 text-yellow-600 flex-shrink-0" />
-                      <span className="text-xs text-yellow-700 font-medium">
+                    <div className="flex items-center gap-2 mb-4 px-3 py-2 rounded-lg bg-[#1A1A22] border border-[#C8C8D0]/20">
+                      <Award className="w-4 h-4 text-[#C8C8D0] flex-shrink-0" />
+                      <span className="text-xs text-[#C8C8D0] font-medium">
                         {isRtl ? 'בפיקוח משרד העבודה' : 'Supervised by Ministry of Labor'}
                       </span>
                     </div>
@@ -692,7 +692,7 @@ export default function Academy() {
               viewport={{ once: true, margin: "-100px", amount: 0 }}
               transition={{ duration: 0.8 }}
             >
-              <img src={AI_TRAINING_IMAGE} alt="Corporate Training" className="rounded-2xl w-full glow-purple" />
+              <img src={AI_TRAINING_IMAGE} alt="Corporate Training" className="rounded-2xl w-full glow-cyan" />
             </motion.div>
             <motion.div
               initial={{ opacity: 0, x: isRtl ? -40 : 40 }}
@@ -838,13 +838,13 @@ export default function Academy() {
 
                 {/* Outcomes */}
                 <div>
-                  <h3 className="text-lg font-bold text-emerald-700 mb-3">
+                  <h3 className="text-lg font-bold text-[#C8C8D0] mb-3">
                     {isRtl ? '✅ מה תקבלו בסיום?' : '✅ What You\'ll Gain'}
                   </h3>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                     {(isRtl ? selectedProgram.outcomes : selectedProgram.outcomesEn).map((outcome, i) => (
                       <div key={i} className="flex items-center gap-2 text-sm text-gray-600">
-                        <CheckCircle className="w-4 h-4 text-emerald-600 flex-shrink-0" />
+                        <CheckCircle className="w-4 h-4 text-[#C8C8D0] flex-shrink-0" />
                         {outcome}
                       </div>
                     ))}

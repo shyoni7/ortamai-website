@@ -103,13 +103,15 @@
 - [x] Global: all section paddings tightened for mobile
 
 ## Full Site Obsidian + Platinum Redesign
-- [ ] Update global CSS (index.css) with Obsidian + Platinum tokens
-- [ ] Update Navigation with dark/transparent hero + white scroll behavior
-- [ ] Update Footer with obsidian black background
-- [ ] Rewrite Incubator page with new palette
-- [ ] Rewrite Academy page with new palette
-- [ ] Rewrite Placement page with new palette
-- [ ] Rewrite About page with new palette
-- [ ] Rewrite Contact page with new palette
-- [ ] Update AccessibilityStatement page
-- [ ] Update NotFound page
+- [x] Update global CSS (index.css) with Obsidian + Platinum tokens
+- [x] Update Navigation with dark/transparent hero + white scroll behavior
+- [x] Update Footer with obsidian black background
+- [x] Rewrite Incubator page with new palette
+- [x] Rewrite Academy page with new palette
+- [x] Rewrite Placement page with new palette
+- [x] Rewrite About page with new palette
+- [x] Rewrite Contact page with new palette
+- [x] Update AccessibilityStatement page
+- [x] Update NotFound page
+- [x] Update PrivacyPolicy page
+- [x] Fix HologramCube old blue face gradients

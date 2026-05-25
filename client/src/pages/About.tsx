@@ -228,7 +228,7 @@ export default function About() {
                   key={i}
                   className="bg-white border border-gray-200 rounded-2xl shadow-sm p-8 text-center hover:border-gray-200 transition-all"
                 >
-                  <div className="inline-flex p-4 rounded-full bg-orange-400/10 mb-4">
+                  <div className="inline-flex p-4 rounded-full bg-[#C8C8D0]/10 mb-4">
                     <Icon className="w-8 h-8 text-gray-900" />
                   </div>
                   <h3 className="text-xl font-bold text-gray-900 mb-2">{v.title}</h3>
@@ -275,7 +275,7 @@ export default function About() {
 
       {/* CTA */}
       <section className="py-20 relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-r from-orange-500/10 via-gray-800/30 to-orange-500/10" />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#C8C8D0]/5 via-gray-800/30 to-[#C8C8D0]/5" />
         <div className="max-w-3xl mx-auto px-4 text-center relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 30 }}

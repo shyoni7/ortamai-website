@@ -1,7 +1,7 @@
 import React, { useId } from 'react';
 
 interface HologramCubeProps {
-  color?: string; // accent color in hex, e.g. "#F5A623"
+  color?: string; // accent color in hex, e.g. "#C8C8D0"
   title: string;
   lines?: string[]; // extra hologram text lines
 }
@@ -10,7 +10,7 @@ interface HologramCubeProps {
  * Animated SVG cube with floating particles (uiverse.io by Juanes200122)
  * and hologram text rising from the cube.
  */
-export default function HologramCube({ color = '#F5A623', title, lines = [] }: HologramCubeProps) {
+export default function HologramCube({ color = '#C8C8D0', title, lines = [] }: HologramCubeProps) {
   const uid = useId().replace(/:/g, '');
 
   return (

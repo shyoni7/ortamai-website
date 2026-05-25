@@ -75,7 +75,7 @@ export default function Contact() {
                       type="text"
                       value={form.name}
                       onChange={e => setForm(p => ({ ...p, name: e.target.value }))}
-                      className="w-full px-4 py-3 rounded-xl bg-gray-50 border border-gray-200 text-gray-900 placeholder-gray-400 focus:outline-none focus:border-orange-400/50 transition-colors"
+                      className="w-full px-4 py-3 rounded-xl bg-gray-50 border border-gray-200 text-gray-900 placeholder-gray-400 focus:outline-none focus:border-[#C8C8D0]/50 transition-colors"
                       placeholder={isRtl ? 'ישראל ישראלי' : 'John Doe'}
                     />
                   </div>
@@ -85,7 +85,7 @@ export default function Contact() {
                       type="email"
                       value={form.email}
                       onChange={e => setForm(p => ({ ...p, email: e.target.value }))}
-                      className="w-full px-4 py-3 rounded-xl bg-gray-50 border border-gray-200 text-gray-900 placeholder-gray-400 focus:outline-none focus:border-orange-400/50 transition-colors"
+                      className="w-full px-4 py-3 rounded-xl bg-gray-50 border border-gray-200 text-gray-900 placeholder-gray-400 focus:outline-none focus:border-[#C8C8D0]/50 transition-colors"
                       placeholder="email@example.com"
                     />
                   </div>
@@ -97,7 +97,7 @@ export default function Contact() {
                       type="tel"
                       value={form.phone}
                       onChange={e => setForm(p => ({ ...p, phone: e.target.value }))}
-                      className="w-full px-4 py-3 rounded-xl bg-gray-50 border border-gray-200 text-gray-900 placeholder-gray-400 focus:outline-none focus:border-orange-400/50 transition-colors"
+                      className="w-full px-4 py-3 rounded-xl bg-gray-50 border border-gray-200 text-gray-900 placeholder-gray-400 focus:outline-none focus:border-[#C8C8D0]/50 transition-colors"
                       placeholder="050-000-0000"
                     />
                   </div>
@@ -107,7 +107,7 @@ export default function Contact() {
                       type="text"
                       value={form.company}
                       onChange={e => setForm(p => ({ ...p, company: e.target.value }))}
-                      className="w-full px-4 py-3 rounded-xl bg-gray-50 border border-gray-200 text-gray-900 placeholder-gray-400 focus:outline-none focus:border-orange-400/50 transition-colors"
+                      className="w-full px-4 py-3 rounded-xl bg-gray-50 border border-gray-200 text-gray-900 placeholder-gray-400 focus:outline-none focus:border-[#C8C8D0]/50 transition-colors"
                       placeholder={isRtl ? 'שם החברה' : 'Company name'}
                     />
                   </div>
@@ -118,7 +118,7 @@ export default function Contact() {
                     rows={3}
                     value={form.message}
                     onChange={e => setForm(p => ({ ...p, message: e.target.value }))}
-                    className="w-full px-4 py-3 rounded-xl bg-gray-50 border border-gray-200 text-gray-900 placeholder-gray-400 focus:outline-none focus:border-orange-400/50 transition-colors resize-none"
+                    className="w-full px-4 py-3 rounded-xl bg-gray-50 border border-gray-200 text-gray-900 placeholder-gray-400 focus:outline-none focus:border-[#C8C8D0]/50 transition-colors resize-none"
                     placeholder={isRtl ? 'ספר לנו כיצד נוכל לעזור...' : 'Tell us how we can help...'}
                   />
                 </div>
@@ -162,7 +162,7 @@ export default function Contact() {
                 <h2 className="text-2xl font-bold text-gray-900 mb-3">{t.contact.info_title}</h2>
                 <div className="space-y-4">
                   <div className="flex items-center gap-4">
-                    <div className="p-3 rounded-xl bg-orange-400/10">
+                    <div className="p-3 rounded-xl bg-[#C8C8D0]/10">
                       <Mail className="w-5 h-5 text-gray-900" />
                     </div>
                     <div>
@@ -171,7 +171,7 @@ export default function Contact() {
                     </div>
                   </div>
                   <div className="flex items-center gap-4">
-                    <div className="p-3 rounded-xl bg-orange-400/10">
+                    <div className="p-3 rounded-xl bg-[#C8C8D0]/10">
                       <Phone className="w-5 h-5 text-gray-900" />
                     </div>
                     <div>
@@ -180,7 +180,7 @@ export default function Contact() {
                     </div>
                   </div>
                   <div className="flex items-center gap-4">
-                    <div className="p-3 rounded-xl bg-orange-400/10">
+                    <div className="p-3 rounded-xl bg-[#C8C8D0]/10">
                       <MapPin className="w-5 h-5 text-gray-900" />
                     </div>
                     <div>

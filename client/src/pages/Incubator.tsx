@@ -108,7 +108,7 @@ const CONTENT = {
       },
       {
         icon: RefreshCw,
-        color: 'bg-indigo-600',
+        color: 'bg-[#1A1A22]',
         title: 'עדכון גרסה כל חצי שנה',
         desc: 'תמיד עם הכלים הכי מתקדמים ומדויקים בשוק',
         items: ['עדכונים טכנולוגיים שוטפים', 'שיפורים מבוססי פידבק', 'התאמה לשינויים בשוק'],
@@ -173,7 +173,7 @@ const CONTENT = {
       },
       {
         icon: RefreshCw,
-        color: 'bg-indigo-600',
+        color: 'bg-[#1A1A22]',
         title: 'Version Update Every 6 Months',
         desc: 'Always equipped with the most advanced and accurate tools on the market',
         items: ['Ongoing Technology Updates', 'Feedback-Based Improvements', 'Adaptation to Market Changes'],
@@ -637,7 +637,7 @@ export default function Incubator() {
                     animate={inView ? { scale: 1 } : {}}
                     transition={{ delay: i * 0.12 + 0.2, type: 'spring', stiffness: 300 }}
                     className={`inline-flex items-center justify-center w-12 h-12 rounded-full text-white font-bold text-lg mb-4 shadow-lg ${isRtl ? '' : 'mx-auto'}`}
-                    style={{ background: i % 2 === 0 ? '#F59E0B' : '#1A1A22', boxShadow: i % 2 === 0 ? '0 4px 14px rgba(245,158,11,0.35)' : '0 4px 14px rgba(147,51,234,0.35)' }}
+                    style={{ background: i % 2 === 0 ? '#C8C8D0' : '#1A1A22', boxShadow: i % 2 === 0 ? '0 4px 14px rgba(200,200,208,0.2)' : '0 4px 14px rgba(200,200,208,0.1)' }}
                   >
                     {step.num}
                   </motion.div>
