@@ -101,3 +101,15 @@
 - [x] Contact: hero fits in first viewport on mobile
 - [x] Global: nav height consistent, no elements hidden behind nav
 - [x] Global: all section paddings tightened for mobile
+
+## Full Site Obsidian + Platinum Redesign
+- [ ] Update global CSS (index.css) with Obsidian + Platinum tokens
+- [ ] Update Navigation with dark/transparent hero + white scroll behavior
+- [ ] Update Footer with obsidian black background
+- [ ] Rewrite Incubator page with new palette
+- [ ] Rewrite Academy page with new palette
+- [ ] Rewrite Placement page with new palette
+- [ ] Rewrite About page with new palette
+- [ ] Rewrite Contact page with new palette
+- [ ] Update AccessibilityStatement page
+- [ ] Update NotFound page

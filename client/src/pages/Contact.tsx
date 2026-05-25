@@ -40,22 +40,22 @@ export default function Contact() {
   return (
     <div dir={dir}>
       {/* Hero */}
-      <section className="relative flex items-center justify-center overflow-hidden" style={{ minHeight: '70svh', background: 'linear-gradient(135deg, #f0f4fb 0%, #ffffff 40%, #eaf0f8 70%, #dce8f5 100%)' }}>
+      <section className="relative flex items-center justify-center overflow-hidden" style={{ minHeight: '70svh', background: '#08080C' }}>
         {/* Dot-grid */}
-        <div className="absolute inset-0" style={{ backgroundImage: 'radial-gradient(circle, #4B6CB720 1px, transparent 1px)', backgroundSize: '32px 32px' }} />
+        <div className="absolute inset-0" style={{ backgroundImage: 'radial-gradient(circle, rgba(200,200,208,0.07) 1px, transparent 1px)', backgroundSize: '32px 32px' }} />
         {/* Sphere accents */}
         <div className="sphere-3d sphere-3d-primary absolute -top-16 -right-16 w-48 h-48 sm:w-72 sm:h-72 opacity-50 pointer-events-none" />
         <div className="sphere-3d sphere-3d-secondary absolute -bottom-16 -left-16 w-36 h-36 sm:w-56 sm:h-56 opacity-40 pointer-events-none" />
         <div className="relative z-10 max-w-4xl mx-auto px-4 py-14 text-center">
           {/* Badge */}
-          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/80 border border-blue-200 shadow-sm mb-5">
-            <span className="w-2 h-2 rounded-full bg-blue-600 animate-pulse" />
-            <span className="text-sm font-semibold text-blue-700">{isRtl ? 'אנחנו כאן בשבילכם' : 'We\'re here for you'}</span>
+          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="inline-flex items-center gap-2 px-4 py-2 rounded-full mb-5" style={{ background: 'rgba(255,255,255,0.08)', border: '1px solid rgba(200,200,208,0.2)' }}>
+            <span className="w-2 h-2 rounded-full animate-pulse" style={{ background: '#C8C8D0' }} />
+            <span className="text-sm font-semibold" style={{ color: '#C8C8D0' }}>{isRtl ? 'אנחנו כאן בשבילכם' : 'We\'re here for you'}</span>
           </motion.div>
-          <motion.h1 initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }} className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-4 leading-tight">
+          <motion.h1 initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }} className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4 leading-tight">
             {t.contact.hero_title}
           </motion.h1>
-          <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.2 }} className="text-lg md:text-xl text-gray-600 max-w-xl mx-auto">
+          <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.2 }} className="text-lg md:text-xl max-w-xl mx-auto" style={{ color: 'rgba(200,200,208,0.65)' }}>
             {t.contact.hero_sub}
           </motion.p>
         </div>
@@ -133,9 +133,9 @@ export default function Contact() {
                   />
                   <label htmlFor="contact-privacy" className="text-sm text-gray-600 cursor-pointer leading-relaxed">
                     {isRtl ? (
-                      <>אני מאשר/ת את <a href="/privacy-policy" className="text-blue-700 underline hover:text-blue-900" target="_blank" rel="noopener noreferrer">מדיניות הפרטיות</a> ומסכים/ה שהמידע שאני מספק/ת ישמר בהתאם לדרישות החוק</>
+                      <>אני מאשר/ת את <a href="/privacy-policy" className="text-gray-900 underline hover:text-gray-900" target="_blank" rel="noopener noreferrer">מדיניות הפרטיות</a> ומסכים/ה שהמידע שאני מספק/ת ישמר בהתאם לדרישות החוק</>
                     ) : (
-                      <>I accept the <a href="/privacy-policy" className="text-blue-700 underline hover:text-blue-900" target="_blank" rel="noopener noreferrer">Privacy Policy</a> and agree that my information will be stored in accordance with legal requirements</>
+                      <>I accept the <a href="/privacy-policy" className="text-gray-900 underline hover:text-gray-900" target="_blank" rel="noopener noreferrer">Privacy Policy</a> and agree that my information will be stored in accordance with legal requirements</>
                     )}
                   </label>
                 </div>
@@ -163,25 +163,25 @@ export default function Contact() {
                 <div className="space-y-4">
                   <div className="flex items-center gap-4">
                     <div className="p-3 rounded-xl bg-orange-400/10">
-                      <Mail className="w-5 h-5 text-blue-700" />
+                      <Mail className="w-5 h-5 text-gray-900" />
                     </div>
                     <div>
                       <p className="text-gray-500 text-sm">{t.contact.email_label}</p>
-                      <a href="mailto:info@ortamai.com" className="text-gray-900 hover:text-blue-700 transition-colors">info@ortamai.com</a>
+                      <a href="mailto:info@ortamai.com" className="text-gray-900 hover:text-gray-900 transition-colors">info@ortamai.com</a>
                     </div>
                   </div>
                   <div className="flex items-center gap-4">
                     <div className="p-3 rounded-xl bg-orange-400/10">
-                      <Phone className="w-5 h-5 text-blue-700" />
+                      <Phone className="w-5 h-5 text-gray-900" />
                     </div>
                     <div>
                       <p className="text-gray-500 text-sm">{t.contact.phone_label}</p>
-                      <a href="tel:+972523381822" className="text-gray-900 hover:text-blue-700 transition-colors">052-338-1822</a>
+                      <a href="tel:+972523381822" className="text-gray-900 hover:text-gray-900 transition-colors">052-338-1822</a>
                     </div>
                   </div>
                   <div className="flex items-center gap-4">
                     <div className="p-3 rounded-xl bg-orange-400/10">
-                      <MapPin className="w-5 h-5 text-blue-700" />
+                      <MapPin className="w-5 h-5 text-gray-900" />
                     </div>
                     <div>
                       <p className="text-gray-500 text-sm">{isRtl ? 'מיקום' : 'Location'}</p>
@@ -210,11 +210,11 @@ export default function Contact() {
               </a>
 
               {/* 3D Animated Envelope */}
-              <div className="relative w-full h-40 flex items-center justify-center overflow-hidden rounded-2xl bg-gradient-to-br from-blue-600 via-blue-100 to-slate-200">
+              <div className="relative w-full h-40 flex items-center justify-center overflow-hidden rounded-2xl bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900">
                 {/* Floating particles */}
                 <div className="absolute inset-0 overflow-hidden">
                   {[...Array(6)].map((_, i) => (
-                    <div key={i} className="absolute rounded-full bg-blue-500/30" style={{
+                    <div key={i} className="absolute rounded-full bg-gray-500/30" style={{
                       width: `${4 + i * 2}px`, height: `${4 + i * 2}px`,
                       left: `${10 + i * 15}%`, top: `${20 + (i % 3) * 25}%`,
                       animation: `envelope-float ${2.5 + i * 0.4}s ease-in-out infinite`,
@@ -233,9 +233,9 @@ export default function Contact() {
                     {/* Envelope body */}
                     <div style={{
                       position: 'absolute', inset: 0,
-                      background: 'linear-gradient(135deg, #2D3A6B 0%, #4B6CB7 50%, #8899BB 100%)',
+                      background: 'linear-gradient(135deg, #08080C 0%, #C8C8D0 50%, #C8C8D0 100%)',
                       borderRadius: '8px',
-                      boxShadow: '0 20px 60px rgba(45,58,107,0.45), 0 4px 20px rgba(45,58,107,0.3)',
+                      boxShadow: '0 20px 60px rgba(8,8,12,0.45), 0 4px 20px rgba(8,8,12,0.3)',
                     }} />
 
                     {/* Envelope flap (top triangle) */}
@@ -250,8 +250,8 @@ export default function Contact() {
                         width: 0, height: 0,
                         borderLeft: '100px solid transparent',
                         borderRight: '100px solid transparent',
-                        borderTop: '68px solid #2D3A6B',
-                        filter: 'drop-shadow(0 4px 8px rgba(45,58,107,0.4))',
+                        borderTop: '68px solid #08080C',
+                        filter: 'drop-shadow(0 4px 8px rgba(8,8,12,0.4))',
                       }} />
                     </div>
 
@@ -259,13 +259,13 @@ export default function Contact() {
                     <div style={{
                       position: 'absolute', bottom: 0, left: 0,
                       width: 0, height: 0,
-                      borderLeft: '100px solid #4B6CB7',
+                      borderLeft: '100px solid #C8C8D0',
                       borderBottom: '68px solid transparent',
                     }} />
                     <div style={{
                       position: 'absolute', bottom: 0, right: 0,
                       width: 0, height: 0,
-                      borderRight: '100px solid #4B6CB7',
+                      borderRight: '100px solid #C8C8D0',
                       borderBottom: '68px solid transparent',
                     }} />
 
@@ -299,7 +299,7 @@ export default function Contact() {
                 {/* Dotted trail */}
                 <div className="absolute" style={{ right: '15%', top: '30%', animation: 'trail-fade 4s ease-in-out infinite' }}>
                   {[0,1,2].map(i => (
-                    <div key={i} className="inline-block w-1.5 h-1.5 rounded-full bg-blue-500/60 mx-0.5"
+                    <div key={i} className="inline-block w-1.5 h-1.5 rounded-full bg-gray-500/60 mx-0.5"
                       style={{ animationDelay: `${i * 0.15}s`, animation: `trail-dot 4s ease-in-out infinite ${i * 0.15}s` }} />
                   ))}
                 </div>

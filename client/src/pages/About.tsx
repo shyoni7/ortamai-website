@@ -53,11 +53,11 @@ export default function About() {
       {/* ── HERO ── */}
       <section
         className="relative min-h-[100svh] flex items-center justify-center overflow-hidden"
-        style={{ background: 'linear-gradient(135deg, #f0f4fb 0%, #ffffff 35%, #eaf0f8 65%, #dce8f5 100%)' }}
+        style={{ background: '#08080C' }}
       >
         {/* Dot-grid background */}
         <div className="absolute inset-0" style={{
-          backgroundImage: 'radial-gradient(circle, #4B6CB720 1px, transparent 1px)',
+          backgroundImage: 'radial-gradient(circle, rgba(200,200,208,0.07) 1px, transparent 1px)',
           backgroundSize: '32px 32px',
         }} />
 
@@ -79,7 +79,7 @@ export default function About() {
         <motion.div
           animate={{ x: [0, 40, 0], y: [0, 20, 0] }}
           transition={{ duration: 9, repeat: Infinity, ease: 'easeInOut' }}
-          className="absolute bottom-24 right-1/4 w-72 h-72 bg-orange-400/15 rounded-full blur-3xl pointer-events-none"
+          className="absolute bottom-24 right-1/4 w-72 h-72 rounded-full blur-3xl pointer-events-none" style={{ background: 'rgba(200,200,208,0.04)' }}
         />
 
         {/* Content */}
@@ -91,10 +91,10 @@ export default function About() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/80 border border-blue-200 shadow-sm mb-6"
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-full mb-6" style={{ background: 'rgba(255,255,255,0.08)', border: '1px solid rgba(200,200,208,0.2)' }}
             >
-              <span className="w-2 h-2 rounded-full bg-blue-600 animate-pulse" />
-              <span className="text-sm font-semibold text-blue-700">
+              <span className="w-2 h-2 rounded-full animate-pulse" style={{ background: '#C8C8D0' }} />
+              <span className="text-sm font-semibold" style={{ color: '#C8C8D0' }}>
                 {isRtl ? 'מרכז ה-AI המוביל בישראל' : 'Israel\'s Leading AI Center'}
               </span>
             </motion.div>
@@ -104,7 +104,7 @@ export default function About() {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.1 }}
-              className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-bold text-gray-900 mb-4 md:mb-6 leading-tight"
+              className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-bold text-white mb-4 md:mb-6 leading-tight"
             >
               {isRtl ? (
                 <>
@@ -122,7 +122,7 @@ export default function About() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.25 }}
-              className="text-base md:text-lg lg:text-xl text-gray-600 mb-5 md:mb-8 leading-relaxed max-w-xl"
+              className="text-base md:text-lg lg:text-xl mb-5 md:mb-8 leading-relaxed max-w-xl" style={{ color: 'rgba(200,200,208,0.65)' }}
             >
               {isRtl
                 ? 'אנחנו מאמינים שה-AI הוא לא רק טכנולוגיה – זו מהפכה. אנחנו כאן כדי להוביל אותה יחד איתך.'
@@ -159,13 +159,13 @@ export default function About() {
               return (
                 <div
                   key={i}
-                  className="bg-white/70 backdrop-blur-sm border border-blue-100 rounded-2xl p-3 md:p-5 flex flex-col items-center text-center shadow-sm"
+                  className="backdrop-blur-sm rounded-2xl p-3 md:p-5 flex flex-col items-center text-center" style={{ background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(200,200,208,0.12)' }}
                 >
-                  <div className="inline-flex p-2 rounded-xl bg-blue-50 mb-3">
-                    <Icon className="w-5 h-5 text-blue-700" />
+                  <div className="inline-flex p-2 rounded-xl mb-3" style={{ background: 'rgba(200,200,208,0.1)' }}>
+                    <Icon className="w-5 h-5" style={{ color: '#C8C8D0' }} />
                   </div>
-                  <span className="text-2xl md:text-3xl font-bold text-gray-900">{s.value}</span>
-                  <span className="text-sm text-gray-500 mt-1">{s.label}</span>
+                  <span className="text-2xl md:text-3xl font-bold text-white">{s.value}</span>
+                  <span className="text-sm mt-1" style={{ color: 'rgba(200,200,208,0.55)' }}>{s.label}</span>
                 </div>
               );
             })}
@@ -185,7 +185,7 @@ export default function About() {
               className={isRtl ? 'text-right' : 'text-left'}
             >
               <h2 className="text-3xl font-bold text-gray-900 mb-3">{t.about.who}</h2>
-              <p className="text-lg text-blue-800 font-medium mb-5 leading-relaxed">{t.about.who_text}</p>
+              <p className="text-lg text-gray-900 font-medium mb-5 leading-relaxed">{t.about.who_text}</p>
               <p className="text-gray-600 mb-4 leading-relaxed">{t.about.p1}</p>
               <p className="text-gray-600 leading-relaxed">{t.about.p2}</p>
             </motion.div>
@@ -209,7 +209,7 @@ export default function About() {
 
       {/* Values */}
       <section className="py-20 relative">
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-blue-100/30 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-gray-800/30 to-transparent" />
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
@@ -226,10 +226,10 @@ export default function About() {
               return (
                 <div
                   key={i}
-                  className="bg-white border border-gray-200 rounded-2xl shadow-sm p-8 text-center hover:border-blue-300 transition-all"
+                  className="bg-white border border-gray-200 rounded-2xl shadow-sm p-8 text-center hover:border-gray-200 transition-all"
                 >
                   <div className="inline-flex p-4 rounded-full bg-orange-400/10 mb-4">
-                    <Icon className="w-8 h-8 text-blue-700" />
+                    <Icon className="w-8 h-8 text-gray-900" />
                   </div>
                   <h3 className="text-xl font-bold text-gray-900 mb-2">{v.title}</h3>
                   <p className="text-gray-500">{v.desc}</p>
@@ -257,7 +257,7 @@ export default function About() {
             {TEAM.map((member, i) => (
               <div
                 key={i}
-                className="bg-white border border-gray-200 rounded-2xl shadow-sm overflow-hidden hover:border-blue-300 transition-all group"
+                className="bg-white border border-gray-200 rounded-2xl shadow-sm overflow-hidden hover:border-gray-200 transition-all group"
               >
                 <div className="relative h-56 overflow-hidden">
                   <img src={member.img} alt={member.name[lang]} className={`w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ${'imgPosition' in member ? (member as any).imgPosition : 'object-center'}`} />
@@ -265,7 +265,7 @@ export default function About() {
                 </div>
                 <div className="p-4 text-center">
                   <h3 className="text-gray-900 font-bold">{member.name[lang]}</h3>
-                  <p className="text-blue-700 text-sm">{member.role[lang]}</p>
+                  <p className="text-gray-900 text-sm">{member.role[lang]}</p>
                 </div>
               </div>
             ))}
@@ -275,7 +275,7 @@ export default function About() {
 
       {/* CTA */}
       <section className="py-20 relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-r from-orange-500/10 via-blue-200/30 to-orange-500/10" />
+        <div className="absolute inset-0 bg-gradient-to-r from-orange-500/10 via-gray-800/30 to-orange-500/10" />
         <div className="max-w-3xl mx-auto px-4 text-center relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 30 }}

@@ -31,7 +31,7 @@ export default function GradientButton({ children, onClick, href, className = ''
     justifyContent: 'center',
     overflow: 'clip',
     overflowClipMargin: '4px' as any,
-    border: '2px solid #4B6CB7',
+    border: '2px solid #C8C8D0',
     borderRadius: '9999px',
     fontFamily: '"Inter", sans-serif',
     fontWeight: 600,
@@ -49,7 +49,7 @@ export default function GradientButton({ children, onClick, href, className = ''
     left: '-160px',
     width: '500%',
     aspectRatio: '1',
-    background: 'radial-gradient(ellipse at 65% 180%, #4B6CB7, #0F172A, #2D3A6B, #0F172A, #3A5298, #0F172A, #2D3A6B)',
+    background: 'radial-gradient(ellipse at 65% 180%, #C8C8D0, #0F172A, #08080C, #0F172A, #1A1A22, #0F172A, #08080C)',
     mixBlendMode: 'difference',
     animation: 'gradBtn-rotate 8s linear infinite',
   };
@@ -92,7 +92,7 @@ export default function GradientButton({ children, onClick, href, className = ''
         }
         .grad-btn-wrapper:hover {
           filter: saturate(0.7) brightness(1.5) !important;
-          box-shadow: 0 0 16px 3px rgba(75,108,183,0.4);
+          box-shadow: 0 0 16px 3px rgba(200,200,208,0.4);
         }
         .grad-btn-wrapper:active {
           transform: scale(0.97);

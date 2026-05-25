@@ -115,7 +115,7 @@ export default function Placement() {
     });
   };
 
-  const inputClass = `w-full px-4 py-3 rounded-xl bg-gray-50 border border-gray-200 text-gray-900 placeholder-gray-400 focus:outline-none focus:border-blue-300 focus:bg-white transition-all`;
+  const inputClass = `w-full px-4 py-3 rounded-xl bg-gray-50 border border-gray-200 text-gray-900 placeholder-gray-400 focus:outline-none focus:border-gray-200 focus:bg-white transition-all`;
 
   return (
     <div dir={dir}>
@@ -123,7 +123,7 @@ export default function Placement() {
       <section
         dir="rtl"
         style={{
-          background: 'linear-gradient(135deg, #0d1228 0%, #1a2240 40%, #2D3A6B 70%, #1a2240 100%)',
+          background: 'linear-gradient(135deg, #0d1228 0%, #08080C 40%, #08080C 70%, #08080C 100%)',
           position: 'relative',
           overflow: 'hidden',
           minHeight: '100svh',
@@ -132,8 +132,8 @@ export default function Placement() {
         }}
       >
         {/* Subtle glow blobs */}
-        <div style={{ position: 'absolute', top: '-60px', right: '-60px', width: '340px', height: '340px', borderRadius: '50%', background: 'radial-gradient(circle, rgba(139,92,246,0.25) 0%, transparent 70%)', pointerEvents: 'none' }} />
-        <div style={{ position: 'absolute', bottom: '-40px', left: '10%', width: '260px', height: '260px', borderRadius: '50%', background: 'radial-gradient(circle, rgba(245,158,11,0.12) 0%, transparent 70%)', pointerEvents: 'none' }} />
+        <div style={{ position: 'absolute', top: '-60px', right: '-60px', width: '340px', height: '340px', borderRadius: '50%', background: 'radial-gradient(circle, rgba(200,200,208,0.12) 0%, transparent 70%)', pointerEvents: 'none' }} />
+        <div style={{ position: 'absolute', bottom: '-40px', left: '10%', width: '260px', height: '260px', borderRadius: '50%', background: 'radial-gradient(circle, rgba(200,200,208,0.06) 0%, transparent 70%)', pointerEvents: 'none' }} />
 
         <div className="w-full max-w-6xl mx-auto px-4 sm:px-6 py-10 md:py-16 flex flex-col md:flex-row items-center gap-8 md:gap-12">
           {/* Text — right side in RTL */}
@@ -145,7 +145,7 @@ export default function Placement() {
           >
             {/* Badge */}
             <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', background: 'rgba(255,255,255,0.1)', border: '1px solid rgba(255,255,255,0.2)', borderRadius: '999px', padding: '6px 16px', marginBottom: '1.25rem' }}>
-              <Briefcase style={{ width: '14px', height: '14px', color: '#F59E0B' }} />
+              <Briefcase style={{ width: '14px', height: '14px', color: '#C8C8D0' }} />
               <span style={{ fontSize: '13px', color: 'rgba(255,255,255,0.85)', fontWeight: 600 }}>
                 {isRtl ? 'מרכז השמה' : 'Placement Center'}
               </span>
@@ -168,7 +168,7 @@ export default function Placement() {
               whileTap={{ scale: 0.97 }}
               style={{
                 display: 'inline-flex', alignItems: 'center', gap: '8px',
-                background: '#ffffff', color: '#2d1b8e',
+                background: '#C8C8D0', color: '#08080C',
                 fontWeight: 700, fontSize: '1rem',
                 padding: '12px 28px', borderRadius: '12px',
                 textDecoration: 'none', boxShadow: '0 4px 20px rgba(0,0,0,0.25)',
@@ -191,7 +191,7 @@ export default function Placement() {
             <div style={{
               position: 'absolute', inset: '-12px',
               borderRadius: '20px',
-              background: 'linear-gradient(135deg, rgba(139,92,246,0.4), rgba(245,158,11,0.2))',
+              background: 'linear-gradient(135deg, rgba(200,200,208,0.15), rgba(200,200,208,0.05))',
               filter: 'blur(18px)',
               zIndex: 0,
             }} />
@@ -220,9 +220,9 @@ export default function Placement() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
             {/* Candidates */}
             <div
-              className="bg-white border border-gray-200 rounded-2xl shadow-sm p-6 md:p-10 hover:border-blue-300 transition-all"
+              className="bg-white border border-gray-200 rounded-2xl shadow-sm p-6 md:p-10 hover:border-gray-200 transition-all"
             >
-              <div className="inline-flex p-3 rounded-xl bg-gradient-to-br from-blue-700 to-blue-900 mb-6">
+              <div className="inline-flex p-3 rounded-xl bg-gradient-to-br from-gray-900 to-gray-900 mb-6">
                 <User className="w-6 h-6 text-white" />
               </div>
               <h2 className="text-2xl font-bold text-gray-900 mb-4">{t.placement.candidate_title}</h2>
@@ -230,7 +230,7 @@ export default function Placement() {
               <div className="space-y-3">
                 {benefits.map((b, i) => (
                   <div key={i} className="flex items-center gap-3">
-                    <CheckCircle className="w-5 h-5 flex-shrink-0" style={{ color: i % 2 === 0 ? '#F59E0B' : '#3A5298' }} />
+                    <CheckCircle className="w-5 h-5 flex-shrink-0" style={{ color: i % 2 === 0 ? '#F59E0B' : '#1A1A22' }} />
                     <span className="text-gray-600 text-sm">{b}</span>
                   </div>
                 ))}
@@ -239,9 +239,9 @@ export default function Placement() {
 
             {/* Employers */}
             <div
-              className="bg-white border border-gray-200 rounded-2xl shadow-sm p-6 md:p-10 hover:border-blue-900/30 transition-all"
+              className="bg-white border border-gray-200 rounded-2xl shadow-sm p-6 md:p-10 hover:border-gray-200/30 transition-all"
             >
-              <div className="inline-flex p-3 rounded-xl bg-gradient-to-br from-blue-700 to-slate-500 mb-6">
+              <div className="inline-flex p-3 rounded-xl bg-gradient-to-br from-gray-900 to-gray-900 mb-6">
                 <Building className="w-6 h-6 text-white" />
               </div>
               <h2 className="text-2xl font-bold text-gray-900 mb-4">{t.placement.employer_title}</h2>
@@ -249,13 +249,13 @@ export default function Placement() {
               <div className="space-y-3 mb-8">
                 {benefits.map((b, i) => (
                   <div key={i} className="flex items-center gap-3">
-                    <CheckCircle className="w-5 h-5 flex-shrink-0" style={{ color: i % 2 === 0 ? '#3A5298' : '#F59E0B' }} />
+                    <CheckCircle className="w-5 h-5 flex-shrink-0" style={{ color: i % 2 === 0 ? '#1A1A22' : '#F59E0B' }} />
                     <span className="text-gray-600 text-sm">{b}</span>
                   </div>
                 ))}
               </div>
               <Link href="/contact">
-                <button className="w-full py-3 rounded-xl border border-blue-900/30 text-blue-700 hover:bg-blue-100/30 transition-colors font-semibold">{t.placement.cta}</button>
+                <button className="w-full py-3 rounded-xl border border-gray-200/30 text-gray-900 hover:bg-gray-100/30 transition-colors font-semibold">{t.placement.cta}</button>
               </Link>
             </div>
           </div>
@@ -269,8 +269,8 @@ export default function Placement() {
             {/* Section Header */}
             <div className="text-center mb-10">
               <div className="inline-flex items-center gap-2 bg-white border border-gray-200 px-4 py-2 rounded-full mb-4">
-                <FileText className="w-4 h-4 text-blue-700" />
-                <span className="text-sm text-blue-700 font-medium">{t.placement.cv_form_title}</span>
+                <FileText className="w-4 h-4 text-gray-900" />
+                <span className="text-sm text-gray-900 font-medium">{t.placement.cv_form_title}</span>
               </div>
               <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-3">{t.placement.cv_form_title}</h2>
               <p className="text-gray-500">{t.placement.cv_form_sub}</p>
@@ -286,7 +286,7 @@ export default function Placement() {
                   className="bg-white border border-gray-200 rounded-2xl shadow-sm p-12 text-center"
                 >
                   <div className="w-20 h-20 rounded-full bg-gradient-to-br from-emerald-500 to-teal-600 flex items-center justify-center mx-auto mb-6">
-                    <CheckCircle className="w-10 h-10 text-blue-700" />
+                    <CheckCircle className="w-10 h-10 text-gray-900" />
                   </div>
                   <h3 className="text-2xl font-bold text-gray-900 mb-3">{t.placement.cv_success}</h3>
                   <p className="text-gray-500 mb-6">{lang === 'he' ? 'נחזור אליך בהקדם האפשרי' : "We'll be in touch soon"}</p>
@@ -415,7 +415,7 @@ export default function Placement() {
                         </div>
                       ) : (
                         <div>
-                          <Upload className={`w-10 h-10 mx-auto mb-3 ${isDragging ? 'text-blue-700' : 'text-gray-500'}`} />
+                          <Upload className={`w-10 h-10 mx-auto mb-3 ${isDragging ? 'text-gray-900' : 'text-gray-500'}`} />
                           <p className="text-gray-600 font-medium">{t.placement.cv_file_hint}</p>
                           <p className="text-gray-500 text-sm mt-1">PDF, DOC, DOCX · {lang === 'he' ? 'עד' : 'up to'} {MAX_FILE_SIZE_MB}MB</p>
                         </div>
@@ -446,9 +446,9 @@ export default function Placement() {
                     />
                     <label htmlFor="placement-privacy" className="text-sm text-gray-600 cursor-pointer leading-relaxed">
                       {lang === 'he' ? (
-                        <>אני מאשר/ת את{' '}<a href="/privacy-policy" className="text-blue-700 underline hover:text-blue-900" target="_blank" rel="noopener noreferrer">מדיניות הפרטיות</a>{' '}ומסכים/ה שהמידע שאני מספק/ת ישמר בהתאם לדרישות החוק</>
+                        <>אני מאשר/ת את{' '}<a href="/privacy-policy" className="text-gray-900 underline hover:text-gray-900" target="_blank" rel="noopener noreferrer">מדיניות הפרטיות</a>{' '}ומסכים/ה שהמידע שאני מספק/ת ישמר בהתאם לדרישות החוק</>
                       ) : (
-                        <>I accept the{' '}<a href="/privacy-policy" className="text-blue-700 underline hover:text-blue-900" target="_blank" rel="noopener noreferrer">Privacy Policy</a>{' '}and agree that my information will be stored in accordance with legal requirements</>
+                        <>I accept the{' '}<a href="/privacy-policy" className="text-gray-900 underline hover:text-gray-900" target="_blank" rel="noopener noreferrer">Privacy Policy</a>{' '}and agree that my information will be stored in accordance with legal requirements</>
                       )}
                     </label>
                   </div>

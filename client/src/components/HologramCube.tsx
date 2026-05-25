@@ -143,12 +143,12 @@ export default function HologramCube({ color = '#F5A623', title, lines = [] }: H
               <stop offset="100%" stopColor={color} stopOpacity="0.4" />
             </linearGradient>
             <linearGradient id={`grad-left-${uid}`} x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stopColor="#1B2A4A" stopOpacity="0.95" />
-              <stop offset="100%" stopColor="#0d1628" stopOpacity="0.8" />
+              <stop offset="0%" stopColor="#1A1A22" stopOpacity="0.95" />
+              <stop offset="100%" stopColor="#08080C" stopOpacity="0.8" />
             </linearGradient>
             <linearGradient id={`grad-right-${uid}`} x1="0%" y1="0%" x2="100%" y2="100%">
               <stop offset="0%" stopColor={color} stopOpacity="0.25" />
-              <stop offset="100%" stopColor="#0d1628" stopOpacity="0.7" />
+              <stop offset="100%" stopColor="#08080C" stopOpacity="0.7" />
             </linearGradient>
             <filter id={`glow-${uid}`}>
               <feGaussianBlur stdDeviation="2.5" result="coloredBlur" />

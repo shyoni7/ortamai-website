@@ -9,7 +9,7 @@ export default function AccessibilityStatement() {
   return (
     <div dir={dir} className="min-h-screen">
       <section className="relative py-16 md:py-32 overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-[#0d1228] via-[#1a2a4a] to-[#0d1228]" />
+        <div className="absolute inset-0" style={{ background: '#08080C' }} />
         <div className="relative z-10 max-w-4xl mx-auto px-4">
           <motion.h1 initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} className="text-3xl md:text-5xl font-bold text-gradient-cyan mb-4">
             {isRtl ? 'הצהרת נגישות' : 'Accessibility Statement'}

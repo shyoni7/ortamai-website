@@ -87,21 +87,21 @@ const CONTENT = {
     benefits: [
       {
         icon: Target,
-        color: 'bg-blue-700',
+        color: 'bg-gray-900',
         title: 'איפיון צרכי העסק וייעוץ ממומחה AI',
         desc: 'ניתוח מעמיק של העסק שלך והזדמנויות יישום AI',
         items: ['פגישת Discovery מקיפה', 'מיפוי תהליכים קיימים', 'זיהוי נקודות כאב וצוואר בקבוק'],
       },
       {
         icon: Lightbulb,
-        color: 'bg-blue-700',
+        color: 'bg-gray-900',
         title: 'הכשרות מקצועיות מותאמות לצרכי העסק שלך',
         desc: 'תוכניות הדרכה ייעודיות לצוות שלך',
         items: ['הכשרת מנהלים והנהלה', 'הדרכת צוות טכני', 'ליווי אישי לכל משתתף'],
       },
       {
         icon: Users,
-        color: 'bg-blue-800',
+        color: 'bg-gray-900',
         title: 'הדרכה וליווי צמוד עד להטמעה מלאה',
         desc: 'ליווי צמוד בכל שלב עד שתהליכי העבודה משולבים לחלוטין',
         items: ['ליווי שוטף של צוות מומחים', 'תמיכה טכנית 24/7', 'מעקב אחרי KPIs והצלחה'],
@@ -152,21 +152,21 @@ const CONTENT = {
     benefits: [
       {
         icon: Target,
-        color: 'bg-blue-700',
+        color: 'bg-gray-900',
         title: 'Business Needs Analysis & Expert AI Consulting',
         desc: 'Deep analysis of your business and AI implementation opportunities',
         items: ['Comprehensive Discovery Meeting', 'Mapping Existing Processes', 'Identifying Pain Points & Bottlenecks'],
       },
       {
         icon: Lightbulb,
-        color: 'bg-blue-700',
+        color: 'bg-gray-900',
         title: 'Professional Training Tailored to Your Business',
         desc: 'Dedicated training programs for your team',
         items: ['Management & Leadership Training', 'Technical Team Guidance', 'Personal Mentoring for Each Participant'],
       },
       {
         icon: Users,
-        color: 'bg-blue-800',
+        color: 'bg-gray-900',
         title: 'Guidance & Close Support Until Full Adoption',
         desc: 'Close support at every stage until workflows are fully integrated',
         items: ['Ongoing Expert Team Support', '24/7 Technical Support', 'KPI & Success Tracking'],
@@ -219,7 +219,7 @@ export default function Incubator() {
         className="relative overflow-hidden flex items-center"
         style={{
           minHeight: '100svh',
-          background: 'linear-gradient(135deg, #0d1228 0%, #1a2240 30%, #2D3A6B 55%, #1a2240 80%, #0d1228 100%)',
+          background: 'linear-gradient(135deg, #0d1228 0%, #08080C 30%, #08080C 55%, #08080C 80%, #0d1228 100%)',
         }}
       >
         {/* ── Background glow blobs ── */}
@@ -229,14 +229,14 @@ export default function Incubator() {
             animate={{ scale: [1, 1.15, 1], opacity: [0.35, 0.55, 0.35] }}
             transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}
             className="absolute -right-20 top-1/2 -translate-y-1/2 w-[400px] h-[400px] rounded-full"
-            style={{ background: 'radial-gradient(circle, rgba(139,92,246,0.5) 0%, rgba(45,58,107,0.2) 50%, transparent 75%)' }}
+            style={{ background: 'radial-gradient(circle, rgba(200,200,208,0.25) 0%, rgba(8,8,12,0.1) 50%, transparent 75%)' }}
           />
           {/* Left glow */}
           <motion.div
             animate={{ scale: [1, 1.1, 1], opacity: [0.2, 0.4, 0.2] }}
             transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut', delay: 2 }}
             className="absolute -left-10 top-1/2 -translate-y-1/2 w-[300px] h-[300px] rounded-full"
-            style={{ background: 'radial-gradient(circle, rgba(99,102,241,0.4) 0%, transparent 70%)' }}
+            style={{ background: 'radial-gradient(circle, rgba(200,200,208,0.15) 0%, transparent 70%)' }}
           />
           {/* Subtle wave lines */}
           <svg className="absolute inset-0 w-full h-full opacity-10" xmlns="http://www.w3.org/2000/svg">
@@ -261,8 +261,8 @@ export default function Incubator() {
               className="inline-flex items-center gap-2 px-4 py-2 rounded-full mb-5"
               style={{ background: 'rgba(255,255,255,0.1)', border: '1px solid rgba(255,255,255,0.2)' }}
             >
-              <span className="w-2 h-2 rounded-full bg-blue-400 animate-pulse" />
-              <span className="text-sm font-semibold text-blue-200">{isRtl ? 'אקסלרטור AI' : 'AI Accelerator'}</span>
+              <span className="w-2 h-2 rounded-full animate-pulse" style={{ background: '#C8C8D0' }} />
+              <span className="text-sm font-semibold" style={{ color: '#C8C8D0' }}>{isRtl ? 'אקסלרטור AI' : 'AI Accelerator'}</span>
             </motion.div>
 
             {/* Main heading */}
@@ -273,9 +273,9 @@ export default function Incubator() {
               className="text-3xl sm:text-4xl lg:text-6xl font-bold text-white mb-5 leading-tight"
             >
               {isRtl ? (
-                <>{c.hero_title}<br /><span style={{ color: '#8899BB' }}>עם ORTAM AI</span></>
+                <>{c.hero_title}<br /><span style={{ color: '#C8C8D0' }}>עם ORTAM AI</span></>
               ) : (
-                <>{c.hero_title}<br /><span style={{ color: '#8899BB' }}>with ORTAM AI</span></>
+                <>{c.hero_title}<br /><span style={{ color: '#C8C8D0' }}>with ORTAM AI</span></>
               )}
             </motion.h1>
 
@@ -283,7 +283,7 @@ export default function Incubator() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.25 }}
-              className="text-base md:text-lg text-blue-200 mb-8 leading-relaxed max-w-xl"
+              className="text-base md:text-lg text-gray-900 mb-8 leading-relaxed max-w-xl"
             >
               {c.hero_desc}
             </motion.p>
@@ -298,7 +298,7 @@ export default function Incubator() {
                 <motion.button
                   whileHover={{ scale: 1.04 }}
                   whileTap={{ scale: 0.97 }}
-                  className="inline-flex items-center gap-2 bg-white text-blue-900 font-bold px-6 py-3 rounded-xl text-base shadow-lg"
+                  className="inline-flex items-center gap-2 bg-white text-gray-900 font-bold px-6 py-3 rounded-xl text-base shadow-lg"
                 >
                   {c.hero_cta}
                   <ArrowLeft className={`w-4 h-4 ${isRtl ? '' : 'rotate-180'}`} />
@@ -369,9 +369,9 @@ export default function Incubator() {
                   background: [
                     'radial-gradient(circle at 32% 28%, rgba(255,255,255,0.85) 0%, rgba(255,255,255,0) 22%)',
                     'radial-gradient(circle at 70% 72%, rgba(20,28,60,0.7) 0%, rgba(20,28,60,0) 45%)',
-                    'radial-gradient(circle at 50% 50%, #8899BB 0%, #2D3A6B 40%, #1a2240 75%, #0d1228 100%)',
+                    'radial-gradient(circle at 50% 50%, #C8C8D0 0%, #08080C 40%, #08080C 75%, #0d1228 100%)',
                   ].join(', '),
-                  boxShadow: '0 0 40px rgba(139,92,246,0.7), 0 0 80px rgba(45,58,107,0.4), inset 0 0 20px rgba(20,28,60,0.5)',
+                  boxShadow: '0 0 40px rgba(139,92,246,0.7), 0 0 80px rgba(8,8,12,0.4), inset 0 0 20px rgba(20,28,60,0.5)',
                 }}
               >
                 <div className="absolute inset-0 flex items-center justify-center">
@@ -434,12 +434,13 @@ export default function Incubator() {
                 }} />
                 {/* Orbiting dot */}
                 <div
-                  className="absolute w-2.5 h-2.5 rounded-full bg-blue-200"
+                  className="absolute w-2.5 h-2.5 rounded-full"
                   style={{
+                    background: '#E8E8F0',
                     top: '-5px',
                     left: '50%',
                     marginLeft: '-5px',
-                    boxShadow: '0 0 8px rgba(136,153,187,0.9), 0 0 16px rgba(139,92,246,0.6)',
+                    boxShadow: '0 0 8px rgba(200,200,208,0.9), 0 0 16px rgba(200,200,208,0.4)',
                   }}
                 />
               </motion.div>
@@ -449,7 +450,7 @@ export default function Incubator() {
                 animate={{ opacity: [0.4, 0.8, 0.4], scale: [1, 1.08, 1] }}
                 transition={{ duration: 2.5, repeat: Infinity, ease: 'easeInOut' }}
                 className="absolute inset-0 rounded-full pointer-events-none"
-                style={{ zIndex: 0, boxShadow: '0 0 50px rgba(139,92,246,0.5), 0 0 100px rgba(45,58,107,0.25)' }}
+                style={{ zIndex: 0, boxShadow: '0 0 50px rgba(200,200,208,0.2), 0 0 100px rgba(200,200,208,0.08)' }}
               />
             </motion.div>
 
@@ -473,7 +474,7 @@ export default function Incubator() {
                 initial={{ opacity: 0, y: 15 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.45 }}
-                className="text-blue-300 text-base md:text-lg mb-7 leading-relaxed"
+                className="text-gray-900 text-base md:text-lg mb-7 leading-relaxed"
               >
                 {isRtl
                   ? 'קבעו פגישת ייעוץ עם מומחי ה-AI של ORTAM.'
@@ -531,7 +532,7 @@ export default function Incubator() {
                   variants={isRtl ? fadeLeft : fadeRight}
                   initial="hidden"
                   animate={inView ? 'visible' : 'hidden'}
-                  className="bg-white border border-gray-200 rounded-2xl p-8 shadow-sm hover:shadow-md hover:border-blue-300 transition-all"
+                  className="bg-white border border-gray-200 rounded-2xl p-8 shadow-sm hover:shadow-md hover:border-gray-200 transition-all"
                   dir={isRtl ? 'rtl' : 'ltr'}
                 >
                   <div className="flex items-start gap-5">
@@ -551,7 +552,7 @@ export default function Incubator() {
                             animate={inView ? 'visible' : 'hidden'}
                             className="flex items-center gap-2 text-gray-700 text-sm"
                           >
-                            <CheckCircle2 className="w-4 h-4 text-blue-700 flex-shrink-0" />
+                            <CheckCircle2 className="w-4 h-4 text-gray-900 flex-shrink-0" />
                             <span>{item}</span>
                           </motion.li>
                         ))}
@@ -586,15 +587,15 @@ export default function Incubator() {
                   variants={scaleIn}
                   initial="hidden"
                   animate={inView ? 'visible' : 'hidden'}
-                  className={`bg-white border border-gray-200 rounded-2xl p-8 shadow-sm hover:shadow-md hover:border-blue-300 transition-all group ${isRtl ? 'text-right' : 'text-center'}`}
+                  className={`bg-white border border-gray-200 rounded-2xl p-8 shadow-sm hover:shadow-md hover:border-gray-200 transition-all group ${isRtl ? 'text-right' : 'text-center'}`}
                 >
                   <motion.div
                     whileHover={{ scale: 1.1, rotate: 5 }}
                     transition={{ type: 'spring', stiffness: 300 }}
                     className={`inline-flex p-4 rounded-2xl mb-5 ${isRtl ? '' : 'mx-auto'}`}
-                    style={{ background: i % 2 === 0 ? 'rgba(245,158,11,0.12)' : 'rgb(243 232 255)', border: i % 2 === 0 ? '1px solid rgba(245,158,11,0.3)' : '1px solid rgb(233 213 255)' }}
+                    style={{ background: 'rgba(200,200,208,0.1)', border: '1px solid rgba(200,200,208,0.2)' }}
                   >
-                    <Icon className="w-8 h-8" style={{ color: i % 2 === 0 ? '#F59E0B' : '#3A5298' }} />
+                    <Icon className="w-8 h-8" style={{ color: '#08080C' }} />
                   </motion.div>
                   <h3 className="text-gray-900 font-bold text-xl mb-3">{item.title}</h3>
                   <p className="text-gray-500 leading-relaxed">{item.desc}</p>
@@ -636,7 +637,7 @@ export default function Incubator() {
                     animate={inView ? { scale: 1 } : {}}
                     transition={{ delay: i * 0.12 + 0.2, type: 'spring', stiffness: 300 }}
                     className={`inline-flex items-center justify-center w-12 h-12 rounded-full text-white font-bold text-lg mb-4 shadow-lg ${isRtl ? '' : 'mx-auto'}`}
-                    style={{ background: i % 2 === 0 ? '#F59E0B' : '#3A5298', boxShadow: i % 2 === 0 ? '0 4px 14px rgba(245,158,11,0.35)' : '0 4px 14px rgba(147,51,234,0.35)' }}
+                    style={{ background: i % 2 === 0 ? '#F59E0B' : '#1A1A22', boxShadow: i % 2 === 0 ? '0 4px 14px rgba(245,158,11,0.35)' : '0 4px 14px rgba(147,51,234,0.35)' }}
                   >
                     {step.num}
                   </motion.div>
@@ -708,11 +709,11 @@ function ConsultationForm({ isRtl }: { isRtl: boolean }) {
   };
 
   return (
-    <section className="py-24 bg-gradient-to-br from-slate-700 via-blue-800 to-slate-900 relative overflow-hidden" dir={isRtl ? 'rtl' : 'ltr'}>
+    <section className="py-24 relative overflow-hidden" style={{ background: '#08080C' }} dir={isRtl ? 'rtl' : 'ltr'}>
       <div className="absolute inset-0 opacity-10" style={{ backgroundImage: 'radial-gradient(circle at 30% 50%, white 1px, transparent 1px)', backgroundSize: '40px 40px' }} />
       {/* decorative blobs */}
-      <div className="absolute top-0 left-0 w-96 h-96 bg-blue-500/20 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2" />
-      <div className="absolute bottom-0 right-0 w-80 h-80 bg-indigo-500/20 rounded-full blur-3xl translate-x-1/3 translate-y-1/3" />
+      <div className="absolute top-0 left-0 w-96 h-96 bg-gray-500/20 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2" />
+      <div className="absolute bottom-0 right-0 w-80 h-80 rounded-full blur-3xl translate-x-1/3 translate-y-1/3" style={{ background: 'rgba(200,200,208,0.06)' }} />
 
       <div className="max-w-2xl mx-auto px-4 relative z-10">
         <motion.div
@@ -722,7 +723,7 @@ function ConsultationForm({ isRtl }: { isRtl: boolean }) {
           transition={{ duration: 0.6 }}
         >
           <h2 className="text-3xl md:text-4xl font-bold text-white mb-3 text-center">{labels.title}</h2>
-          <p className="text-blue-300 text-center mb-10">{labels.sub}</p>
+          <p className="text-center mb-10" style={{ color: 'rgba(200,200,208,0.6)' }}>{labels.sub}</p>
 
           {submitted ? (
             <motion.div
@@ -734,14 +735,14 @@ function ConsultationForm({ isRtl }: { isRtl: boolean }) {
                 <CheckCheck className="w-8 h-8 text-green-300" />
               </div>
               <h3 className="text-2xl font-bold text-white mb-2">{labels.successTitle}</h3>
-              <p className="text-blue-300">{labels.successSub}</p>
+              <p className="text-gray-900">{labels.successSub}</p>
             </motion.div>
           ) : (
             <form onSubmit={handleSubmit} className="bg-white/10 backdrop-blur-sm rounded-2xl p-8 border border-white/20 space-y-5">
               {/* Row: business name + first name */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-blue-100 text-sm font-medium mb-1.5">
+                  <label className="block text-sm font-medium mb-1.5" style={{ color: '#C8C8D0' }}>
                     {labels.businessName} <span className="text-red-300">*</span>
                   </label>
                   <input
@@ -753,7 +754,7 @@ function ConsultationForm({ isRtl }: { isRtl: boolean }) {
                   />
                 </div>
                 <div>
-                  <label className="block text-blue-100 text-sm font-medium mb-1.5">
+                  <label className="block text-sm font-medium mb-1.5" style={{ color: '#C8C8D0' }}>
                     {labels.firstName} <span className="text-red-300">*</span>
                   </label>
                   <input
@@ -769,7 +770,7 @@ function ConsultationForm({ isRtl }: { isRtl: boolean }) {
               {/* Row: email + phone */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-blue-100 text-sm font-medium mb-1.5">
+                  <label className="block text-sm font-medium mb-1.5" style={{ color: '#C8C8D0' }}>
                     {labels.email} <span className="text-red-300">*</span>
                   </label>
                   <input
@@ -782,7 +783,7 @@ function ConsultationForm({ isRtl }: { isRtl: boolean }) {
                   />
                 </div>
                 <div>
-                  <label className="block text-blue-100 text-sm font-medium mb-1.5">
+                  <label className="block text-sm font-medium mb-1.5" style={{ color: '#C8C8D0' }}>
                     {labels.phone} <span className="text-red-300">*</span>
                   </label>
                   <input
@@ -798,7 +799,7 @@ function ConsultationForm({ isRtl }: { isRtl: boolean }) {
 
               {/* About textarea */}
               <div>
-                <label className="block text-blue-100 text-sm font-medium mb-1.5">{labels.about}</label>
+                <label className="block text-sm font-medium mb-1.5" style={{ color: '#C8C8D0' }}>{labels.about}</label>
                 <textarea
                   value={form.about}
                   onChange={e => setForm(f => ({ ...f, about: e.target.value }))}
@@ -817,11 +818,11 @@ function ConsultationForm({ isRtl }: { isRtl: boolean }) {
                   onChange={e => setPrivacyConsent(e.target.checked)}
                   className="mt-1 w-4 h-4 accent-white cursor-pointer flex-shrink-0"
                 />
-                <label htmlFor="incubator-privacy" className="text-sm text-blue-300 cursor-pointer leading-relaxed">
+                <label htmlFor="incubator-privacy" className="text-sm text-gray-900 cursor-pointer leading-relaxed">
                   {isRtl ? (
-                    <>אני מאשר/ת את{' '}<a href="/privacy-policy" className="text-white underline hover:text-blue-100" target="_blank" rel="noopener noreferrer">מדיניות הפרטיות</a>{' '}ומסכים/ה שהמידע שאני מספק/ת ישמר בהתאם לדרישות החוק</>
+                    <>אני מאשר/ת את{' '}<a href="/privacy-policy" className="text-white underline hover:text-gray-900" target="_blank" rel="noopener noreferrer">מדיניות הפרטיות</a>{' '}ומסכים/ה שהמידע שאני מספק/ת ישמר בהתאם לדרישות החוק</>
                   ) : (
-                    <>I accept the{' '}<a href="/privacy-policy" className="text-white underline hover:text-blue-100" target="_blank" rel="noopener noreferrer">Privacy Policy</a>{' '}and agree that my information will be stored in accordance with legal requirements</>
+                    <>I accept the{' '}<a href="/privacy-policy" className="text-white underline hover:text-gray-900" target="_blank" rel="noopener noreferrer">Privacy Policy</a>{' '}and agree that my information will be stored in accordance with legal requirements</>
                   )}
                 </label>
               </div>
@@ -835,10 +836,10 @@ function ConsultationForm({ isRtl }: { isRtl: boolean }) {
                 disabled={mutation.isPending || !privacyConsent}
                 whileHover={{ scale: mutation.isPending ? 1 : 1.02 }}
                 whileTap={{ scale: mutation.isPending ? 1 : 0.98 }}
-                className="w-full flex items-center justify-center gap-2 bg-white text-blue-800 font-bold py-4 rounded-xl text-lg hover:bg-blue-50 transition-colors shadow-lg disabled:opacity-60 disabled:cursor-not-allowed"
+                className="w-full flex items-center justify-center gap-2 bg-white text-gray-900 font-bold py-4 rounded-xl text-lg hover:bg-gray-50 transition-colors shadow-lg disabled:opacity-60 disabled:cursor-not-allowed"
               >
                 {mutation.isPending ? (
-                  <span className="animate-spin w-5 h-5 border-2 border-blue-300 border-t-blue-700 rounded-full" />
+                  <span className="animate-spin w-5 h-5 border-2 border-gray-200 border-t-blue-700 rounded-full" />
                 ) : (
                   <Send className="w-5 h-5" />
                 )}
