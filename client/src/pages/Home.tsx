@@ -20,6 +20,11 @@ const PARTNERS = [
   { name: 'Tokomni', url: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663445418346/oDFneUKwvw2xJYXYaumUdB/40f5d2b0c_2_085f5bf7.png' },
   { name: 'Omnitelecom', url: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663445418346/oDFneUKwvw2xJYXYaumUdB/eb9cdb162_3_78962139.png' },
   { name: 'אוניברסיטת אריאל', url: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663445418346/oDFneUKwvw2xJYXYaumUdB/4a76ee3ff_566_511a27c5.jpg' },
+  { name: 'לומדים ומתקדמים', url: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663445418346/oDFneUKwvw2xJYXYaumUdB/lomed-umitkadem_ac726b10.png' },
+  { name: 'MAMRAM Alumni Association', url: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663445418346/oDFneUKwvw2xJYXYaumUdB/mamram-alumni_ab16aaf6.png', darkBg: true },
+  { name: 'ההסתדרות', url: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663445418346/oDFneUKwvw2xJYXYaumUdB/histadrut_eb684baa.png' },
+  { name: 'בנק לאומי', url: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663445418346/oDFneUKwvw2xJYXYaumUdB/leumi_3d6233d8.png' },
+  { name: 'CyberGo', url: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663445418346/oDFneUKwvw2xJYXYaumUdB/cybergo_7c032c16.webp' },
 ];
 
 const fadeUp = {
@@ -477,16 +482,20 @@ export default function Home() {
             <p className="text-gray-500">{t.home.partners_sub}</p>
           </motion.div>
 
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6 items-center">
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6 items-center">
             {PARTNERS.map((partner, i) => (
               <div
                 key={i}
-                className="bg-white border border-gray-100 rounded-xl p-4 flex items-center justify-center h-20 hover:border-purple-200 hover:shadow-md transition-all"
+                className={`border rounded-xl p-4 flex items-center justify-center h-24 hover:border-purple-200 hover:shadow-md transition-all ${
+                  (partner as any).darkBg
+                    ? 'bg-gray-800 border-gray-700'
+                    : 'bg-white border-gray-100'
+                }`}
               >
                 <img
                   src={partner.url}
                   alt={partner.name}
-                  className="max-h-12 max-w-full object-contain opacity-70 hover:opacity-100 transition-all"
+                  className="max-h-14 max-w-full object-contain opacity-80 hover:opacity-100 transition-all"
                 />
               </div>
             ))}
