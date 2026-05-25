@@ -161,6 +161,32 @@ export default function Placement() {
                 : 'In the changing job market, there is a need to define roles suited to the AI era. We specialize in finding employees who have undergone AI training tailored to their role.'}
             </p>
 
+            {/* Mobile-only video — shown between text and CTA button */}
+            <div className="block sm:hidden w-full mb-5 relative">
+              <div style={{
+                position: 'absolute', inset: '-8px',
+                borderRadius: '16px',
+                background: 'linear-gradient(135deg, rgba(200,200,208,0.15), rgba(200,200,208,0.05))',
+                filter: 'blur(14px)',
+                zIndex: 0,
+              }} />
+              <video
+                src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663445418346/mYNIxIlFvGEcEMgl.mp4"
+                autoPlay
+                loop
+                muted
+                playsInline
+                style={{
+                  width: '100%',
+                  borderRadius: '12px',
+                  position: 'relative',
+                  zIndex: 1,
+                  boxShadow: '0 12px 40px rgba(0,0,0,0.5)',
+                  display: 'block',
+                }}
+              />
+            </div>
+
             <div style={{ display: 'flex', justifyContent: 'center' }} className="md:justify-start">
             <motion.a
               href="#cv-form"
