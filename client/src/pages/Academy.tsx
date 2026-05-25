@@ -285,6 +285,7 @@ interface PublicCourse {
   color: string;
   icon: React.ElementType;
   ministrySupervised?: boolean;
+  externalLink?: string;
 }
 
 const publicCourses: PublicCourse[] = [
@@ -360,6 +361,19 @@ const publicCourses: PublicCourse[] = [
     color: 'from-yellow-500 to-orange-600',
     icon: Award,
     ministrySupervised: true,
+  },
+  {
+    title: 'SOC Analyst – CyberGo',
+    titleEn: 'SOC Analyst – CyberGo',
+    desc: 'קורס מקצועי להכשרת אנליסטים בתחום אבטחת סייבר. תכנית מקיפה הכוללת ניטור, זיהוי איומים וניתוח אירועי אבטחה.',
+    descEn: 'Professional course for training cybersecurity analysts. A comprehensive program including monitoring, threat detection, and security incident analysis.',
+    duration: '6 חודשים',
+    durationEn: '6 months',
+    level: 'מתחילים',
+    levelEn: 'Beginners',
+    color: 'from-cyan-600 to-blue-700',
+    icon: Building,
+    externalLink: 'https://cybergo.co.il/',
   },
 ];
 
@@ -644,9 +658,17 @@ export default function Academy() {
                     </div>
                   )}
                   <div className="w-full">
-                    <GradientButton href="/contact" size="sm" className="w-full justify-center">
-                      {isRtl ? 'הירשם לקורס' : 'Enroll Now'}
-                    </GradientButton>
+                    {course.externalLink ? (
+                      <a href={course.externalLink} target="_blank" rel="noopener noreferrer" className="block w-full">
+                        <GradientButton size="sm" className="w-full justify-center">
+                          {isRtl ? 'הירשם לקורס' : 'Enroll Now'}
+                        </GradientButton>
+                      </a>
+                    ) : (
+                      <GradientButton href="/contact" size="sm" className="w-full justify-center">
+                        {isRtl ? 'הירשם לקורס' : 'Enroll Now'}
+                      </GradientButton>
+                    )}
                   </div>
                 </div>
               );
