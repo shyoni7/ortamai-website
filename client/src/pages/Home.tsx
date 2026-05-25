@@ -127,7 +127,7 @@ export default function Home() {
 
         {/* ── Main content ── */}
         <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-10 md:py-24">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-16 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6 lg:gap-16 items-center">
 
             {/* ── Text column ── */}
             <motion.div
@@ -194,12 +194,12 @@ export default function Home() {
               </motion.div>
             </motion.div>
 
-            {/* ── Video/visual column ── */}
+            {/* ── Video/visual column — hidden on mobile (shown in section below) ── */}
             <motion.div
               initial={{ opacity: 0, y: 40 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1.2, delay: 0.4, type: 'spring', stiffness: 60 }}
-              className="relative order-2 pt-2 pb-2 px-1 md:pt-8 md:pb-8 md:px-6 hidden sm:block"
+              className="relative order-2 pt-2 pb-2 px-1 md:pt-8 md:pb-8 md:px-6 hidden lg:block"
             >
               {/* Floating badge — top right of video column — hidden on small mobile */}
               <motion.div
@@ -310,6 +310,49 @@ export default function Home() {
               />
             </motion.div>
           </div>
+        </div>
+      </section>
+
+      {/* ── Mobile Video Section — shown only on mobile/tablet, below hero ── */}
+      <section className="lg:hidden px-4 py-6" style={{ background: 'linear-gradient(135deg, #f0f4fb 0%, #ffffff 60%, #eaf0f8 100%)' }}>
+        <div className="max-w-lg mx-auto">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+            className="relative rounded-2xl overflow-hidden shadow-xl border border-blue-300/60"
+            style={{ background: 'rgba(255,255,255,0.6)', backdropFilter: 'blur(12px)', boxShadow: '0 20px 60px rgba(75,108,183,0.2)' }}
+          >
+            {/* Top bar */}
+            <div className="flex items-center gap-2 px-4 py-2 border-b border-blue-300/60" style={{ background: 'rgba(255,255,255,0.8)' }}>
+              <div className="w-2.5 h-2.5 rounded-full bg-red-400" />
+              <div className="w-2.5 h-2.5 rounded-full bg-yellow-400" />
+              <div className="w-2.5 h-2.5 rounded-full bg-green-400" />
+              <div className="flex-1 mx-3 h-4 rounded-full bg-gray-100 flex items-center px-3">
+                <span className="text-xs text-gray-400">ortamai.ai</span>
+              </div>
+            </div>
+            <video
+              src={HERO_VIDEO}
+              autoPlay
+              loop
+              muted
+              playsInline
+              poster={HERO_IMAGE}
+              className="w-full h-auto object-cover"
+            />
+            <div className="absolute bottom-3 left-3 right-3 flex items-center justify-between">
+              <div className="flex items-center gap-1.5 px-2 py-1.5 rounded-xl backdrop-blur-md border border-white/40" style={{ background: 'rgba(255,255,255,0.75)' }}>
+                <div className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
+                <span className="text-xs font-semibold text-gray-700">{isRtl ? 'AI פעיל' : 'AI Active'}</span>
+              </div>
+              <div className="flex items-center gap-1.5 px-2 py-1.5 rounded-xl backdrop-blur-md border border-blue-300/50" style={{ background: 'rgba(75,108,183,0.15)' }}>
+                <Sparkles className="w-3 h-3 text-blue-700" />
+                <span className="text-xs font-semibold text-blue-800">{isRtl ? 'מוביל בישראל' : 'Israel #1'}</span>
+              </div>
+            </div>
+          </motion.div>
         </div>
       </section>
 
