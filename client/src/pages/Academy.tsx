@@ -594,7 +594,7 @@ export default function Academy() {
       {/* Public Courses Section */}
       <section className="py-20 relative">
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-purple-50 to-transparent" />
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
