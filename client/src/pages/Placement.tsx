@@ -215,11 +215,7 @@ export default function Placement() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
             {/* Candidates */}
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0 }}
-              transition={{ duration: 0.6 }}
+            <div
               className="bg-white border border-gray-200 rounded-2xl shadow-sm p-10 hover:border-purple-300 transition-all"
             >
               <div className="inline-flex p-3 rounded-xl bg-gradient-to-br from-purple-600 to-violet-600 mb-6">
@@ -235,14 +231,10 @@ export default function Placement() {
                   </div>
                 ))}
               </div>
-            </motion.div>
+            </div>
 
             {/* Employers */}
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0 }}
-              transition={{ duration: 0.6, delay: 0.1 }}
+            <div
               className="bg-white border border-gray-200 rounded-2xl shadow-sm p-10 hover:border-blue-900/30 transition-all"
             >
               <div className="inline-flex p-3 rounded-xl bg-gradient-to-br from-purple-600 to-pink-500 mb-6">
@@ -261,7 +253,7 @@ export default function Placement() {
               <Link href="/contact">
                 <button className="w-full py-3 rounded-xl border border-blue-900/30 text-purple-600 hover:bg-purple-100/30 transition-colors font-semibold">{t.placement.cta}</button>
               </Link>
-            </motion.div>
+            </div>
           </div>
         </div>
       </section>
@@ -269,12 +261,7 @@ export default function Placement() {
       {/* CV Submission Form */}
       <section id="cv-form" className="py-20">
         <div className="max-w-3xl mx-auto px-4">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0 }}
-            transition={{ duration: 0.6 }}
-          >
+          <div>
             {/* Section Header */}
             <div className="text-center mb-10">
               <div className="inline-flex items-center gap-2 bg-white border border-gray-200 px-4 py-2 rounded-full mb-4">
@@ -483,7 +470,7 @@ export default function Placement() {
                 </motion.form>
               )}
             </AnimatePresence>
-          </motion.div>
+          </div>
         </div>
       </section>
     </div>

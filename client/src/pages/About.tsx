@@ -109,12 +109,8 @@ export default function About() {
             {values.map((v, i) => {
               const Icon = v.icon;
               return (
-                <motion.div
+                <div
                   key={i}
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={VP}
-                  transition={{ duration: 0.6, delay: i * 0.12 }}
                   className="bg-white border border-gray-200 rounded-2xl shadow-sm p-8 text-center hover:border-purple-300 transition-all"
                 >
                   <div className="inline-flex p-4 rounded-full bg-orange-400/10 mb-4">
@@ -122,7 +118,7 @@ export default function About() {
                   </div>
                   <h3 className="text-xl font-bold text-gray-900 mb-2">{v.title}</h3>
                   <p className="text-gray-500">{v.desc}</p>
-                </motion.div>
+                </div>
               );
             })}
           </div>
@@ -144,12 +140,8 @@ export default function About() {
           </motion.div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
             {TEAM.map((member, i) => (
-              <motion.div
+              <div
                 key={i}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={VP}
-                transition={{ duration: 0.6, delay: i * 0.1 }}
                 className="bg-white border border-gray-200 rounded-2xl shadow-sm overflow-hidden hover:border-purple-300 transition-all group"
               >
                 <div className="relative h-56 overflow-hidden">
@@ -160,7 +152,7 @@ export default function About() {
                   <h3 className="text-gray-900 font-bold">{member.name[lang]}</h3>
                   <p className="text-purple-600 text-sm">{member.role[lang]}</p>
                 </div>
-              </motion.div>
+              </div>
             ))}
           </div>
         </div>

@@ -537,12 +537,8 @@ export default function Academy() {
           {/* Training Cards Grid */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {trainingPrograms.map((program, idx) => (
-              <motion.div
+              <div
                 key={program.id}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0 }}
-                transition={{ duration: 0.6, delay: idx * 0.1 }}
                 className="bg-white border border-gray-200 rounded-2xl shadow-sm overflow-hidden hover:border-purple-300 transition-all group cursor-pointer"
                 onClick={() => setSelectedProgram(program)}
               >
@@ -589,7 +585,7 @@ export default function Academy() {
                     </Link>
                   </div>
                 </div>
-              </motion.div>
+              </div>
             ))}
           </div>
         </div>
@@ -617,12 +613,8 @@ export default function Academy() {
             {publicCourses.map((course, i) => {
               const Icon = course.icon;
               return (
-                <motion.div
+                <div
                   key={i}
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, amount: 0 }}
-                  transition={{ duration: 0.6, delay: i * 0.1 }}
                   className="bg-white border border-gray-200 rounded-2xl shadow-sm p-6 hover:border-purple-300 transition-all group"
                 >
                   <div className={`inline-flex p-3 rounded-xl bg-gradient-to-br ${course.color} mb-4`}>
@@ -656,7 +648,7 @@ export default function Academy() {
                       {isRtl ? 'הירשם לקורס' : 'Enroll Now'}
                     </GradientButton>
                   </div>
-                </motion.div>
+                </div>
               );
             })}
           </div>

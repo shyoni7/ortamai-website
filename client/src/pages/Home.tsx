@@ -315,17 +315,13 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
             {stats.map((stat, i) => (
-              <motion.div
+              <div
                 key={i}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0 }}
-                transition={{ duration: 0.6, delay: i * 0.1 }}
                 className="text-center"
               >
                 <div className="text-4xl md:text-5xl font-bold mb-2" style={{ color: '#F59E0B' }}>{stat.value}</div>
                 <div className="text-gray-500 text-sm">{stat.label}</div>
-              </motion.div>
+              </div>
             ))}
           </div>
         </div>
@@ -347,13 +343,8 @@ export default function Home() {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {pillars.map((pillar, i) => (
-              <motion.div
+              <div
                 key={i}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0 }}
-                transition={{ duration: 0.6, delay: i * 0.12 }}
-                whileHover={{ y: -8, transition: { duration: 0.2 } }}
                 className="bg-white border border-gray-100 rounded-2xl p-6 hover:border-purple-300 hover:shadow-lg hover:shadow-purple-100/50 transition-all duration-300 group cursor-pointer"
               >
                 <Link href={pillar.href}>
@@ -373,7 +364,7 @@ export default function Home() {
                     </div>
                   </div>
                 </Link>
-              </motion.div>
+              </div>
             ))}
           </div>
         </div>
@@ -418,12 +409,8 @@ export default function Home() {
                 {whyUs.map((item, i) => {
                   const Icon = item.icon;
                   return (
-                    <motion.div
+                    <div
                       key={i}
-                      initial={{ opacity: 0, y: 20 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      viewport={{ once: true, amount: 0 }}
-                      transition={{ duration: 0.5, delay: i * 0.08 }}
                       className="flex items-start gap-4"
                     >
                       <div className="flex-shrink-0 p-2 rounded-lg" style={{ background: i % 2 === 0 ? 'rgba(245,158,11,0.12)' : 'rgb(243 232 255)' }}>
@@ -433,7 +420,7 @@ export default function Home() {
                         <h4 className="text-gray-900 font-semibold mb-1">{item.title}</h4>
                         <p className="text-gray-500 text-sm">{item.desc}</p>
                       </div>
-                    </motion.div>
+                    </div>
                   );
                 })}
               </div>
@@ -457,12 +444,8 @@ export default function Home() {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
             {steps.map((step, i) => (
-              <motion.div
+              <div
                 key={i}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0 }}
-                transition={{ duration: 0.6, delay: i * 0.1 }}
                 className="relative text-center"
               >
                 {i < steps.length - 1 && (
@@ -475,7 +458,7 @@ export default function Home() {
                   <h4 className="text-gray-900 font-bold mb-2">{step.title}</h4>
                   <p className="text-gray-500 text-sm">{step.desc}</p>
                 </div>
-              </motion.div>
+              </div>
             ))}
           </div>
         </div>
@@ -496,12 +479,8 @@ export default function Home() {
 
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6 items-center">
             {PARTNERS.map((partner, i) => (
-              <motion.div
+              <div
                 key={i}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0 }}
-                transition={{ duration: 0.5, delay: i * 0.08 }}
                 className="bg-white border border-gray-100 rounded-xl p-4 flex items-center justify-center h-20 hover:border-purple-200 hover:shadow-md transition-all"
               >
                 <img
@@ -509,7 +488,7 @@ export default function Home() {
                   alt={partner.name}
                   className="max-h-12 max-w-full object-contain opacity-70 hover:opacity-100 transition-all"
                 />
-              </motion.div>
+              </div>
             ))}
           </div>
         </div>
