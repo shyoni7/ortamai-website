@@ -7,6 +7,7 @@ import { getDb } from "./db";
 import { contactSubmissions, cvSubmissions, incubatorSubmissions } from "../drizzle/schema";
 import { notifyOwner } from "./_core/notification";
 import { storagePut } from "./storage";
+import { sendContactEmail } from "./email";
 
 export const appRouter = router({
     // if you need to use socket.io, read and register route in server/_core/index.ts, all api should start with '/api/' so that the gateway can route correctly
@@ -137,6 +138,20 @@ export const appRouter = router({
           title: `📬 פנייה חדשה מ-${input.name}`,
           content: `שם: ${input.name}\nאימייל: ${input.email}\nטלפון: ${input.phone ?? "לא צוין"}\nחברה: ${input.company ?? "לא צוין"}\n\nהודעה:\n${input.message}`,
         });
+
+        // Send email notification via Gmail SMTP
+        try {
+          await sendContactEmail({
+            name: input.name,
+            email: input.email,
+            phone: input.phone,
+            subject: input.company ? `פנייה מ-${input.company}` : 'פנייה מהאתר',
+            message: input.message,
+          });
+        } catch (emailErr) {
+          console.error('[Email] Failed to send contact email:', emailErr);
+          // Don't throw — form submission already saved to DB
+        }
 
         return { success: true };
       }),
