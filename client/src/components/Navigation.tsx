@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'wouter';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X, Globe } from 'lucide-react';
+import { Menu, X, Globe, Bot } from 'lucide-react';
 import { useLanguage } from '@/contexts/LanguageContext';
 import GradientButton from '@/components/GradientButton';
 
@@ -71,9 +71,19 @@ export default function Navigation() {
             </button>
 
             <div className="hidden md:block">
-              <GradientButton href="/contact" size="sm">
-                {t.nav.cta}
-              </GradientButton>
+              <a
+                href="https://app.ortamai.com/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-bold text-white shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-xl active:scale-95"
+                style={{
+                  background: 'linear-gradient(135deg, #25D366 0%, #128C7E 100%)',
+                  boxShadow: '0 4px 15px rgba(37, 211, 102, 0.4)',
+                }}
+              >
+                <Bot size={15} className="shrink-0" />
+                <span>{lang === 'he' ? 'צרו סוכן אוטומטי לוואטסאפ' : 'Create WhatsApp AI Agent'}</span>
+              </a>
             </div>
 
             <button
@@ -105,9 +115,19 @@ export default function Navigation() {
                 </Link>
               ))}
               <div className="mt-3 flex justify-center">
-                <GradientButton href="/contact" size="sm">
-                  {t.nav.cta}
-                </GradientButton>
+                <a
+                  href="https://app.ortamai.com/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-bold text-white shadow-lg transition-all duration-300 hover:scale-105"
+                  style={{
+                    background: 'linear-gradient(135deg, #25D366 0%, #128C7E 100%)',
+                    boxShadow: '0 4px 15px rgba(37, 211, 102, 0.4)',
+                  }}
+                >
+                  <Bot size={15} className="shrink-0" />
+                  <span>{lang === 'he' ? 'צרו סוכן אוטומטי לוואטסאפ' : 'Create WhatsApp AI Agent'}</span>
+                </a>
               </div>
             </div>
           </motion.div>
