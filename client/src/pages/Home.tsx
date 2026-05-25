@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { ArrowLeft, ArrowRight, Zap, Users, Briefcase, CheckCircle, Star, Award, TrendingUp, Brain, Sparkles, Rocket } from 'lucide-react';
 import { useLanguage } from '@/contexts/LanguageContext';
 import MetallicSphere, { SphereVariant } from '@/components/MetallicSphere';
+import ScrollDownArrow from '@/components/ScrollDownArrow';
 
 const HERO_VIDEO = 'https://files.manuscdn.com/user_upload_by_module/session_file/310519663445418346/sLtfKJCObxnFJgJI.mp4';
 const HERO_IMAGE = 'https://d2xsxph8kpxj0f.cloudfront.net/310519663445418346/oDFneUKwvw2xJYXYaumUdB/a00800906_______________ai______________1ztf6h7ulzz1cg0t1nwp_1_450c2a58.png';
@@ -303,15 +304,20 @@ export default function Home() {
           </div>
         </div>
 
-        {/* Scroll indicator */}
+        {/* Scroll indicator — desktop */}
         <motion.div
           animate={{ y: [0, 8, 0], opacity: [0.3, 0.7, 0.3] }}
           transition={{ duration: 2.2, repeat: Infinity }}
-          className="absolute bottom-6 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1.5"
+          className="hidden md:flex absolute bottom-6 left-1/2 -translate-x-1/2 flex-col items-center gap-1.5"
         >
           <div className="w-px h-8" style={{ background: `linear-gradient(to bottom, transparent, ${PLAT}60)` }} />
           <div className="w-1.5 h-1.5 rounded-full" style={{ background: PLAT }} />
         </motion.div>
+
+        {/* Scroll indicator — mobile */}
+        <div className="absolute bottom-4 left-0 right-0">
+          <ScrollDownArrow />
+        </div>
       </section>
 
 

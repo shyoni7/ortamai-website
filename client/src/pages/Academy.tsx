@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Clock, Users, Award, BookOpen, X, ChevronDown, ChevronUp, Building, Star, CheckCircle } from 'lucide-react';
 import { useLanguage } from '@/contexts/LanguageContext';
 import GradientButton from '@/components/GradientButton';
+import ScrollDownArrow from '@/components/ScrollDownArrow';
 
 const CDN = 'https://d2xsxph8kpxj0f.cloudfront.net/310519663445418346/oDFneUKwvw2xJYXYaumUdB';
 const AI_TRAINING_IMAGE = `${CDN}/81fe03d01_create_a_professional_and_modern_image_for_a_website_that_promotes_ai_training_programs_the_image_s_y01604j7g7gqe2rbe6tu_0_2b7c34bf.png`;
@@ -548,6 +549,11 @@ export default function Academy() {
             </motion.div>
           </div>
 
+        </div>
+
+        {/* Scroll hint — mobile only */}
+        <div className="relative z-10">
+          <ScrollDownArrow />
         </div>
       </section>
 

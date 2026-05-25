@@ -9,6 +9,7 @@ import {
 } from 'lucide-react';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { trpc } from '@/lib/trpc';
+import ScrollDownArrow from '@/components/ScrollDownArrow';
 
 // ─── Reusable animation variants ─────────────────────────────────────────────
 const fadeUp = {
@@ -546,6 +547,11 @@ export default function Incubator() {
             </motion.div>
 
           </div>
+        </div>
+
+        {/* Scroll hint — mobile only */}
+        <div className="relative z-10">
+          <ScrollDownArrow />
         </div>
       </section>
 

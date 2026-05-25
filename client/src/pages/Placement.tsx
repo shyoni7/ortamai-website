@@ -5,6 +5,7 @@ import { User, Building, CheckCircle, Upload, FileText, X, Send, Briefcase, Chev
 import { useLanguage } from '@/contexts/LanguageContext';
 import { trpc } from '@/lib/trpc';
 import { toast } from 'sonner';
+import ScrollDownArrow from '@/components/ScrollDownArrow';
 
 const fadeUp = { hidden: { opacity: 0, y: 30 }, visible: { opacity: 1, y: 0, transition: { duration: 0.7 } } };
 const stagger = { hidden: {}, visible: { transition: { staggerChildren: 0.12 } } };
@@ -237,6 +238,11 @@ export default function Placement() {
               }}
             />
           </motion.div>
+        </div>
+
+        {/* Scroll hint — mobile only */}
+        <div className="relative z-10">
+          <ScrollDownArrow />
         </div>
       </section>
 
