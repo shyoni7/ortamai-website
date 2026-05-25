@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'wouter';
 import { motion } from 'framer-motion';
-import { Award, Heart, Lightbulb } from 'lucide-react';
+import { Award, Heart, Lightbulb, Users, BookOpen, Building2, Star } from 'lucide-react';
 import { useLanguage } from '@/contexts/LanguageContext';
 import GradientButton from '@/components/GradientButton';
 
@@ -41,20 +41,135 @@ export default function About() {
     { icon: Lightbulb, title: t.about.innovation, desc: t.about.innovation_desc },
   ];
 
+  const stats = [
+    { icon: Users,    value: '+300', label: isRtl ? 'בוגרים' : 'Graduates' },
+    { icon: BookOpen, value: '+10',  label: isRtl ? 'תוכניות' : 'Programs' },
+    { icon: Building2,value: '98%',  label: isRtl ? 'שביעות רצון' : 'Satisfaction' },
+    { icon: Star,     value: '+50',  label: isRtl ? 'שותפים עסקיים' : 'Partners' },
+  ];
+
   return (
     <div dir={dir}>
-      {/* Hero */}
-      <section className="relative py-16 md:py-32 overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-gray-50 via-blue-50 to-gray-100" />
-        <div className="absolute inset-0 grid-pattern opacity-20" />
-        <motion.div animate={{ x: [0,50,0], y: [0,30,0] }} transition={{ duration: 10, repeat: Infinity }} className="absolute top-20 right-20 w-80 h-80 bg-orange-500/10 rounded-full blur-3xl" />
-        <div className="relative z-10 max-w-4xl mx-auto px-4 text-center">
-          <motion.h1 initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }} className="text-3xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-6">
-            {t.about.hero_title}
-          </motion.h1>
-          <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.2 }} className="text-xl text-gray-600">
-            {isRtl ? 'אנחנו מאמינים שה-AI הוא לא רק טכנולוגיה – זו מהפכה' : 'We believe AI is not just technology – it is a revolution'}
-          </motion.p>
+      {/* ── HERO ── */}
+      <section
+        className="relative min-h-[92vh] flex items-center justify-center overflow-hidden"
+        style={{ background: 'linear-gradient(135deg, #f0f4fb 0%, #ffffff 35%, #eaf0f8 65%, #dce8f5 100%)' }}
+      >
+        {/* Dot-grid background */}
+        <div className="absolute inset-0" style={{
+          backgroundImage: 'radial-gradient(circle, #4B6CB720 1px, transparent 1px)',
+          backgroundSize: '32px 32px',
+        }} />
+
+        {/* 3D Spheres */}
+        <div
+          className="sphere-3d sphere-3d-primary hidden md:block"
+          style={{ width: 480, height: 480, top: '-60px', right: '-80px', opacity: 0.85 }}
+        />
+        <div
+          className="sphere-3d sphere-3d-secondary hidden md:block"
+          style={{ width: 260, height: 260, bottom: '40px', left: '-60px', opacity: 0.7 }}
+        />
+        <div
+          className="sphere-3d sphere-3d-accent"
+          style={{ width: 120, height: 120, top: '30%', left: '12%', opacity: 0.5 }}
+        />
+
+        {/* Orange warm glow accent */}
+        <motion.div
+          animate={{ x: [0, 40, 0], y: [0, 20, 0] }}
+          transition={{ duration: 9, repeat: Infinity, ease: 'easeInOut' }}
+          className="absolute bottom-24 right-1/4 w-72 h-72 bg-orange-400/15 rounded-full blur-3xl pointer-events-none"
+        />
+
+        {/* Content */}
+        <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className={`flex flex-col ${isRtl ? 'items-end text-right' : 'items-start text-left'} max-w-2xl ${isRtl ? 'mr-0 ml-auto md:ml-0' : ''}`}>
+
+            {/* Badge */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/80 border border-blue-200 shadow-sm mb-6"
+            >
+              <span className="w-2 h-2 rounded-full bg-blue-600 animate-pulse" />
+              <span className="text-sm font-semibold text-blue-700">
+                {isRtl ? 'מרכז ה-AI המוביל בישראל' : 'Israel\'s Leading AI Center'}
+              </span>
+            </motion.div>
+
+            {/* Main heading */}
+            <motion.h1
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.1 }}
+              className="text-4xl sm:text-5xl lg:text-7xl font-bold text-gray-900 mb-6 leading-tight"
+            >
+              {isRtl ? (
+                <>
+                  <span className="text-gradient-cyan">אנחנו</span>{' '}בונים<br />את עתיד ה-AI
+                </>
+              ) : (
+                <>
+                  We <span className="text-gradient-cyan">Build</span><br />the AI Future
+                </>
+              )}
+            </motion.h1>
+
+            {/* Sub-heading */}
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.25 }}
+              className="text-lg md:text-xl text-gray-600 mb-8 leading-relaxed max-w-xl"
+            >
+              {isRtl
+                ? 'אנחנו מאמינים שה-AI הוא לא רק טכנולוגיה – זו מהפכה. אנחנו כאן כדי להוביל אותה יחד איתך.'
+                : 'We believe AI is not just technology – it is a revolution. We are here to lead it together with you.'}
+            </motion.p>
+
+            {/* CTA buttons */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.4 }}
+              className="flex flex-wrap gap-4"
+            >
+              <GradientButton href="/contact" size="lg">
+                {isRtl ? 'צור קשר' : 'Contact Us'}
+              </GradientButton>
+              <Link href="/">
+                <button className="btn-secondary">
+                  {isRtl ? 'חזרה לדף הבית' : 'Back to Home'}
+                </button>
+              </Link>
+            </motion.div>
+          </div>
+
+          {/* Stats bar */}
+          <motion.div
+            initial={{ opacity: 0, y: 40 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.55 }}
+            className="mt-16 md:mt-20 grid grid-cols-2 md:grid-cols-4 gap-4"
+          >
+            {stats.map((s, i) => {
+              const Icon = s.icon;
+              return (
+                <div
+                  key={i}
+                  className="bg-white/70 backdrop-blur-sm border border-blue-100 rounded-2xl p-4 md:p-5 flex flex-col items-center text-center shadow-sm"
+                >
+                  <div className="inline-flex p-2 rounded-xl bg-blue-50 mb-3">
+                    <Icon className="w-5 h-5 text-blue-700" />
+                  </div>
+                  <span className="text-2xl md:text-3xl font-bold text-gray-900">{s.value}</span>
+                  <span className="text-sm text-gray-500 mt-1">{s.label}</span>
+                </div>
+              );
+            })}
+          </motion.div>
         </div>
       </section>
 
