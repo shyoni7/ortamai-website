@@ -425,3 +425,55 @@
     padding-bottom: 1.75rem;
   }
 }
+
+/* ══════════════════════════════════════════════════════════════
+   Accessibility Widget – applied via JS class toggles on <html>
+   ══════════════════════════════════════════════════════════════ */
+
+/* High Contrast */
+html.a11y-high-contrast,
+html.a11y-advanced-nav {
+  filter: contrast(1.6) brightness(1.05);
+}
+
+/* No Animations */
+html.a11y-no-animations *,
+html.a11y-no-animations *::before,
+html.a11y-no-animations *::after {
+  animation-duration: 0.001ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.001ms !important;
+  scroll-behavior: auto !important;
+}
+
+/* Bold Text */
+html.a11y-bold-text body,
+html.a11y-bold-text p,
+html.a11y-bold-text span,
+html.a11y-bold-text li,
+html.a11y-bold-text td,
+html.a11y-bold-text th {
+  font-weight: 700 !important;
+}
+
+/* Mark Headings */
+html.a11y-mark-headings h1,
+html.a11y-mark-headings h2,
+html.a11y-mark-headings h3,
+html.a11y-mark-headings h4,
+html.a11y-mark-headings h5,
+html.a11y-mark-headings h6 {
+  outline: 2px solid #0A0A0F !important;
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+/* Mark Links */
+html.a11y-mark-links a {
+  text-decoration: underline !important;
+  text-decoration-thickness: 2px !important;
+  text-underline-offset: 3px !important;
+  outline: 2px solid currentColor !important;
+  outline-offset: 2px;
+  border-radius: 2px;
+}

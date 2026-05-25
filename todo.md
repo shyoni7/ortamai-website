@@ -115,3 +115,15 @@
 - [x] Update NotFound page
 - [x] Update PrivacyPolicy page
 - [x] Fix HologramCube old blue face gradients
+
+## Accessibility Widget Full Panel
+- [x] Build full accessibility panel with all controls (matching screenshot)
+- [x] Add toggle rows: ניגודיות מוקדמת, ביטול אנימציות, Contrast
+- [x] Add font size +/- control with percentage display
+- [x] Add toggle rows: נטוי קריא, סימון כותרות, סימון קישורים והיצמדים
+- [x] Add links to הצהרת נגישות and מפת האתר
+- [x] Add אפס הגדרות נגישות reset button
+- [x] Persist preferences to localStorage
+- [x] Apply CSS classes to <html> for each accessibility feature
+- [x] Add CSS rules for a11y-high-contrast, a11y-no-animations, a11y-bold-text, a11y-mark-headings, a11y-mark-links
+- [x] RTL Hebrew panel layout with white background matching screenshot
