@@ -199,7 +199,7 @@ export default function Home() {
               initial={{ opacity: 0, y: 40 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1.2, delay: 0.4, type: 'spring', stiffness: 60 }}
-              className="relative order-2 pt-2 pb-2 px-1 md:pt-8 md:pb-8 md:px-6"
+              className="relative order-2 pt-2 pb-2 px-1 md:pt-8 md:pb-8 md:px-6 hidden sm:block"
             >
               {/* Floating badge — top right of video column — hidden on small mobile */}
               <motion.div

@@ -93,11 +93,11 @@
 - [x] Replace purple in AccessibilityWidget.tsx
 
 ## Mobile Hero Polish (Round 2)
-- [ ] Home: hero fits in first viewport on mobile, no overflow
-- [ ] About: hero fits in first viewport on mobile
-- [ ] Incubator: hero fits in first viewport on mobile
-- [ ] Academy: hero fits in first viewport on mobile
-- [ ] Placement: hero fits in first viewport on mobile
-- [ ] Contact: hero fits in first viewport on mobile
-- [ ] Global: nav height consistent, no elements hidden behind nav
-- [ ] Global: all section paddings tightened for mobile
+- [x] Home: hero fits in first viewport on mobile, no overflow
+- [x] About: hero fits in first viewport on mobile
+- [x] Incubator: hero fits in first viewport on mobile
+- [x] Academy: hero fits in first viewport on mobile
+- [x] Placement: hero fits in first viewport on mobile
+- [x] Contact: hero fits in first viewport on mobile
+- [x] Global: nav height consistent, no elements hidden behind nav
+- [x] Global: all section paddings tightened for mobile

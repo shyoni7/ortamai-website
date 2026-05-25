@@ -18,7 +18,7 @@ export default function AccessibilityStatement() {
             {isRtl ? 'עודכן: 15/11/2025' : 'Updated: 15/11/2025'}
           </motion.p>
 
-          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }} className="glass rounded-2xl p-8 space-y-6 text-gray-300 leading-relaxed">
+          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }} className="glass rounded-2xl p-5 md:p-8 space-y-6 text-gray-300 leading-relaxed">
             {isRtl ? (
               <>
                 <p>ORTAM AI מחויבת לנגישות דיגיטלית ומשתדלת לאפשר לאנשים עם מוגבלויות להשתמש באתר שלנו בצורה נוחה ומלאה.</p>

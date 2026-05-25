@@ -40,7 +40,7 @@ export default function Contact() {
   return (
     <div dir={dir}>
       {/* Hero */}
-      <section className="relative flex items-center justify-center overflow-hidden" style={{ minHeight: '60svh', background: 'linear-gradient(135deg, #f0f4fb 0%, #ffffff 40%, #eaf0f8 70%, #dce8f5 100%)' }}>
+      <section className="relative flex items-center justify-center overflow-hidden" style={{ minHeight: '70svh', background: 'linear-gradient(135deg, #f0f4fb 0%, #ffffff 40%, #eaf0f8 70%, #dce8f5 100%)' }}>
         {/* Dot-grid */}
         <div className="absolute inset-0" style={{ backgroundImage: 'radial-gradient(circle, #4B6CB720 1px, transparent 1px)', backgroundSize: '32px 32px' }} />
         {/* Sphere accents */}

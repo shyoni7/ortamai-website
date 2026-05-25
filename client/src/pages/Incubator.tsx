@@ -307,8 +307,8 @@ export default function Incubator() {
             </motion.div>
           </div>
 
-          {/* CTA with atom sphere row */}
-          <div className={`flex flex-col md:items-center md:gap-10 gap-8 ${isRtl ? 'md:flex-row-reverse' : 'md:flex-row'}`}>
+          {/* CTA with atom sphere row — hidden on mobile to keep hero in first viewport */}
+          <div className={`hidden md:flex md:items-center md:gap-10 ${isRtl ? 'md:flex-row-reverse' : 'md:flex-row'}`}>
 
             {/* ── 3D AI Atom Sphere ── */}
             <motion.div

@@ -104,7 +104,7 @@ export default function About() {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.1 }}
-              className="text-4xl sm:text-5xl lg:text-7xl font-bold text-gray-900 mb-6 leading-tight"
+              className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-bold text-gray-900 mb-4 md:mb-6 leading-tight"
             >
               {isRtl ? (
                 <>
@@ -122,7 +122,7 @@ export default function About() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.25 }}
-              className="text-lg md:text-xl text-gray-600 mb-8 leading-relaxed max-w-xl"
+              className="text-base md:text-lg lg:text-xl text-gray-600 mb-5 md:mb-8 leading-relaxed max-w-xl"
             >
               {isRtl
                 ? 'אנחנו מאמינים שה-AI הוא לא רק טכנולוגיה – זו מהפכה. אנחנו כאן כדי להוביל אותה יחד איתך.'
@@ -152,14 +152,14 @@ export default function About() {
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.55 }}
-            className="mt-16 md:mt-20 grid grid-cols-2 md:grid-cols-4 gap-4"
+            className="hidden sm:grid mt-8 md:mt-16 lg:mt-20 grid-cols-2 md:grid-cols-4 gap-3 md:gap-4"
           >
             {stats.map((s, i) => {
               const Icon = s.icon;
               return (
                 <div
                   key={i}
-                  className="bg-white/70 backdrop-blur-sm border border-blue-100 rounded-2xl p-4 md:p-5 flex flex-col items-center text-center shadow-sm"
+                  className="bg-white/70 backdrop-blur-sm border border-blue-100 rounded-2xl p-3 md:p-5 flex flex-col items-center text-center shadow-sm"
                 >
                   <div className="inline-flex p-2 rounded-xl bg-blue-50 mb-3">
                     <Icon className="w-5 h-5 text-blue-700" />
