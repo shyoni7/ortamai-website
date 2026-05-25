@@ -15,6 +15,7 @@ const TEAM = [
     name: { he: 'אריאל אלבוים', en: 'Ariel Alboim' },
     role: { he: 'ראש מחלקת הכשרות', en: 'Head of Training' },
     img: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663445418346/oDFneUKwvw2xJYXYaumUdB/d27b06cde_105_2760d0fa.jpg',
+    imgPosition: 'object-top',
   },
   {
     name: { he: 'יונתן גרבינסקי', en: 'Yonatan Grabinski' },
@@ -151,7 +152,7 @@ export default function About() {
                 className="bg-white border border-gray-200 rounded-2xl shadow-sm overflow-hidden hover:border-purple-300 transition-all group"
               >
                 <div className="relative h-56 overflow-hidden">
-                  <img src={member.img} alt={member.name[lang]} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                  <img src={member.img} alt={member.name[lang]} className={`w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ${'imgPosition' in member ? (member as any).imgPosition : 'object-center'}`} />
                   <div className="absolute inset-0 bg-gradient-to-t from-gray-900/50 to-transparent" />
                 </div>
                 <div className="p-4 text-center">
