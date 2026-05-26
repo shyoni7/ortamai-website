@@ -10,6 +10,8 @@ import {
 import { useLanguage } from '@/contexts/LanguageContext';
 import { trpc } from '@/lib/trpc';
 import ScrollDownArrow from '@/components/ScrollDownArrow';
+import SEO from '@/components/SEO';
+import { incubatorServiceSchema } from '@/lib/seoSchemas';
 
 // ─── Reusable animation variants ─────────────────────────────────────────────
 const fadeUp = {
@@ -214,6 +216,15 @@ export default function Incubator() {
   const c = isRtl ? CONTENT.he : CONTENT.en;
 
   return (
+    <>
+    <SEO
+      title={isRtl ? 'אקסלרטור AI ליזמים ועסקים | ORTAM AI' : 'AI Accelerator for Startups & Businesses | ORTAM AI'}
+      description={isRtl
+        ? 'אקסלרטור AI ליזמים ועסקים: אבחון עסקי, פיילוטים מהירים, בניית מוצרים מבוססי AI וליווי מקצועי עד יישום. הטמעת AI בארגון שלך בצורה מהירה ויעילה.'
+        : 'AI accelerator for startups and businesses: business diagnostics, rapid pilots, AI product development, and hands-on implementation guidance.'}
+      canonical="/incubator"
+      schema={incubatorServiceSchema}
+    />
     <div dir={dir} className="bg-white">
       {/* ── Hero ─────────────────────────────────────────────────────────── */}
       <section
@@ -706,13 +717,14 @@ export default function Incubator() {
         </div>
       </section>
 
-      {/* ── Consultation Form ─────────────────────────────────────────────── */}
+      {/* ── Consultation Form ──────────────────────────────────────────────────── */}
       <ConsultationForm isRtl={isRtl} />
     </div>
+    </>
   );
 }
 
-// ─── Consultation Form Component ─────────────────────────────────────────────
+// ─── Consultation Form Component ────────────────────────────────────────────────────
 function ConsultationForm({ isRtl }: { isRtl: boolean }) {
   const [form, setForm] = useState({ businessName: '', firstName: '', email: '', phone: '', about: '' });
   const [submitted, setSubmitted] = useState(false);

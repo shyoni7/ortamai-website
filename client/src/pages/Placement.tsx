@@ -6,6 +6,8 @@ import { useLanguage } from '@/contexts/LanguageContext';
 import { trpc } from '@/lib/trpc';
 import { toast } from 'sonner';
 import ScrollDownArrow from '@/components/ScrollDownArrow';
+import SEO from '@/components/SEO';
+import { placementServiceSchema } from '@/lib/seoSchemas';
 
 const fadeUp = { hidden: { opacity: 0, y: 30 }, visible: { opacity: 1, y: 0, transition: { duration: 0.7 } } };
 const stagger = { hidden: {}, visible: { transition: { staggerChildren: 0.12 } } };
@@ -119,6 +121,15 @@ export default function Placement() {
   const inputClass = `w-full px-4 py-3 rounded-xl bg-gray-50 border border-gray-200 text-gray-900 placeholder-gray-400 focus:outline-none focus:border-gray-200 focus:bg-white transition-all`;
 
   return (
+    <>
+    <SEO
+      title={isRtl ? 'מרכז השמה מוכוון AI | מציאת עבודה בעידן AI | ORTAM AI' : 'AI-Driven Placement Center | Find AI-Ready Jobs | ORTAM AI'}
+      description={isRtl
+        ? 'מרכז השמה מוכוון AI: מציאת עבודה למועמדים שעברו הכשרת AI, וחיבור בין ארגונים לעובדים בעידן AI. שלח קורות חיים והתחל את הקריירה שלך בעולם ה-AI.'
+        : 'AI-driven placement center connecting AI-trained candidates with forward-thinking organizations. Submit your CV and start your AI career.'}
+      canonical="/placement"
+      schema={placementServiceSchema}
+    />
     <div dir={dir}>
       {/* Hero */}
       <section
@@ -510,5 +521,6 @@ export default function Placement() {
         </div>
       </section>
     </div>
+    </>
   );
 }

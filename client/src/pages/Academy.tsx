@@ -5,6 +5,8 @@ import { Clock, Users, Award, BookOpen, X, ChevronDown, ChevronUp, Building, Sta
 import { useLanguage } from '@/contexts/LanguageContext';
 import GradientButton from '@/components/GradientButton';
 import ScrollDownArrow from '@/components/ScrollDownArrow';
+import SEO from '@/components/SEO';
+import { academyServiceSchema } from '@/lib/seoSchemas';
 
 const CDN = 'https://d2xsxph8kpxj0f.cloudfront.net/310519663445418346/oDFneUKwvw2xJYXYaumUdB';
 const AI_TRAINING_IMAGE = `${CDN}/81fe03d01_create_a_professional_and_modern_image_for_a_website_that_promotes_ai_training_programs_the_image_s_y01604j7g7gqe2rbe6tu_0_2b7c34bf.png`;
@@ -392,6 +394,15 @@ export default function Academy() {
   };
 
   return (
+    <>
+    <SEO
+      title={isRtl ? 'קורסי AI לארגונים ועסקים | מרכז הכשרות ORTAM AI' : 'AI Courses for Organizations & Businesses | ORTAM AI Academy'}
+      description={isRtl
+        ? 'הכשרות AI מעשיות לארגונים, מנהלים, צוותי שיווק, פיננסים ומשאבי אנוש. קורס AI למורים, בינה מלאכותית בחינוך, הכשרת AI לעולם העבודה החדש. פתוח משרד החינוך.'
+        : 'Practical AI training for organizations, managers, marketing, finance, and HR teams. AI courses for teachers, AI in education, and workforce upskilling. Ministry of Education certified.'}
+      canonical="/academy"
+      schema={academyServiceSchema}
+    />
     <div dir={dir} className="min-h-screen">
       {/* Hero + Training Programs — unified single section */}
       <section className="relative overflow-hidden flex flex-col justify-center" style={{ minHeight: '100svh' }}>
@@ -871,5 +882,6 @@ export default function Academy() {
         )}
       </AnimatePresence>
     </div>
+    </>
   );
 }

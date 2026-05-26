@@ -4,6 +4,8 @@ import { Mail, Phone, MapPin, Send } from 'lucide-react';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { trpc } from '@/lib/trpc';
 import { toast } from 'sonner';
+import SEO from '@/components/SEO';
+import { contactPageSchema } from '@/lib/seoSchemas';
 
 
 
@@ -38,6 +40,15 @@ export default function Contact() {
   };
 
   return (
+    <>
+    <SEO
+      title={isRtl ? 'צור קשר | ORTAM AI' : 'Contact Us | ORTAM AI'}
+      description={isRtl
+        ? 'צור קשר עם ORTAM AI. אימייל: info@ortamai.com | טלפון: 052-338-1822. נשמח לעזור בהטמעת AI, הכשרות והשמה לארגונך.'
+        : 'Contact ORTAM AI. Email: info@ortamai.com | Phone: 052-338-1822. We are happy to help with AI integration, training, and placement for your organization.'}
+      canonical="/contact"
+      schema={contactPageSchema}
+    />
     <div dir={dir}>
       {/* Hero */}
       <section className="relative flex items-center justify-center overflow-hidden" style={{ minHeight: '70svh', background: '#08080C' }}>
@@ -309,5 +320,6 @@ export default function Contact() {
         </div>
       </section>
     </div>
+    </>
   );
 }

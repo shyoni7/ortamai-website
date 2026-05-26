@@ -1,0 +1,16 @@
+User-agent: *
+Allow: /
+
+# Block internal/admin paths
+Disallow: /api/
+Disallow: /admin/
+Disallow: /AdminDashboard
+Disallow: /dashboard/
+Disallow: /management/
+Disallow: /component-showcase
+
+# Block query strings that create duplicate content
+Disallow: /*?*
+
+# Sitemap location
+Sitemap: https://ortamai.com/sitemap.xml

@@ -4,6 +4,8 @@ import { ArrowLeft, ArrowRight, Zap, Users, Briefcase, CheckCircle, Star, Award,
 import { useLanguage } from '@/contexts/LanguageContext';
 import MetallicSphere, { SphereVariant } from '@/components/MetallicSphere';
 import ScrollDownArrow from '@/components/ScrollDownArrow';
+import SEO from '@/components/SEO';
+import { organizationSchema, websiteSchema } from '@/lib/seoSchemas';
 
 const HERO_VIDEO = 'https://files.manuscdn.com/user_upload_by_module/session_file/310519663445418346/sLtfKJCObxnFJgJI.mp4';
 const HERO_IMAGE = 'https://d2xsxph8kpxj0f.cloudfront.net/310519663445418346/oDFneUKwvw2xJYXYaumUdB/a00800906_______________ai______________1ztf6h7ulzz1cg0t1nwp_1_450c2a58.png';
@@ -93,6 +95,15 @@ export default function Home() {
   ];
 
   return (
+    <>
+    <SEO
+      title={isRtl ? 'המרכז לפיתוח AI בישראל | חממה, הכשרות והשמה' : 'AI Development Center Israel | Incubator, Training & Placement'}
+      description={isRtl
+        ? 'ORTAM AI — הגשר בין העולם הישן לעולם ה-AI. חממה טכנולוגית, קורסי AI לארגונים ועסקים, ומרכז השמה מוכוון AI. מוביל בישראל.'
+        : 'ORTAM AI — Israel\'s leading AI development center. Tech incubator, AI training for organizations, and AI-driven placement center.'}
+      canonical="/"
+      schema={[organizationSchema, websiteSchema]}
+    />
     <div dir={dir}>
 
       {/* ══════════════════════════════════════════
@@ -613,5 +624,6 @@ export default function Home() {
         </div>
       </section>
     </div>
+    </>
   );
 }

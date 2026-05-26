@@ -136,3 +136,23 @@
 - [x] Ground shadow that pulses with the float
 - [x] Replace HologramCube in Home.tsx pillars with MetallicSphere
 - [x] Assign obsidian → Accelerator, platinum → Academy, pearl → Placement
+
+## SEO Improvements
+
+- [x] Install react-helmet-async and wrap app in HelmetProvider
+- [x] Create shared SEO component with title, description, canonical, OG tags, Twitter Card, JSON-LD
+- [x] Add unique title + meta description to Home page (Hebrew + English)
+- [x] Add unique title + meta description to About page
+- [x] Add unique title + meta description to Incubator page
+- [x] Add unique title + meta description to Academy page
+- [x] Add unique title + meta description to Placement page
+- [x] Add unique title + meta description to Contact page
+- [x] Create seoSchemas.ts with Organization, WebSite, Service, Course, ContactPage JSON-LD
+- [x] Add Organization + WebSite schema to Home page
+- [x] Add Service schema to Incubator page
+- [x] Add EducationalOrganization + Course schema to Academy page
+- [x] Add Service schema to Placement page
+- [x] Add ContactPage schema to Contact page
+- [x] Create sitemap.xml in client/public with all public pages + hreflang
+- [x] Create robots.txt with Sitemap reference and admin/api disallow rules
+- [x] Add noindex to ComponentShowcase (internal dev page)

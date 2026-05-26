@@ -158,6 +158,7 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { useTheme } from "@/contexts/ThemeContext";
+import SEO from '@/components/SEO';
 import { format } from "date-fns";
 import { zhCN } from "date-fns/locale";
 import {
@@ -227,6 +228,8 @@ export default function ComponentsShowcase() {
   };
 
   return (
+    <>
+    <SEO title="Component Showcase" description="Internal component showcase" noIndex={true} />
     <div className="min-h-screen bg-background text-foreground">
       <main className="container max-w-6xl mx-auto">
         <div className="space-y-2 justify-between flex">
@@ -1433,5 +1436,6 @@ export default function ComponentsShowcase() {
         </div>
       </footer>
     </div>
+    </>
   );
 }

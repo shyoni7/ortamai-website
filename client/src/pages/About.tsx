@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import { Award, Heart, Lightbulb, Users, BookOpen, Building2, Star } from 'lucide-react';
 import { useLanguage } from '@/contexts/LanguageContext';
 import GradientButton from '@/components/GradientButton';
+import SEO from '@/components/SEO';
 
 const TEAM = [
   {
@@ -49,6 +50,14 @@ export default function About() {
   ];
 
   return (
+    <>
+    <SEO
+      title={isRtl ? 'אודות ORTAM AI | החזון, הצוות והסיפור' : 'About ORTAM AI | Vision, Team & Story'}
+      description={isRtl
+        ? 'ORTAM AI בנויה על חזון של הטמעת AI בישראל. קראו אודות הצוות, הערכים והדרך שלנו לבניית עתיד AI לארגונים, יזמים ועובדים בישראל.'
+        : 'ORTAM AI is built on a vision of embedding AI across Israel. Learn about our team, values, and mission to build an AI-ready workforce.'}
+      canonical="/about"
+    />
     <div dir={dir}>
       {/* ── HERO ── */}
       <section
@@ -292,5 +301,6 @@ export default function About() {
         </div>
       </section>
     </div>
+    </>
   );
 }
