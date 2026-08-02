@@ -5,9 +5,24 @@ import { publicProcedure, router } from "./_core/trpc";
 import { z } from "zod";
 import { getDb } from "./db";
 import { contactSubmissions, cvSubmissions, incubatorSubmissions } from "../drizzle/schema";
+import { ENV } from "./_core/env";
 import { notifyOwner } from "./_core/notification";
 import { storagePut } from "./storage";
-import { sendContactEmail } from "./email";
+import { sendContactEmail, sendConsultationEmail, sendCvEmail } from "./email";
+
+// The site must keep accepting form submissions even when optional backends
+// (MySQL, Manus notification/storage APIs) are unavailable — e.g. when hosted
+// on Vercel with only SMTP configured. Each submission is delivered on a
+// best-effort basis to every configured channel and fails only if none worked.
+async function attempt(label: string, fn: () => Promise<unknown>): Promise<boolean> {
+  try {
+    await fn();
+    return true;
+  } catch (err) {
+    console.error(`[${label}] delivery failed:`, err);
+    return false;
+  }
+}
 
 export const appRouter = router({
     // if you need to use socket.io, read and register route in server/_core/index.ts, all api should start with '/api/' so that the gateway can route correctly
@@ -38,42 +53,67 @@ export const appRouter = router({
         lang: z.enum(["he", "en"]).default("he"),
       }))
       .mutation(async ({ input }) => {
-        const db = await getDb();
-        if (!db) throw new Error("Database not available");
-
         let cvUrl: string | null = null;
         let cvKey: string | null = null;
+        let cvAttachment: { filename: string; content: Buffer; contentType: string } | undefined;
 
-        // Upload CV file to S3 if provided
         if (input.cvBase64 && input.cvFileName) {
           const buffer = Buffer.from(input.cvBase64, "base64");
           const mimeType = input.cvMimeType ?? "application/octet-stream";
           const safeFileName = input.cvFileName.replace(/[^a-zA-Z0-9._-]/g, "_");
-          const result = await storagePut(
-            `cv-submissions/${Date.now()}_${safeFileName}`,
-            buffer,
-            mimeType
-          );
-          cvUrl = result.url;
-          cvKey = result.key;
+          cvAttachment = { filename: safeFileName, content: buffer, contentType: mimeType };
+
+          // Upload to Manus storage only when its credentials are configured
+          if (ENV.forgeApiUrl && ENV.forgeApiKey) {
+            await attempt("Storage", async () => {
+              const result = await storagePut(
+                `cv-submissions/${Date.now()}_${safeFileName}`,
+                buffer,
+                mimeType
+              );
+              cvUrl = result.url;
+              cvKey = result.key;
+            });
+          }
         }
 
-        await db.insert(cvSubmissions).values({
-          name: input.name,
-          email: input.email,
-          phone: input.phone ?? null,
-          role: input.role ?? null,
-          field: input.field ?? null,
-          cvUrl,
-          cvKey,
-          message: input.message ?? null,
-          lang: input.lang,
-        });
+        const emailed = await attempt("Email", () =>
+          sendCvEmail({
+            name: input.name,
+            email: input.email,
+            phone: input.phone,
+            role: input.role,
+            field: input.field,
+            message: input.message,
+            attachment: cvAttachment,
+          })
+        );
 
-        await notifyOwner({
-          title: `📄 קורות חיים חדשים מ-${input.name}`,
-          content: `שם: ${input.name}\nאימייל: ${input.email}\nטלפון: ${input.phone ?? "לא צוין"}\nתפקיד מבוקש: ${input.role ?? "לא צוין"}\nתחום: ${input.field ?? "לא צוין"}\n${cvUrl ? `קישור לקורות חיים: ${cvUrl}` : "לא צורף קובץ"}\n\nהודעה:\n${input.message ?? "ללא הודעה"}`,
-        });
+        const db = await getDb();
+        const stored = db
+          ? await attempt("DB", () =>
+              db.insert(cvSubmissions).values({
+                name: input.name,
+                email: input.email,
+                phone: input.phone ?? null,
+                role: input.role ?? null,
+                field: input.field ?? null,
+                cvUrl,
+                cvKey,
+                message: input.message ?? null,
+                lang: input.lang,
+              })
+            )
+          : false;
+
+        await attempt("Notification", () =>
+          notifyOwner({
+            title: `📄 קורות חיים חדשים מ-${input.name}`,
+            content: `שם: ${input.name}\nאימייל: ${input.email}\nטלפון: ${input.phone ?? "לא צוין"}\nתפקיד מבוקש: ${input.role ?? "לא צוין"}\nתחום: ${input.field ?? "לא צוין"}\n${cvUrl ? `קישור לקורות חיים: ${cvUrl}` : "לא צורף קובץ"}\n\nהודעה:\n${input.message ?? "ללא הודעה"}`,
+          })
+        );
+
+        if (!stored && !emailed) throw new Error("Submission could not be delivered");
 
         return { success: true };
       }),
@@ -90,22 +130,38 @@ export const appRouter = router({
         lang: z.enum(["he", "en"]).default("he"),
       }))
       .mutation(async ({ input }) => {
+        const emailed = await attempt("Email", () =>
+          sendConsultationEmail({
+            businessName: input.businessName,
+            firstName: input.firstName,
+            email: input.email,
+            phone: input.phone,
+            about: input.about,
+          })
+        );
+
         const db = await getDb();
-        if (!db) throw new Error("Database not available");
+        const stored = db
+          ? await attempt("DB", () =>
+              db.insert(incubatorSubmissions).values({
+                businessName: input.businessName,
+                firstName: input.firstName,
+                email: input.email,
+                phone: input.phone,
+                about: input.about ?? null,
+                lang: input.lang,
+              })
+            )
+          : false;
 
-        await db.insert(incubatorSubmissions).values({
-          businessName: input.businessName,
-          firstName: input.firstName,
-          email: input.email,
-          phone: input.phone,
-          about: input.about ?? null,
-          lang: input.lang,
-        });
+        await attempt("Notification", () =>
+          notifyOwner({
+            title: `🚀 בקשת ייעוץ חדשה מ-${input.firstName} (${input.businessName})`,
+            content: `שם פרטי: ${input.firstName}\nשם עסק: ${input.businessName}\nאימייל: ${input.email}\nטלפון: ${input.phone}\n\nעל העסק:\n${input.about ?? "לא צוין"}`,
+          })
+        );
 
-        await notifyOwner({
-          title: `🚀 בקשת ייעוץ חדשה מ-${input.firstName} (${input.businessName})`,
-          content: `שם פרטי: ${input.firstName}\nשם עסק: ${input.businessName}\nאימייל: ${input.email}\nטלפון: ${input.phone}\n\nעל העסק:\n${input.about ?? "לא צוין"}`,
-        });
+        if (!stored && !emailed) throw new Error("Submission could not be delivered");
 
         return { success: true };
       }),
@@ -122,36 +178,38 @@ export const appRouter = router({
         lang: z.enum(["he", "en"]).default("he"),
       }))
       .mutation(async ({ input }) => {
-        const db = await getDb();
-        if (!db) throw new Error("Database not available");
-
-        await db.insert(contactSubmissions).values({
-          name: input.name,
-          email: input.email,
-          phone: input.phone ?? null,
-          company: input.company ?? null,
-          message: input.message,
-          lang: input.lang,
-        });
-
-        await notifyOwner({
-          title: `📬 פנייה חדשה מ-${input.name}`,
-          content: `שם: ${input.name}\nאימייל: ${input.email}\nטלפון: ${input.phone ?? "לא צוין"}\nחברה: ${input.company ?? "לא צוין"}\n\nהודעה:\n${input.message}`,
-        });
-
-        // Send email notification via Gmail SMTP
-        try {
-          await sendContactEmail({
+        const emailed = await attempt("Email", () =>
+          sendContactEmail({
             name: input.name,
             email: input.email,
             phone: input.phone,
             subject: input.company ? `פנייה מ-${input.company}` : 'פנייה מהאתר',
             message: input.message,
-          });
-        } catch (emailErr) {
-          console.error('[Email] Failed to send contact email:', emailErr);
-          // Don't throw — form submission already saved to DB
-        }
+          })
+        );
+
+        const db = await getDb();
+        const stored = db
+          ? await attempt("DB", () =>
+              db.insert(contactSubmissions).values({
+                name: input.name,
+                email: input.email,
+                phone: input.phone ?? null,
+                company: input.company ?? null,
+                message: input.message,
+                lang: input.lang,
+              })
+            )
+          : false;
+
+        await attempt("Notification", () =>
+          notifyOwner({
+            title: `📬 פנייה חדשה מ-${input.name}`,
+            content: `שם: ${input.name}\nאימייל: ${input.email}\nטלפון: ${input.phone ?? "לא צוין"}\nחברה: ${input.company ?? "לא צוין"}\n\nהודעה:\n${input.message}`,
+          })
+        );
+
+        if (!stored && !emailed) throw new Error("Submission could not be delivered");
 
         return { success: true };
       }),
