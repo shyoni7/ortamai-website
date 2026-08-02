@@ -1,0 +1,27 @@
+// Express app for the Vercel serverless function (OAuth callback + tRPC).
+// Bundled by `pnpm build` into dist/server-app.mjs, which api/index.mjs
+// re-exports so the function has no unresolved relative imports at runtime.
+// The long-running server in server/_core/index.ts is for local dev only.
+import "dotenv/config";
+import express from "express";
+import { createExpressMiddleware } from "@trpc/server/adapters/express";
+import { registerOAuthRoutes } from "./_core/oauth";
+import { appRouter } from "./routers";
+import { createContext } from "./_core/context";
+
+const app = express();
+
+app.use(express.json({ limit: "50mb" }));
+app.use(express.urlencoded({ limit: "50mb", extended: true }));
+
+registerOAuthRoutes(app);
+
+app.use(
+  "/api/trpc",
+  createExpressMiddleware({
+    router: appRouter,
+    createContext,
+  })
+);
+
+export default app;
