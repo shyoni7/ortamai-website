@@ -687,7 +687,7 @@ export default function Academy() {
                         </GradientButton>
                       </a>
                     ) : (
-                      <GradientButton href="/contact" size="sm" className="w-full justify-center">
+                      <GradientButton href="/courses" size="sm" className="w-full justify-center">
                         {isRtl ? 'הירשם לקורס' : 'Enroll Now'}
                       </GradientButton>
                     )}

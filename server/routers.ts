@@ -2,13 +2,30 @@ import { COOKIE_NAME } from "@shared/const";
 import { getSessionCookieOptions } from "./_core/cookies";
 import { systemRouter } from "./_core/systemRouter";
 import { publicProcedure, router } from "./_core/trpc";
+import { TRPCError } from "@trpc/server";
+import { asc, desc, eq } from "drizzle-orm";
 import { z } from "zod";
 import { getDb } from "./db";
-import { contactSubmissions, cvSubmissions, incubatorSubmissions } from "../drizzle/schema";
+import { contactSubmissions, courseOrders, courses, cvSubmissions, incubatorSubmissions } from "../drizzle/schema";
+import { DEFAULT_COURSES } from "../shared/defaultCourses";
 import { ENV } from "./_core/env";
 import { notifyOwner } from "./_core/notification";
 import { storagePut } from "./storage";
-import { sendContactEmail, sendConsultationEmail, sendCvEmail } from "./email";
+import {
+  sendContactEmail,
+  sendConsultationEmail,
+  sendCourseOrderConfirmationEmail,
+  sendCourseOrderEmail,
+  sendCvEmail,
+} from "./email";
+import {
+  clearAdminCookie,
+  isAdminConfigured,
+  isAdminRequest,
+  setAdminCookie,
+  verifyAdminPassword,
+} from "./adminAuth";
+import { ensureCourseTables, seedDefaultCourses } from "./coursesDb";
 
 // The site must keep accepting form submissions even when optional backends
 // (MySQL, Manus notification/storage APIs) are unavailable — e.g. when hosted
@@ -23,6 +40,33 @@ async function attempt(label: string, fn: () => Promise<unknown>): Promise<boole
     return false;
   }
 }
+
+// Guards procedures behind the password-cookie admin session (see adminAuth.ts).
+const adminOnly = publicProcedure.use(async ({ ctx, next }) => {
+  if (!isAdminRequest(ctx.req)) {
+    throw new TRPCError({ code: "UNAUTHORIZED", message: "Admin session required" });
+  }
+  return next();
+});
+
+const courseFieldsInput = z.object({
+  section: z.enum(["courses", "lessons", "subsidized"]),
+  title: z.string().min(1).max(255),
+  titleEn: z.string().max(255).nullish(),
+  subtitle: z.string().max(255).nullish(),
+  subtitleEn: z.string().max(255).nullish(),
+  description: z.string().max(5000).nullish(),
+  descriptionEn: z.string().max(5000).nullish(),
+  price: z.number().int().min(0).max(1000000),
+  originalPrice: z.number().int().min(0).max(1000000).nullish(),
+  priceUnit: z.enum(["course", "lesson"]),
+  badge: z.string().max(100).nullish(),
+  badgeEn: z.string().max(100).nullish(),
+  audience: z.string().max(255).nullish(),
+  audienceEn: z.string().max(255).nullish(),
+  sortOrder: z.number().int().min(0).max(10000),
+  visible: z.boolean(),
+});
 
 export const appRouter = router({
     // if you need to use socket.io, read and register route in server/_core/index.ts, all api should start with '/api/' so that the gateway can route correctly
@@ -164,6 +208,181 @@ export const appRouter = router({
         if (!stored && !emailed) throw new Error("Submission could not be delivered");
 
         return { success: true };
+      }),
+  }),
+
+  courses: router({
+    list: publicProcedure.query(async () => {
+      const db = await getDb();
+      if (db) {
+        try {
+          await ensureCourseTables();
+          const rows = await db
+            .select()
+            .from(courses)
+            .where(eq(courses.visible, true))
+            .orderBy(asc(courses.sortOrder), asc(courses.id));
+          if (rows.length > 0) return rows;
+        } catch (err) {
+          console.error("[Courses] DB read failed, using default catalog:", err);
+        }
+      }
+      return DEFAULT_COURSES.filter(c => c.visible).map((c, i) => ({ ...c, id: -(i + 1) }));
+    }),
+
+    submitOrder: publicProcedure
+      .input(z.object({
+        courseSlug: z.string().max(64).optional(),
+        courseTitle: z.string().min(1).max(255),
+        type: z.enum(["booking", "eligibility_check"]),
+        name: z.string().min(2).max(255),
+        email: z.string().email().max(320),
+        phone: z.string().min(5).max(50),
+        message: z.string().max(3000).optional(),
+        lang: z.enum(["he", "en"]).default("he"),
+      }))
+      .mutation(async ({ input }) => {
+        const payload = {
+          type: input.type,
+          courseTitle: input.courseTitle,
+          name: input.name,
+          email: input.email,
+          phone: input.phone,
+          message: input.message,
+        };
+
+        const emailed = await attempt("Email", () => sendCourseOrderEmail(payload));
+
+        const db = await getDb();
+        const stored = db
+          ? await attempt("DB", async () => {
+              await ensureCourseTables();
+              await db.insert(courseOrders).values({
+                courseSlug: input.courseSlug ?? null,
+                courseTitle: input.courseTitle,
+                type: input.type,
+                name: input.name,
+                email: input.email,
+                phone: input.phone,
+                message: input.message ?? null,
+                lang: input.lang,
+              });
+            })
+          : false;
+
+        await attempt("Notification", () =>
+          notifyOwner({
+            title:
+              input.type === "eligibility_check"
+                ? `🤝 בקשת בדיקת זכאות: ${input.courseTitle} — ${input.name}`
+                : `🎓 הזמנת קורס חדשה: ${input.courseTitle} — ${input.name}`,
+            content: `קורס: ${input.courseTitle}\nשם: ${input.name}\nאימייל: ${input.email}\nטלפון: ${input.phone}\n\nהודעה:\n${input.message ?? "ללא הודעה"}`,
+          })
+        );
+
+        if (!stored && !emailed) throw new Error("Submission could not be delivered");
+
+        // Customer confirmation is a courtesy — never fail the order over it.
+        await attempt("ConfirmationEmail", () => sendCourseOrderConfirmationEmail(payload));
+
+        return { success: true };
+      }),
+  }),
+
+  admin: router({
+    me: publicProcedure.query(async ({ ctx }) => ({
+      isAdmin: isAdminRequest(ctx.req),
+      configured: isAdminConfigured(),
+      dbAvailable: Boolean(await getDb()),
+    })),
+
+    login: publicProcedure
+      .input(z.object({ password: z.string().min(1).max(255) }))
+      .mutation(async ({ ctx, input }) => {
+        if (!isAdminConfigured()) {
+          throw new TRPCError({
+            code: "PRECONDITION_FAILED",
+            message: "ADMIN_PASSWORD is not configured on the server",
+          });
+        }
+        if (!verifyAdminPassword(input.password)) {
+          throw new TRPCError({ code: "UNAUTHORIZED", message: "Wrong password" });
+        }
+        setAdminCookie(ctx.req, ctx.res);
+        return { success: true } as const;
+      }),
+
+    logout: publicProcedure.mutation(({ ctx }) => {
+      clearAdminCookie(ctx.req, ctx.res);
+      return { success: true } as const;
+    }),
+
+    listCourses: adminOnly.query(async () => {
+      const db = await getDb();
+      if (!db) return { dbAvailable: false as const, courses: [] };
+      await ensureCourseTables();
+      // First admin visit on an empty table: load the built-in catalog so
+      // editing starts from the real content instead of a blank screen.
+      await seedDefaultCourses();
+      const rows = await db
+        .select()
+        .from(courses)
+        .orderBy(asc(courses.section), asc(courses.sortOrder), asc(courses.id));
+      return { dbAvailable: true as const, courses: rows };
+    }),
+
+    createCourse: adminOnly
+      .input(courseFieldsInput)
+      .mutation(async ({ input }) => {
+        const db = await getDb();
+        if (!db) throw new TRPCError({ code: "PRECONDITION_FAILED", message: "Database not configured" });
+        await ensureCourseTables();
+        const slug = `custom-${Date.now().toString(36)}`;
+        await db.insert(courses).values({ ...input, slug });
+        return { success: true } as const;
+      }),
+
+    updateCourse: adminOnly
+      .input(courseFieldsInput.extend({ id: z.number().int().positive() }))
+      .mutation(async ({ input }) => {
+        const db = await getDb();
+        if (!db) throw new TRPCError({ code: "PRECONDITION_FAILED", message: "Database not configured" });
+        const { id, ...fields } = input;
+        await db.update(courses).set(fields).where(eq(courses.id, id));
+        return { success: true } as const;
+      }),
+
+    deleteCourse: adminOnly
+      .input(z.object({ id: z.number().int().positive() }))
+      .mutation(async ({ input }) => {
+        const db = await getDb();
+        if (!db) throw new TRPCError({ code: "PRECONDITION_FAILED", message: "Database not configured" });
+        await db.delete(courses).where(eq(courses.id, input.id));
+        return { success: true } as const;
+      }),
+
+    listOrders: adminOnly.query(async () => {
+      const db = await getDb();
+      if (!db) return { dbAvailable: false as const, orders: [] };
+      await ensureCourseTables();
+      const rows = await db
+        .select()
+        .from(courseOrders)
+        .orderBy(desc(courseOrders.createdAt))
+        .limit(500);
+      return { dbAvailable: true as const, orders: rows };
+    }),
+
+    updateOrderStatus: adminOnly
+      .input(z.object({
+        id: z.number().int().positive(),
+        status: z.enum(["new", "contacted", "closed", "not_eligible"]),
+      }))
+      .mutation(async ({ input }) => {
+        const db = await getDb();
+        if (!db) throw new TRPCError({ code: "PRECONDITION_FAILED", message: "Database not configured" });
+        await db.update(courseOrders).set({ status: input.status }).where(eq(courseOrders.id, input.id));
+        return { success: true } as const;
       }),
   }),
 
