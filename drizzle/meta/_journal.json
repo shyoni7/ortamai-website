@@ -36,6 +36,13 @@
       "when": 1786614120558,
       "tag": "0004_lazy_silver_centurion",
       "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "5",
+      "when": 1786619713840,
+      "tag": "0005_premium_dagger",
+      "breakpoints": true
     }
   ]
 }

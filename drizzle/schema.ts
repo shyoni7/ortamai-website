@@ -86,6 +86,9 @@ export const courses = mysqlTable("courses", {
   subtitleEn: varchar("subtitleEn", { length: 255 }),
   description: text("description"),
   descriptionEn: text("descriptionEn"),
+  /** Newline-separated "what you get" bullets shown on the card. */
+  highlights: text("highlights"),
+  highlightsEn: text("highlightsEn"),
   /** Price in whole shekels. */
   price: int("price").notNull(),
   /** Pre-discount price in whole shekels, shown struck through (subsidized tracks). */

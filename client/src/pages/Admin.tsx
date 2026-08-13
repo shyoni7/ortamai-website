@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { toast } from 'sonner';
 import {
   LogOut, Plus, Save, Trash2, ChevronDown, ChevronUp, Eye, EyeOff,
-  GraduationCap, Inbox, ShieldAlert, Lock, RefreshCw,
+  GraduationCap, Inbox, ShieldAlert, Lock, RefreshCw, User, Phone, Mail,
 } from 'lucide-react';
 import { trpc } from '@/lib/trpc';
 import type { CourseSection, PriceUnit } from '@shared/defaultCourses';
@@ -41,6 +41,8 @@ interface CourseDraft {
   subtitleEn: string;
   description: string;
   descriptionEn: string;
+  highlights: string;
+  highlightsEn: string;
   price: number;
   originalPrice: number | null;
   priceUnit: PriceUnit;
@@ -245,6 +247,8 @@ function CourseEditor({ course }: { course: any }) {
     subtitleEn: course.subtitleEn ?? '',
     description: course.description ?? '',
     descriptionEn: course.descriptionEn ?? '',
+    highlights: course.highlights ?? '',
+    highlightsEn: course.highlightsEn ?? '',
     price: course.price ?? 0,
     originalPrice: course.originalPrice ?? null,
     priceUnit: course.priceUnit ?? 'course',
@@ -280,6 +284,8 @@ function CourseEditor({ course }: { course: any }) {
       subtitleEn: draft.subtitleEn.trim() || null,
       description: draft.description.trim() || null,
       descriptionEn: draft.descriptionEn.trim() || null,
+      highlights: draft.highlights.trim() || null,
+      highlightsEn: draft.highlightsEn.trim() || null,
       price: draft.price,
       originalPrice: draft.originalPrice,
       priceUnit: draft.priceUnit,
@@ -332,6 +338,18 @@ function CourseEditor({ course }: { course: any }) {
             <div className="sm:col-span-2">
               <label className={labelClass}>תיאור (אנגלית)</label>
               <textarea dir="ltr" rows={2} className={inputClass} value={draft.descriptionEn} onChange={e => set('descriptionEn', e.target.value)} />
+            </div>
+            <div className="sm:col-span-2">
+              <label className={labelClass}>מה מקבלים — שורה אחת לכל נקודה (עברית)</label>
+              <textarea rows={3} className={inputClass} value={draft.highlights}
+                placeholder={'6 מפגשים חיים + הקלטות\nבונים פרויקט אמיתי\nליווי גם אחרי הקורס'}
+                onChange={e => set('highlights', e.target.value)} />
+              <p className="text-xs text-gray-400 mt-1">הנקודות האלה מוצגות בכרטיס עם סימני וי. מומלץ 3 שורות.</p>
+            </div>
+            <div className="sm:col-span-2">
+              <label className={labelClass}>מה מקבלים — שורה אחת לכל נקודה (אנגלית)</label>
+              <textarea dir="ltr" rows={3} className={inputClass} value={draft.highlightsEn}
+                onChange={e => set('highlightsEn', e.target.value)} />
             </div>
           </div>
 
@@ -447,9 +465,13 @@ function OrdersTab({ dbAvailable }: { dbAvailable: boolean }) {
                 </span>
               </div>
               <div className="text-sm text-gray-700 flex flex-wrap gap-x-6 gap-y-1 mb-2">
-                <span>👤 {order.name}</span>
-                <a href={`tel:${order.phone}`} className="hover:underline" dir="ltr">📞 {order.phone}</a>
-                <a href={`mailto:${order.email}`} className="hover:underline" dir="ltr">✉️ {order.email}</a>
+                <span className="flex items-center gap-1.5"><User className="w-4 h-4 text-gray-400" />{order.name}</span>
+                <a href={`tel:${order.phone}`} className="flex items-center gap-1.5 hover:underline" dir="ltr">
+                  <Phone className="w-4 h-4 text-gray-400" />{order.phone}
+                </a>
+                <a href={`mailto:${order.email}`} className="flex items-center gap-1.5 hover:underline" dir="ltr">
+                  <Mail className="w-4 h-4 text-gray-400" />{order.email}
+                </a>
               </div>
               {order.message && (
                 <p className="text-sm text-gray-500 bg-gray-50 rounded-lg p-3 mb-3 whitespace-pre-wrap">{order.message}</p>
