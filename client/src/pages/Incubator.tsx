@@ -61,7 +61,7 @@ function AnimatedSection({
   delay?: number;
 }) {
   const ref = useRef(null);
-  const inView = useInView(ref, { once: true, margin: '-80px' });
+  const inView = useInView(ref, { once: true, margin: '0px' });
   return (
     <motion.div
       ref={ref}
@@ -295,7 +295,8 @@ export default function Incubator() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.25 }}
-              className="text-sm md:text-lg text-gray-900 mb-5 leading-relaxed max-w-xl"
+              className="text-sm md:text-lg mb-5 leading-relaxed max-w-xl"
+              style={{ color: 'rgba(200,200,208,0.75)' }}
             >
               {c.hero_desc}
             </motion.p>
@@ -524,7 +525,8 @@ export default function Incubator() {
                 initial={{ opacity: 0, y: 15 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.45 }}
-                className="text-gray-900 text-base md:text-lg mb-7 leading-relaxed"
+                className="text-base md:text-lg mb-7 leading-relaxed"
+                style={{ color: 'rgba(200,200,208,0.75)' }}
               >
                 {isRtl
                   ? 'קבעו פגישת ייעוץ עם מומחי ה-AI של ORTAM.'
@@ -775,7 +777,7 @@ function ConsultationForm({ isRtl }: { isRtl: boolean }) {
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px", amount: 0 }}
+          viewport={{ once: true, margin: "0px", amount: 0 }}
           transition={{ duration: 0.6 }}
         >
           <h2 className="text-3xl md:text-4xl font-bold text-white mb-3 text-center">{labels.title}</h2>

@@ -11,8 +11,6 @@ import { toast } from 'sonner';
 
 type CourseItem = CatalogCourse & { id: number };
 
-const fadeUp = { hidden: { opacity: 0, y: 30 }, visible: { opacity: 1, y: 0, transition: { duration: 0.7 } } };
-
 function formatPrice(price: number): string {
   return `₪${price.toLocaleString('he-IL')}`;
 }
@@ -50,10 +48,10 @@ export default function Courses() {
           : 'AI & Claude Code courses, group and private lessons, and subsidized community tracks — book your spot online with ORTAM AI.'}
         canonical="/courses"
       />
-      <div dir={dir} className="min-h-screen">
+      {/* One continuous obsidian canvas — no light/dark banding between sections. */}
+      <div dir={dir} className="min-h-screen" style={{ background: '#08080C' }}>
         {/* Hero */}
-        <section className="relative overflow-hidden flex flex-col justify-center" style={{ minHeight: '60svh' }}>
-          <div className="absolute inset-0" style={{ background: '#08080C' }} />
+        <section className="relative overflow-hidden flex flex-col justify-center" style={{ minHeight: '52svh' }}>
           <div className="absolute inset-0 grid-pattern opacity-20" />
           <motion.div animate={{ x: [0, 60, 0], y: [0, 30, 0] }} transition={{ duration: 10, repeat: Infinity }}
             className="absolute top-10 left-10 w-72 h-72 rounded-full blur-3xl" style={{ background: 'rgba(200,200,208,0.06)' }} />
@@ -99,10 +97,10 @@ export default function Courses() {
           </div>
         </section>
 
-        {/* Section 2: Lessons */}
-        <section className="py-16 relative">
-          <div className="absolute inset-0 bg-gradient-to-b from-transparent via-gray-800/20 to-transparent" />
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        {/* Section 2: Lessons — subtle band to separate from section 1 */}
+        <section className="py-16 relative"
+          style={{ background: 'rgba(255,255,255,0.02)', borderTop: '1px solid rgba(200,200,208,0.08)', borderBottom: '1px solid rgba(200,200,208,0.08)' }}>
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <SectionHeader
               icon={Users}
               title={isRtl ? 'שיעורים קבוצתיים ופרטיים' : 'Group & Private Lessons'}
@@ -121,11 +119,9 @@ export default function Courses() {
 
         {/* Section 3: Subsidized community tracks */}
         <section className="py-16 relative overflow-hidden">
-          <div className="absolute inset-0" style={{ background: '#08080C' }} />
           <div className="absolute inset-0 grid-pattern opacity-10" />
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-            <motion.div variants={fadeUp} initial="hidden" whileInView="visible"
-              viewport={{ once: true, margin: '-100px', amount: 0 }} className="text-center mb-4">
+            <motion.div {...reveal} className="text-center mb-4">
               <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full mb-4"
                 style={{ background: 'rgba(255,255,255,0.08)', border: '1px solid rgba(200,200,208,0.2)' }}>
                 <HeartHandshake className="w-4 h-4" style={{ color: '#C8C8D0' }} />
@@ -160,15 +156,24 @@ export default function Courses() {
   );
 }
 
+// Reveal animation that can never leave content invisible: no negative viewport
+// margin, tiny amount, and once:true — the hidden state only exists pre-scroll.
+const reveal = {
+  initial: { opacity: 0, y: 24 },
+  whileInView: { opacity: 1, y: 0 },
+  viewport: { once: true, amount: 0.01 },
+  transition: { duration: 0.5 },
+} as const;
+
 function SectionHeader({ icon: Icon, title, subtitle }: { icon: React.ElementType; title: string; subtitle: string }) {
   return (
-    <motion.div variants={fadeUp} initial="hidden" whileInView="visible"
-      viewport={{ once: true, margin: '-100px', amount: 0 }} className="text-center mb-12">
-      <div className="inline-flex p-3 rounded-xl bg-gradient-to-br from-gray-900 to-gray-900 mb-4">
-        <Icon className="w-6 h-6 text-white" />
+    <motion.div {...reveal} className="text-center mb-12">
+      <div className="inline-flex p-3 rounded-xl mb-4"
+        style={{ background: 'rgba(255,255,255,0.08)', border: '1px solid rgba(200,200,208,0.2)' }}>
+        <Icon className="w-6 h-6" style={{ color: '#C8C8D0' }} />
       </div>
-      <h2 className="text-2xl md:text-4xl font-bold text-gray-900 mb-3">{title}</h2>
-      <p className="text-gray-500 text-lg max-w-2xl mx-auto">{subtitle}</p>
+      <h2 className="text-2xl md:text-4xl font-bold text-white mb-3">{title}</h2>
+      <p className="text-lg max-w-2xl mx-auto" style={{ color: 'rgba(200,200,208,0.65)' }}>{subtitle}</p>
     </motion.div>
   );
 }
@@ -181,24 +186,25 @@ function CourseCard({ course, isRtl, onOrder }: { course: CourseItem; isRtl: boo
   const perLesson = course.priceUnit === 'lesson';
 
   return (
-    <motion.div variants={fadeUp} initial="hidden" whileInView="visible"
-      viewport={{ once: true, margin: '-60px', amount: 0 }}
-      className="bg-white border border-gray-200 rounded-2xl shadow-sm p-6 flex flex-col hover:shadow-md transition-all group">
-      <div className="flex items-start justify-between mb-3">
-        <h3 className="text-xl font-bold text-gray-900 leading-snug">{title}</h3>
+    <motion.div {...reveal}
+      className="rounded-2xl p-6 flex flex-col transition-all group hover:-translate-y-1"
+      style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(200,200,208,0.25)' }}>
+      <div className="flex items-start justify-between mb-3 gap-2">
+        <h3 className="text-xl font-bold text-white leading-snug">{title}</h3>
         {badge && (
-          <span className="flex-shrink-0 text-xs font-semibold px-3 py-1 rounded-full bg-[#1A1A22] text-[#C8C8D0] whitespace-nowrap">
+          <span className="flex-shrink-0 text-xs font-semibold px-3 py-1 rounded-full whitespace-nowrap"
+            style={{ background: 'rgba(200,200,208,0.15)', color: '#C8C8D0' }}>
             {badge}
           </span>
         )}
       </div>
-      {subtitle && <p className="text-gray-600 text-sm font-medium mb-2">{subtitle}</p>}
-      {description && <p className="text-gray-500 text-sm leading-relaxed mb-4">{description}</p>}
+      {subtitle && <p className="text-sm font-medium mb-2" style={{ color: 'rgba(200,200,208,0.85)' }}>{subtitle}</p>}
+      {description && <p className="text-sm leading-relaxed mb-4" style={{ color: 'rgba(200,200,208,0.55)' }}>{description}</p>}
 
       <div className="mt-auto">
-        <div className="flex items-baseline gap-2 mb-4">
-          <span className="text-3xl font-bold text-gray-900">{formatPrice(course.price)}</span>
-          <span className="text-sm text-gray-500">
+        <div className="flex items-baseline gap-2 mb-4 pt-4" style={{ borderTop: '1px solid rgba(200,200,208,0.12)' }}>
+          <span className="text-3xl font-bold text-white">{formatPrice(course.price)}</span>
+          <span className="text-sm" style={{ color: 'rgba(200,200,208,0.55)' }}>
             {perLesson ? (isRtl ? 'למפגש' : 'per lesson') : (isRtl ? 'לקורס המלא' : 'full course')}
           </span>
         </div>
@@ -217,8 +223,7 @@ function SubsidizedCard({ course, isRtl, onOrder }: { course: CourseItem; isRtl:
   const audience = isRtl ? course.audience : course.audienceEn ?? course.audience;
 
   return (
-    <motion.div variants={fadeUp} initial="hidden" whileInView="visible"
-      viewport={{ once: true, margin: '-60px', amount: 0 }}
+    <motion.div {...reveal}
       className="rounded-2xl p-6 flex flex-col transition-all"
       style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(200,200,208,0.25)' }}>
       <div className="flex items-start justify-between mb-3 gap-2">
