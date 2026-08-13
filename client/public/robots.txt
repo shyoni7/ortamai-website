@@ -3,6 +3,7 @@ Allow: /
 
 # Block internal/admin paths
 Disallow: /api/
+Disallow: /admin
 Disallow: /admin/
 Disallow: /AdminDashboard
 Disallow: /dashboard/

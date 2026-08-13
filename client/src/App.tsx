@@ -9,6 +9,8 @@ import Home from "./pages/Home";
 import About from "./pages/About";
 import Incubator from "./pages/Incubator";
 import Academy from "./pages/Academy";
+import Courses from "./pages/Courses";
+import Admin from "./pages/Admin";
 import Placement from "./pages/Placement";
 import Contact from "./pages/Contact";
 import AccessibilityStatement from "./pages/AccessibilityStatement";
@@ -17,12 +19,25 @@ import NotFound from "./pages/NotFound";
 
 function Router() {
   return (
+    <Switch>
+      {/* Admin lives outside the public Layout (no nav/footer/widgets). */}
+      <Route path="/admin" component={Admin} />
+      <Route>
+        <PublicRoutes />
+      </Route>
+    </Switch>
+  );
+}
+
+function PublicRoutes() {
+  return (
     <Layout>
       <Switch>
         <Route path="/" component={Home} />
         <Route path="/about" component={About} />
         <Route path="/incubator" component={Incubator} />
         <Route path="/academy" component={Academy} />
+        <Route path="/courses" component={Courses} />
         <Route path="/placement" component={Placement} />
         <Route path="/contact" component={Contact} />
         <Route path="/accessibility" component={AccessibilityStatement} />

@@ -1,0 +1,40 @@
+CREATE TABLE `course_orders` (
+	`id` int AUTO_INCREMENT NOT NULL,
+	`courseSlug` varchar(64),
+	`courseTitle` varchar(255) NOT NULL,
+	`type` enum('booking','eligibility_check') NOT NULL,
+	`name` varchar(255) NOT NULL,
+	`email` varchar(320) NOT NULL,
+	`phone` varchar(50) NOT NULL,
+	`message` text,
+	`status` enum('new','contacted','closed','not_eligible') NOT NULL DEFAULT 'new',
+	`lang` varchar(5) DEFAULT 'he',
+	`createdAt` timestamp NOT NULL DEFAULT (now()),
+	`updatedAt` timestamp NOT NULL DEFAULT (now()) ON UPDATE CURRENT_TIMESTAMP,
+	CONSTRAINT `course_orders_id` PRIMARY KEY(`id`)
+);
+--> statement-breakpoint
+CREATE TABLE `courses` (
+	`id` int AUTO_INCREMENT NOT NULL,
+	`slug` varchar(64) NOT NULL,
+	`section` enum('courses','lessons','subsidized') NOT NULL,
+	`title` varchar(255) NOT NULL,
+	`titleEn` varchar(255),
+	`subtitle` varchar(255),
+	`subtitleEn` varchar(255),
+	`description` text,
+	`descriptionEn` text,
+	`price` int NOT NULL,
+	`originalPrice` int,
+	`priceUnit` enum('course','lesson') NOT NULL DEFAULT 'course',
+	`badge` varchar(100),
+	`badgeEn` varchar(100),
+	`audience` varchar(255),
+	`audienceEn` varchar(255),
+	`sortOrder` int NOT NULL DEFAULT 0,
+	`visible` boolean NOT NULL DEFAULT true,
+	`createdAt` timestamp NOT NULL DEFAULT (now()),
+	`updatedAt` timestamp NOT NULL DEFAULT (now()) ON UPDATE CURRENT_TIMESTAMP,
+	CONSTRAINT `courses_id` PRIMARY KEY(`id`),
+	CONSTRAINT `courses_slug_unique` UNIQUE(`slug`)
+);

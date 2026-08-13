@@ -30,6 +30,15 @@
   </url>
 
   <url>
+    <loc>https://ortamai.com/courses</loc>
+    <lastmod>2026-08-13</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="he" href="https://ortamai.com/courses"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ortamai.com/courses"/>
+  </url>
+
+  <url>
     <loc>https://ortamai.com/placement</loc>
     <lastmod>2025-01-01</lastmod>
     <changefreq>monthly</changefreq>
