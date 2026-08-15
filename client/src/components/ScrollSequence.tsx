@@ -29,6 +29,12 @@ interface ScrollSequenceProps {
   mobileFrames: number;
   /** Pinned scroll length, in viewport heights. */
   heightVh?: number;
+  /**
+   * Progress points where the footage has a deliberate cut (trimmed frames).
+   * A brief dark flash is rendered around each so the jump reads as a scene
+   * transition rather than a glitch.
+   */
+  cutAt?: number[];
   children?: React.ReactNode;
 }
 
@@ -37,7 +43,7 @@ function frameUrl(name: string, variant: 'd' | 'm', index: number): string {
 }
 
 export default function ScrollSequence({
-  name, desktopFrames, mobileFrames, heightVh = 450, children,
+  name, desktopFrames, mobileFrames, heightVh = 450, cutAt = [], children,
 }: ScrollSequenceProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -172,6 +178,13 @@ export default function ScrollSequence({
           <img src={`/seq/${name}/poster.jpg`} alt="" aria-hidden
             className="absolute inset-0 w-full h-full object-cover" />
           <canvas ref={canvasRef} className="absolute inset-0 w-full h-full" />
+          {cutAt.map(cut => {
+            const flash = Math.max(0, 1 - Math.abs(progress - cut) / 0.03);
+            return flash > 0 ? (
+              <div key={cut} aria-hidden className="absolute inset-0 pointer-events-none"
+                style={{ background: '#08080C', opacity: flash * 0.92 }} />
+            ) : null;
+          })}
           {children}
         </div>
       </div>

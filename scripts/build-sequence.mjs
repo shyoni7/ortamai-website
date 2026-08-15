@@ -3,7 +3,11 @@
 // so this script never runs during deploys — only locally when footage changes.
 //
 // Usage:
-//   node scripts/build-sequence.mjs <video-file> [outName]
+//   node scripts/build-sequence.mjs <video-file> [outName] [--keep a-b,c-d]
+//
+// --keep limits output to the given SOURCE frame ranges (inclusive, 0-based),
+// e.g. --keep 0-49,144-216 drops the middle of the shot. Output files always
+// renumber sequentially from 0001.
 //
 // ffmpeg resolution order: FFMPEG_PATH env var → ffmpeg-static package (if
 // installed anywhere ffmpeg-static can be resolved) → `ffmpeg` on PATH.
@@ -21,11 +25,26 @@ function resolveFfmpeg() {
   }
 }
 
-const [, , input, outName = "hero"] = process.argv;
+const args = process.argv.slice(2);
+const keepIdx = args.indexOf("--keep");
+const keepArg = keepIdx >= 0 ? args.splice(keepIdx, 2)[1] : null;
+const [input, outName = "hero"] = args;
 if (!input) {
-  console.error("Usage: node scripts/build-sequence.mjs <video-file> [outName]");
+  console.error("Usage: node scripts/build-sequence.mjs <video-file> [outName] [--keep a-b,c-d]");
   process.exit(1);
 }
+
+// "0-49,144-216" → "(between(n\,0\,49)+between(n\,144\,216))"
+const keepExpr = keepArg
+  ? "*(" + keepArg.split(",").map(r => {
+      const [a, b] = r.split("-").map(Number);
+      if (!Number.isInteger(a) || !Number.isInteger(b)) {
+        console.error(`Bad --keep range: ${r}`);
+        process.exit(1);
+      }
+      return `between(n\\,${a}\\,${b})`;
+    }).join("+") + ")"
+  : "";
 
 const ffmpeg = resolveFfmpeg();
 const root = path.resolve(path.dirname(new URL(import.meta.url).pathname), "..");
@@ -44,7 +63,7 @@ for (const v of variants) {
   execFileSync(ffmpeg, [
     "-v", "error", "-y",
     "-i", input,
-    "-vf", `select=${v.select},scale=${v.width}:-2`,
+    "-vf", `select=${v.select}${keepExpr},scale=${v.width}:-2`,
     "-vsync", "vfr",
     "-quality", String(v.quality),
     "-f", "image2",

@@ -111,10 +111,11 @@ export default function Home() {
           HERO — scroll-driven flight into the ORTAM building
           (image sequence scrubbed by scroll, story beats overlaid)
       ══════════════════════════════════════════ */}
-      <ScrollSequence name="hero" desktopFrames={144} mobileFrames={73} heightVh={450}>
+      {/* Two chapters after trimming: space→approach (0–0.41), showroom→hall (0.41–1) */}
+      <ScrollSequence name="hero" desktopFrames={81} mobileFrames={42} heightVh={360} cutAt={[0.4125]}>
 
         {/* Beat 1 · in space, facing the building */}
-        <SequenceOverlay from={0} to={0.15} className="items-start justify-center">
+        <SequenceOverlay from={0} to={0.18} className="items-start justify-center">
           <div className="text-center px-4 pt-[16svh]">
             <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border text-xs md:text-sm font-medium mb-5"
               style={{ borderColor: 'rgba(200,200,208,0.35)', background: 'rgba(8,8,12,0.55)', color: PLAT, backdropFilter: 'blur(8px)' }}>
@@ -132,7 +133,7 @@ export default function Home() {
         </SequenceOverlay>
 
         {/* Beat 2 · approaching the entrance */}
-        <SequenceOverlay from={0.17} to={0.34} className="items-center justify-center">
+        <SequenceOverlay from={0.2} to={0.39} className="items-center justify-center">
           <div className="text-center px-4 max-w-3xl mx-auto">
             <h2 className="font-bold mb-4" style={{ fontSize: 'clamp(1.8rem, 5vw, 3.5rem)', color: WHITE, textShadow: '0 2px 24px rgba(0,0,0,0.85)' }}>
               {t.home.hero_subtitle}
@@ -143,8 +144,8 @@ export default function Home() {
           </div>
         </SequenceOverlay>
 
-        {/* Beat 3 · through the doors */}
-        <SequenceOverlay from={0.36} to={0.54} className="items-center justify-center">
+        {/* Beat 3 · inside the showroom */}
+        <SequenceOverlay from={0.44} to={0.6} className="items-center justify-center">
           <div className="text-center px-4">
             <h2 className="font-bold mb-6" style={{ fontSize: 'clamp(1.8rem, 5vw, 3.5rem)', color: WHITE, textShadow: '0 2px 24px rgba(0,0,0,0.9)' }}>
               {isRtl ? 'ברוכים הבאים למרכז' : 'Welcome to the Center'}
@@ -161,8 +162,8 @@ export default function Home() {
           </div>
         </SequenceOverlay>
 
-        {/* Beat 4 · holographic showroom */}
-        <SequenceOverlay from={0.56} to={0.78} className="items-center justify-center">
+        {/* Beat 4 · deeper in the showroom */}
+        <SequenceOverlay from={0.62} to={0.78} className="items-center justify-center">
           <div className="text-center px-4 w-full max-w-4xl mx-auto">
             <h2 className="font-bold mb-8" style={{ fontSize: 'clamp(1.6rem, 4.5vw, 3rem)', color: WHITE, textShadow: '0 2px 24px rgba(0,0,0,0.9)' }}>
               {t.home.pillars_title}
