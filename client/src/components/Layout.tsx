@@ -14,7 +14,9 @@ export default function Layout({ children }: LayoutProps) {
   const { dir } = useLanguage();
 
   return (
-    <div className="min-h-screen bg-background text-foreground overflow-x-hidden" dir={dir}>
+    // overflow-x-clip (not hidden): clips sideways overflow without creating a
+    // scroll container, which would break position:sticky descendants.
+    <div className="min-h-screen bg-background text-foreground overflow-x-clip" dir={dir}>
       <a href="#main-content" className="skip-link">
         {dir === 'rtl' ? 'דלג לתוכן הראשי' : 'Skip to main content'}
       </a>

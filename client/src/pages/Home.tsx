@@ -1,5 +1,6 @@
 import { Link } from 'wouter';
 import { motion } from 'framer-motion';
+import ScrollSequence, { SequenceOverlay } from '@/components/ScrollSequence';
 import { ArrowLeft, ArrowRight, Zap, Users, Briefcase, CheckCircle, Star, Award, TrendingUp, Brain, Sparkles, Rocket } from 'lucide-react';
 import { useLanguage } from '@/contexts/LanguageContext';
 import MetallicSphere, { SphereVariant } from '@/components/MetallicSphere';
@@ -107,8 +108,112 @@ export default function Home() {
     <div dir={dir}>
 
       {/* ══════════════════════════════════════════
-          HERO — Obsidian black + platinum
+          HERO — scroll-driven flight into the ORTAM building
+          (image sequence scrubbed by scroll, story beats overlaid)
       ══════════════════════════════════════════ */}
+      <ScrollSequence name="hero" desktopFrames={144} mobileFrames={73} heightVh={450}>
+
+        {/* Beat 1 · in space, facing the building */}
+        <SequenceOverlay from={0} to={0.15} className="items-start justify-center">
+          <div className="text-center px-4 pt-[16svh]">
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border text-xs md:text-sm font-medium mb-5"
+              style={{ borderColor: 'rgba(200,200,208,0.35)', background: 'rgba(8,8,12,0.55)', color: PLAT, backdropFilter: 'blur(8px)' }}>
+              <span className="w-1.5 h-1.5 rounded-full animate-pulse" style={{ background: PLAT }} />
+              {isRtl ? 'מרכז פיתוח AI מוביל בישראל' : "Israel's Leading AI Development Center"}
+            </div>
+            <h1 className="font-bold leading-[1.08]" style={{ fontSize: 'clamp(2.4rem, 7vw, 5.5rem)', color: WHITE, textShadow: '0 2px 24px rgba(0,0,0,0.8)' }}>
+              {isRtl ? <>המרכז לפיתוח <span className="text-gradient-cyan">AI</span></> : <>The <span className="text-gradient-cyan">AI</span> Development Hub</>}
+            </h1>
+            <p className="mt-5 text-sm md:text-base flex flex-col items-center gap-2" style={{ color: 'rgba(200,200,208,0.85)' }}>
+              {isRtl ? 'גללו כדי להיכנס' : 'Scroll to enter'}
+              <span className="inline-block w-px h-10" style={{ background: `linear-gradient(to bottom, ${PLAT}, transparent)` }} />
+            </p>
+          </div>
+        </SequenceOverlay>
+
+        {/* Beat 2 · approaching the entrance */}
+        <SequenceOverlay from={0.17} to={0.34} className="items-center justify-center">
+          <div className="text-center px-4 max-w-3xl mx-auto">
+            <h2 className="font-bold mb-4" style={{ fontSize: 'clamp(1.8rem, 5vw, 3.5rem)', color: WHITE, textShadow: '0 2px 24px rgba(0,0,0,0.85)' }}>
+              {t.home.hero_subtitle}
+            </h2>
+            <p className="text-base md:text-xl" style={{ color: 'rgba(200,200,208,0.9)', textShadow: '0 1px 12px rgba(0,0,0,0.8)' }}>
+              {t.home.hero_desc}
+            </p>
+          </div>
+        </SequenceOverlay>
+
+        {/* Beat 3 · through the doors */}
+        <SequenceOverlay from={0.36} to={0.54} className="items-center justify-center">
+          <div className="text-center px-4">
+            <h2 className="font-bold mb-6" style={{ fontSize: 'clamp(1.8rem, 5vw, 3.5rem)', color: WHITE, textShadow: '0 2px 24px rgba(0,0,0,0.9)' }}>
+              {isRtl ? 'ברוכים הבאים למרכז' : 'Welcome to the Center'}
+            </h2>
+            <div className="pointer-events-auto inline-flex">
+              <Link href="/contact">
+                <motion.button whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}
+                  className="px-8 py-4 rounded-xl font-bold text-sm md:text-base"
+                  style={{ background: WHITE, color: OBS, boxShadow: '0 8px 40px rgba(0,0,0,0.6)' }}>
+                  {t.home.cta}
+                </motion.button>
+              </Link>
+            </div>
+          </div>
+        </SequenceOverlay>
+
+        {/* Beat 4 · holographic showroom */}
+        <SequenceOverlay from={0.56} to={0.78} className="items-center justify-center">
+          <div className="text-center px-4 w-full max-w-4xl mx-auto">
+            <h2 className="font-bold mb-8" style={{ fontSize: 'clamp(1.6rem, 4.5vw, 3rem)', color: WHITE, textShadow: '0 2px 24px rgba(0,0,0,0.9)' }}>
+              {t.home.pillars_title}
+            </h2>
+            <div className="flex flex-col sm:flex-row items-stretch justify-center gap-3 md:gap-5">
+              {pillars.map(p => {
+                const Icon = p.icon;
+                return (
+                  <div key={p.href} className="flex-1 flex items-center justify-center gap-2.5 px-4 py-3.5 rounded-2xl"
+                    style={{ background: 'rgba(8,8,12,0.65)', border: '1px solid rgba(200,200,208,0.3)', backdropFilter: 'blur(10px)' }}>
+                    <Icon className="w-5 h-5 flex-shrink-0" style={{ color: PLAT }} />
+                    <span className="font-semibold text-sm md:text-base" style={{ color: WHITE }}>{p.title}</span>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        </SequenceOverlay>
+
+        {/* Beat 5 · hall of storefronts — Hebrew labels over the garbled signs */}
+        <SequenceOverlay from={0.82} to={1} className="items-end justify-center">
+          <div className="w-full px-4 pb-[10svh] max-w-5xl mx-auto">
+            <h2 className="text-center font-bold mb-6" style={{ fontSize: 'clamp(1.4rem, 4vw, 2.6rem)', color: '#111', textShadow: '0 1px 16px rgba(255,255,255,0.85)' }}>
+              {isRtl ? 'לאן נכנסים היום?' : 'Where are we heading today?'}
+            </h2>
+            <div className="pointer-events-auto grid grid-cols-1 sm:grid-cols-3 gap-3 md:gap-5">
+              {[
+                { href: '/incubator', icon: Zap,       label: isRtl ? 'אקסלרטור לעסקים' : 'Business Accelerator' },
+                { href: '/courses',   icon: Users,     label: isRtl ? 'קורסים ושיעורים' : 'Courses & Lessons' },
+                { href: '/placement', icon: Briefcase, label: isRtl ? 'מרכז השמה'       : 'Placement Center' },
+              ].map(store => {
+                const Icon = store.icon;
+                return (
+                  <Link key={store.href} href={store.href}>
+                    <motion.div whileHover={{ scale: 1.04, y: -4 }} whileTap={{ scale: 0.97 }}
+                      className="flex items-center justify-center gap-2.5 px-4 py-4 rounded-2xl cursor-pointer"
+                      style={{ background: 'rgba(8,8,12,0.82)', border: '1px solid rgba(200,200,208,0.4)', backdropFilter: 'blur(10px)', boxShadow: '0 12px 40px rgba(0,0,0,0.35)' }}>
+                      <Icon className="w-5 h-5 flex-shrink-0" style={{ color: PLAT }} />
+                      <span className="font-bold text-sm md:text-base" style={{ color: WHITE }}>{store.label}</span>
+                      <ArrowIcon className="w-4 h-4" style={{ color: PLAT }} />
+                    </motion.div>
+                  </Link>
+                );
+              })}
+            </div>
+          </div>
+        </SequenceOverlay>
+      </ScrollSequence>
+
+      {/* Legacy hero kept out of the flow — remove after sequence sign-off */}
+      {false && (
       <section
         className="relative min-h-[100svh] flex items-center justify-center overflow-hidden"
         style={{ background: OBS }}
@@ -330,7 +435,7 @@ export default function Home() {
           <ScrollDownArrow />
         </div>
       </section>
-
+      )}
 
 
       {/* ══════════════════════════════════════════
