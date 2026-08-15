@@ -45,6 +45,34 @@ const stagger = {
   visible: { transition: { staggerChildren: 0.1 } },
 };
 
+/** Floating room signage shown while the journey passes through a room. */
+function RoomOverlay({ from, to, title, desc, cta, href, isRtl, ArrowIcon }: {
+  from: number; to: number; title: string; desc: string; cta: string; href: string;
+  isRtl: boolean; ArrowIcon: React.ElementType;
+}) {
+  return (
+    <SequenceOverlay from={from} to={to} className="items-start justify-center">
+      <div className="text-center px-4 pt-[12svh] max-w-2xl mx-auto">
+        <div className="inline-block px-6 py-4 rounded-2xl"
+          style={{ background: 'rgba(8,8,12,0.72)', border: '1px solid rgba(200,200,208,0.35)', backdropFilter: 'blur(12px)', boxShadow: '0 16px 48px rgba(0,0,0,0.4)' }}>
+          <h2 className="font-bold mb-1.5" style={{ fontSize: 'clamp(1.5rem, 4vw, 2.6rem)', color: WHITE }}>{title}</h2>
+          <p className="text-sm md:text-base mb-4" style={{ color: 'rgba(200,200,208,0.85)' }}>{desc}</p>
+          <div className="pointer-events-auto inline-flex">
+            <Link href={href}>
+              <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.96 }}
+                className="flex items-center gap-2 px-5 py-2.5 rounded-xl font-bold text-sm cursor-pointer"
+                style={{ background: WHITE, color: OBS }}>
+                {cta}
+                <ArrowIcon className="w-4 h-4" />
+              </motion.div>
+            </Link>
+          </div>
+        </div>
+      </div>
+    </SequenceOverlay>
+  );
+}
+
 export default function Home() {
   const { t, lang, dir } = useLanguage();
   const isRtl = lang === 'he';
@@ -111,11 +139,14 @@ export default function Home() {
           HERO — scroll-driven flight into the ORTAM building
           (image sequence scrubbed by scroll, story beats overlaid)
       ══════════════════════════════════════════ */}
-      {/* Two chapters after trimming: space→approach (0–0.41), showroom→hall (0.41–1) */}
-      <ScrollSequence name="hero" desktopFrames={81} mobileFrames={42} heightVh={360} cutAt={[0.4125]}>
+      {/* Five chapters: approach (0–0.15), lobby (0.15–0.37), workshop room
+          (0.37–0.57), academy classroom (0.57–0.81), accelerator floor (0.81–1).
+          Cut points come from scripts/build-journey.mjs output. */}
+      <ScrollSequence name="journey" desktopFrames={219} mobileFrames={112} heightVh={700}
+        cutAt={[0.152, 0.372, 0.573, 0.807]}>
 
-        {/* Beat 1 · in space, facing the building */}
-        <SequenceOverlay from={0} to={0.18} className="items-start justify-center">
+        {/* Ch1 · in space, facing the building */}
+        <SequenceOverlay from={0} to={0.09} className="items-start justify-center">
           <div className="text-center px-4 pt-[16svh]">
             <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border text-xs md:text-sm font-medium mb-5"
               style={{ borderColor: 'rgba(200,200,208,0.35)', background: 'rgba(8,8,12,0.55)', color: PLAT, backdropFilter: 'blur(8px)' }}>
@@ -132,8 +163,8 @@ export default function Home() {
           </div>
         </SequenceOverlay>
 
-        {/* Beat 2 · approaching the entrance */}
-        <SequenceOverlay from={0.2} to={0.39} className="items-center justify-center">
+        {/* Ch1 · approaching the entrance */}
+        <SequenceOverlay from={0.095} to={0.145} className="items-center justify-center">
           <div className="text-center px-4 max-w-3xl mx-auto">
             <h2 className="font-bold mb-4" style={{ fontSize: 'clamp(1.8rem, 5vw, 3.5rem)', color: WHITE, textShadow: '0 2px 24px rgba(0,0,0,0.85)' }}>
               {t.home.hero_subtitle}
@@ -144,49 +175,22 @@ export default function Home() {
           </div>
         </SequenceOverlay>
 
-        {/* Beat 3 · inside the showroom */}
-        <SequenceOverlay from={0.44} to={0.6} className="items-center justify-center">
+        {/* Ch2 · entering the lobby */}
+        <SequenceOverlay from={0.165} to={0.24} className="items-center justify-center">
           <div className="text-center px-4">
-            <h2 className="font-bold mb-6" style={{ fontSize: 'clamp(1.8rem, 5vw, 3.5rem)', color: WHITE, textShadow: '0 2px 24px rgba(0,0,0,0.9)' }}>
-              {isRtl ? 'ברוכים הבאים למרכז' : 'Welcome to the Center'}
+            <h2 className="font-bold" style={{ fontSize: 'clamp(1.8rem, 5vw, 3.5rem)', color: WHITE, textShadow: '0 2px 24px rgba(0,0,0,0.9)' }}>
+              {isRtl ? 'ברוכים הבאים ללובי' : 'Welcome to the Lobby'}
             </h2>
-            <div className="pointer-events-auto inline-flex">
-              <Link href="/contact">
-                <motion.button whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}
-                  className="px-8 py-4 rounded-xl font-bold text-sm md:text-base"
-                  style={{ background: WHITE, color: OBS, boxShadow: '0 8px 40px rgba(0,0,0,0.6)' }}>
-                  {t.home.cta}
-                </motion.button>
-              </Link>
-            </div>
+            <p className="mt-3 text-base md:text-lg" style={{ color: 'rgba(200,200,208,0.9)', textShadow: '0 1px 12px rgba(0,0,0,0.8)' }}>
+              {isRtl ? 'המשיכו לגלול לסיור בחדרים' : 'Keep scrolling to tour the rooms'}
+            </p>
           </div>
         </SequenceOverlay>
 
-        {/* Beat 4 · deeper in the showroom */}
-        <SequenceOverlay from={0.62} to={0.78} className="items-center justify-center">
-          <div className="text-center px-4 w-full max-w-4xl mx-auto">
-            <h2 className="font-bold mb-8" style={{ fontSize: 'clamp(1.6rem, 4.5vw, 3rem)', color: WHITE, textShadow: '0 2px 24px rgba(0,0,0,0.9)' }}>
-              {t.home.pillars_title}
-            </h2>
-            <div className="flex flex-col sm:flex-row items-stretch justify-center gap-3 md:gap-5">
-              {pillars.map(p => {
-                const Icon = p.icon;
-                return (
-                  <div key={p.href} className="flex-1 flex items-center justify-center gap-2.5 px-4 py-3.5 rounded-2xl"
-                    style={{ background: 'rgba(8,8,12,0.65)', border: '1px solid rgba(200,200,208,0.3)', backdropFilter: 'blur(10px)' }}>
-                    <Icon className="w-5 h-5 flex-shrink-0" style={{ color: PLAT }} />
-                    <span className="font-semibold text-sm md:text-base" style={{ color: WHITE }}>{p.title}</span>
-                  </div>
-                );
-              })}
-            </div>
-          </div>
-        </SequenceOverlay>
-
-        {/* Beat 5 · hall of storefronts — Hebrew labels over the garbled signs */}
-        <SequenceOverlay from={0.82} to={1} className="items-end justify-center">
-          <div className="w-full px-4 pb-[10svh] max-w-5xl mx-auto">
-            <h2 className="text-center font-bold mb-6" style={{ fontSize: 'clamp(1.4rem, 4vw, 2.6rem)', color: '#111', textShadow: '0 1px 16px rgba(255,255,255,0.85)' }}>
+        {/* Ch2 · the storefront hall — quick-nav buttons over the shops */}
+        <SequenceOverlay from={0.26} to={0.36} className="items-end justify-center">
+          <div className="w-full px-4 pb-[9svh] max-w-5xl mx-auto">
+            <h2 className="text-center font-bold mb-5" style={{ fontSize: 'clamp(1.3rem, 3.5vw, 2.4rem)', color: '#111', textShadow: '0 1px 16px rgba(255,255,255,0.85)' }}>
               {isRtl ? 'לאן נכנסים היום?' : 'Where are we heading today?'}
             </h2>
             <div className="pointer-events-auto grid grid-cols-1 sm:grid-cols-3 gap-3 md:gap-5">
@@ -209,6 +213,43 @@ export default function Home() {
                 );
               })}
             </div>
+            <p className="text-center mt-4 text-sm" style={{ color: '#333', textShadow: '0 1px 10px rgba(255,255,255,0.8)' }}>
+              {isRtl ? 'או פשוט המשיכו לגלול — הסיור נכנס לחדרים' : 'Or just keep scrolling — the tour enters the rooms'}
+            </p>
+          </div>
+        </SequenceOverlay>
+
+        {/* Ch3 · the hands-on workshop room */}
+        <RoomOverlay from={0.39} to={0.55} isRtl={isRtl} ArrowIcon={ArrowIcon}
+          title={isRtl ? 'חדר הסדנאות' : 'The Workshop Room'}
+          desc={isRtl ? 'שיעורים וסדנאות מעשיות — יוצרים עם AI בידיים' : 'Hands-on lessons and workshops — creating with AI'}
+          cta={isRtl ? 'לשיעורים ולסדנאות' : 'Lessons & Workshops'}
+          href="/courses" />
+
+        {/* Ch4 · the academy classroom */}
+        <RoomOverlay from={0.59} to={0.79} isRtl={isRtl} ArrowIcon={ArrowIcon}
+          title={isRtl ? 'כיתת ההכשרות' : 'The Academy Classroom'}
+          desc={isRtl ? 'קורסים מקצועיים לארגונים, עסקים ואנשים פרטיים' : 'Professional courses for organizations, businesses and individuals'}
+          cta={isRtl ? 'למרכז ההכשרות' : 'Training Center'}
+          href="/academy" />
+
+        {/* Ch5 · the accelerator floor */}
+        <RoomOverlay from={0.825} to={1} isRtl={isRtl} ArrowIcon={ArrowIcon}
+          title={isRtl ? 'קומת האקסלרטור' : 'The Accelerator Floor'}
+          desc={isRtl ? 'יזמים ועסקים בונים כאן את הדור הבא עם AI' : 'Entrepreneurs and businesses building the next generation with AI'}
+          cta={isRtl ? 'לאקסלרטור לעסקים' : 'Business Accelerator'}
+          href="/incubator" />
+
+        {/* Journey end · invite */}
+        <SequenceOverlay from={0.94} to={1} className="items-end justify-center">
+          <div className="text-center px-4 pb-[6svh] pointer-events-auto">
+            <Link href="/contact">
+              <motion.button whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}
+                className="px-8 py-4 rounded-xl font-bold text-sm md:text-base"
+                style={{ background: WHITE, color: OBS, boxShadow: '0 8px 40px rgba(0,0,0,0.6)' }}>
+                {isRtl ? 'רוצים לראות את זה מבפנים? תאמו ביקור' : 'Want to see it from the inside? Book a visit'}
+              </motion.button>
+            </Link>
           </div>
         </SequenceOverlay>
       </ScrollSequence>
