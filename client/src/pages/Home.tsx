@@ -142,6 +142,7 @@ export default function Home() {
       {/* Five chapters: approach (0–0.15), lobby (0.15–0.37), workshop room
           (0.37–0.57), academy classroom (0.57–0.81), accelerator floor (0.81–1).
           Cut points come from scripts/build-journey.mjs output. */}
+      <div id="journey-seq">
       <ScrollSequence name="journey" desktopFrames={219} mobileFrames={112} heightVh={700}
         cutAt={[0.152, 0.372, 0.573, 0.807]}>
 
@@ -153,9 +154,13 @@ export default function Home() {
               <span className="w-1.5 h-1.5 rounded-full animate-pulse" style={{ background: PLAT }} />
               {isRtl ? 'מרכז פיתוח AI מוביל בישראל' : "Israel's Leading AI Development Center"}
             </div>
-            <h1 className="font-bold leading-[1.08]" style={{ fontSize: 'clamp(2.4rem, 7vw, 5.5rem)', color: WHITE, textShadow: '0 2px 24px rgba(0,0,0,0.8)' }}>
-              {isRtl ? <>המרכז לפיתוח <span className="text-gradient-cyan">AI</span></> : <>The <span className="text-gradient-cyan">AI</span> Development Hub</>}
+            <h1 className="font-bold leading-[1.05] tracking-wide" dir="ltr"
+              style={{ fontSize: 'clamp(3rem, 9vw, 7rem)', color: WHITE, textShadow: '0 2px 24px rgba(0,0,0,0.8)' }}>
+              ORTAM <span className="text-gradient-cyan">AI</span>
             </h1>
+            <p className="mt-2 text-base md:text-xl font-medium" style={{ color: 'rgba(200,200,208,0.9)', textShadow: '0 1px 12px rgba(0,0,0,0.8)' }}>
+              {isRtl ? 'המרכז לפיתוח AI' : 'The AI Development Center'}
+            </p>
             <p className="mt-5 text-sm md:text-base flex flex-col items-center gap-2" style={{ color: 'rgba(200,200,208,0.85)' }}>
               {isRtl ? 'גללו כדי להיכנס' : 'Scroll to enter'}
               <span className="inline-block w-px h-10" style={{ background: `linear-gradient(to bottom, ${PLAT}, transparent)` }} />
@@ -179,7 +184,7 @@ export default function Home() {
         <SequenceOverlay from={0.165} to={0.24} className="items-center justify-center">
           <div className="text-center px-4">
             <h2 className="font-bold" style={{ fontSize: 'clamp(1.8rem, 5vw, 3.5rem)', color: WHITE, textShadow: '0 2px 24px rgba(0,0,0,0.9)' }}>
-              {isRtl ? 'ברוכים הבאים ללובי' : 'Welcome to the Lobby'}
+              {isRtl ? 'ברוכים הבאים למרכז לפיתוח AI' : 'Welcome to the AI Development Center'}
             </h2>
             <p className="mt-3 text-base md:text-lg" style={{ color: 'rgba(200,200,208,0.9)', textShadow: '0 1px 12px rgba(0,0,0,0.8)' }}>
               {isRtl ? 'המשיכו לגלול לסיור בחדרים' : 'Keep scrolling to tour the rooms'}
@@ -216,6 +221,21 @@ export default function Home() {
             <p className="text-center mt-4 text-sm" style={{ color: '#333', textShadow: '0 1px 10px rgba(255,255,255,0.8)' }}>
               {isRtl ? 'או פשוט המשיכו לגלול — הסיור נכנס לחדרים' : 'Or just keep scrolling — the tour enters the rooms'}
             </p>
+            {/* Secondary site links — the film replaces the top nav, so they live here */}
+            <div className="pointer-events-auto flex items-center justify-center gap-5 mt-3">
+              {[
+                { href: '/about',   label: isRtl ? 'אודות'    : 'About' },
+                { href: '/academy', label: isRtl ? 'מרכז הכשרות' : 'Training Center' },
+                { href: '/contact', label: isRtl ? 'צור קשר'  : 'Contact' },
+              ].map(l => (
+                <Link key={l.href} href={l.href}>
+                  <span className="text-sm font-semibold underline underline-offset-4 cursor-pointer"
+                    style={{ color: '#222', textShadow: '0 1px 10px rgba(255,255,255,0.8)' }}>
+                    {l.label}
+                  </span>
+                </Link>
+              ))}
+            </div>
           </div>
         </SequenceOverlay>
 
@@ -253,6 +273,7 @@ export default function Home() {
           </div>
         </SequenceOverlay>
       </ScrollSequence>
+      </div>
 
       {/* Legacy hero kept out of the flow — remove after sequence sign-off */}
       {false && (

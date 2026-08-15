@@ -15,11 +15,20 @@ export default function Navigation() {
   const [scrolled, setScrolled] = useState(false);
   const [location] = useLocation();
 
+  // While the home-page journey film is on screen the nav stays hidden — the
+  // film owns the whole viewport and carries its own navigation buttons.
+  const [hiddenByJourney, setHiddenByJourney] = useState(false);
+
   useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 40);
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 40);
+      const journey = document.getElementById('journey-seq');
+      setHiddenByJourney(Boolean(journey && journey.getBoundingClientRect().bottom > 80));
+    };
+    handleScroll();
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  }, [location]);
 
   useEffect(() => { setIsOpen(false); }, [location]);
 
@@ -75,8 +84,11 @@ export default function Navigation() {
         background: navBg,
         borderBottom: `1px solid ${navBorder}`,
         boxShadow: navShadow,
-        transition: 'background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease',
+        transform: hiddenByJourney ? 'translateY(-100%)' : 'translateY(0)',
+        pointerEvents: hiddenByJourney ? 'none' : 'auto',
+        transition: 'background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease, transform 0.4s ease',
       }}
+      aria-hidden={hiddenByJourney}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-14 md:h-20">
