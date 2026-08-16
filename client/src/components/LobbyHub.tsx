@@ -93,33 +93,6 @@ export default function LobbyHub() {
     if (reduced || (navigator as any).connection?.saveData === true) setStaticMode(true);
   }, []);
 
-  // Crossfade driver: fully visible once the section reaches the viewport top.
-  useEffect(() => {
-    if (staticMode) return;
-    let raf = 0;
-    const update = () => {
-      const section = sectionRef.current;
-      if (!section) return;
-      const rect = section.getBoundingClientRect();
-      // Swap in only over the journey's very last frames (which match the
-      // panorama's opening frame) — a long blend ghosts mismatched images.
-      const aligned = 1 - rect.top / window.innerHeight; // 0..1 as hub reaches viewport top
-      const next = Math.min(1, Math.max(0, (aligned - 0.85) / 0.15));
-      if (Math.abs(next - fadeRef.current) > 0.01) {
-        fadeRef.current = next;
-        setFade(next);
-      }
-    };
-    const onScroll = () => { cancelAnimationFrame(raf); raf = requestAnimationFrame(update); };
-    update();
-    window.addEventListener('scroll', onScroll, { passive: true });
-    window.addEventListener('resize', onScroll);
-    return () => {
-      cancelAnimationFrame(raf);
-      window.removeEventListener('scroll', onScroll);
-      window.removeEventListener('resize', onScroll);
-    };
-  }, [staticMode]);
 
   const drawFrame = useCallback(() => {
     const canvas = canvasRef.current;
@@ -141,6 +114,61 @@ export default function LobbyHub() {
     // frames physical depth while dragging.
     drawCover(canvas, img, 1.08, (progressRef.current - 0.5) * 0.35);
   }, [frameCount]);
+
+  // Takeover driver. The hub is either fully on or fully off — never a
+  // translucent blend the user can park inside (that ghosted two images).
+  // The instant swap is invisible because the panorama's first frame matches
+  // the journey's final frame, and while the hub is off its pan is pinned to
+  // that first frame so both directions of the swap always align.
+  useEffect(() => {
+    if (staticMode) return;
+    let raf = 0;
+    let settleTimer = 0;
+    const alignedNow = () => {
+      const section = sectionRef.current;
+      if (!section) return 0;
+      return 1 - section.getBoundingClientRect().top / window.innerHeight;
+    };
+    const update = () => {
+      const aligned = alignedNow();
+      const next = aligned >= 0.995 ? 1 : 0;
+      if (next !== fadeRef.current) {
+        fadeRef.current = next;
+        setFade(next);
+        if (next === 0) {
+          // Rewind the panorama so the next swap starts from the matching frame.
+          progressRef.current = 0;
+          setRoomIndex(0);
+          requestAnimationFrame(drawFrame);
+        }
+      }
+    };
+    const settle = () => {
+      // If the scroll rests inside the handoff window, glide to alignment so
+      // the page never sits half-way between flight and lobby.
+      const section = sectionRef.current;
+      if (!section) return;
+      const aligned = alignedNow();
+      if (aligned > 0.55 && aligned < 0.995) {
+        window.scrollTo({ top: window.scrollY + section.getBoundingClientRect().top, behavior: 'smooth' });
+      }
+    };
+    const onScroll = () => {
+      cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(update);
+      window.clearTimeout(settleTimer);
+      settleTimer = window.setTimeout(settle, 160);
+    };
+    update();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll);
+    return () => {
+      cancelAnimationFrame(raf);
+      window.clearTimeout(settleTimer);
+      window.removeEventListener('scroll', onScroll);
+      window.removeEventListener('resize', onScroll);
+    };
+  }, [staticMode, drawFrame]);
 
   // Preload panorama + entry sequences once the hub first approaches the viewport.
   useEffect(() => {
@@ -220,6 +248,7 @@ export default function LobbyHub() {
     };
 
     const onPointerDown = (e: PointerEvent) => {
+      if (fadeRef.current < 1) return; // rotation unlocks only after the takeover
       dragging = true;
       lastX = e.clientX;
       velocity = 0;
@@ -242,6 +271,7 @@ export default function LobbyHub() {
     };
 
     const onWheel = (e: WheelEvent) => {
+      if (fadeRef.current < 1) return;
       // Only horizontal intent (trackpads / shift+wheel); vertical scroll passes through.
       if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) {
         e.preventDefault();
@@ -250,6 +280,7 @@ export default function LobbyHub() {
     };
 
     const onKey = (e: KeyboardEvent) => {
+      if (fadeRef.current < 1) return;
       const rect = section.getBoundingClientRect();
       if (rect.top > window.innerHeight * 0.5 || rect.bottom < window.innerHeight * 0.5) return;
       if (e.key === 'ArrowLeft') setProgress(progressRef.current - 0.06);
@@ -308,7 +339,8 @@ export default function LobbyHub() {
         marginTop: '-100svh',
         zIndex: 5,
         opacity: fade,
-        pointerEvents: fade < 0.1 ? 'none' : 'auto',
+        transition: 'opacity 200ms ease',
+        pointerEvents: fade < 1 ? 'none' : 'auto',
         cursor: entering ? 'default' : 'grab',
       }}
       aria-label={isRtl ? 'הלובי האינטראקטיבי' : 'Interactive lobby'}>
