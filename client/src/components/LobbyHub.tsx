@@ -1,8 +1,11 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
+import { Link } from 'wouter';
 import { motion } from 'framer-motion';
-import { ChevronLeft, ChevronRight, DoorOpen } from 'lucide-react';
+import { ChevronLeft, ChevronRight, DoorOpen, Info, Award, Star, TrendingUp, CheckCircle, Phone } from 'lucide-react';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { useRoomTransition } from '@/contexts/RoomTransitionContext';
+import { RoomPanel } from './RoomScene';
+import GradientButton from './GradientButton';
 
 /**
  * The interactive lobby: a horizontal panorama scrubbed by drag / arrow keys /
@@ -38,6 +41,15 @@ export const ROOMS: Room[] = [
   { slug: 'automations', frames: 37, href: '/automations', zone: [0.77, 1],    name: 'חדר הסוכנים',    nameEn: 'The Agents Room',       desc: 'אוטומציות וסוכני AI שעובדים בשבילכם',          descEn: 'Automations and AI agents' },
 ];
 
+/** Site pages that used to live in the footer / below the lobby. */
+const SITE_LINKS = [
+  { href: '/about',          label: 'אודות',           labelEn: 'About' },
+  { href: '/courses',        label: 'קורסים ושיעורים', labelEn: 'Courses & Lessons' },
+  { href: '/contact',        label: 'צור קשר',         labelEn: 'Contact' },
+  { href: '/accessibility',  label: 'הצהרת נגישות',    labelEn: 'Accessibility' },
+  { href: '/privacy-policy', label: 'מדיניות פרטיות',  labelEn: 'Privacy Policy' },
+];
+
 function roomAt(progress: number): number {
   const i = ROOMS.findIndex(r => progress >= r.zone[0] && progress <= r.zone[1]);
   return i === -1 ? ROOMS.length - 1 : i;
@@ -65,9 +77,10 @@ function drawCover(
 }
 
 export default function LobbyHub() {
-  const { lang, dir } = useLanguage();
+  const { t, lang, dir } = useLanguage();
   const isRtl = lang === 'he';
   const { enterRoom, active: entering } = useRoomTransition();
+  const [infoOpen, setInfoOpen] = useState(false);
 
   const sectionRef = useRef<HTMLElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -324,12 +337,23 @@ export default function LobbyHub() {
               </a>
             ))}
           </div>
+          {/* The page ends here — surface the site links the footer used to hold. */}
+          <div className="mt-10 flex flex-wrap justify-center gap-x-6 gap-y-2 text-sm">
+            {SITE_LINKS.map(l => (
+              <Link key={l.href} href={l.href}>
+                <span className="cursor-pointer underline underline-offset-4" style={{ color: 'rgba(200,200,208,0.7)' }}>
+                  {isRtl ? l.label : l.labelEn}
+                </span>
+              </Link>
+            ))}
+          </div>
         </div>
       </section>
     );
   }
 
   return (
+    <>
     <section ref={sectionRef} dir={dir}
       className="relative overflow-hidden select-none touch-pan-y"
       style={{
@@ -354,6 +378,26 @@ export default function LobbyHub() {
           style={{ background: 'rgba(8,8,12,0.6)', color: '#C8C8D0', backdropFilter: 'blur(8px)', border: '1px solid rgba(200,200,208,0.25)' }}>
           {isRtl ? 'גררו ימינה ושמאלה כדי להסתובב בלובי' : 'Drag left and right to look around the lobby'}
         </span>
+      </div>
+
+      {/* Floating info stand — everything the old page-bottom held (stats,
+          why-us, process, site links) now lives inside this lobby object. */}
+      <div className="absolute top-[13svh] inset-x-0 flex justify-center pointer-events-none">
+        <motion.button
+          onClick={e => { e.stopPropagation(); setInfoOpen(true); }}
+          onPointerDown={e => e.stopPropagation()}
+          animate={{ y: [0, -9, 0] }}
+          transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut' }}
+          whileHover={{ scale: 1.07 }} whileTap={{ scale: 0.95 }}
+          className="pointer-events-auto inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-semibold cursor-pointer"
+          style={{
+            background: 'rgba(8,8,12,0.7)', color: '#E8E8F0',
+            border: '1px solid rgba(200,200,208,0.4)', backdropFilter: 'blur(10px)',
+            boxShadow: '0 12px 40px rgba(0,0,0,0.45), 0 0 20px rgba(200,200,208,0.1)',
+          }}>
+          <Info className="w-4 h-4" />
+          {isRtl ? 'הכירו את המרכז' : 'About the center'}
+        </motion.button>
       </div>
 
       {/* Signage card + arrows */}
@@ -398,5 +442,90 @@ export default function LobbyHub() {
       </div>
 
     </section>
+
+    {/* The info stand's content — rendered outside the section so opening it
+        never starts a pan drag. */}
+    <RoomPanel open={infoOpen} onClose={() => setInfoOpen(false)}
+      title={isRtl ? 'ORTAM AI — המרכז לפיתוח AI' : 'ORTAM AI — The AI Development Center'}>
+      <div className="space-y-7">
+        {/* Numbers */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 text-center">
+          {[
+            { value: '30+',  label: t.stats.programs },
+            { value: '98%',  label: t.stats.satisfaction },
+            { value: '300+', label: t.stats.graduates },
+            { value: '10+',  label: t.stats.partners },
+          ].map(s => (
+            <div key={s.label} className="rounded-2xl py-4 px-2"
+              style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(200,200,208,0.15)' }}>
+              <div className="text-2xl font-bold text-white" dir="ltr">{s.value}</div>
+              <div className="text-xs mt-1" style={{ color: 'rgba(200,200,208,0.7)' }}>{s.label}</div>
+            </div>
+          ))}
+        </div>
+
+        {/* Why us */}
+        <div>
+          <h3 className="font-bold text-white mb-3">{isRtl ? 'למה ORTAM AI' : 'Why ORTAM AI'}</h3>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            {[
+              { icon: Award,       title: isRtl ? 'מומחיות מוכחת'     : 'Proven Expertise',      desc: isRtl ? 'צוות מומחים עם ניסיון רב בתחום ה-AI'  : 'Expert team with extensive AI experience' },
+              { icon: Star,        title: isRtl ? 'גישה מותאמת אישית' : 'Personalized Approach', desc: isRtl ? 'כל לקוח מקבל תוכנית מותאמת לצרכיו'   : 'Each client gets a tailored plan' },
+              { icon: TrendingUp,  title: isRtl ? 'תוצאות מדידות'     : 'Measurable Results',    desc: isRtl ? 'אנו מתמקדים בתוצאות אמיתיות ומדידות'  : 'We focus on real, measurable outcomes' },
+              { icon: CheckCircle, title: isRtl ? 'קהילה תומכת'       : 'Supportive Community',  desc: isRtl ? 'הצטרפו לקהילה של יזמים ומקצוענים'     : 'Join a community of entrepreneurs and professionals' },
+            ].map(({ icon: Icon, title, desc }) => (
+              <div key={title} className="flex items-start gap-3 rounded-2xl p-3.5"
+                style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(200,200,208,0.15)' }}>
+                <Icon className="w-5 h-5 mt-0.5 flex-shrink-0" style={{ color: '#C8C8D0' }} />
+                <div>
+                  <p className="font-semibold text-white text-sm">{title}</p>
+                  <p className="text-xs mt-0.5" style={{ color: 'rgba(200,200,208,0.7)' }}>{desc}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* How we work */}
+        <div>
+          <h3 className="font-bold text-white mb-3">{isRtl ? 'איך זה עובד' : 'How it works'}</h3>
+          <ol className="space-y-2">
+            {[
+              { title: isRtl ? 'פגישת היכרות'  : 'Introduction Meeting',        desc: isRtl ? 'נבין את הצרכים והמטרות שלכם'   : 'We understand your needs and goals' },
+              { title: isRtl ? 'תוכנית מותאמת' : 'Custom Plan',                 desc: isRtl ? 'נבנה תוכנית עבודה מותאמת אישית' : 'We build a personalized work plan' },
+              { title: isRtl ? 'ליווי ויישום'  : 'Guidance & Implementation',   desc: isRtl ? 'נלווה אתכם לאורך כל הדרך'       : 'We guide you every step of the way' },
+              { title: isRtl ? 'תוצאות ומדידה' : 'Results & Measurement',       desc: isRtl ? 'נמדוד ונשפר את התוצאות'         : 'We measure and improve results' },
+            ].map((s, i) => (
+              <li key={s.title} className="flex items-center gap-3 text-sm">
+                <span className="w-7 h-7 flex-shrink-0 flex items-center justify-center rounded-full font-bold text-xs"
+                  style={{ background: 'rgba(200,200,208,0.12)', color: '#E8E8F0', border: '1px solid rgba(200,200,208,0.25)' }}>
+                  {i + 1}
+                </span>
+                <span className="text-white font-medium">{s.title}</span>
+                <span style={{ color: 'rgba(200,200,208,0.6)' }}>· {s.desc}</span>
+              </li>
+            ))}
+          </ol>
+        </div>
+
+        <GradientButton href="/contact" size="md" className="w-full justify-center">
+          <Phone className="w-4 h-4" />
+          {isRtl ? 'דברו איתנו' : 'Talk to us'}
+        </GradientButton>
+
+        {/* Site links (the old footer) */}
+        <div className="flex flex-wrap justify-center gap-x-5 gap-y-2 pt-1 text-sm">
+          {SITE_LINKS.map(l => (
+            <Link key={l.href} href={l.href}>
+              <span className="cursor-pointer underline underline-offset-4 transition-colors hover:text-white"
+                style={{ color: 'rgba(200,200,208,0.65)' }}>
+                {isRtl ? l.label : l.labelEn}
+              </span>
+            </Link>
+          ))}
+        </div>
+      </div>
+    </RoomPanel>
+    </>
   );
 }

@@ -28,7 +28,8 @@ export default function Layout({ children }: LayoutProps) {
       <main id="main-content" className={isHome ? '' : 'pt-14 md:pt-20'}>
         {children}
       </main>
-      <Footer />
+      {/* The home page ends inside the lobby — no footer to scroll into. */}
+      {!isHome && <Footer />}
       <WhatsAppButton />
       <AccessibilityWidget />
     </div>
