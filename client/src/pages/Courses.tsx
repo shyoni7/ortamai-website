@@ -8,6 +8,7 @@ import {
 import { useLanguage } from '@/contexts/LanguageContext';
 import GradientButton from '@/components/GradientButton';
 import RoomBackdrop from '@/components/RoomBackdrop';
+import { LobbyExitSign, useLobbyExit } from '@/components/RoomScene';
 import ScrollDownArrow from '@/components/ScrollDownArrow';
 import SEO from '@/components/SEO';
 import { trpc } from '@/lib/trpc';
@@ -49,6 +50,7 @@ interface OrderTarget {
 export default function Courses() {
   const { lang, dir } = useLanguage();
   const isRtl = lang === 'he';
+  const exitToLobby = useLobbyExit();
 
   const coursesQuery = trpc.courses.list.useQuery(undefined, {
     staleTime: 5 * 60 * 1000,
@@ -81,12 +83,11 @@ export default function Courses() {
           <RoomBackdrop rooms={['workshop', 'automations']} fallback="workshop" />
           {/* Back to the lobby */}
           <div className="absolute top-20 md:top-24 inset-x-0 flex justify-center z-20">
-            <Link href="/">
-              <span className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-sm font-medium cursor-pointer transition-colors hover:bg-white/10"
-                style={{ background: 'rgba(8,8,12,0.55)', color: '#C8C8D0', border: '1px solid rgba(200,200,208,0.25)', backdropFilter: 'blur(8px)' }}>
-                {isRtl ? '→ חזרה ללובי' : '← Back to the lobby'}
-              </span>
-            </Link>
+            <button onClick={exitToLobby} type="button"
+              className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-sm font-medium cursor-pointer transition-colors hover:bg-white/10"
+              style={{ background: 'rgba(8,8,12,0.55)', color: '#C8C8D0', border: '1px solid rgba(200,200,208,0.25)', backdropFilter: 'blur(8px)' }}>
+              {isRtl ? '→ חזרה ללובי' : '← Back to the lobby'}
+            </button>
           </div>
           <motion.div animate={{ x: [0, 60, 0], y: [0, 30, 0] }} transition={{ duration: 10, repeat: Infinity }}
             className="absolute top-10 left-10 w-72 h-72 rounded-full blur-3xl" style={{ background: 'rgba(200,200,208,0.06)' }} />
@@ -200,6 +201,9 @@ export default function Courses() {
           <OrderDialog target={orderTarget} isRtl={isRtl} dir={dir} lang={lang}
             onClose={() => setOrderTarget(null)} />
         )}
+
+        {/* The way back out of the workshop room */}
+        <LobbyExitSign />
       </div>
     </>
   );

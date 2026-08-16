@@ -1,9 +1,54 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Link } from 'wouter';
+import { useLocation } from 'wouter';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X } from 'lucide-react';
+import { X, DoorOpen } from 'lucide-react';
 import { useLanguage } from '@/contexts/LanguageContext';
 import RoomBackdrop from './RoomBackdrop';
+
+/**
+ * Returning to the lobby should land IN the lobby, not at the top of the
+ * flight. The flag makes the home page jump straight to its end (where the
+ * lobby lives) on the next mount.
+ */
+export const RETURN_TO_LOBBY_KEY = 'ortam-return-to-lobby';
+
+export function useLobbyExit() {
+  const [, navigate] = useLocation();
+  return () => {
+    try { sessionStorage.setItem(RETURN_TO_LOBBY_KEY, '1'); } catch { /* private mode */ }
+    navigate('/');
+  };
+}
+
+/** A floating sign at the end of a room that walks the visitor back out. */
+export function LobbyExitSign() {
+  const { lang } = useLanguage();
+  const isRtl = lang === 'he';
+  const exitToLobby = useLobbyExit();
+  return (
+    <div className="relative z-20 flex justify-center px-4 pb-14 md:pb-20">
+      <motion.button onClick={exitToLobby}
+        animate={{ y: [0, -10, 0] }}
+        transition={{ duration: 5.5, repeat: Infinity, ease: 'easeInOut' }}
+        whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.96 }}
+        className="cursor-pointer text-center rounded-2xl px-8 py-4"
+        style={{
+          background: 'rgba(8,8,12,0.68)',
+          border: '1px solid rgba(200,200,208,0.35)',
+          backdropFilter: 'blur(12px)',
+          boxShadow: '0 16px 48px rgba(0,0,0,0.45), 0 0 24px rgba(200,200,208,0.08)',
+        }}>
+        <span className="flex items-center justify-center gap-2 font-bold text-white text-base md:text-lg">
+          <DoorOpen className="w-5 h-5" style={{ color: '#C8C8D0' }} />
+          {isRtl ? 'חזרה ללובי' : 'Back to the lobby'}
+        </span>
+        <span className="block mt-1 text-xs md:text-sm" style={{ color: 'rgba(200,200,208,0.7)' }}>
+          {isRtl ? 'להמשך הסיור במרכז' : 'Continue the tour of the center'}
+        </span>
+      </motion.button>
+    </div>
+  );
+}
 
 /**
  * An immersive "room" page: the room's photo fills the viewport and content
@@ -22,6 +67,7 @@ export function RoomScene({ rooms, fallback, title, subtitle, children }: {
   const isRtl = lang === 'he';
   const sceneRef = useRef<HTMLDivElement>(null);
   const [tilt, setTilt] = useState({ x: 0, y: 0 });
+  const exitToLobby = useLobbyExit();
 
   // Gentle mouse parallax: the floating layer leans toward the cursor.
   useEffect(() => {
@@ -48,12 +94,11 @@ export function RoomScene({ rooms, fallback, title, subtitle, children }: {
 
       {/* Back to lobby */}
       <div className="absolute top-20 md:top-24 inset-x-0 flex justify-center z-30">
-        <Link href="/">
-          <span className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-sm font-medium cursor-pointer transition-colors hover:bg-white/10"
-            style={{ background: 'rgba(8,8,12,0.55)', color: '#C8C8D0', border: '1px solid rgba(200,200,208,0.25)', backdropFilter: 'blur(8px)' }}>
-            {isRtl ? '→ חזרה ללובי' : '← Back to the lobby'}
-          </span>
-        </Link>
+        <button onClick={exitToLobby} type="button"
+          className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-sm font-medium cursor-pointer transition-colors hover:bg-white/10"
+          style={{ background: 'rgba(8,8,12,0.55)', color: '#C8C8D0', border: '1px solid rgba(200,200,208,0.25)', backdropFilter: 'blur(8px)' }}>
+          {isRtl ? '→ חזרה ללובי' : '← Back to the lobby'}
+        </button>
       </div>
 
       {/* Room title */}
@@ -76,6 +121,9 @@ export function RoomScene({ rooms, fallback, title, subtitle, children }: {
         }}>
         {children}
       </div>
+
+      {/* Scrolling to the end of the room reaches the way out. */}
+      <LobbyExitSign />
     </div>
   );
 }

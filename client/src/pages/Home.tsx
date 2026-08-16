@@ -1,5 +1,7 @@
+import { useLayoutEffect } from 'react';
 import ScrollSequence, { SequenceOverlay } from '@/components/ScrollSequence';
 import LobbyHub from '@/components/LobbyHub';
+import { RETURN_TO_LOBBY_KEY } from '@/components/RoomScene';
 import { useLanguage } from '@/contexts/LanguageContext';
 import SEO from '@/components/SEO';
 import { organizationSchema, websiteSchema } from '@/lib/seoSchemas';
@@ -16,6 +18,17 @@ const WHITE = '#FFFFFF';
 export default function Home() {
   const { t, lang, dir } = useLanguage();
   const isRtl = lang === 'he';
+
+  // Coming back from a room lands straight in the lobby (the page's end),
+  // not at the top of the flight.
+  useLayoutEffect(() => {
+    let returning = false;
+    try {
+      returning = sessionStorage.getItem(RETURN_TO_LOBBY_KEY) === '1';
+      if (returning) sessionStorage.removeItem(RETURN_TO_LOBBY_KEY);
+    } catch { /* private mode */ }
+    if (returning) window.scrollTo(0, document.documentElement.scrollHeight);
+  }, []);
 
   return (
     <>
