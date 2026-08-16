@@ -172,6 +172,30 @@ export default function LobbyHub() {
   // so its ~2MB runtime never competes with the flight sequence.
   const [robotArmed, setRobotArmed] = useState(false);
   const robotWrapRef = useRef<HTMLDivElement>(null);
+  const robotScheduledRef = useRef(false);
+  const robotTimerRef = useRef(0);
+  const draggingRef = useRef(false);
+
+  // Arm the robot off the critical path: a beat after landing, at browser
+  // idle, and never in the middle of a drag — panning must stay smooth while
+  // the runtime loads and compiles.
+  const scheduleRobot = useCallback(() => {
+    if (robotScheduledRef.current) return;
+    robotScheduledRef.current = true;
+    const tryArm = () => {
+      if (draggingRef.current) {
+        robotTimerRef.current = window.setTimeout(tryArm, 900);
+        return;
+      }
+      const ric = (window as any).requestIdleCallback as
+        | undefined
+        | ((cb: () => void, opts?: { timeout: number }) => number);
+      if (ric) ric(() => setRobotArmed(true), { timeout: 3500 });
+      else setRobotArmed(true);
+    };
+    robotTimerRef.current = window.setTimeout(tryArm, 1200);
+  }, []);
+  useEffect(() => () => window.clearTimeout(robotTimerRef.current), []);
 
   const sectionRef = useRef<HTMLElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -256,7 +280,7 @@ export default function LobbyHub() {
       if (next !== fadeRef.current) {
         fadeRef.current = next;
         setFade(next);
-        if (next === 1) setRobotArmed(true);
+        if (next === 1) scheduleRobot();
         if (next === 0) {
           // Rewind the panorama so the next swap starts from the matching frame.
           progressRef.current = 0;
@@ -291,7 +315,7 @@ export default function LobbyHub() {
       window.removeEventListener('scroll', onScroll);
       window.removeEventListener('resize', onScroll);
     };
-  }, [staticMode, drawFrame, placeRobot]);
+  }, [staticMode, drawFrame, placeRobot, scheduleRobot]);
 
   // Seat the robot at its anchor when it first mounts and keep it seated
   // through window resizes.
@@ -402,6 +426,7 @@ export default function LobbyHub() {
     const onPointerDown = (e: PointerEvent) => {
       if (fadeRef.current < 1) return; // rotation unlocks only after the takeover
       dragging = true;
+      draggingRef.current = true;
       lastX = e.clientX;
       velocity = 0;
       cancelAnimationFrame(momentumRaf);
@@ -416,6 +441,7 @@ export default function LobbyHub() {
       setProgress(progressRef.current + delta);
     };
     const onPointerUp = () => {
+      draggingRef.current = false;
       if (!dragging) return;
       dragging = false;
       // Let the rotation glide to a stop instead of freezing mid-gesture.
@@ -531,8 +557,10 @@ export default function LobbyHub() {
       {robotArmed && (
         <div ref={robotWrapRef} className="absolute inset-x-0 flex justify-center pointer-events-none"
           style={{ bottom: '17svh', willChange: 'transform' }}>
+          {/* No stopPropagation here: drag gestures that start on the robot
+              bubble up to the section and pan the lobby like anywhere else.
+              The robot's own head-tracking uses mousemove, which still works. */}
           <div className="relative pointer-events-auto"
-            onPointerDown={e => e.stopPropagation()}
             style={{ width: 'min(560px, 94vw)', height: 'min(44svh, 430px)' }}>
             <RobotBoundary fallback={<RobotFallback />}>
               <SplineScene scene={ROBOT_SCENE} className="w-full h-full" />
