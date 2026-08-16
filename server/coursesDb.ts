@@ -25,6 +25,8 @@ export async function ensureCourseTables(): Promise<boolean> {
       \`subtitleEn\` varchar(255),
       \`description\` text,
       \`descriptionEn\` text,
+      \`highlights\` text,
+      \`highlightsEn\` text,
       \`price\` int NOT NULL,
       \`originalPrice\` int,
       \`priceUnit\` enum('course','lesson') NOT NULL DEFAULT 'course',
@@ -57,6 +59,19 @@ export async function ensureCourseTables(): Promise<boolean> {
       CONSTRAINT \`course_orders_id\` PRIMARY KEY(\`id\`)
     )
   `);
+
+  // Columns added after the table first shipped. MySQL has no portable
+  // "ADD COLUMN IF NOT EXISTS", so a duplicate-column error is the success case.
+  for (const column of ["highlights", "highlightsEn"]) {
+    try {
+      await db.execute(sql.raw(`ALTER TABLE \`courses\` ADD COLUMN \`${column}\` text`));
+    } catch (err) {
+      const message = err instanceof Error ? err.message : String(err);
+      if (!/duplicate column|already exists/i.test(message)) {
+        console.warn(`[Courses] Could not add column ${column}:`, message);
+      }
+    }
+  }
 
   ensured = true;
   return true;

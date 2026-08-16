@@ -6,29 +6,7 @@ import { useLanguage } from '@/contexts/LanguageContext';
 import GradientButton from '@/components/GradientButton';
 import SEO from '@/components/SEO';
 
-const TEAM = [
-  {
-    name: { he: 'יהונתן השלי', en: 'Yehonatan HaSheli' },
-    role: { he: 'מנכ"ל ומייסד', en: 'CEO & Founder' },
-    img: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663445418346/oDFneUKwvw2xJYXYaumUdB/5ef60b582___________________ortam_ai_____________________4k_pcqitx1aqs9138twyuwm_0_632aaebc.png',
-  },
-  {
-    name: { he: 'אריאל אלבוים', en: 'Ariel Alboim' },
-    role: { he: 'ראש מחלקת הכשרות', en: 'Head of Training' },
-    img: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663445418346/oDFneUKwvw2xJYXYaumUdB/d27b06cde_105_2760d0fa.jpg',
-    imgPosition: 'object-top',
-  },
-  {
-    name: { he: 'יונתן גרבינסקי', en: 'Yonatan Grabinski' },
-    role: { he: 'ראש מחלקת שיווק', en: 'Head of Marketing' },
-    img: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663445418346/oDFneUKwvw2xJYXYaumUdB/d80b2174c_unnamed1_80eb8d9d.png',
-  },
-  {
-    name: { he: 'שי נחום', en: 'Shai Nachum' },
-    role: { he: 'CTO', en: 'CTO' },
-    img: 'https://files.manuscdn.com/user_upload_by_module/session_file/310519663445418346/rXJVQOjCqHBhECGn.jpeg',
-  },
-];
+import { TEAM } from '@/data/lobbyContent';
 
 const VP = { once: true, amount: 0 };
 

@@ -57,6 +57,8 @@ const courseFieldsInput = z.object({
   subtitleEn: z.string().max(255).nullish(),
   description: z.string().max(5000).nullish(),
   descriptionEn: z.string().max(5000).nullish(),
+  highlights: z.string().max(2000).nullish(),
+  highlightsEn: z.string().max(2000).nullish(),
   price: z.number().int().min(0).max(1000000),
   originalPrice: z.number().int().min(0).max(1000000).nullish(),
   priceUnit: z.enum(["course", "lesson"]),
