@@ -124,8 +124,9 @@ export default function LobbyHub() {
     if (!img || !img.complete || img.naturalWidth === 0) return;
     currentFrameRef.current = index;
     // Slight zoom + a crop window that leans with the rotation gives the flat
-    // frames physical depth while dragging.
-    drawCover(canvas, img, 1.08, (progressRef.current - 0.5) * 0.35);
+    // frames physical depth while dragging. The lean follows a sine wave so
+    // it stays continuous across the circular wrap point.
+    drawCover(canvas, img, 1.08, Math.sin(progressRef.current * Math.PI * 2) * 0.15);
   }, [frameCount]);
 
   // Takeover driver. The hub is either fully on or fully off — never a
@@ -236,11 +237,30 @@ export default function LobbyHub() {
     return () => window.removeEventListener('resize', resize);
   }, [staticMode, drawFrame]);
 
+  // Masks the panorama's seam: the footage doesn't close a perfect loop, so
+  // crossing the wrap point plays a quick whip-pan blur that reads as
+  // "kept turning" instead of a hard cut.
+  const whipTimerRef = useRef(0);
+  const triggerWhip = useCallback(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    window.clearTimeout(whipTimerRef.current);
+    canvas.style.transition = 'filter 90ms ease-in';
+    canvas.style.filter = 'blur(14px) brightness(1.15)';
+    whipTimerRef.current = window.setTimeout(() => {
+      canvas.style.transition = 'filter 260ms ease-out';
+      canvas.style.filter = 'none';
+    }, 110);
+  }, []);
+
+  // The lobby is a full circle: progress wraps around in both directions.
   const setProgress = useCallback((p: number) => {
-    progressRef.current = Math.min(1, Math.max(0, p));
-    setRoomIndex(roomAt(progressRef.current));
+    const wrapped = ((p % 1) + 1) % 1;
+    if (p > 1 || p < 0) triggerWhip();
+    progressRef.current = wrapped;
+    setRoomIndex(roomAt(wrapped));
     requestAnimationFrame(drawFrame);
-  }, [drawFrame]);
+  }, [drawFrame, triggerWhip]);
 
   // Drag / horizontal-wheel / keyboard interactions.
   useEffect(() => {
@@ -315,11 +335,18 @@ export default function LobbyHub() {
   }, [staticMode, setProgress]);
 
   const room = ROOMS[roomIndex];
+  // Arrows go all the way around the circle: past the last room they wrap
+  // back to the first, and vice versa.
   const stepRoom = (delta: number) => {
-    const next = Math.min(ROOMS.length - 1, Math.max(0, roomIndex + delta));
+    const next = (roomIndex + delta + ROOMS.length) % ROOMS.length;
     const [from, to] = ROOMS[next].zone;
+    if ((roomIndex === ROOMS.length - 1 && next === 0) || (roomIndex === 0 && next === ROOMS.length - 1)) {
+      triggerWhip();
+    }
     setProgress((from + to) / 2);
   };
+
+  useEffect(() => () => window.clearTimeout(whipTimerRef.current), []);
 
   if (staticMode) {
     // Reduced-motion: a plain doors grid instead of the panorama.
