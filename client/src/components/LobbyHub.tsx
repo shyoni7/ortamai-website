@@ -1,11 +1,12 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { Link } from 'wouter';
 import { motion } from 'framer-motion';
-import { ChevronLeft, ChevronRight, DoorOpen, Info, Award, Star, TrendingUp, CheckCircle, Phone } from 'lucide-react';
+import { ChevronLeft, ChevronRight, DoorOpen, Info, Award, Star, TrendingUp, CheckCircle, Phone, Handshake, Users, Mail, MessageCircle } from 'lucide-react';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { useRoomTransition } from '@/contexts/RoomTransitionContext';
 import { RoomPanel } from './RoomScene';
 import GradientButton from './GradientButton';
+import { PARTNERS, TEAM, CONTACT } from '@/data/lobbyContent';
 
 /**
  * The interactive lobby: a horizontal panorama scrubbed by drag / arrow keys /
@@ -50,6 +51,36 @@ const SITE_LINKS = [
   { href: '/privacy-policy', label: 'מדיניות פרטיות',  labelEn: 'Privacy Policy' },
 ];
 
+/** A small glass sign drifting in the lobby; click opens its content shelf. */
+function FloatingSign({ icon: Icon, label, onOpen, drift, duration, style }: {
+  icon: React.ElementType;
+  label: string;
+  onOpen: () => void;
+  drift: number;
+  duration: number;
+  style: React.CSSProperties;
+}) {
+  return (
+    <div className="absolute flex pointer-events-none" style={style}>
+      <motion.button
+        onClick={e => { e.stopPropagation(); onOpen(); }}
+        onPointerDown={e => e.stopPropagation()}
+        animate={{ y: [0, -drift, 0] }}
+        transition={{ duration, repeat: Infinity, ease: 'easeInOut' }}
+        whileHover={{ scale: 1.07 }} whileTap={{ scale: 0.95 }}
+        className="pointer-events-auto inline-flex items-center gap-2 px-4 md:px-5 py-2 md:py-2.5 rounded-full text-xs md:text-sm font-semibold cursor-pointer"
+        style={{
+          background: 'rgba(8,8,12,0.7)', color: '#E8E8F0',
+          border: '1px solid rgba(200,200,208,0.4)', backdropFilter: 'blur(10px)',
+          boxShadow: '0 12px 40px rgba(0,0,0,0.45), 0 0 20px rgba(200,200,208,0.1)',
+        }}>
+        <Icon className="w-4 h-4" />
+        {label}
+      </motion.button>
+    </div>
+  );
+}
+
 function roomAt(progress: number): number {
   const i = ROOMS.findIndex(r => progress >= r.zone[0] && progress <= r.zone[1]);
   return i === -1 ? ROOMS.length - 1 : i;
@@ -80,7 +111,7 @@ export default function LobbyHub() {
   const { t, lang, dir } = useLanguage();
   const isRtl = lang === 'he';
   const { enterRoom, active: entering } = useRoomTransition();
-  const [infoOpen, setInfoOpen] = useState(false);
+  const [openPanel, setOpenPanel] = useState<'info' | 'partners' | 'team' | null>(null);
 
   const sectionRef = useRef<HTMLElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -407,25 +438,17 @@ export default function LobbyHub() {
         </span>
       </div>
 
-      {/* Floating info stand — everything the old page-bottom held (stats,
-          why-us, process, site links) now lives inside this lobby object. */}
-      <div className="absolute top-[13svh] inset-x-0 flex justify-center pointer-events-none">
-        <motion.button
-          onClick={e => { e.stopPropagation(); setInfoOpen(true); }}
-          onPointerDown={e => e.stopPropagation()}
-          animate={{ y: [0, -9, 0] }}
-          transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut' }}
-          whileHover={{ scale: 1.07 }} whileTap={{ scale: 0.95 }}
-          className="pointer-events-auto inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-semibold cursor-pointer"
-          style={{
-            background: 'rgba(8,8,12,0.7)', color: '#E8E8F0',
-            border: '1px solid rgba(200,200,208,0.4)', backdropFilter: 'blur(10px)',
-            boxShadow: '0 12px 40px rgba(0,0,0,0.45), 0 0 20px rgba(200,200,208,0.1)',
-          }}>
-          <Info className="w-4 h-4" />
-          {isRtl ? 'הכירו את המרכז' : 'About the center'}
-        </motion.button>
-      </div>
+      {/* Floating signs scattered around the space — each opens its own
+          shelf of content over the lobby. */}
+      <FloatingSign icon={Info} label={isRtl ? 'הכירו את המרכז' : 'About the center'}
+        onOpen={() => setOpenPanel('info')} drift={9} duration={5}
+        style={{ top: '12svh', insetInlineStart: 0, insetInlineEnd: 0, justifyContent: 'center' }} />
+      <FloatingSign icon={Handshake} label={isRtl ? 'השותפים והלקוחות שלנו' : 'Our partners & clients'}
+        onOpen={() => setOpenPanel('partners')} drift={7} duration={6.5}
+        style={{ top: '30svh', insetInlineStart: '5%' }} />
+      <FloatingSign icon={Users} label={isRtl ? 'הצוות והחזון' : 'Our team & vision'}
+        onOpen={() => setOpenPanel('team')} drift={8} duration={5.8}
+        style={{ top: '24svh', insetInlineEnd: '5%' }} />
 
       {/* Signage card + arrows */}
       <div className="absolute bottom-0 inset-x-0 pb-[6svh] flex flex-col items-center gap-4 pointer-events-none">
@@ -470,9 +493,9 @@ export default function LobbyHub() {
 
     </section>
 
-    {/* The info stand's content — rendered outside the section so opening it
-        never starts a pan drag. */}
-    <RoomPanel open={infoOpen} onClose={() => setInfoOpen(false)}
+    {/* Sign shelves — rendered outside the section so opening them never
+        starts a pan drag. */}
+    <RoomPanel open={openPanel === 'info'} onClose={() => setOpenPanel(null)}
       title={isRtl ? 'ORTAM AI — המרכז לפיתוח AI' : 'ORTAM AI — The AI Development Center'}>
       <div className="space-y-7">
         {/* Numbers */}
@@ -535,11 +558,6 @@ export default function LobbyHub() {
           </ol>
         </div>
 
-        <GradientButton href="/contact" size="md" className="w-full justify-center">
-          <Phone className="w-4 h-4" />
-          {isRtl ? 'דברו איתנו' : 'Talk to us'}
-        </GradientButton>
-
         {/* Site links (the old footer) */}
         <div className="flex flex-wrap justify-center gap-x-5 gap-y-2 pt-1 text-sm">
           {SITE_LINKS.map(l => (
@@ -550,6 +568,89 @@ export default function LobbyHub() {
               </span>
             </Link>
           ))}
+        </div>
+      </div>
+    </RoomPanel>
+
+    {/* Partners shelf */}
+    <RoomPanel open={openPanel === 'partners'} onClose={() => setOpenPanel(null)}
+      title={isRtl ? 'השותפים והלקוחות שלנו' : 'Our Partners & Clients'}>
+      <div className="space-y-5">
+        <p style={{ color: 'rgba(200,200,208,0.85)' }}>
+          {isRtl
+            ? 'ארגונים מובילים במשק כבר צועדים איתנו אל עולם ה-AI.'
+            : "Leading organizations are already walking into the AI world with us."}
+        </p>
+        <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+          {PARTNERS.map(partner => (
+            <div key={partner.name} title={partner.name}
+              className="rounded-xl p-3 flex items-center justify-center h-20"
+              style={{
+                background: partner.darkBg ? '#14141B' : '#FFFFFF',
+                border: '1px solid rgba(200,200,208,0.2)',
+              }}>
+              <img src={partner.url} alt={partner.name} loading="lazy"
+                className="max-h-12 max-w-full object-contain" />
+            </div>
+          ))}
+        </div>
+      </div>
+    </RoomPanel>
+
+    {/* Team & vision shelf */}
+    <RoomPanel open={openPanel === 'team'} onClose={() => setOpenPanel(null)}
+      title={isRtl ? 'הצוות והחזון' : 'Our Team & Vision'}>
+      <div className="space-y-6">
+        <div>
+          <h3 className="font-bold text-white mb-2">{t.about.vision_title}</h3>
+          <p className="text-sm leading-relaxed" style={{ color: 'rgba(200,200,208,0.85)' }}>
+            {t.about.vision_text}
+          </p>
+        </div>
+
+        <div>
+          <h3 className="font-bold text-white mb-3">{t.about.team_title}</h3>
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+            {TEAM.map(member => (
+              <div key={member.name.en} className="text-center">
+                <img src={member.img} alt={isRtl ? member.name.he : member.name.en} loading="lazy"
+                  className={`w-full aspect-square object-cover rounded-2xl mb-2 ${member.imgPosition ?? ''}`}
+                  style={{ border: '1px solid rgba(200,200,208,0.25)' }} />
+                <p className="font-semibold text-white text-sm leading-tight">{isRtl ? member.name.he : member.name.en}</p>
+                <p className="text-xs mt-0.5" style={{ color: 'rgba(200,200,208,0.65)' }}>{isRtl ? member.role.he : member.role.en}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
+          {[
+            { icon: Mail,          label: CONTACT.email,        href: `mailto:${CONTACT.email}` },
+            { icon: Phone,         label: CONTACT.phoneDisplay, href: CONTACT.phoneHref },
+            { icon: MessageCircle, label: 'WhatsApp',           href: CONTACT.whatsappHref },
+          ].map(({ icon: Icon, label, href }) => (
+            <a key={href} href={href} target={href.startsWith('http') ? '_blank' : undefined}
+              rel="noopener noreferrer"
+              className="flex items-center justify-center gap-2 rounded-xl py-2.5 px-3 text-sm transition-colors hover:bg-white/10"
+              dir="ltr"
+              style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(200,200,208,0.2)', color: '#E8E8F0' }}>
+              <Icon className="w-4 h-4 flex-shrink-0" style={{ color: '#C8C8D0' }} />
+              {label}
+            </a>
+          ))}
+        </div>
+
+        <GradientButton href="/contact" size="md" className="w-full justify-center">
+          {isRtl ? 'דברו איתנו' : 'Talk to us'}
+        </GradientButton>
+
+        <div className="text-center">
+          <Link href="/about">
+            <span className="cursor-pointer text-sm underline underline-offset-4 transition-colors hover:text-white"
+              style={{ color: 'rgba(200,200,208,0.65)' }}>
+              {isRtl ? 'לסיפור המלא — עמוד האודות' : 'The full story — our About page'}
+            </span>
+          </Link>
         </div>
       </div>
     </RoomPanel>
