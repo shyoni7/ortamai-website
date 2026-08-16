@@ -62,6 +62,11 @@ export default function LobbyHub() {
   const [roomIndex, setRoomIndex] = useState(2);
   const [entering, setEntering] = useState<Room | null>(null);
   const [staticMode, setStaticMode] = useState(false);
+  // The hub sits one viewport under the journey's final frames and crossfades
+  // in over them (the images nearly match), so there is a single, continuous
+  // lobby rather than a second copy sliding in.
+  const [fade, setFade] = useState(0);
+  const fadeRef = useRef(0);
 
   const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
   const variant = isMobile ? 'm' : 'd';
@@ -71,6 +76,31 @@ export default function LobbyHub() {
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (reduced || (navigator as any).connection?.saveData === true) setStaticMode(true);
   }, []);
+
+  // Crossfade driver: fully visible once the section reaches the viewport top.
+  useEffect(() => {
+    if (staticMode) return;
+    let raf = 0;
+    const update = () => {
+      const section = sectionRef.current;
+      if (!section) return;
+      const rect = section.getBoundingClientRect();
+      const next = Math.min(1, Math.max(0, 1 - rect.top / window.innerHeight));
+      if (Math.abs(next - fadeRef.current) > 0.01) {
+        fadeRef.current = next;
+        setFade(next);
+      }
+    };
+    const onScroll = () => { cancelAnimationFrame(raf); raf = requestAnimationFrame(update); };
+    update();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll);
+    return () => {
+      cancelAnimationFrame(raf);
+      window.removeEventListener('scroll', onScroll);
+      window.removeEventListener('resize', onScroll);
+    };
+  }, [staticMode]);
 
   const drawFrame = useCallback(() => {
     const canvas = canvasRef.current;
@@ -227,7 +257,16 @@ export default function LobbyHub() {
   return (
     <section ref={sectionRef} dir={dir}
       className="relative overflow-hidden select-none touch-pan-y"
-      style={{ height: '100svh', background: '#08080C', cursor: entering ? 'default' : 'grab' }}
+      style={{
+        height: '100svh',
+        // Overlap the journey's final viewport and crossfade in over it —
+        // one continuous lobby instead of a second copy sliding up.
+        marginTop: '-100svh',
+        zIndex: 5,
+        opacity: fade,
+        pointerEvents: fade < 0.1 ? 'none' : 'auto',
+        cursor: entering ? 'default' : 'grab',
+      }}
       aria-label={isRtl ? 'הלובי האינטראקטיבי' : 'Interactive lobby'}>
       <img src="/seq/pan/poster.jpg" alt="" aria-hidden
         className="absolute inset-0 w-full h-full object-cover" />

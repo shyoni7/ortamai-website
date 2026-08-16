@@ -161,16 +161,6 @@ export default function Home() {
           </div>
         </SequenceOverlay>
 
-        {/* Lobby arrival → hand off to the interactive hub below */}
-        <SequenceOverlay from={0.8} to={1} className="items-end justify-center">
-          <div className="text-center px-4 pb-[7svh]">
-            <p className="text-sm md:text-base flex flex-col items-center gap-2"
-              style={{ color: '#222', textShadow: '0 1px 12px rgba(255,255,255,0.85)' }}>
-              {isRtl ? 'עוד גלילה קטנה — ונכנסים ללובי' : 'One more scroll — into the lobby'}
-              <span className="inline-block w-px h-8" style={{ background: 'linear-gradient(to bottom, #333, transparent)' }} />
-            </p>
-          </div>
-        </SequenceOverlay>
       </ScrollSequence>
 
       {/* ══════════════════════════════════════════

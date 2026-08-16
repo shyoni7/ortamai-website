@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'wouter';
 import { motion } from 'framer-motion';
 import {
   GraduationCap, Users, HeartHandshake, CheckCircle, X, Sparkles, Clock,
@@ -74,9 +75,23 @@ export default function Courses() {
       />
       {/* One continuous obsidian canvas — no light/dark banding between sections. */}
       <div dir={dir} className="min-h-screen" style={{ background: '#08080C' }}>
-        {/* Hero */}
-        <section className="relative overflow-hidden flex flex-col justify-center" style={{ minHeight: '52svh' }}>
-          <div className="absolute inset-0 grid-pattern opacity-20" />
+        {/* Hero — inside the workshop room (continuation of the lobby journey) */}
+        <section className="relative overflow-hidden flex flex-col justify-center" style={{ minHeight: '62svh' }}>
+          <img src="/seq/enter/workshop/still.jpg" alt="" aria-hidden
+            className="absolute inset-0 w-full h-full object-cover" style={{ opacity: 0.5 }} />
+          <div className="absolute inset-0" style={{
+            background: 'linear-gradient(to bottom, rgba(8,8,12,0.6) 0%, rgba(8,8,12,0.75) 55%, #08080C 100%)',
+          }} />
+          <div className="absolute inset-0 grid-pattern opacity-10" />
+          {/* Back to the lobby */}
+          <div className="absolute top-20 md:top-24 inset-x-0 flex justify-center z-20">
+            <Link href="/">
+              <span className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-sm font-medium cursor-pointer transition-colors hover:bg-white/10"
+                style={{ background: 'rgba(8,8,12,0.55)', color: '#C8C8D0', border: '1px solid rgba(200,200,208,0.25)', backdropFilter: 'blur(8px)' }}>
+                {isRtl ? '→ חזרה ללובי' : '← Back to the lobby'}
+              </span>
+            </Link>
+          </div>
           <motion.div animate={{ x: [0, 60, 0], y: [0, 30, 0] }} transition={{ duration: 10, repeat: Infinity }}
             className="absolute top-10 left-10 w-72 h-72 rounded-full blur-3xl" style={{ background: 'rgba(200,200,208,0.06)' }} />
           <motion.div animate={{ x: [0, -40, 0], y: [0, -20, 0] }} transition={{ duration: 12, repeat: Infinity, delay: 2 }}
