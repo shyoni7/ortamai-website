@@ -171,6 +171,7 @@ export default function LobbyHub() {
   // The Spline robot mounts only after the visitor first lands in the lobby,
   // so its ~2MB runtime never competes with the flight sequence.
   const [robotArmed, setRobotArmed] = useState(false);
+  const robotWrapRef = useRef<HTMLDivElement>(null);
 
   const sectionRef = useRef<HTMLElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -219,6 +220,22 @@ export default function LobbyHub() {
     drawCover(canvas, img, 1.08, Math.sin(progressRef.current * Math.PI * 2) * 0.15);
   }, [frameCount]);
 
+  // The robot is anchored to a fixed spot in the panorama (the arrival view),
+  // not to the screen: rotating away slides it out of frame like a real body
+  // standing in the hall, and rotating back brings it home.
+  const ROBOT_ANCHOR = 0; // pan progress where the robot stands
+  // One storefront zone is ~0.2 of the circle, so that's roughly the progress
+  // delta that carries a fixed object one viewport-width sideways.
+  const ROBOT_SPAN = 0.2;
+  const placeRobot = useCallback(() => {
+    const el = robotWrapRef.current;
+    if (!el) return;
+    // Shortest distance around the circular panorama.
+    const d = ((progressRef.current - ROBOT_ANCHOR + 1.5) % 1) - 0.5;
+    el.style.transform = `translateX(${(-d / ROBOT_SPAN) * window.innerWidth}px)`;
+    el.style.visibility = Math.abs(d) > ROBOT_SPAN ? 'hidden' : 'visible';
+  }, []);
+
   // Takeover driver. The hub is either fully on or fully off — never a
   // translucent blend the user can park inside (that ghosted two images).
   // The instant swap is invisible because the panorama's first frame matches
@@ -244,6 +261,7 @@ export default function LobbyHub() {
           // Rewind the panorama so the next swap starts from the matching frame.
           progressRef.current = 0;
           setRoomIndex(0);
+          placeRobot();
           requestAnimationFrame(drawFrame);
         }
       }
@@ -273,7 +291,16 @@ export default function LobbyHub() {
       window.removeEventListener('scroll', onScroll);
       window.removeEventListener('resize', onScroll);
     };
-  }, [staticMode, drawFrame]);
+  }, [staticMode, drawFrame, placeRobot]);
+
+  // Seat the robot at its anchor when it first mounts and keep it seated
+  // through window resizes.
+  useEffect(() => {
+    if (!robotArmed) return;
+    placeRobot();
+    window.addEventListener('resize', placeRobot);
+    return () => window.removeEventListener('resize', placeRobot);
+  }, [robotArmed, placeRobot]);
 
   // Preload panorama + entry sequences once the hub first approaches the viewport.
   useEffect(() => {
@@ -350,8 +377,9 @@ export default function LobbyHub() {
     if (p > 1 || p < 0) triggerWhip();
     progressRef.current = wrapped;
     setRoomIndex(roomAt(wrapped));
+    placeRobot();
     requestAnimationFrame(drawFrame);
-  }, [drawFrame, triggerWhip]);
+  }, [drawFrame, triggerWhip, placeRobot]);
 
   // Drag / horizontal-wheel / keyboard interactions.
   useEffect(() => {
@@ -501,8 +529,8 @@ export default function LobbyHub() {
       {/* The concierge robot: an interactive 3D figure standing in the hall,
           projecting holographic bubbles with the center's story. */}
       {robotArmed && (
-        <div className="absolute inset-x-0 flex justify-center pointer-events-none"
-          style={{ bottom: '17svh' }}>
+        <div ref={robotWrapRef} className="absolute inset-x-0 flex justify-center pointer-events-none"
+          style={{ bottom: '17svh', willChange: 'transform' }}>
           <div className="relative pointer-events-auto"
             onPointerDown={e => e.stopPropagation()}
             style={{ width: 'min(560px, 94vw)', height: 'min(44svh, 430px)' }}>
