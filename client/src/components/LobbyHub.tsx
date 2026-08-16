@@ -34,8 +34,8 @@ export const ROOMS: Room[] = [
   { slug: 'workshop',    frames: 29, href: '/courses',   zone: [0, 0.13],    name: 'חדר הסדנאות',    nameEn: 'The Workshop Room',     desc: 'שיעורים וסדנאות מעשיות — יוצרים עם AI בידיים', descEn: 'Hands-on lessons and workshops' },
   { slug: 'accelerator', frames: 25, href: '/incubator', zone: [0.13, 0.36], name: 'קומת האקסלרטור', nameEn: 'The Accelerator Floor', desc: 'יזמים ועסקים בונים את הדור הבא עם AI',        descEn: 'Entrepreneurs building with AI' },
   { slug: 'academy',     frames: 26, href: '/academy',   zone: [0.36, 0.56], name: 'כיתת ההכשרות',   nameEn: 'The Academy Classroom', desc: 'קורסים מקצועיים לארגונים, עסקים ופרטיים',      descEn: 'Professional AI courses' },
-  { slug: 'cyber',       frames: 37, href: '/academy',   zone: [0.56, 0.77], name: 'חדר הסייבר',     nameEn: 'The Cyber Room',        desc: 'הכשרות אבטחת סייבר בעולם ה-AI',               descEn: 'Cyber security training' },
-  { slug: 'automations', frames: 37, href: '/courses',   zone: [0.77, 1],    name: 'חדר הסוכנים',    nameEn: 'The Agents Room',       desc: 'אוטומציות וסוכני AI שעובדים בשבילכם',          descEn: 'Automations and AI agents' },
+  { slug: 'cyber',       frames: 37, href: '/cyber',     zone: [0.56, 0.77], name: 'חדר הסייבר',     nameEn: 'The Cyber Room',        desc: 'הכשרות אבטחת סייבר בעולם ה-AI',               descEn: 'Cyber security training' },
+  { slug: 'automations', frames: 37, href: '/automations', zone: [0.77, 1],    name: 'חדר הסוכנים',    nameEn: 'The Agents Room',       desc: 'אוטומציות וסוכני AI שעובדים בשבילכם',          descEn: 'Automations and AI agents' },
 ];
 
 function roomAt(progress: number): number {

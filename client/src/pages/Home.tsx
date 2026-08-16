@@ -75,9 +75,9 @@ export default function Home() {
     },
     {
       icon: Briefcase,
-      title: isRtl ? 'מרכז השמה' : 'Placement Center',
-      desc: isRtl ? 'גישור בין מועמדים מוכשרים לארגונים מובילים. אנחנו מחברים בין כישרון לבין הזדמנות.' : 'Bridging talented candidates with leading organizations.',
-      href: '/placement',
+      title: isRtl ? 'סדנאות ושיעורים' : 'Workshops & Lessons',
+      desc: isRtl ? 'סדנאות מעשיות ושיעורים אישיים — יוצרים עם AI בידיים, צעד אחר צעד.' : 'Hands-on workshops and one-on-one lessons — building with AI, step by step.',
+      href: '/courses',
       sphereVariant: 'pearl' as SphereVariant,
     },
   ];
@@ -99,10 +99,10 @@ export default function Home() {
   return (
     <>
     <SEO
-      title={isRtl ? 'המרכז לפיתוח AI בישראל | חממה, הכשרות והשמה' : 'AI Development Center Israel | Incubator, Training & Placement'}
+      title={isRtl ? 'המרכז לפיתוח AI בישראל | חממה, הכשרות וסדנאות' : 'AI Development Center Israel | Incubator, Training & Workshops'}
       description={isRtl
-        ? 'ORTAM AI — הגשר בין העולם הישן לעולם ה-AI. חממה טכנולוגית, קורסי AI לארגונים ועסקים, ומרכז השמה מוכוון AI. מוביל בישראל.'
-        : 'ORTAM AI — Israel\'s leading AI development center. Tech incubator, AI training for organizations, and AI-driven placement center.'}
+        ? 'ORTAM AI — הגשר בין העולם הישן לעולם ה-AI. חממה טכנולוגית, קורסי AI לארגונים ועסקים, וסדנאות מעשיות. מוביל בישראל.'
+        : 'ORTAM AI — Israel\'s leading AI development center. Tech incubator, AI training for organizations, and hands-on workshops.'}
       canonical="/"
       schema={[organizationSchema, websiteSchema]}
     />

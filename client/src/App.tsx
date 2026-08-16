@@ -8,11 +8,12 @@ import { RoomTransitionProvider } from "./contexts/RoomTransitionContext";
 import Layout from "./components/Layout";
 import Home from "./pages/Home";
 import About from "./pages/About";
-import Incubator from "./pages/Incubator";
-import Academy from "./pages/Academy";
+import IncubatorRoom from "./pages/IncubatorRoom";
+import AcademyRoom from "./pages/AcademyRoom";
+import CyberRoom from "./pages/CyberRoom";
+import AutomationsRoom from "./pages/AutomationsRoom";
 import Courses from "./pages/Courses";
 import Admin from "./pages/Admin";
-import Placement from "./pages/Placement";
 import Contact from "./pages/Contact";
 import AccessibilityStatement from "./pages/AccessibilityStatement";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
@@ -36,10 +37,11 @@ function PublicRoutes() {
       <Switch>
         <Route path="/" component={Home} />
         <Route path="/about" component={About} />
-        <Route path="/incubator" component={Incubator} />
-        <Route path="/academy" component={Academy} />
+        <Route path="/incubator" component={IncubatorRoom} />
+        <Route path="/academy" component={AcademyRoom} />
+        <Route path="/cyber" component={CyberRoom} />
+        <Route path="/automations" component={AutomationsRoom} />
         <Route path="/courses" component={Courses} />
-        <Route path="/placement" component={Placement} />
         <Route path="/contact" component={Contact} />
         <Route path="/accessibility" component={AccessibilityStatement} />
         <Route path="/privacy" component={PrivacyPolicy} />

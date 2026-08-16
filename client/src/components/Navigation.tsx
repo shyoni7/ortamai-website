@@ -37,7 +37,6 @@ export default function Navigation() {
     { href: '/incubator', label: t.nav.incubator },
     { href: '/academy', label: t.nav.academy },
     { href: '/courses', label: t.nav.courses },
-    { href: '/placement', label: t.nav.placement },
     { href: '/about', label: t.nav.about },
     { href: '/contact', label: t.nav.contact },
   ];

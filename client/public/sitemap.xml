@@ -39,12 +39,21 @@
   </url>
 
   <url>
-    <loc>https://ortamai.com/placement</loc>
-    <lastmod>2025-01-01</lastmod>
+    <loc>https://ortamai.com/cyber</loc>
+    <lastmod>2026-08-16</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
-    <xhtml:link rel="alternate" hreflang="he" href="https://ortamai.com/placement"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://ortamai.com/placement"/>
+    <xhtml:link rel="alternate" hreflang="he" href="https://ortamai.com/cyber"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ortamai.com/cyber"/>
+  </url>
+
+  <url>
+    <loc>https://ortamai.com/automations</loc>
+    <lastmod>2026-08-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="he" href="https://ortamai.com/automations"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ortamai.com/automations"/>
   </url>
 
   <url>
