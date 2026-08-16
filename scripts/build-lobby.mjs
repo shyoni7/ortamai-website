@@ -83,7 +83,7 @@ function report(label, dir) {
 {
   const out = path.join(seqBase, "pan");
   rmSync(out, { recursive: true, force: true });
-  for (const v of [{ dir: "d", w: 1600, q: 68, step: 4 }, { dir: "m", w: 900, q: 65, step: 6 }]) {
+  for (const v of [{ dir: "d", w: 1280, q: 68, step: 2 }, { dir: "m", w: 900, q: 65, step: 4 }]) {
     const dir = path.join(out, v.dir);
     extract({ input: panSrc, outDir: dir, width: v.w, quality: v.q, select: `not(mod(n\\,${v.step}))` });
     report(`pan/${v.dir}`, dir);

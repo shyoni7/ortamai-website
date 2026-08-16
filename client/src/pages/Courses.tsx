@@ -7,6 +7,7 @@ import {
 } from 'lucide-react';
 import { useLanguage } from '@/contexts/LanguageContext';
 import GradientButton from '@/components/GradientButton';
+import RoomBackdrop from '@/components/RoomBackdrop';
 import ScrollDownArrow from '@/components/ScrollDownArrow';
 import SEO from '@/components/SEO';
 import { trpc } from '@/lib/trpc';
@@ -77,12 +78,7 @@ export default function Courses() {
       <div dir={dir} className="min-h-screen" style={{ background: '#08080C' }}>
         {/* Hero — inside the workshop room (continuation of the lobby journey) */}
         <section className="relative overflow-hidden flex flex-col justify-center" style={{ minHeight: '62svh' }}>
-          <img src="/seq/enter/workshop/still.jpg" alt="" aria-hidden
-            className="absolute inset-0 w-full h-full object-cover" style={{ opacity: 0.5 }} />
-          <div className="absolute inset-0" style={{
-            background: 'linear-gradient(to bottom, rgba(8,8,12,0.6) 0%, rgba(8,8,12,0.75) 55%, #08080C 100%)',
-          }} />
-          <div className="absolute inset-0 grid-pattern opacity-10" />
+          <RoomBackdrop rooms={['workshop', 'automations']} fallback="workshop" />
           {/* Back to the lobby */}
           <div className="absolute top-20 md:top-24 inset-x-0 flex justify-center z-20">
             <Link href="/">

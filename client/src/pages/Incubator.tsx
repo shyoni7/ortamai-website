@@ -8,6 +8,7 @@ import {
   ArrowLeft, Send, CheckCheck
 } from 'lucide-react';
 import { useLanguage } from '@/contexts/LanguageContext';
+import RoomBackdrop from '@/components/RoomBackdrop';
 import { trpc } from '@/lib/trpc';
 import ScrollDownArrow from '@/components/ScrollDownArrow';
 import SEO from '@/components/SEO';
@@ -234,6 +235,8 @@ export default function Incubator() {
           background: 'linear-gradient(135deg, #0d1228 0%, #08080C 30%, #08080C 55%, #08080C 80%, #0d1228 100%)',
         }}
       >
+        {/* ── Background: the accelerator floor the visitor entered ── */}
+        <RoomBackdrop rooms={['accelerator']} fallback="accelerator" />
         {/* ── Background glow blobs ── */}
         <div className="absolute inset-0 pointer-events-none overflow-hidden">
           {/* Right glow */}
