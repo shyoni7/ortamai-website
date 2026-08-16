@@ -6,7 +6,11 @@ import { useLanguage } from '@/contexts/LanguageContext';
 import { useRoomTransition } from '@/contexts/RoomTransitionContext';
 import { RoomPanel } from './RoomScene';
 import GradientButton from './GradientButton';
+import { SplineScene } from './ui/splite';
 import { PARTNERS, TEAM, CONTACT } from '@/data/lobbyContent';
+
+/** The interactive concierge robot standing in the lobby. */
+const ROBOT_SCENE = 'https://prod.spline.design/kZDDjO5HuC9GJUM2/scene.splinecode';
 
 /**
  * The interactive lobby: a horizontal panorama scrubbed by drag / arrow keys /
@@ -51,33 +55,85 @@ const SITE_LINKS = [
   { href: '/privacy-policy', label: 'מדיניות פרטיות',  labelEn: 'Privacy Policy' },
 ];
 
-/** A small glass sign drifting in the lobby; click opens its content shelf. */
-function FloatingSign({ icon: Icon, label, onOpen, drift, duration, style }: {
+/** Catches Spline runtime failures so the lobby degrades to the CSS sphere. */
+class RobotBoundary extends React.Component<
+  { fallback: React.ReactNode; children: React.ReactNode },
+  { failed: boolean }
+> {
+  state = { failed: false };
+  static getDerivedStateFromError() {
+    return { failed: true };
+  }
+  render() {
+    return this.state.failed ? this.props.fallback : this.props.children;
+  }
+}
+
+/** CSS stand-in for the robot: the spinning AI atom sphere from the old site. */
+function RobotFallback() {
+  const R = 'rgba(136,153,187';
+  return (
+    <div className="w-full h-full flex items-center justify-center pointer-events-none">
+      <div className="relative" style={{ width: 'min(180px, 40vw)', height: 'min(180px, 40vw)' }}>
+        <motion.div animate={{ rotate: 360 }} transition={{ duration: 5, repeat: Infinity, ease: 'linear' }} className="absolute inset-0">
+          <div className="absolute inset-0" style={{ transform: 'rotateX(75deg)', borderRadius: '50%', border: '2px solid transparent', borderTopColor: `${R},0.9)`, borderRightColor: `${R},0.9)`, boxShadow: `0 0 10px ${R},0.5)` }} />
+          <div className="absolute w-3 h-3 rounded-full bg-white" style={{ top: '-5px', left: '50%', marginLeft: '-6px', boxShadow: `0 0 10px rgba(255,255,255,0.95), 0 0 20px ${R},0.9)` }} />
+        </motion.div>
+        <motion.div animate={{ rotate: -360 }} transition={{ duration: 7, repeat: Infinity, ease: 'linear' }} className="absolute inset-0">
+          <div className="absolute inset-0" style={{ transform: 'rotateX(65deg) rotateZ(45deg)', borderRadius: '50%', border: '2px solid transparent', borderBottomColor: `${R},0.6)`, borderLeftColor: `${R},0.6)`, boxShadow: `0 0 8px ${R},0.4)` }} />
+        </motion.div>
+        <motion.div animate={{ scale: [1, 1.05, 1] }} transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
+          className="absolute rounded-full flex items-center justify-center" style={{
+            inset: '18%',
+            background: [
+              'radial-gradient(circle at 32% 28%, rgba(255,255,255,0.85) 0%, rgba(255,255,255,0) 22%)',
+              'radial-gradient(circle at 50% 50%, #C8C8D0 0%, #08080C 45%, #0d1228 100%)',
+            ].join(', '),
+            boxShadow: `0 0 40px ${R},0.55), inset 0 0 16px rgba(20,28,60,0.5)`,
+          }}>
+          <span className="font-black text-white select-none" style={{ fontSize: 'clamp(18px, 4vw, 26px)', textShadow: '0 0 12px rgba(255,255,255,0.8)' }}>AI</span>
+        </motion.div>
+      </div>
+    </div>
+  );
+}
+
+/** A holographic bubble the robot "projects"; click opens its content shelf. */
+function HoloBubble({ icon: Icon, label, onOpen, className = '', delay = 0 }: {
   icon: React.ElementType;
   label: string;
   onOpen: () => void;
-  drift: number;
-  duration: number;
-  style: React.CSSProperties;
+  className?: string;
+  delay?: number;
 }) {
   return (
-    <div className="absolute flex pointer-events-none" style={style}>
-      <motion.button
-        onClick={e => { e.stopPropagation(); onOpen(); }}
-        onPointerDown={e => e.stopPropagation()}
-        animate={{ y: [0, -drift, 0] }}
-        transition={{ duration, repeat: Infinity, ease: 'easeInOut' }}
-        whileHover={{ scale: 1.07 }} whileTap={{ scale: 0.95 }}
-        className="pointer-events-auto inline-flex items-center gap-2 px-4 md:px-5 py-2 md:py-2.5 rounded-full text-xs md:text-sm font-semibold cursor-pointer"
-        style={{
-          background: 'rgba(8,8,12,0.7)', color: '#E8E8F0',
-          border: '1px solid rgba(200,200,208,0.4)', backdropFilter: 'blur(10px)',
-          boxShadow: '0 12px 40px rgba(0,0,0,0.45), 0 0 20px rgba(200,200,208,0.1)',
-        }}>
-        <Icon className="w-4 h-4" />
+    <motion.button
+      onClick={e => { e.stopPropagation(); onOpen(); }}
+      onPointerDown={e => e.stopPropagation()}
+      initial={{ opacity: 0, scale: 0.8 }}
+      animate={{ opacity: 1, scale: 1, y: [0, -7, 0] }}
+      transition={{
+        opacity: { duration: 0.5, delay },
+        scale: { duration: 0.5, delay },
+        y: { duration: 4.5 + delay * 2, repeat: Infinity, ease: 'easeInOut', delay },
+      }}
+      whileHover={{ scale: 1.08 }} whileTap={{ scale: 0.94 }}
+      className={`absolute overflow-hidden rounded-2xl px-3.5 md:px-4 py-2 md:py-2.5 text-xs md:text-sm font-bold cursor-pointer pointer-events-auto ${className}`}
+      style={{
+        background: 'linear-gradient(160deg, rgba(90,180,255,0.24), rgba(90,180,255,0.08))',
+        border: '1px solid rgba(140,210,255,0.55)',
+        color: '#D6EEFF',
+        textShadow: '0 0 12px rgba(120,200,255,0.9)',
+        boxShadow: '0 0 26px rgba(90,180,255,0.3), inset 0 0 18px rgba(90,180,255,0.15)',
+        backdropFilter: 'blur(6px)',
+      }}>
+      <span aria-hidden className="absolute inset-0 pointer-events-none"
+        style={{ background: 'repeating-linear-gradient(0deg, rgba(150,215,255,0.12) 0px, rgba(150,215,255,0.12) 1px, transparent 1px, transparent 3px)' }} />
+      <span className="relative flex items-center gap-1.5 whitespace-nowrap">
+        <Icon className="w-4 h-4 flex-shrink-0" />
         {label}
-      </motion.button>
-    </div>
+      </span>
+    </motion.button>
   );
 }
 
@@ -112,6 +168,9 @@ export default function LobbyHub() {
   const isRtl = lang === 'he';
   const { enterRoom, active: entering } = useRoomTransition();
   const [openPanel, setOpenPanel] = useState<'info' | 'partners' | 'team' | null>(null);
+  // The Spline robot mounts only after the visitor first lands in the lobby,
+  // so its ~2MB runtime never competes with the flight sequence.
+  const [robotArmed, setRobotArmed] = useState(false);
 
   const sectionRef = useRef<HTMLElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -180,6 +239,7 @@ export default function LobbyHub() {
       if (next !== fadeRef.current) {
         fadeRef.current = next;
         setFade(next);
+        if (next === 1) setRobotArmed(true);
         if (next === 0) {
           // Rewind the panorama so the next swap starts from the matching frame.
           progressRef.current = 0;
@@ -438,17 +498,31 @@ export default function LobbyHub() {
         </span>
       </div>
 
-      {/* Floating signs scattered around the space — each opens its own
-          shelf of content over the lobby. */}
-      <FloatingSign icon={Info} label={isRtl ? 'הכירו את המרכז' : 'About the center'}
-        onOpen={() => setOpenPanel('info')} drift={9} duration={5}
-        style={{ top: '12svh', insetInlineStart: 0, insetInlineEnd: 0, justifyContent: 'center' }} />
-      <FloatingSign icon={Handshake} label={isRtl ? 'השותפים והלקוחות שלנו' : 'Our partners & clients'}
-        onOpen={() => setOpenPanel('partners')} drift={7} duration={6.5}
-        style={{ top: '30svh', insetInlineStart: '5%' }} />
-      <FloatingSign icon={Users} label={isRtl ? 'הצוות והחזון' : 'Our team & vision'}
-        onOpen={() => setOpenPanel('team')} drift={8} duration={5.8}
-        style={{ top: '24svh', insetInlineEnd: '5%' }} />
+      {/* The concierge robot: an interactive 3D figure standing in the hall,
+          projecting holographic bubbles with the center's story. */}
+      {robotArmed && (
+        <div className="absolute inset-x-0 flex justify-center pointer-events-none"
+          style={{ bottom: '17svh' }}>
+          <div className="relative pointer-events-auto"
+            onPointerDown={e => e.stopPropagation()}
+            style={{ width: 'min(560px, 94vw)', height: 'min(44svh, 430px)' }}>
+            <RobotBoundary fallback={<RobotFallback />}>
+              <SplineScene scene={ROBOT_SCENE} className="w-full h-full" />
+            </RobotBoundary>
+
+            {/* Holographic bubbles the robot projects */}
+            <HoloBubble icon={Info} label={isRtl ? 'הכירו את המרכז' : 'About the center'}
+              onOpen={() => setOpenPanel('info')} delay={0.2}
+              className="top-0 left-1/2 -translate-x-1/2" />
+            <HoloBubble icon={Handshake} label={isRtl ? 'השותפים והלקוחות שלנו' : 'Our partners & clients'}
+              onOpen={() => setOpenPanel('partners')} delay={0.45}
+              className="top-[26%] start-0" />
+            <HoloBubble icon={Users} label={isRtl ? 'הצוות והחזון' : 'Our team & vision'}
+              onOpen={() => setOpenPanel('team')} delay={0.7}
+              className="top-[40%] end-0" />
+          </div>
+        </div>
+      )}
 
       {/* Signage card + arrows */}
       <div className="absolute bottom-0 inset-x-0 pb-[6svh] flex flex-col items-center gap-4 pointer-events-none">
