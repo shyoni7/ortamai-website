@@ -4,7 +4,6 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Clock, Users, Award, BookOpen, X, ChevronDown, ChevronUp, Building, Star, CheckCircle } from 'lucide-react';
 import { useLanguage } from '@/contexts/LanguageContext';
 import GradientButton from '@/components/GradientButton';
-import RoomBackdrop from '@/components/RoomBackdrop';
 import ScrollDownArrow from '@/components/ScrollDownArrow';
 import SEO from '@/components/SEO';
 import { academyServiceSchema } from '@/lib/seoSchemas';
@@ -407,9 +406,8 @@ export default function Academy() {
     <div dir={dir} className="min-h-screen">
       {/* Hero + Training Programs — unified single section */}
       <section className="relative overflow-hidden flex flex-col justify-center" style={{ minHeight: '100svh' }}>
-        {/* Background — the classroom (or cyber room) the visitor entered */}
+        {/* Background */}
         <div className="absolute inset-0" style={{ background: '#08080C' }} />
-        <RoomBackdrop rooms={['academy', 'cyber']} fallback="academy" />
         <div className="absolute inset-0 grid-pattern opacity-20" />
         <motion.div animate={{ x: [0, 60, 0], y: [0, 30, 0] }} transition={{ duration: 10, repeat: Infinity }}
           className="absolute top-10 left-10 w-72 h-72 rounded-full blur-3xl" style={{ background: 'rgba(200,200,208,0.06)' }} />
