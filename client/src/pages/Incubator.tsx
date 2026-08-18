@@ -320,46 +320,188 @@ export default function Incubator() {
             </motion.div>
           </div>
 
-          {/* Mobile-only: atom sphere shown below text, above the CTA row */}
-          <div className="flex md:hidden justify-center mb-4">
-            <motion.div
-              initial={{ opacity: 0, scale: 0.6 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.9, ease: 'backOut' }}
-              className="relative flex-shrink-0"
-              style={{ width: 110, height: 110 }}
-            >
-              {/* Ring 1 back */}
-              <motion.div animate={{ rotate: [0, 360] }} transition={{ duration: 5, repeat: Infinity, ease: 'linear' }} className="absolute inset-0 pointer-events-none" style={{ zIndex: 0 }}>
-                <div className="absolute inset-0" style={{ transform: 'rotateX(75deg)', borderRadius: '50%', border: '2px solid transparent', borderTopColor: 'rgba(136,153,187,0.0)', borderBottomColor: 'rgba(136,153,187,0.55)', borderLeftColor: 'rgba(136,153,187,0.55)', borderRightColor: 'rgba(136,153,187,0.0)', boxShadow: '0 0 8px rgba(136,153,187,0.3)' }} />
-              </motion.div>
-              {/* Ring 2 back */}
-              <motion.div animate={{ rotate: [360, 0] }} transition={{ duration: 7, repeat: Infinity, ease: 'linear' }} className="absolute inset-0 pointer-events-none" style={{ zIndex: 0 }}>
-                <div className="absolute inset-0" style={{ transform: 'rotateX(65deg) rotateZ(45deg)', borderRadius: '50%', border: '2px solid transparent', borderTopColor: 'rgba(136,153,187,0.0)', borderBottomColor: 'rgba(136,153,187,0.5)', borderLeftColor: 'rgba(136,153,187,0.5)', borderRightColor: 'rgba(136,153,187,0.0)', boxShadow: '0 0 6px rgba(136,153,187,0.25)' }} />
-              </motion.div>
-              {/* Core sphere */}
-              <motion.div animate={{ scale: [1, 1.04, 1] }} transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }} className="absolute rounded-full" style={{ inset: '16px', zIndex: 1, background: ['radial-gradient(circle at 32% 28%, rgba(255,255,255,0.85) 0%, rgba(255,255,255,0) 22%)', 'radial-gradient(circle at 70% 72%, rgba(20,28,60,0.7) 0%, rgba(20,28,60,0) 45%)', 'radial-gradient(circle at 50% 50%, #C8C8D0 0%, #08080C 40%, #08080C 75%, #0d1228 100%)'].join(', '), boxShadow: '0 0 30px rgba(200,200,208,0.5), 0 0 60px rgba(8,8,12,0.4), inset 0 0 16px rgba(20,28,60,0.5)' }}>
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <span className="font-black text-white select-none" style={{ fontSize: '20px', textShadow: '0 0 12px rgba(255,255,255,0.8)', letterSpacing: '-0.5px' }}>AI</span>
-                </div>
-              </motion.div>
-              {/* Ring 1 front */}
-              <motion.div animate={{ rotate: [0, 360] }} transition={{ duration: 5, repeat: Infinity, ease: 'linear' }} className="absolute inset-0 pointer-events-none" style={{ zIndex: 2 }}>
-                <div className="absolute inset-0" style={{ transform: 'rotateX(75deg)', borderRadius: '50%', border: '2px solid transparent', borderTopColor: 'rgba(136,153,187,0.9)', borderBottomColor: 'rgba(136,153,187,0.0)', borderLeftColor: 'rgba(136,153,187,0.0)', borderRightColor: 'rgba(136,153,187,0.9)', boxShadow: '0 0 10px rgba(136,153,187,0.5)' }} />
-                <div className="absolute w-3 h-3 rounded-full bg-white" style={{ top: '-5px', left: '50%', marginLeft: '-6px', boxShadow: '0 0 10px rgba(255,255,255,0.95), 0 0 20px rgba(136,153,187,0.9)' }} />
-              </motion.div>
-              {/* Ring 2 front */}
-              <motion.div animate={{ rotate: [360, 0] }} transition={{ duration: 7, repeat: Infinity, ease: 'linear' }} className="absolute inset-0 pointer-events-none" style={{ zIndex: 2 }}>
-                <div className="absolute inset-0" style={{ transform: 'rotateX(65deg) rotateZ(45deg)', borderRadius: '50%', border: '2px solid transparent', borderTopColor: 'rgba(136,153,187,0.85)', borderBottomColor: 'rgba(136,153,187,0.0)', borderLeftColor: 'rgba(136,153,187,0.0)', borderRightColor: 'rgba(136,153,187,0.85)', boxShadow: '0 0 8px rgba(136,153,187,0.4)' }} />
-                <div className="absolute w-2.5 h-2.5 rounded-full" style={{ background: '#E8E8F0', top: '-5px', left: '50%', marginLeft: '-5px', boxShadow: '0 0 8px rgba(200,200,208,0.9), 0 0 16px rgba(200,200,208,0.4)' }} />
-              </motion.div>
-              {/* Outer glow */}
-              <motion.div animate={{ opacity: [0.4, 0.8, 0.4], scale: [1, 1.08, 1] }} transition={{ duration: 2.5, repeat: Infinity, ease: 'easeInOut' }} className="absolute inset-0 rounded-full pointer-events-none" style={{ zIndex: 0, boxShadow: '0 0 40px rgba(200,200,208,0.2), 0 0 80px rgba(200,200,208,0.08)' }} />
-            </motion.div>
-          </div>
+        </div>
 
-          {/* CTA with atom sphere row — desktop only */}
-          <div className={`hidden md:flex md:items-center md:gap-10 ${isRtl ? 'md:flex-row-reverse' : 'md:flex-row'}`}>
+        {/* Scroll hint — mobile only */}
+        <div className="relative z-10">
+          <ScrollDownArrow />
+        </div>
+      </section>
+
+      {/* ── What You Get ─────────────────────────────────────────────────── */}
+      <section className="py-16 md:py-24 bg-white">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+          <AnimatedSection className={`mb-16 ${isRtl ? 'text-right' : 'text-center'}`}>
+            <h2 className="text-2xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-4">{c.what_title}</h2>
+            <p className="text-gray-500 text-lg">{c.what_sub}</p>
+          </AnimatedSection>
+
+          <div className="space-y-6">
+            {c.benefits.map((b, i) => {
+              const Icon = b.icon;
+              const ref = useRef(null);
+              const inView = useInView(ref, { once: true, margin: '-60px' });
+              return (
+                <motion.div
+                  key={i}
+                  ref={ref}
+                  custom={i}
+                  variants={isRtl ? fadeLeft : fadeRight}
+                  initial="hidden"
+                  animate={inView ? 'visible' : 'hidden'}
+                  className="bg-white border border-gray-200 rounded-2xl p-8 shadow-sm hover:shadow-md hover:border-gray-200 transition-all"
+                  dir={isRtl ? 'rtl' : 'ltr'}
+                >
+                  <div className="flex items-start gap-5">
+                    <div className={`flex-shrink-0 flex items-center justify-center w-14 h-14 rounded-2xl ${b.color} shadow-lg`}>
+                      <Icon className="w-7 h-7 text-white" />
+                    </div>
+                    <div className="flex-1">
+                      <h3 className="text-gray-900 font-bold text-xl mb-1">{b.title}</h3>
+                      <p className="text-gray-500 mb-4 text-sm">{b.desc}</p>
+                      <ul className="space-y-2">
+                        {b.items.map((item, j) => (
+                          <motion.li
+                            key={j}
+                            custom={j}
+                            variants={fadeUp}
+                            initial="hidden"
+                            animate={inView ? 'visible' : 'hidden'}
+                            className="flex items-center gap-2 text-gray-700 text-sm"
+                          >
+                            <CheckCircle2 className="w-4 h-4 text-gray-900 flex-shrink-0" />
+                            <span>{item}</span>
+                          </motion.li>
+                        ))}
+                      </ul>
+                    </div>
+                  </div>
+                </motion.div>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* ── What We Build ────────────────────────────────────────────────── */}
+      <section className="py-16 md:py-24 bg-gray-50">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <AnimatedSection className={`mb-14 ${isRtl ? 'text-right' : 'text-center'}`}>
+            <h2 className="text-2xl md:text-4xl font-bold text-gray-900 mb-4">{c.build_title}</h2>
+            <p className="text-gray-500 text-lg">{c.build_sub}</p>
+          </AnimatedSection>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {c.build_items.map((item, i) => {
+              const Icon = item.icon;
+              const ref = useRef(null);
+              const inView = useInView(ref, { once: true, margin: '-60px' });
+              return (
+                <motion.div
+                  key={i}
+                  ref={ref}
+                  custom={i}
+                  variants={scaleIn}
+                  initial="hidden"
+                  animate={inView ? 'visible' : 'hidden'}
+                  className={`bg-white border border-gray-200 rounded-2xl p-8 shadow-sm hover:shadow-md hover:border-gray-200 transition-all group ${isRtl ? 'text-right' : 'text-center'}`}
+                >
+                  <motion.div
+                    whileHover={{ scale: 1.1, rotate: 5 }}
+                    transition={{ type: 'spring', stiffness: 300 }}
+                    className={`inline-flex p-4 rounded-2xl mb-5 ${isRtl ? '' : 'mx-auto'}`}
+                    style={{ background: 'rgba(200,200,208,0.1)', border: '1px solid rgba(200,200,208,0.2)' }}
+                  >
+                    <Icon className="w-8 h-8" style={{ color: '#08080C' }} />
+                  </motion.div>
+                  <h3 className="text-gray-900 font-bold text-xl mb-3">{item.title}</h3>
+                  <p className="text-gray-500 leading-relaxed">{item.desc}</p>
+                </motion.div>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* ── Process Steps ────────────────────────────────────────────────── */}
+      <section className="py-16 md:py-24 bg-white">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+          <AnimatedSection className={`mb-14 ${isRtl ? 'text-right' : 'text-center'}`}>
+            <h2 className="text-2xl md:text-4xl font-bold text-gray-900 mb-4">{c.process_title}</h2>
+            <p className="text-gray-500 text-lg">{c.process_sub}</p>
+          </AnimatedSection>
+
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            {(isRtl ? [...c.steps].reverse() : c.steps).map((step, i) => {
+              const ref = useRef(null);
+              const inView = useInView(ref, { once: true, margin: '-60px' });
+              return (
+                <motion.div
+                  key={step.num}
+                  ref={ref}
+                  custom={i}
+                  variants={fadeUp}
+                  initial="hidden"
+                  animate={inView ? 'visible' : 'hidden'}
+                  className={`bg-white border border-gray-200 rounded-2xl p-6 shadow-sm relative ${isRtl ? 'text-right' : 'text-center'}`}
+                  dir={isRtl ? 'rtl' : 'ltr'}
+                >
+                  {i < c.steps.length - 1 && (
+                    <div className={`absolute top-1/2 ${isRtl ? '-left-2' : '-right-2'} w-4 h-0.5 bg-blue-300 hidden md:block`} />
+                  )}
+                  <motion.div
+                    initial={{ scale: 0 }}
+                    animate={inView ? { scale: 1 } : {}}
+                    transition={{ delay: i * 0.12 + 0.2, type: 'spring', stiffness: 300 }}
+                    className={`inline-flex items-center justify-center w-12 h-12 rounded-full text-white font-bold text-lg mb-4 shadow-lg ${isRtl ? '' : 'mx-auto'}`}
+                    style={{ background: '#1A1A22', boxShadow: '0 4px 14px rgba(200,200,208,0.15)' }}
+                  >
+                    {step.num}
+                  </motion.div>
+                  <h3 className="text-gray-900 font-bold text-lg mb-2">{step.label}</h3>
+                  <p className="text-gray-500 text-sm">{step.desc}</p>
+                </motion.div>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* ── Flexible Business Models ─────────────────────────────────────── */}
+      <section className="py-16 md:py-24 bg-gray-50">
+        <div className="max-w-5xl mx-auto px-4">
+          <AnimatedSection className="text-center mb-10 md:mb-14">
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-3">{c.models_title}</h2>
+            <p className="text-gray-500 text-lg">{c.models_sub}</p>
+          </AnimatedSection>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6" dir={isRtl ? 'rtl' : 'ltr'}>
+            {(isRtl ? [
+              { title: 'ריטיינר חודשי', desc: 'ליווי שוטף וגישה קבועה לצוות המומחים — מתקדמים יחד, חודש אחרי חודש' },
+              { title: 'פרויקט ממוקד', desc: 'היקף ותוצר מוגדרים מראש — מהאיפיון ועד המסירה, במחיר סגור' },
+              { title: 'הדרכות וליווי לפי שעות', desc: 'גמישות מלאה לצרכים נקודתיים — הדרכה, ייעוץ או ליווי בדיוק כשצריך' },
+            ] : [
+              { title: 'Monthly Retainer', desc: 'Ongoing guidance and steady access to our expert team, month after month' },
+              { title: 'Scoped Project', desc: 'A pre-defined scope and deliverable — from discovery to handoff, at a fixed price' },
+              { title: 'Training & Hourly Support', desc: 'Full flexibility for focused needs — training, consulting or guidance exactly when needed' },
+            ]).map(model => (
+              <div key={model.title}
+                className={`bg-white border border-gray-200 rounded-2xl p-8 shadow-sm hover:shadow-md transition-shadow ${isRtl ? 'text-right' : 'text-left'}`}>
+                <h3 className="text-xl font-bold text-gray-900 mb-2">{model.title}</h3>
+                <p className="text-gray-500 leading-relaxed">{model.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── Consultation Form ──────────────────────────────────────────────────── */}
+      <ConsultationForm isRtl={isRtl} />
+
+      {/* ── Closing CTA — the atom sphere sends visitors off ── */}
+      <section className="py-16 md:py-24 relative overflow-hidden" dir={isRtl ? 'rtl' : 'ltr'}
+        style={{ background: 'linear-gradient(135deg, #0d1228 0%, #08080C 45%, #08080C 100%)' }}>
+        <div className="max-w-5xl mx-auto px-4 sm:px-6">
+          <div className={`flex flex-col items-center gap-10 md:flex-row md:items-center ${isRtl ? 'md:flex-row-reverse' : 'md:flex-row'}`}>
 
             {/* ── 3D AI Atom Sphere ── */}
             <motion.div
@@ -512,14 +654,14 @@ export default function Incubator() {
               transition={{ duration: 0.7, delay: 0.2 }}
               className={`flex-1 w-full ${isRtl ? 'text-right' : 'text-left'}`}
             >
-              <motion.h1
+              <motion.h2
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.3 }}
                 className="text-xl md:text-3xl lg:text-4xl font-bold text-white mb-3 leading-tight"
               >
                 {isRtl ? 'מוכנים לקחת את ה-AI שלכם לשלב הבא?' : 'Ready to take your AI to the next level?'}
-              </motion.h1>
+              </motion.h2>
 
               <motion.p
                 initial={{ opacity: 0, y: 15 }}
@@ -561,166 +703,7 @@ export default function Incubator() {
 
           </div>
         </div>
-
-        {/* Scroll hint — mobile only */}
-        <div className="relative z-10">
-          <ScrollDownArrow />
-        </div>
       </section>
-
-      {/* ── What You Get ─────────────────────────────────────────────────── */}
-      <section className="py-24 bg-white">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-          <AnimatedSection className={`mb-16 ${isRtl ? 'text-right' : 'text-center'}`}>
-            <h2 className="text-2xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-4">{c.what_title}</h2>
-            <p className="text-gray-500 text-lg">{c.what_sub}</p>
-          </AnimatedSection>
-
-          <div className="space-y-6">
-            {c.benefits.map((b, i) => {
-              const Icon = b.icon;
-              const ref = useRef(null);
-              const inView = useInView(ref, { once: true, margin: '-60px' });
-              return (
-                <motion.div
-                  key={i}
-                  ref={ref}
-                  custom={i}
-                  variants={isRtl ? fadeLeft : fadeRight}
-                  initial="hidden"
-                  animate={inView ? 'visible' : 'hidden'}
-                  className="bg-white border border-gray-200 rounded-2xl p-8 shadow-sm hover:shadow-md hover:border-gray-200 transition-all"
-                  dir={isRtl ? 'rtl' : 'ltr'}
-                >
-                  <div className="flex items-start gap-5">
-                    <div className={`flex-shrink-0 flex items-center justify-center w-14 h-14 rounded-2xl ${b.color} shadow-lg`}>
-                      <Icon className="w-7 h-7 text-white" />
-                    </div>
-                    <div className="flex-1">
-                      <h3 className="text-gray-900 font-bold text-xl mb-1">{b.title}</h3>
-                      <p className="text-gray-500 mb-4 text-sm">{b.desc}</p>
-                      <ul className="space-y-2">
-                        {b.items.map((item, j) => (
-                          <motion.li
-                            key={j}
-                            custom={j}
-                            variants={fadeUp}
-                            initial="hidden"
-                            animate={inView ? 'visible' : 'hidden'}
-                            className="flex items-center gap-2 text-gray-700 text-sm"
-                          >
-                            <CheckCircle2 className="w-4 h-4 text-gray-900 flex-shrink-0" />
-                            <span>{item}</span>
-                          </motion.li>
-                        ))}
-                      </ul>
-                    </div>
-                  </div>
-                </motion.div>
-              );
-            })}
-          </div>
-        </div>
-      </section>
-
-      {/* ── What We Build ────────────────────────────────────────────────── */}
-      <section className="py-24 bg-gray-50">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <AnimatedSection className={`mb-14 ${isRtl ? 'text-right' : 'text-center'}`}>
-            <h2 className="text-2xl md:text-4xl font-bold text-gray-900 mb-4">{c.build_title}</h2>
-            <p className="text-gray-500 text-lg">{c.build_sub}</p>
-          </AnimatedSection>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {c.build_items.map((item, i) => {
-              const Icon = item.icon;
-              const ref = useRef(null);
-              const inView = useInView(ref, { once: true, margin: '-60px' });
-              return (
-                <motion.div
-                  key={i}
-                  ref={ref}
-                  custom={i}
-                  variants={scaleIn}
-                  initial="hidden"
-                  animate={inView ? 'visible' : 'hidden'}
-                  className={`bg-white border border-gray-200 rounded-2xl p-8 shadow-sm hover:shadow-md hover:border-gray-200 transition-all group ${isRtl ? 'text-right' : 'text-center'}`}
-                >
-                  <motion.div
-                    whileHover={{ scale: 1.1, rotate: 5 }}
-                    transition={{ type: 'spring', stiffness: 300 }}
-                    className={`inline-flex p-4 rounded-2xl mb-5 ${isRtl ? '' : 'mx-auto'}`}
-                    style={{ background: 'rgba(200,200,208,0.1)', border: '1px solid rgba(200,200,208,0.2)' }}
-                  >
-                    <Icon className="w-8 h-8" style={{ color: '#08080C' }} />
-                  </motion.div>
-                  <h3 className="text-gray-900 font-bold text-xl mb-3">{item.title}</h3>
-                  <p className="text-gray-500 leading-relaxed">{item.desc}</p>
-                </motion.div>
-              );
-            })}
-          </div>
-        </div>
-      </section>
-
-      {/* ── Process Steps ────────────────────────────────────────────────── */}
-      <section className="py-24 bg-white">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-          <AnimatedSection className={`mb-14 ${isRtl ? 'text-right' : 'text-center'}`}>
-            <h2 className="text-2xl md:text-4xl font-bold text-gray-900 mb-4">{c.process_title}</h2>
-            <p className="text-gray-500 text-lg">{c.process_sub}</p>
-          </AnimatedSection>
-
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            {(isRtl ? [...c.steps].reverse() : c.steps).map((step, i) => {
-              const ref = useRef(null);
-              const inView = useInView(ref, { once: true, margin: '-60px' });
-              return (
-                <motion.div
-                  key={step.num}
-                  ref={ref}
-                  custom={i}
-                  variants={fadeUp}
-                  initial="hidden"
-                  animate={inView ? 'visible' : 'hidden'}
-                  className={`bg-white border border-gray-200 rounded-2xl p-6 shadow-sm relative ${isRtl ? 'text-right' : 'text-center'}`}
-                  dir={isRtl ? 'rtl' : 'ltr'}
-                >
-                  {i < c.steps.length - 1 && (
-                    <div className={`absolute top-1/2 ${isRtl ? '-left-2' : '-right-2'} w-4 h-0.5 bg-blue-300 hidden md:block`} />
-                  )}
-                  <motion.div
-                    initial={{ scale: 0 }}
-                    animate={inView ? { scale: 1 } : {}}
-                    transition={{ delay: i * 0.12 + 0.2, type: 'spring', stiffness: 300 }}
-                    className={`inline-flex items-center justify-center w-12 h-12 rounded-full text-white font-bold text-lg mb-4 shadow-lg ${isRtl ? '' : 'mx-auto'}`}
-                    style={{ background: i % 2 === 0 ? '#C8C8D0' : '#1A1A22', boxShadow: i % 2 === 0 ? '0 4px 14px rgba(200,200,208,0.2)' : '0 4px 14px rgba(200,200,208,0.1)' }}
-                  >
-                    {step.num}
-                  </motion.div>
-                  <h3 className="text-gray-900 font-bold text-lg mb-2">{step.label}</h3>
-                  <p className="text-gray-500 text-sm">{step.desc}</p>
-                </motion.div>
-              );
-            })}
-          </div>
-        </div>
-      </section>
-
-      {/* ── Flexible Business Models ─────────────────────────────────────── */}
-      <section className="py-16 bg-gray-50">
-        <div className="max-w-4xl mx-auto px-4 text-center">
-          <AnimatedSection>
-            <div className="bg-white border border-gray-200 rounded-2xl py-14 px-8 shadow-sm">
-              <h2 className={`text-3xl md:text-4xl font-bold text-gray-900 mb-3 ${isRtl ? 'text-right' : 'text-center'}`}>{c.models_title}</h2>
-              <p className={`text-gray-500 text-lg ${isRtl ? 'text-right' : 'text-center'}`}>{c.models_sub}</p>
-            </div>
-          </AnimatedSection>
-        </div>
-      </section>
-
-      {/* ── Consultation Form ──────────────────────────────────────────────────── */}
-      <ConsultationForm isRtl={isRtl} />
     </div>
     </>
   );
@@ -767,7 +750,7 @@ function ConsultationForm({ isRtl }: { isRtl: boolean }) {
   };
 
   return (
-    <section className="py-24 relative overflow-hidden" style={{ background: '#08080C' }} dir={isRtl ? 'rtl' : 'ltr'}>
+    <section className="py-16 md:py-24 relative overflow-hidden" style={{ background: '#08080C' }} dir={isRtl ? 'rtl' : 'ltr'}>
       <div className="absolute inset-0 opacity-10" style={{ backgroundImage: 'radial-gradient(circle at 30% 50%, white 1px, transparent 1px)', backgroundSize: '40px 40px' }} />
       {/* decorative blobs */}
       <div className="absolute top-0 left-0 w-96 h-96 bg-gray-500/20 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2" />
@@ -793,7 +776,7 @@ function ConsultationForm({ isRtl }: { isRtl: boolean }) {
                 <CheckCheck className="w-8 h-8 text-green-300" />
               </div>
               <h3 className="text-2xl font-bold text-white mb-2">{labels.successTitle}</h3>
-              <p className="text-gray-900">{labels.successSub}</p>
+              <p className="text-white">{labels.successSub}</p>
             </motion.div>
           ) : (
             <form onSubmit={handleSubmit} className="bg-white/10 backdrop-blur-sm rounded-2xl p-8 border border-white/20 space-y-5">
@@ -876,7 +859,7 @@ function ConsultationForm({ isRtl }: { isRtl: boolean }) {
                   onChange={e => setPrivacyConsent(e.target.checked)}
                   className="mt-1 w-4 h-4 accent-white cursor-pointer flex-shrink-0"
                 />
-                <label htmlFor="incubator-privacy" className="text-sm text-gray-900 cursor-pointer leading-relaxed">
+                <label htmlFor="incubator-privacy" className="text-sm text-white cursor-pointer leading-relaxed">
                   {isRtl ? (
                     <>אני מאשר/ת את{' '}<a href="/privacy-policy" className="text-white underline hover:text-gray-900" target="_blank" rel="noopener noreferrer">מדיניות הפרטיות</a>{' '}ומסכים/ה שהמידע שאני מספק/ת ישמר בהתאם לדרישות החוק</>
                   ) : (

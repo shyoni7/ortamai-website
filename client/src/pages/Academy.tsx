@@ -405,7 +405,7 @@ export default function Academy() {
     />
     <div dir={dir} className="min-h-screen">
       {/* Hero + Training Programs — unified single section */}
-      <section className="relative overflow-hidden flex flex-col justify-center" style={{ minHeight: '100svh' }}>
+      <section className="relative overflow-hidden flex flex-col justify-center" style={{ minHeight: '62svh' }}>
         {/* Background */}
         <div className="absolute inset-0" style={{ background: '#08080C' }} />
         <div className="absolute inset-0 grid-pattern opacity-20" />
@@ -425,7 +425,7 @@ export default function Academy() {
                 </div>
               </motion.div>
               <motion.h1 initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}
-                className="text-3xl md:text-5xl font-bold text-white mb-4">
+                className="text-4xl md:text-6xl font-bold text-white mb-4">
                 {isRtl ? 'מסלולי ההכשרה שלנו' : 'Our Training Programs'}
               </motion.h1>
               <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.2 }}
@@ -569,13 +569,13 @@ export default function Academy() {
       </section>
 
       {/* Training Cards Grid */}
-      <section className="py-12 md:py-20 bg-white">
+      <section className="py-16 md:py-24 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-6">
             {trainingPrograms.map((program, idx) => (
               <div
                 key={program.id}
-                className="bg-white border border-gray-200 rounded-2xl shadow-sm overflow-hidden hover:border-gray-200 transition-all group cursor-pointer"
+                className="bg-white border border-gray-200 rounded-2xl shadow-sm overflow-hidden hover:border-gray-300 transition-all group cursor-pointer h-full flex flex-col"
                 onClick={() => setSelectedProgram(program)}
               >
                 {/* Card Image */}
@@ -590,7 +590,7 @@ export default function Academy() {
                 </div>
 
                 {/* Card Content */}
-                <div className="p-6">
+                <div className="p-6 flex flex-col flex-1">
                   <h3 className="text-lg font-bold text-gray-900 mb-3 group-hover:text-gray-900 transition-colors leading-snug">
                     {isRtl ? program.title : program.titleEn}
                   </h3>
@@ -604,16 +604,16 @@ export default function Academy() {
                       <span>{program.hours} {isRtl ? 'שעות' : 'hours'}</span>
                     </div>
                   </div>
-                  <div className="flex gap-2">
+                  <div className="flex gap-2 mt-auto">
                     <button
                       className="flex-1 btn-primary text-sm py-2.5 text-center"
                       onClick={(e) => { e.stopPropagation(); setSelectedProgram(program); }}
                     >
                       {isRtl ? 'צפה בסילבוס' : 'View Syllabus'}
                     </button>
-                    <Link href="/contact">
+                    <Link href="/contact" className="flex-1">
                       <button
-                        className="flex-1 bg-white border border-gray-200 text-sm py-2.5 text-center text-gray-900 hover:text-gray-900 hover:bg-gray-100 transition-all rounded-lg"
+                        className="w-full bg-white border border-gray-300 text-sm py-2.5 text-center text-gray-900 hover:bg-gray-100 transition-all rounded-lg"
                         onClick={(e) => e.stopPropagation()}
                       >
                         {isRtl ? 'לפרטים' : 'Details'}
@@ -628,7 +628,7 @@ export default function Academy() {
       </section>
 
       {/* Public Courses Section */}
-      <section className="py-20 relative">
+      <section className="py-16 md:py-24 relative">
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-gray-800/30 to-transparent" />
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <motion.div
@@ -700,7 +700,7 @@ export default function Academy() {
       </section>
 
       {/* Corporate Training CTA */}
-      <section className="py-20">
+      <section className="py-16 md:py-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="bg-white border border-gray-200 rounded-3xl shadow-sm p-8 md:p-12 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <motion.div

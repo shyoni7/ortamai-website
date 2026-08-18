@@ -174,7 +174,7 @@ export default function About() {
                     <Icon className="w-5 h-5" style={{ color: '#C8C8D0' }} />
                   </div>
                   <span className="text-2xl md:text-3xl font-bold text-white">{s.value}</span>
-                  <span className="text-sm mt-1" style={{ color: 'rgba(200,200,208,0.55)' }}>{s.label}</span>
+                  <span className="text-sm mt-1" style={{ color: '#FFFFFF' }}>{s.label}</span>
                 </div>
               );
             })}
@@ -283,8 +283,8 @@ export default function About() {
       </section>
 
       {/* CTA */}
-      <section className="py-20 relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-r from-[#C8C8D0]/5 via-gray-800/30 to-[#C8C8D0]/5" />
+      <section className="py-16 md:py-24 relative overflow-hidden" style={{ background: '#08080C' }}>
+        <div className="absolute inset-0 bg-gradient-to-r from-[#C8C8D0]/10 via-transparent to-[#C8C8D0]/10" />
         <div className="max-w-3xl mx-auto px-4 text-center relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -292,8 +292,8 @@ export default function About() {
             viewport={VP}
             transition={{ duration: 0.7 }}
           >
-            <h2 className="text-4xl font-bold text-gray-900 mb-4">{t.about.cta_title}</h2>
-            <p className="text-gray-600 text-lg mb-8">{t.about.cta_sub}</p>
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">{t.about.cta_title}</h2>
+            <p className="text-lg mb-8" style={{ color: '#FFFFFF' }}>{t.about.cta_sub}</p>
             <GradientButton href="/contact" size="lg">
               {t.about.cta_btn}
             </GradientButton>
