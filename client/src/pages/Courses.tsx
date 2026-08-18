@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { Link } from 'wouter';
 import { motion } from 'framer-motion';
 import {
   GraduationCap, Users, HeartHandshake, CheckCircle, X, Sparkles, Clock,
@@ -7,8 +6,6 @@ import {
 } from 'lucide-react';
 import { useLanguage } from '@/contexts/LanguageContext';
 import GradientButton from '@/components/GradientButton';
-import RoomBackdrop from '@/components/RoomBackdrop';
-import { LobbyExitSign, useLobbyExit } from '@/components/RoomScene';
 import ScrollDownArrow from '@/components/ScrollDownArrow';
 import SEO from '@/components/SEO';
 import { trpc } from '@/lib/trpc';
@@ -50,7 +47,6 @@ interface OrderTarget {
 export default function Courses() {
   const { lang, dir } = useLanguage();
   const isRtl = lang === 'he';
-  const exitToLobby = useLobbyExit();
 
   const coursesQuery = trpc.courses.list.useQuery(undefined, {
     staleTime: 5 * 60 * 1000,
@@ -78,17 +74,9 @@ export default function Courses() {
       />
       {/* One continuous obsidian canvas — no light/dark banding between sections. */}
       <div dir={dir} className="min-h-screen" style={{ background: '#08080C' }}>
-        {/* Hero — inside the workshop room (continuation of the lobby journey) */}
-        <section className="relative overflow-hidden flex flex-col justify-center" style={{ minHeight: '62svh' }}>
-          <RoomBackdrop rooms={['workshop', 'automations']} fallback="workshop" />
-          {/* Back to the lobby */}
-          <div className="absolute top-20 md:top-24 inset-x-0 flex justify-center z-20">
-            <button onClick={exitToLobby} type="button"
-              className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-sm font-medium cursor-pointer transition-colors hover:bg-white/10"
-              style={{ background: 'rgba(8,8,12,0.55)', color: '#C8C8D0', border: '1px solid rgba(200,200,208,0.25)', backdropFilter: 'blur(8px)' }}>
-              {isRtl ? '→ חזרה ללובי' : '← Back to the lobby'}
-            </button>
-          </div>
+        {/* Hero */}
+        <section className="relative overflow-hidden flex flex-col justify-center" style={{ minHeight: '52svh' }}>
+          <div className="absolute inset-0 grid-pattern opacity-20" />
           <motion.div animate={{ x: [0, 60, 0], y: [0, 30, 0] }} transition={{ duration: 10, repeat: Infinity }}
             className="absolute top-10 left-10 w-72 h-72 rounded-full blur-3xl" style={{ background: 'rgba(200,200,208,0.06)' }} />
           <motion.div animate={{ x: [0, -40, 0], y: [0, -20, 0] }} transition={{ duration: 12, repeat: Infinity, delay: 2 }}
@@ -201,9 +189,6 @@ export default function Courses() {
           <OrderDialog target={orderTarget} isRtl={isRtl} dir={dir} lang={lang}
             onClose={() => setOrderTarget(null)} />
         )}
-
-        {/* The way back out of the workshop room */}
-        <LobbyExitSign />
       </div>
     </>
   );
