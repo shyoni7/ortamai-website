@@ -138,7 +138,7 @@ export default function Placement() {
           background: 'linear-gradient(135deg, #0d1228 0%, #08080C 40%, #08080C 70%, #08080C 100%)',
           position: 'relative',
           overflow: 'hidden',
-          minHeight: '100svh',
+          minHeight: '55svh',
           display: 'flex',
           alignItems: 'center',
         }}
@@ -163,7 +163,7 @@ export default function Placement() {
               </span>
             </div>
 
-            <h1 style={{ fontSize: 'clamp(1.6rem, 5vw, 3rem)', fontWeight: 800, color: '#ffffff', lineHeight: 1.2, marginBottom: '1rem' }}>
+            <h1 style={{ fontSize: 'clamp(2rem, 5vw, 3.75rem)', fontWeight: 800, color: '#ffffff', lineHeight: 1.2, marginBottom: '1rem' }}>
               {isRtl ? 'מרכז השמה מוכוון AI' : 'AI-Driven Placement Center'}
             </h1>
 
@@ -258,7 +258,7 @@ export default function Placement() {
       </section>
 
       {/* Cards */}
-      <section className="py-16">
+      <section className="py-16 md:py-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
             {/* Candidates */}
@@ -273,7 +273,7 @@ export default function Placement() {
               <div className="space-y-3">
                 {benefits.map((b, i) => (
                   <div key={i} className="flex items-center gap-3">
-                    <CheckCircle className="w-5 h-5 flex-shrink-0" style={{ color: i % 2 === 0 ? '#C8C8D0' : '#1A1A22' }} />
+                    <CheckCircle className="w-5 h-5 flex-shrink-0" style={{ color: '#1A1A22' }} />
                     <span className="text-gray-600 text-sm">{b}</span>
                   </div>
                 ))}
@@ -292,13 +292,13 @@ export default function Placement() {
               <div className="space-y-3 mb-8">
                 {benefits.map((b, i) => (
                   <div key={i} className="flex items-center gap-3">
-                    <CheckCircle className="w-5 h-5 flex-shrink-0" style={{ color: i % 2 === 0 ? '#1A1A22' : '#C8C8D0' }} />
+                    <CheckCircle className="w-5 h-5 flex-shrink-0" style={{ color: '#1A1A22' }} />
                     <span className="text-gray-600 text-sm">{b}</span>
                   </div>
                 ))}
               </div>
               <Link href="/contact">
-                <button className="w-full py-3 rounded-xl border border-gray-200/30 text-gray-900 hover:bg-gray-100/30 transition-colors font-semibold">{t.placement.cta}</button>
+                <button className="w-full py-3 rounded-xl bg-gray-900 text-white hover:bg-gray-800 transition-colors font-semibold">{t.placement.cta}</button>
               </Link>
             </div>
           </div>

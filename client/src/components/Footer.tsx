@@ -22,7 +22,7 @@ export default function Footer() {
               className="h-9 w-auto object-contain mb-4"
               style={{ filter: 'brightness(1.1)' }}
             />
-            <p style={{ color: 'rgba(200,200,208,0.55)', fontSize: '0.875rem', lineHeight: '1.7' }}>
+            <p style={{ color: '#FFFFFF', fontSize: '0.875rem', lineHeight: '1.7' }}>
               {t.footer.tagline}
             </p>
           </div>
@@ -47,9 +47,9 @@ export default function Footer() {
                 <Link key={link.href} href={link.href}>
                   <span
                     className="block text-sm cursor-pointer transition-colors duration-200"
-                    style={{ color: 'rgba(200,200,208,0.55)' }}
+                    style={{ color: '#FFFFFF' }}
                     onMouseEnter={e => (e.currentTarget.style.color = '#C8C8D0')}
-                    onMouseLeave={e => (e.currentTarget.style.color = 'rgba(200,200,208,0.55)')}
+                    onMouseLeave={e => (e.currentTarget.style.color = '#FFFFFF')}
                   >
                     {link.label}
                   </span>
@@ -66,16 +66,16 @@ export default function Footer() {
             >
               {lang === 'he' ? 'צור קשר' : 'Contact'}
             </h3>
-            <div className="space-y-2.5 text-sm" style={{ color: 'rgba(200,200,208,0.55)' }}>
+            <div className="space-y-2.5 text-sm" style={{ color: '#FFFFFF' }}>
               <p>info@ortamai.com</p>
               <a
                 href="https://wa.me/972523381822"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="block transition-colors duration-200"
-                style={{ color: 'rgba(200,200,208,0.55)' }}
+                style={{ color: '#FFFFFF' }}
                 onMouseEnter={e => (e.currentTarget.style.color = '#C8C8D0')}
-                onMouseLeave={e => (e.currentTarget.style.color = 'rgba(200,200,208,0.55)')}
+                onMouseLeave={e => (e.currentTarget.style.color = '#FFFFFF')}
               >
                 WhatsApp: 052-338-1822
               </a>
@@ -86,16 +86,16 @@ export default function Footer() {
         {/* Bottom bar */}
         <div
           className="pt-6 flex flex-col sm:flex-row justify-between items-center gap-4 text-sm"
-          style={{ borderTop: '1px solid rgba(200,200,208,0.08)', color: 'rgba(200,200,208,0.35)' }}
+          style={{ borderTop: '1px solid rgba(200,200,208,0.08)', color: '#FFFFFF' }}
         >
           <p>© {year} ORTAM AI. {t.footer.rights}</p>
           <div className="flex gap-5">
             <Link href="/accessibility">
               <span
                 className="cursor-pointer transition-colors duration-200"
-                style={{ color: 'rgba(200,200,208,0.35)' }}
+                style={{ color: '#FFFFFF' }}
                 onMouseEnter={e => (e.currentTarget.style.color = '#C8C8D0')}
-                onMouseLeave={e => (e.currentTarget.style.color = 'rgba(200,200,208,0.35)')}
+                onMouseLeave={e => (e.currentTarget.style.color = '#FFFFFF')}
               >
                 {t.footer.accessibility}
               </span>
@@ -103,9 +103,9 @@ export default function Footer() {
             <Link href="/privacy">
               <span
                 className="cursor-pointer transition-colors duration-200"
-                style={{ color: 'rgba(200,200,208,0.35)' }}
+                style={{ color: '#FFFFFF' }}
                 onMouseEnter={e => (e.currentTarget.style.color = '#C8C8D0')}
-                onMouseLeave={e => (e.currentTarget.style.color = 'rgba(200,200,208,0.35)')}
+                onMouseLeave={e => (e.currentTarget.style.color = '#FFFFFF')}
               >
                 {lang === 'he' ? 'מדיניות פרטיות' : 'Privacy Policy'}
               </span>

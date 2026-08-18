@@ -51,7 +51,7 @@ export default function Contact() {
     />
     <div dir={dir}>
       {/* Hero */}
-      <section className="relative flex items-center justify-center overflow-hidden" style={{ minHeight: '70svh', background: '#08080C' }}>
+      <section className="relative flex items-center justify-center overflow-hidden" style={{ minHeight: '40svh', background: '#08080C' }}>
         {/* Dot-grid */}
         <div className="absolute inset-0" style={{ backgroundImage: 'radial-gradient(circle, rgba(200,200,208,0.07) 1px, transparent 1px)', backgroundSize: '32px 32px' }} />
         {/* Sphere accents */}
@@ -73,7 +73,7 @@ export default function Contact() {
       </section>
 
       {/* Form + Info */}
-      <section className="py-8">
+      <section className="py-16 md:py-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
             {/* Form */}

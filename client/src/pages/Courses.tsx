@@ -119,7 +119,7 @@ export default function Courses() {
         </section>
 
         {/* Section 1: Main courses */}
-        <section className="py-16 relative">
+        <section className="py-16 md:py-24 relative">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <SectionHeader
               icon={GraduationCap}
@@ -136,7 +136,7 @@ export default function Courses() {
         </section>
 
         {/* Section 2: Lessons — subtle band to separate from section 1 */}
-        <section className="py-16 relative"
+        <section className="py-16 md:py-24 relative"
           style={{ background: 'rgba(255,255,255,0.02)', borderTop: '1px solid rgba(200,200,208,0.08)', borderBottom: '1px solid rgba(200,200,208,0.08)' }}>
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <SectionHeader
@@ -296,7 +296,7 @@ function FlagshipCard({ course, index, isRtl, onOrder }: {
         <div className="relative mt-auto">
           <div className="flex items-baseline gap-2 mb-4 pt-5" style={{ borderTop: '1px solid rgba(200,200,208,0.14)' }}>
             <span className="text-4xl font-bold text-white tracking-tight">{formatPrice(course.price)}</span>
-            <span className="text-sm" style={{ color: 'rgba(200,200,208,0.55)' }}>
+            <span className="text-sm" style={{ color: '#FFFFFF' }}>
               {isRtl ? 'לקורס המלא' : 'full course'}
             </span>
           </div>
@@ -362,13 +362,13 @@ function CourseCard({ course, isRtl, onOrder }: { course: CourseItem; isRtl: boo
           ))}
         </ul>
       ) : (
-        description && <p className="text-sm leading-relaxed mb-5" style={{ color: 'rgba(200,200,208,0.55)' }}>{description}</p>
+        description && <p className="text-sm leading-relaxed mb-5" style={{ color: '#FFFFFF' }}>{description}</p>
       )}
 
       <div className="mt-auto">
         <div className="flex items-baseline gap-2 mb-4 pt-4" style={{ borderTop: '1px solid rgba(200,200,208,0.12)' }}>
           <span className="text-3xl font-bold text-white tracking-tight">{formatPrice(course.price)}</span>
-          <span className="text-sm" style={{ color: 'rgba(200,200,208,0.55)' }}>
+          <span className="text-sm" style={{ color: '#FFFFFF' }}>
             {perLesson ? (isRtl ? 'למפגש' : 'per lesson') : (isRtl ? 'לקורס המלא' : 'full course')}
           </span>
         </div>
@@ -425,7 +425,7 @@ function SubsidizedCard({ course, isRtl, onOrder }: { course: CourseItem; isRtl:
           ))}
         </ul>
       ) : (
-        description && <p className="text-sm leading-relaxed mb-5" style={{ color: 'rgba(200,200,208,0.55)' }}>{description}</p>
+        description && <p className="text-sm leading-relaxed mb-5" style={{ color: '#FFFFFF' }}>{description}</p>
       )}
 
       <div className="mt-auto">
@@ -434,7 +434,7 @@ function SubsidizedCard({ course, isRtl, onOrder }: { course: CourseItem; isRtl:
             <span className="text-3xl font-bold text-white tracking-tight">{formatPrice(course.price)}</span>
             {course.originalPrice != null && course.originalPrice > course.price && (
               <>
-                <span className="text-lg line-through" style={{ color: 'rgba(200,200,208,0.45)' }}>
+                <span className="text-lg line-through" style={{ color: 'rgba(200,200,208,0.7)' }}>
                   {formatPrice(course.originalPrice)}
                 </span>
                 {discount != null && (
@@ -446,7 +446,7 @@ function SubsidizedCard({ course, isRtl, onOrder }: { course: CourseItem; isRtl:
               </>
             )}
           </div>
-          <p className="text-xs mb-4" style={{ color: 'rgba(200,200,208,0.5)' }}>
+          <p className="text-xs mb-4" style={{ color: '#FFFFFF' }}>
             {isRtl ? 'המחיר למי שנמצאו זכאים, בכפוף לבדיקה' : 'Price for eligible applicants, subject to verification'}
           </p>
         </div>

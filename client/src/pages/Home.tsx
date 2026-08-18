@@ -33,7 +33,7 @@ const OBS3  = '#1A1A22';          // elevated surface
 const PLAT  = '#C8C8D0';          // platinum
 const PLAT2 = '#E8E8F0';          // light platinum
 const WHITE = '#FFFFFF';
-const DIM   = 'rgba(200,200,208,0.45)'; // dimmed platinum text
+const DIM   = '#FFFFFF'; // secondary text on dark surfaces — white for readability
 
 const fadeUp = {
   hidden: { opacity: 0, y: 28 },
@@ -50,7 +50,7 @@ export default function Home() {
   const ArrowIcon = isRtl ? ArrowLeft : ArrowRight;
 
   const stats = [
-    { value: '30+',  label: t.stats.programs },
+    { value: '15+',  label: t.stats.programs },
     { value: '98%',  label: t.stats.satisfaction },
     { value: '300+', label: t.stats.graduates },
     { value: '10+',  label: t.stats.partners },
@@ -138,12 +138,12 @@ export default function Home() {
         <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 md:py-24">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-16 items-center">
 
-            {/* Text column — on mobile appears BELOW the video (order-2), on desktop left/right (order-1 lg:order-1) */}
+            {/* Text column — headline first on every screen size */}
             <motion.div
               variants={stagger}
               initial="hidden"
               animate="visible"
-              className={isRtl ? 'text-center md:text-right order-2 lg:order-1' : 'text-center md:text-left order-2 lg:order-1'}
+              className={isRtl ? 'text-center md:text-right order-1' : 'text-center md:text-left order-1'}
             >
               {/* Pill badge */}
               <motion.div variants={fadeUp} className="inline-flex mb-5 md:mb-8">
@@ -198,21 +198,7 @@ export default function Home() {
                 {t.home.hero_desc}
               </motion.p>
 
-              {/* Stats row */}
-              <motion.div variants={fadeUp} className="flex flex-wrap justify-center md:justify-start gap-6 md:gap-10 mb-7 md:mb-10">
-                {[
-                  { v: '300+', l: isRtl ? 'בוגרים'        : 'Graduates'   },
-                  { v: '98%',  l: isRtl ? 'שביעות רצון'   : 'Satisfaction' },
-                  { v: '10+',  l: isRtl ? 'שותפים'        : 'Partners'    },
-                ].map((s, i) => (
-                  <div key={i} className="text-center">
-                    <div className="text-2xl md:text-3xl font-bold" style={{ color: WHITE }}>{s.v}</div>
-                    <div className="text-xs mt-0.5 tracking-wide uppercase" style={{ color: DIM }}>{s.l}</div>
-                  </div>
-                ))}
-              </motion.div>
-
-              {/* CTA buttons */}
+              {/* CTA buttons — the numbers live once, in the stats stripe below */}
               <motion.div variants={fadeUp} className="flex flex-wrap justify-center md:justify-start gap-3 md:gap-4">
                 {/* Primary — white solid */}
                 <Link href="/contact">
@@ -239,19 +225,19 @@ export default function Home() {
               </motion.div>
             </motion.div>
 
-            {/* Video column — mobile: order-1 (top), desktop: order-2 (right) */}
+            {/* Video column — follows the headline on every screen size */}
             <motion.div
               initial={{ opacity: 0, y: 36 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1.1, delay: 0.35, type: 'spring', stiffness: 55 }}
-              className="relative order-1 lg:order-2"
+              className="relative order-2"
             >
               {/* Floating badge top */}
               <motion.div
                 animate={{ y: [0, -7, 0] }}
                 transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut' }}
-                className="absolute -top-5 -right-4 z-20 hidden lg:flex items-center gap-2 px-3 py-2 rounded-xl border"
-                style={{ background: OBS2, borderColor: 'rgba(200,200,208,0.18)' }}
+                className="absolute -top-6 -right-6 z-20 hidden lg:flex items-center gap-2 px-3 py-2 rounded-xl border"
+                style={{ background: OBS2, borderColor: 'rgba(200,200,208,0.18)', boxShadow: '0 12px 32px rgba(0,0,0,0.5)' }}
               >
                 <div className="w-7 h-7 rounded-lg flex items-center justify-center" style={{ background: OBS3, border: '1px solid rgba(200,200,208,0.2)' }}>
                   <Brain className="w-4 h-4" style={{ color: PLAT }} />
@@ -266,8 +252,8 @@ export default function Home() {
               <motion.div
                 animate={{ y: [0, 7, 0] }}
                 transition={{ duration: 6.5, repeat: Infinity, ease: 'easeInOut', delay: 1.5 }}
-                className="absolute -bottom-5 -left-4 z-20 hidden lg:flex items-center gap-2 px-3 py-2 rounded-xl border"
-                style={{ background: OBS2, borderColor: 'rgba(200,200,208,0.18)' }}
+                className="absolute -bottom-6 -left-6 z-20 hidden lg:flex items-center gap-2 px-3 py-2 rounded-xl border"
+                style={{ background: OBS2, borderColor: 'rgba(200,200,208,0.18)', boxShadow: '0 12px 32px rgba(0,0,0,0.5)' }}
               >
                 <div className="w-7 h-7 rounded-lg flex items-center justify-center" style={{ background: OBS3, border: '1px solid rgba(200,200,208,0.2)' }}>
                   <Rocket className="w-4 h-4" style={{ color: PLAT }} />
@@ -368,7 +354,7 @@ export default function Home() {
             transition={{ duration: 0.65 }}
             className="text-center mb-10 md:mb-16"
           >
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4" style={{ color: OBS }}>{t.home.pillars_title}</h2>
+            <h2 className="text-3xl md:text-4xl font-bold mb-4" style={{ color: OBS }}>{t.home.pillars_title}</h2>
             <p className="text-gray-500 text-base md:text-lg max-w-2xl mx-auto">{t.home.pillars_sub}</p>
           </motion.div>
 
@@ -403,7 +389,8 @@ export default function Home() {
                       <MetallicSphere variant={pillar.sphereVariant} size={110} />
                       <h3 className="text-lg md:text-xl font-bold mt-4 mb-3 transition-colors" style={{ color: OBS }}>{pillar.title}</h3>
                       <p className="text-gray-500 leading-relaxed text-sm flex-1">{pillar.desc}</p>
-                      <div className="mt-5 flex items-center gap-2 text-sm font-semibold" style={{ color: '#555' }}>
+                      <div className="mt-5 inline-flex items-center justify-center gap-2 w-full px-5 py-2.5 rounded-xl border text-sm font-semibold transition-colors group-hover:bg-gray-900 group-hover:text-white group-hover:border-gray-900"
+                        style={{ borderColor: '#d1d5db', color: OBS }}>
                         <span>{isRtl ? 'קרא עוד' : 'Learn more'}</span>
                         <ArrowIcon size={14} />
                       </div>
@@ -441,7 +428,7 @@ export default function Home() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, amount: 0 }}
                 transition={{ duration: 0.6 }}
-                className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4"
+                className="text-3xl md:text-4xl font-bold mb-4"
                 style={{ color: OBS }}
               >
                 {t.home.why_title}
@@ -495,7 +482,7 @@ export default function Home() {
             transition={{ duration: 0.65 }}
             className="text-center mb-10 md:mb-16"
           >
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4" style={{ color: OBS }}>{t.home.how_title}</h2>
+            <h2 className="text-3xl md:text-4xl font-bold mb-4" style={{ color: OBS }}>{t.home.how_title}</h2>
             <p className="text-gray-500 text-base md:text-lg">{t.home.how_sub}</p>
           </motion.div>
 
@@ -531,7 +518,7 @@ export default function Home() {
       {/* ══════════════════════════════════════════
           PARTNERS — #F5F5F5
       ══════════════════════════════════════════ */}
-      <section className="py-14 md:py-20 border-y border-gray-100" style={{ background: '#F5F5F5' }}>
+      <section className="py-16 md:py-24 border-y border-gray-100" style={{ background: '#F5F5F5' }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 18 }}
@@ -579,7 +566,7 @@ export default function Home() {
       {/* ══════════════════════════════════════════
           CTA — Obsidian black
       ══════════════════════════════════════════ */}
-      <section className="py-16 md:py-28 relative overflow-hidden" style={{ background: OBS }}>
+      <section className="py-16 md:py-24 relative overflow-hidden" style={{ background: OBS }}>
         {/* Subtle grid */}
         <div className="absolute inset-0 pointer-events-none" style={{
           backgroundImage: `radial-gradient(circle, rgba(200,200,208,0.06) 1px, transparent 1px)`,
@@ -607,7 +594,7 @@ export default function Home() {
               <div className="h-px w-20 md:w-32" style={{ background: `linear-gradient(to left, transparent, ${PLAT}50)` }} />
             </div>
 
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4 md:mb-6" style={{ color: WHITE }}>{t.home.final_title}</h2>
+            <h2 className="text-3xl md:text-4xl font-bold mb-4 md:mb-6" style={{ color: WHITE }}>{t.home.final_title}</h2>
             <p className="text-base md:text-xl mb-8 md:mb-10 max-w-2xl mx-auto" style={{ color: DIM }}>{t.home.final_sub}</p>
 
             <Link href="/contact">
