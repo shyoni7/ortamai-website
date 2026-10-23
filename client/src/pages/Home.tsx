@@ -67,10 +67,10 @@ export default function Home() {
 
   const heroCaptions = [
     { id: 'logo', caption: he ? 'הכשרות AI לארגונים ולאנשים פרטיים' : 'AI training for organizations and individuals', href: '/academy' },
-    { id: 'ai', caption: he ? 'קורסי AI מעשיים, מאפס ועד מוצר' : 'Hands-on AI courses, from zero to product', href: '/courses' },
-    { id: 'cyber', caption: he ? 'הכשרות סייבר AI' : 'Cyber AI training', href: '/academy' },
-    { id: 'placement', caption: he ? 'מרכז השמה לבוגרים' : 'Placement for graduates', href: '/placement' },
-    { id: 'strategy', caption: he ? 'ייעוץ אסטרטגיית AI לעסקים' : 'AI strategy consulting for businesses', href: '/incubator' },
+    { id: 'ai', caption: he ? 'מבקשה בצ׳אט ועד תוכנית מוצר' : 'From a chat request to a product plan', href: '/courses' },
+    { id: 'cyber', caption: he ? 'ניטור וזיהוי איומים בסביבת SOC' : 'Monitoring and threat detection in a SOC', href: '/academy' },
+    { id: 'placement', caption: he ? 'מהכיתה לתפקיד' : 'From the classroom to the job', href: '/placement' },
+    { id: 'strategy', caption: he ? 'תוכנית AI מעשית לעסק שלכם' : 'A practical AI plan for your business', href: '/incubator' },
   ];
 
   const facts = [
@@ -103,9 +103,10 @@ export default function Home() {
         <section className="relative isolate overflow-hidden hero-v3" style={{ background: 'var(--h-hero-ground)' }}>
           <HeroScene
             lang={he ? 'he' : 'en'}
-            src={`${IMG}/ai-hero-daylight.webp`}
-            srcSmall={`${IMG}/ai-hero-daylight-sm.webp`}
+            src={`${IMG}/ai-hero-projector.webp`}
+            srcSmall={`${IMG}/ai-hero-projector-sm.webp`}
             logoSrc="/images/brand/ortam-logo.png"
+            handshakeSrc={`${IMG}/handshake-mask.png`}
             captions={heroCaptions}
           />
           {/* Desktop: warm shade behind the headline so it reads over the window light */}
@@ -119,7 +120,7 @@ export default function Home() {
           {/* Below lg: shade the photo under the screen where the text sits */}
           <div aria-hidden="true" className="absolute inset-0 -z-10 lg:hidden pointer-events-none hero-v3-shade" />
           <div className="hero-v3-content mx-auto max-w-7xl px-5 sm:px-8 pb-16 lg:pt-28 lg:pb-32 lg:min-h-[80svh] flex flex-col lg:justify-center pointer-events-none">
-            <div className="lg:max-w-[36rem] text-start pointer-events-auto">
+            <div className="lg:max-w-[34rem] text-start pointer-events-auto">
               <h1
                 className="h-rise text-white font-extrabold leading-[1.02]"
                 style={{ fontSize: 'clamp(2.75rem, 6vw, 5.25rem)' }}

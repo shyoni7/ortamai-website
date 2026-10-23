@@ -1,15 +1,19 @@
 import { useEffect, useRef, useState } from 'react';
 import { Link } from 'wouter';
-import { buildSlides, SW, SH, type Lang, type Slide, type Target } from './hero/particleSlides';
+import { buildSlides, socAlert, socLine, SW, SH, type Lang, type Slide, type Target } from './hero/particleSlides';
 
-// Home hero background: a real-looking classroom in daylight. The wall
-// screen in the photo plays a live particle presentation, mapped onto the
-// screen with a perspective transform so it reads as part of the room.
+// Home hero background: a classroom in daylight with a ceiling projector.
+// The projector throws a live particle presentation onto the screen (mapped
+// with a perspective transform), and its beam carries a little dust.
 
 const IMG_W = 1376;
 const IMG_H = 768;
-// Screen corners inside the photo, in image pixels: TL, TR, BR, BL.
-const QUAD: [number, number][] = [[131, 56], [629, 84], [629, 379], [132, 389]];
+// Projected area of the screen inside the photo, in image pixels: TL, TR, BR, BL.
+const QUAD: [number, number][] = [[253, 162], [660, 162], [660, 403], [254, 403]];
+// Projector lens in the photo.
+const LENS: [number, number] = [344, 100];
+// Part of the photo shown on narrow screens: projector, screen and the students' heads.
+const CROP = { w: 735, h: 585 };
 const ZOOM = 1.04;
 
 export interface SlideCaption { id: string; caption: string; href: string }
@@ -20,6 +24,7 @@ interface Props {
   srcSmall: string;
   captions: SlideCaption[];
   logoSrc: string;
+  handshakeSrc: string;
 }
 
 type Pt = [number, number];
@@ -34,7 +39,6 @@ function homography(src: Pt[], dst: Pt[]) {
     A.push([x, y, 1, 0, 0, 0, -u * x, -u * y]); b.push(u);
     A.push([0, 0, 0, x, y, 1, -v * x, -v * y]); b.push(v);
   }
-  // Gaussian elimination.
   for (let c = 0; c < 8; c++) {
     let p = c;
     for (let r = c + 1; r < 8; r++) if (Math.abs(A[r][c]) > Math.abs(A[p][c])) p = r;
@@ -62,98 +66,99 @@ function apply3(m: number[], x: number, y: number): Pt {
   return [(m[0] * x + m[1] * y + m[2]) / w, (m[3] * x + m[4] * y + m[5]) / w];
 }
 
-function mix(a: string, b: string, t: number) {
-  const pa = [1, 3, 5].map(i => parseInt(a.slice(i, i + 2), 16));
-  const pb = [1, 3, 5].map(i => parseInt(b.slice(i, i + 2), 16));
-  return `rgb(${pa.map((v, i) => Math.round(v + (pb[i] - v) * t)).join(',')})`;
-}
+const hex = (c: string) => [1, 3, 5].map(i => parseInt(c.slice(i, i + 2), 16));
 
-export default function HeroScene({ lang, src, srcSmall, captions, logoSrc }: Props) {
+export default function HeroScene({ lang, src, srcSmall, captions, logoSrc, handshakeSrc }: Props) {
   const rootRef = useRef<HTMLDivElement>(null);
   const sceneRef = useRef<HTMLDivElement>(null);
   const imgRef = useRef<HTMLImageElement>(null);
+  const beamRef = useRef<HTMLCanvasElement>(null);
   const slideRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [active, setActive] = useState(0);
-  const [inks, setInks] = useState<{ ink: string; id: string; duration: number }[]>([]);
+  const [meta, setMeta] = useState<{ id: string; ink: string; accent: string; duration: number }[]>([]);
   const mirrored = lang === 'en';
 
   useEffect(() => {
     const root = rootRef.current, scene = sceneRef.current, img = imgRef.current;
-    const slideEl = slideRef.current, canvas = canvasRef.current;
-    if (!root || !scene || !img || !slideEl || !canvas) return;
+    const slideEl = slideRef.current, canvas = canvasRef.current, beam = beamRef.current;
+    if (!root || !scene || !img || !slideEl || !canvas || !beam) return;
     const ctx = canvas.getContext('2d');
-    if (!ctx) return;
+    const bctx = beam.getContext('2d');
+    if (!ctx || !bctx) return;
 
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const finePointer = window.matchMedia('(pointer: fine)').matches;
-    let disposed = false;
-    let raf = 0;
-    let visible = true;
+    let disposed = false, raf = 0, visible = true;
     let slides: Slide[] = [];
 
-    // geometry
-    let W = 0, H = 0, mobile = false;
-    let toScreen = [1, 0, 0, 0, 1, 0, 0, 0, 1];
-    let toSlide = toScreen;
+    let W = 0, H = 0, narrow = false, dpr = 1;
+    let toSlide = [1, 0, 0, 0, 1, 0, 0, 0, 1];
+    let quad: Pt[] = [];
+    let lens: Pt = [0, 0];
     const par = { x: 0, y: 0, tx: 0, ty: 0 };
+    const off = { x: 0, y: 0 };
     const pointer = { x: -1e4, y: -1e4, inside: false };
-    const off = { x: 0, y: 0 }; // current scene translation
 
-    // particles
-    const N = window.innerWidth < 768 ? 1400 : 2200;
+    const N = window.innerWidth < 1024 ? 1500 : 2300;
     const px = new Float32Array(N), py = new Float32Array(N);
     const vx = new Float32Array(N), vy = new Float32Array(N);
     const tx = new Float32Array(N), ty = new Float32Array(N);
     const col = new Uint8Array(N), on = new Uint8Array(N);
     for (let i = 0; i < N; i++) { px[i] = Math.random() * SW; py[i] = Math.random() * SH; tx[i] = px[i]; ty[i] = py[i]; }
 
+    // Dust in the projector beam: position along the beam and across it.
+    const DUST = 70;
+    const dust = Array.from({ length: DUST }, () => ({ t: Math.random(), u: Math.random(), s: 0.4 + Math.random() * 0.8, p: Math.random() * 6.28 }));
+
     let idx = 0, slideStart = 0, stageIdx = -1;
     let stageTargets: Target[] = [];
-    let caught: null | { x: number; y: number; t: number } = null;
+    let resolved = false;
 
     const layout = () => {
       const r = root.getBoundingClientRect();
       W = r.width; H = r.height;
-      mobile = W < 1024;
+      narrow = W < 1024;
+      dpr = Math.min(window.devicePixelRatio || 1, 2);
       let scale: number, left: number, top: number;
-      if (mobile) {
-        scale = (W * 0.94) / (QUAD[1][0] - QUAD[0][0]);
-        left = W / 2 - ((QUAD[0][0] + QUAD[1][0]) / 2) * scale;
-        top = 20 - QUAD[0][1] * scale;
+      if (narrow) {
+        scale = W / CROP.w;
+        left = 0;
+        top = 0;
       } else {
         scale = Math.max(W / IMG_W, H / IMG_H) * ZOOM;
         left = -14;
-        // Keep the whole screen below the fixed nav while the photo still covers the hero.
-        top = Math.min(0, Math.max(H - IMG_H * scale, 36 - QUAD[0][1] * scale));
+        top = Math.max(H - IMG_H * scale, -10);
       }
       const iw = IMG_W * scale, ih = IMG_H * scale;
-      const x0 = mirrored ? W - left - iw : left;
+      const fx = (x: number) => (mirrored ? W - x : x);
+      const fade = narrow ? `linear-gradient(to bottom, #000 ${CROP.h * scale - 70}px, transparent ${CROP.h * scale}px)` : 'none';
       Object.assign(img.style, {
-        width: `${iw}px`, height: `${ih}px`, left: `${x0}px`, top: `${top}px`,
+        width: `${iw}px`, height: `${ih}px`, top: `${top}px`,
+        left: `${mirrored ? W - left - iw : left}px`,
         transform: mirrored ? 'scaleX(-1)' : 'none',
-        maskImage: mobile ? 'linear-gradient(to bottom, #000 72%, transparent 100%)' : 'none',
-        WebkitMaskImage: mobile ? 'linear-gradient(to bottom, #000 72%, transparent 100%)' : 'none',
+        maskImage: fade, WebkitMaskImage: fade,
       });
-      let q = QUAD.map(([x, y]) => [left + x * scale, top + y * scale] as Pt);
-      if (mirrored) q = [q[1], q[0], q[3], q[2]].map(([x, y]) => [W - x, y] as Pt);
-      toScreen = homography([[0, 0], [SW, 0], [SW, SH], [0, SH]], q);
-      toSlide = invert3(toScreen);
-      const m = toScreen;
+      let q = QUAD.map(([x, y]) => [fx(left + x * scale), top + y * scale] as Pt);
+      if (mirrored) q = [q[1], q[0], q[3], q[2]];
+      quad = q;
+      lens = [fx(left + LENS[0] * scale), top + LENS[1] * scale];
+      const m = homography([[0, 0], [SW, 0], [SW, SH], [0, SH]], q);
+      toSlide = invert3(m);
       slideEl.style.transform = `matrix3d(${m[0]},${m[3]},0,${m[6]},${m[1]},${m[4]},0,${m[7]},0,0,1,0,${m[2]},${m[5]},0,${m[8]})`;
       const qw = Math.hypot(q[1][0] - q[0][0], q[1][1] - q[0][1]);
-      const dpr = Math.min(window.devicePixelRatio || 1, 2);
-      const cw = Math.round(Math.min(1400, Math.max(480, qw * dpr * 1.15)));
+      const cw = Math.round(Math.min(1400, Math.max(560, qw * dpr * 1.2)));
       canvas.width = cw;
       canvas.height = Math.round((cw * SH) / SW);
-      const bottom = Math.max(q[2][1], q[3][1]);
+      beam.width = Math.round(W * dpr); beam.height = Math.round(H * dpr);
+      beam.style.width = `${W}px`; beam.style.height = `${H}px`;
+      const bottom = narrow ? CROP.h * scale : Math.max(q[2][1], q[3][1]);
       root.parentElement?.style.setProperty('--hero-screen-bottom', `${Math.round(bottom)}px`);
     };
 
     const setStage = (targets: Target[], kick: boolean) => {
       stageTargets = targets;
-      const n = targets.length;
-      const stride = n > N ? n / N : 1;
+      const n = targets.length, stride = n > N ? n / N : 1;
       for (let i = 0; i < N; i++) {
         if (i < Math.min(n, N)) {
           const t = targets[Math.floor(i * stride)];
@@ -162,7 +167,7 @@ export default function HeroScene({ lang, src, srcSmall, captions, logoSrc }: Pr
           tx[i] = Math.random() * SW; ty[i] = Math.random() * SH; col[i] = 0; on[i] = 0;
         }
         if (kick) {
-          const a = Math.random() * Math.PI * 2, s = 10 + Math.random() * 22;
+          const a = Math.random() * Math.PI * 2, s = 8 + Math.random() * 18;
           vx[i] += Math.cos(a) * s; vy[i] += Math.sin(a) * s;
         }
       }
@@ -172,73 +177,47 @@ export default function HeroScene({ lang, src, srcSmall, captions, logoSrc }: Pr
       idx = n % slides.length;
       slideStart = now;
       stageIdx = -1;
-      caught = null;
+      resolved = false;
       setActive(idx);
     };
+
+    const slidePointer = () => (pointer.inside ? apply3(toSlide, pointer.x - off.x, pointer.y - off.y) : null);
 
     const step = (now: number) => {
       const s = slides[idx];
       const ts = now - slideStart;
-      if (ts > s.duration) { goTo(idx + 1, now); return step(now); }
+      if (ts > s.duration) { goTo(idx + 1, now); step(now); return; }
       let si = 0;
       s.stages.forEach((st, i) => { if (ts >= st.at) si = i; });
       const stage = s.stages[si];
-      if (si !== stageIdx) {
-        setStage(stage.targets, stageIdx === -1 || si > 0);
-        stageIdx = si;
+      if (si !== stageIdx) { setStage(stage.targets, true); stageIdx = si; }
+      const p = slidePointer();
+
+      if (stage.mode === 'typing' && stage.typeFrom !== undefined) {
+        const from = stage.typeFrom, n = Math.min(N, stageTargets.length);
+        const shown = from + Math.floor(Math.min(1, ts / (stage.typeMs ?? 1500)) * (n - from));
+        for (let i = from; i < n; i++) {
+          const t = stageTargets[i];
+          if (i < shown) { tx[i] = t.x; ty[i] = t.y; on[i] = 1; } else { tx[i] = lang === 'he' ? 1220 : 380; ty[i] = 362; on[i] = 0; }
+        }
+      } else if (stage.mode === 'soc') {
+        // Keep room for the live chart line and the alert on top of the static dashboard.
+        const base = Math.min(N - 190, stageTargets.length);
+        const line = socLine(lang, ts, 150);
+        const ax = lang === 'he' ? 680 : 920;
+        if (!resolved && ((p && Math.hypot(p[0] - ax, p[1] - 412) < 120) || ts > 3200)) resolved = true;
+        const alert = socAlert(lang, ts, resolved);
+        const dyn = [...line, ...alert];
+        for (let k = 0; k < dyn.length && base + k < N; k++) {
+          const i = base + k;
+          tx[i] = dyn[k].x; ty[i] = dyn[k].y; col[i] = dyn[k].c; on[i] = 1;
+        }
+        for (let i = base + dyn.length; i < N; i++) on[i] = 0;
       }
 
-      const he = lang === 'he';
-      if (stage.mode === 'typing') {
-        const shown = Math.floor(Math.min(1, ts / 1600) * Math.min(N, stageTargets.length));
-        // Letters appear in reading order; the rest wait at the caret's start.
-        for (let i = 0; i < Math.min(N, stageTargets.length); i++) {
-          const t = stageTargets[i];
-          if (i < shown) { tx[i] = t.x; ty[i] = t.y; on[i] = 1; } else { tx[i] = he ? SW * 0.95 : SW * 0.05; ty[i] = SH * 0.44; on[i] = 0; }
-        }
-      } else if (stage.mode === 'wave') {
-        const M = Math.min(N, 1500), rows = 13, cols = Math.ceil(M / rows);
-        const calm = caught ? Math.max(0.25, 1 - (ts - caught.t) / 900) : 1;
-        for (let i = 0; i < M; i++) {
-          const r = i % rows, c = Math.floor(i / rows);
-          const span = SW * 1.1;
-          let x = ((c / cols) * span + ts * 0.11 * (he ? -1 : 1)) % span;
-          if (x < 0) x += span;
-          x -= SW * 0.05;
-          tx[i] = x;
-          ty[i] = 150 + r * 56 + Math.sin(x * 0.006 + ts * 0.0016 + r * 0.55) * 30 * calm;
-          col[i] = 0; on[i] = 1;
-        }
-        // The anomaly: a knot moving against the flow until it is caught.
-        let ax: number, ay: number;
-        if (caught) { ax = caught.x; ay = caught.y; } else {
-          ax = SW / 2 + Math.sin(ts * 0.0012) * 430 * (he ? 1 : -1);
-          ay = SH * 0.5 + Math.sin(ts * 0.0021 + 1) * 210;
-          const pp = apply3(toSlide, pointer.x - off.x, pointer.y - off.y);
-          const near = pointer.inside && Math.hypot(pp[0] - ax, pp[1] - ay) < 150;
-          if (near || ts > 3300) caught = { x: ax, y: ay, t: ts };
-        }
-        for (let k = 0; k < 46; k++) {
-          const i = M + k;
-          if (i >= N) break;
-          const a = k * 0.62 + ts * 0.004;
-          const rr = caught ? 18 + (k % 4) * 6 : 14 + Math.sin(ts * 0.01 + k) * 10;
-          tx[i] = ax + Math.cos(a) * rr; ty[i] = ay + Math.sin(a) * rr; col[i] = 1; on[i] = 1;
-        }
-        for (let i = M + 46; i < N; i++) on[i] = 0;
-      } else if (stage.mode === 'noise') {
-        for (let i = 0; i < Math.min(N, stageTargets.length); i++) {
-          const t = stageTargets[i];
-          tx[i] = t.x + Math.sin(ts * 0.0023 + i * 1.7) * 46;
-          ty[i] = t.y + Math.cos(ts * 0.0019 + i * 2.3) * 46;
-        }
-      }
-
-      // physics
-      const p = pointer.inside ? apply3(toSlide, pointer.x - off.x, pointer.y - off.y) : null;
-      const R = 170;
+      const R = 160;
       for (let i = 0; i < N; i++) {
-        let ax = (tx[i] - px[i]) * 0.022, ay = (ty[i] - py[i]) * 0.022;
+        let ax = (tx[i] - px[i]) * 0.024, ay = (ty[i] - py[i]) * 0.024;
         if (p) {
           const dx = px[i] - p[0], dy = py[i] - p[1];
           const d2 = dx * dx + dy * dy;
@@ -247,81 +226,114 @@ export default function HeroScene({ lang, src, srcSmall, captions, logoSrc }: Pr
             ax += (dx / d) * f; ay += (dy / d) * f;
           }
         }
-        vx[i] = (vx[i] + ax) * 0.84;
-        vy[i] = (vy[i] + ay) * 0.84;
+        vx[i] = (vx[i] + ax) * 0.83;
+        vy[i] = (vy[i] + ay) * 0.83;
         px[i] += vx[i]; py[i] += vy[i];
       }
     };
 
-    const draw = (now: number) => {
+    const drawSlide = (now: number) => {
       const s = slides[idx];
       const ts = now - slideStart;
-      const prev = slides[(idx + slides.length - 1) % slides.length];
       const k = canvas.width / SW;
+      // Thicker dots when the screen is small so the drawings stay legible.
+      const dot = narrow ? 10.5 : 8.5;
       ctx.setTransform(k, 0, 0, k, 0, 0);
-      ctx.fillStyle = ts < 520 ? mix(prev.bg, s.bg, 1 - Math.pow(1 - ts / 520, 3)) : s.bg;
+      // Projector hotspot: a touch brighter in the middle, softer at the edges.
+      const g = ctx.createRadialGradient(SW * 0.5, SH * 0.45, 80, SW * 0.5, SH * 0.5, SW * 0.7);
+      g.addColorStop(0, '#FFFDF9');
+      g.addColorStop(1, '#EFE9E0');
+      ctx.fillStyle = g;
       ctx.fillRect(0, 0, SW, SH);
 
-      // Inactive particles: faint dust.
-      ctx.globalAlpha = 0.22;
+      ctx.globalAlpha = 0.16;
       ctx.fillStyle = s.colors[0];
       for (let i = 0; i < N; i++) if (!on[i]) ctx.fillRect(px[i], py[i], 4, 4);
       ctx.globalAlpha = 1;
-      // Formed particles shimmer slightly so the slide never sits still.
       for (let c = 0; c < s.colors.length; c++) {
         ctx.fillStyle = s.colors[c];
         for (let i = 0; i < N; i++) {
           if (!on[i] || col[i] !== c) continue;
-          const z = 7 + Math.sin(ts * 0.004 + i * 0.37) * 1.6;
+          const z = dot + Math.sin(ts * 0.004 + i * 0.37) * 1.4;
           ctx.fillRect(px[i] - z / 2, py[i] - z / 2, z, z);
         }
       }
 
       if (s.labels && ts > s.labels.at && ts < s.labels.until) {
-        const a = Math.min(1, (ts - s.labels.at) / 300, (s.labels.until - ts) / 250);
-        ctx.globalAlpha = Math.max(0, a);
-        ctx.font = '700 50px Rubik, Heebo, sans-serif';
+        const a = Math.max(0, Math.min(1, (ts - s.labels.at) / 300, (s.labels.until - ts) / 250));
+        ctx.globalAlpha = a;
+        ctx.font = `700 46px Rubik, Heebo, sans-serif`;
         ctx.textAlign = 'center';
         ctx.textBaseline = 'middle';
         ctx.direction = lang === 'he' ? 'rtl' : 'ltr';
         for (const l of s.labels.items) {
           const w = ctx.measureText(l.text).width + 56;
-          ctx.fillStyle = s.colors[1];
-          ctx.beginPath();
-          ctx.roundRect(l.x - w / 2, l.y - 38, w, 76, 38);
-          ctx.fill();
-          ctx.fillStyle = s.colors[0];
+          ctx.fillStyle = s.accent;
+          ctx.beginPath(); ctx.roundRect(l.x - w / 2, l.y - 36, w, 72, 36); ctx.fill();
+          ctx.fillStyle = '#FFFFFF';
           ctx.fillText(l.text, l.x, l.y + 2);
         }
         ctx.textBaseline = 'alphabetic';
         ctx.globalAlpha = 1;
       }
+    };
 
-      if (s.id === 'cyber' && caught && ts < s.stages[1].at) {
-        const a = Math.min(1, (ts - caught.t) / 250);
-        ctx.strokeStyle = s.colors[1];
-        ctx.lineWidth = 6;
-        ctx.globalAlpha = a;
-        ctx.beginPath();
-        ctx.arc(caught.x, caught.y, 70 + (1 - a) * 60, 0, Math.PI * 2);
-        ctx.stroke();
-        ctx.font = '700 44px Rubik, Heebo, sans-serif';
-        ctx.fillStyle = s.colors[1];
-        ctx.textAlign = 'center';
-        ctx.direction = lang === 'he' ? 'rtl' : 'ltr';
-        ctx.fillText(lang === 'he' ? 'חריגה זוהתה' : 'Anomaly found', caught.x, caught.y - 105);
-        ctx.globalAlpha = 1;
+    const drawBeam = (now: number) => {
+      bctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      bctx.clearRect(0, 0, W, H);
+      if (!quad.length) return;
+      const s = slides[idx];
+      const [ar, ag, ab] = hex(s.accent);
+      const tint = (a: number) => `rgba(${Math.round(255 * 0.8 + ar * 0.2)},${Math.round(248 * 0.8 + ag * 0.2)},${Math.round(232 * 0.8 + ab * 0.2)},${a})`;
+      const [cx, cy] = [(quad[0][0] + quad[2][0]) / 2, (quad[0][1] + quad[2][1]) / 2];
+      bctx.globalCompositeOperation = 'screen';
+      // The cone: lens to the four screen corners.
+      const grad = bctx.createLinearGradient(lens[0], lens[1], cx, cy);
+      grad.addColorStop(0, tint(0.34));
+      grad.addColorStop(1, tint(0.06));
+      bctx.fillStyle = grad;
+      bctx.beginPath();
+      bctx.moveTo(lens[0], lens[1]);
+      const hull = [quad[1], quad[2], quad[3], quad[0]];
+      // Order corners by angle around the lens so the polygon is convex.
+      hull.sort((a, b) => Math.atan2(a[1] - lens[1], a[0] - lens[0]) - Math.atan2(b[1] - lens[1], b[0] - lens[0]));
+      hull.forEach(([x, y]) => bctx.lineTo(x, y));
+      bctx.closePath();
+      bctx.fill();
+      // Spill of the slide's light onto the wall.
+      const rw = Math.hypot(quad[1][0] - quad[0][0], quad[1][1] - quad[0][1]);
+      const spill = bctx.createRadialGradient(cx, cy, rw * 0.35, cx, cy, rw * 0.9);
+      spill.addColorStop(0, tint(0.16));
+      spill.addColorStop(1, tint(0));
+      bctx.fillStyle = spill;
+      bctx.fillRect(cx - rw, cy - rw, rw * 2, rw * 2);
+      // Dust motes drifting through the beam.
+      const t = now / 1000;
+      for (const d of dust) {
+        d.t += 0.0009 * d.s;
+        if (d.t > 1) { d.t = 0.04; d.u = Math.random(); }
+        const e = quad[0], f = quad[1], gq = quad[2], hq = quad[3];
+        const left = [e[0] + (hq[0] - e[0]) * d.u, e[1] + (hq[1] - e[1]) * d.u];
+        const right = [f[0] + (gq[0] - f[0]) * d.u, f[1] + (gq[1] - f[1]) * d.u];
+        const v = 0.15 + 0.7 * ((Math.sin(d.p + t * 0.3) + 1) / 2);
+        const sx = left[0] + (right[0] - left[0]) * v, sy = left[1] + (right[1] - left[1]) * v;
+        const x = lens[0] + (sx - lens[0]) * d.t, y = lens[1] + (sy - lens[1]) * d.t;
+        const a = 0.5 * Math.sin(Math.PI * d.t) * (0.5 + 0.5 * Math.sin(t * 2 + d.p));
+        bctx.fillStyle = `rgba(255,250,236,${Math.max(0, a)})`;
+        bctx.beginPath(); bctx.arc(x, y, 1.1 + d.s, 0, Math.PI * 2); bctx.fill();
       }
+      bctx.globalCompositeOperation = 'source-over';
     };
 
     const frame = (now: number) => {
       par.x += (par.tx - par.x) * 0.07;
       par.y += (par.ty - par.y) * 0.07;
-      const sy = mobile ? 0 : Math.min(window.scrollY, H) * 0.12;
+      const sy = narrow ? 0 : Math.min(window.scrollY, H) * 0.12;
       off.x = par.x; off.y = par.y + sy;
       scene.style.transform = `translate3d(${off.x}px, ${off.y}px, 0)`;
       step(now);
-      draw(now);
+      drawSlide(now);
+      drawBeam(now);
       if (visible && !document.hidden) raf = requestAnimationFrame(frame);
     };
 
@@ -333,36 +345,37 @@ export default function HeroScene({ lang, src, srcSmall, captions, logoSrc }: Pr
     const onPointer = (e: PointerEvent) => {
       const r = root.getBoundingClientRect();
       pointer.x = e.clientX - r.left; pointer.y = e.clientY - r.top; pointer.inside = true;
-      par.tx = -((pointer.x / r.width) - 0.5) * 14;
-      par.ty = -((pointer.y / r.height) - 0.5) * 8;
+      par.tx = -((pointer.x / r.width) - 0.5) * 12;
+      par.ty = -((pointer.y / r.height) - 0.5) * 7;
     };
     const onLeave = () => { pointer.inside = false; par.tx = 0; par.ty = 0; };
 
-    const logo = new Image();
-    logo.src = logoSrc;
+    const load = (u: string) => { const im = new Image(); im.src = u; return im.decode().then(() => im).catch(() => null); };
     Promise.all([
       document.fonts?.load('800 100px Rubik').catch(() => null),
       document.fonts?.load('700 100px Rubik').catch(() => null),
-      logo.decode().catch(() => null),
-    ]).then(() => {
+      load(logoSrc),
+      load(handshakeSrc),
+    ]).then(([, , logo, handshake]) => {
       if (disposed) return;
-      slides = buildSlides(lang, logo.complete && logo.naturalWidth ? logo : null);
-      setInks(slides.map(s => ({ ink: s.ink, id: s.id, duration: s.duration })));
+      slides = buildSlides(lang, { logo, handshake });
+      setMeta(slides.map(s => ({ id: s.id, ink: s.ink, accent: s.accent, duration: s.duration })));
       layout();
       const now = performance.now();
       if (reduced) {
-        // A still frame: the first course slide, already formed.
-        idx = 1; slideStart = now - 6000; stageIdx = -1; setActive(1);
+        // A still frame: the courses slide, already formed.
+        goTo(1, now - 7000);
         step(now);
         for (let i = 0; i < N; i++) { px[i] = tx[i]; py[i] = ty[i]; }
-        draw(now);
+        drawSlide(now);
+        drawBeam(now);
       } else {
         goTo(0, now);
         resume();
       }
     });
 
-    const ro = new ResizeObserver(() => { layout(); if (reduced && slides.length) draw(performance.now()); });
+    const ro = new ResizeObserver(() => { layout(); if (reduced && slides.length) { drawSlide(performance.now()); drawBeam(performance.now()); } });
     ro.observe(root);
     const io = new IntersectionObserver(([e]) => { visible = e.isIntersecting; resume(); });
     io.observe(root);
@@ -380,12 +393,10 @@ export default function HeroScene({ lang, src, srcSmall, captions, logoSrc }: Pr
       host.removeEventListener('pointermove', onPointer);
       host.removeEventListener('pointerleave', onLeave);
     };
-  }, [lang, logoSrc, mirrored]);
+  }, [lang, logoSrc, handshakeSrc, mirrored]);
 
-  const slideId = inks[active]?.id;
-  const ink = inks[active]?.ink ?? '#2A2622';
-  const cap = captions.find(c => c.id === slideId);
-  const lightInk = parseInt(ink.slice(1, 3), 16) > 128;
+  const cur = meta[active];
+  const cap = captions.find(c => c.id === cur?.id);
 
   return (
     <div ref={rootRef} className="absolute inset-0 -z-10 overflow-hidden">
@@ -394,12 +405,13 @@ export default function HeroScene({ lang, src, srcSmall, captions, logoSrc }: Pr
           ref={imgRef}
           src={src}
           srcSet={`${srcSmall} 900w, ${src} 1376w`}
-          sizes="(max-width: 767px) 260vw, 100vw"
+          sizes="(max-width: 1023px) 190vw, 100vw"
           alt=""
           aria-hidden="true"
           fetchPriority="high"
           className="absolute max-w-none hero-scene-photo"
         />
+        <canvas ref={beamRef} aria-hidden="true" className="absolute inset-0 pointer-events-none" />
         <div
           ref={slideRef}
           className="absolute left-0 top-0 hero-slide"
@@ -407,28 +419,22 @@ export default function HeroScene({ lang, src, srcSmall, captions, logoSrc }: Pr
           dir={lang === 'he' ? 'rtl' : 'ltr'}
         >
           <canvas ref={canvasRef} aria-hidden="true" className="absolute inset-0" style={{ width: SW, height: SH }} />
-          {slideId && slideId !== 'logo' && (
-            <img
-              src={logoSrc}
-              alt=""
-              aria-hidden="true"
-              className="absolute"
-              style={{ top: 56, insetInlineStart: 64, height: 64, filter: lightInk ? 'brightness(0) invert(1)' : 'brightness(0)', opacity: 0.9 }}
-            />
+          {cur && cur.id !== 'logo' && (
+            <img src={logoSrc} alt="" aria-hidden="true" className="absolute" style={{ top: 48, insetInlineEnd: 60, height: 60 }} />
           )}
-          {cap && (
+          {cap && cur && (
             <Link
               href={cap.href}
               className="absolute flex items-center gap-6 font-bold hero-slide-cta"
-              style={{ bottom: 56, insetInlineStart: 64, insetInlineEnd: 64, color: ink, fontSize: 46, fontFamily: 'Rubik, Heebo, sans-serif' }}
+              style={{ bottom: 44, insetInlineStart: 60, insetInlineEnd: 60, color: cur.ink, fontSize: 44, fontFamily: 'Rubik, Heebo, sans-serif' }}
               aria-label={cap.caption}
             >
               <span key={cap.id} className="hero-slide-caption">{cap.caption}</span>
               <span aria-hidden="true" className="ms-auto flex gap-3">
-                {inks.slice(1).map((s, i) => (
-                  <span key={s.id} className="block rounded-full overflow-hidden" style={{ width: 70, height: 10, background: lightInk ? 'rgba(255,255,255,0.3)' : 'rgba(0,0,0,0.18)' }}>
-                    {i + 1 === active && <span key={`p${active}`} className="block h-full hero-slide-progress" style={{ background: ink, animationDuration: `${s.duration}ms` }} />}
-                    {i + 1 < active && <span className="block h-full w-full" style={{ background: ink }} />}
+                {meta.slice(1).map((s, i) => (
+                  <span key={s.id} className="block rounded-full overflow-hidden" style={{ width: 64, height: 10, background: 'rgba(38,34,30,0.14)' }}>
+                    {i + 1 === active && <span key={`p${active}`} className="block h-full hero-slide-progress" style={{ background: s.accent, animationDuration: `${s.duration}ms` }} />}
+                    {i + 1 < active && <span className="block h-full w-full" style={{ background: 'rgba(38,34,30,0.45)' }} />}
                   </span>
                 ))}
               </span>
