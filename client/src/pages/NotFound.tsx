@@ -1,52 +1,23 @@
-import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
-import { AlertCircle, Home } from "lucide-react";
-import { useLocation } from "wouter";
+import { Link } from 'wouter';
+import { useLanguage } from '@/contexts/LanguageContext';
 
 export default function NotFound() {
-  const [, setLocation] = useLocation();
-
-  const handleGoHome = () => {
-    setLocation("/");
-  };
+  const { lang, dir } = useLanguage();
+  const he = lang === 'he';
 
   return (
-    <div className="min-h-screen w-full flex items-center justify-center" style={{ background: '#08080C' }}>
-      <Card className="w-full max-w-lg mx-4 shadow-lg border-0" style={{ background: '#111116', border: '1px solid rgba(200,200,208,0.12)' }}>
-        <CardContent className="pt-8 pb-8 text-center">
-          <div className="flex justify-center mb-6">
-            <div className="relative">
-              <div className="absolute inset-0 rounded-full animate-pulse" style={{ background: 'rgba(200,200,208,0.08)' }} />
-              <AlertCircle className="relative h-16 w-16" style={{ color: '#C8C8D0' }} />
-            </div>
-          </div>
-
-          <h1 className="text-4xl font-bold text-white mb-2">404</h1>
-
-          <h2 className="text-xl font-semibold mb-4" style={{ color: '#C8C8D0' }}>
-            Page Not Found
-          </h2>
-
-          <p className="mb-8 leading-relaxed" style={{ color: 'rgba(200,200,208,0.55)' }}>
-            Sorry, the page you are looking for doesn't exist.
-            <br />
-            It may have been moved or deleted.
-          </p>
-
-          <div
-            id="not-found-button-group"
-            className="flex flex-col sm:flex-row gap-3 justify-center"
-          >
-            <Button
-              onClick={handleGoHome}
-              className="text-sm font-semibold px-6 py-2.5 rounded-lg transition-all duration-200" style={{ background: '#C8C8D0', color: '#08080C' }}
-            >
-              <Home className="w-4 h-4 mr-2" />
-              Go Home
-            </Button>
-          </div>
-        </CardContent>
-      </Card>
-    </div>
+    <section dir={dir} className="min-h-[70svh] flex items-center" style={{ background: 'var(--h-dark)' }}>
+      <div className="mx-auto max-w-3xl px-5 sm:px-8 py-20 text-start">
+        <p className="font-extrabold text-white leading-none" style={{ fontFamily: 'Rubik, Heebo, sans-serif', fontSize: 'clamp(4rem, 14vw, 8rem)' }}>404</p>
+        <h1 className="mt-4 text-2xl md:text-4xl font-bold text-white">{he ? 'העמוד לא נמצא' : 'Page not found'}</h1>
+        <p className="mt-3 text-lg max-w-[50ch]" style={{ color: 'var(--h-on-dark)' }}>
+          {he ? 'ייתכן שהעמוד הועבר או נמחק.' : 'The page may have been moved or deleted.'}
+        </p>
+        <div className="mt-8 flex flex-col sm:flex-row gap-3">
+          <Link href="/" className="h-btn h-btn-orange">{he ? 'לדף הבית' : 'Go home'}</Link>
+          <Link href="/courses" className="h-btn h-btn-light">{he ? 'לקורסים' : 'See courses'}</Link>
+        </div>
+      </div>
+    </section>
   );
 }

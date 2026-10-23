@@ -70,7 +70,7 @@ export default function Home() {
     { id: 'ai', caption: he ? 'מבקשה בצ׳אט ועד תוכנית מוצר' : 'From a chat request to a product plan', href: '/courses' },
     { id: 'cyber', caption: he ? 'ניטור וזיהוי איומים בסביבת SOC' : 'Monitoring and threat detection in a SOC', href: '/academy' },
     { id: 'placement', caption: he ? 'מהכיתה לתפקיד' : 'From the classroom to the job', href: '/placement' },
-    { id: 'strategy', caption: he ? 'תוכנית AI מעשית לעסק שלכם' : 'A practical AI plan for your business', href: '/incubator' },
+    { id: 'strategy', caption: he ? 'תוכנית AI מעשית לעסק שלכם' : 'A practical AI plan for your business', href: '/consulting' },
   ];
 
   const facts = [
@@ -97,7 +97,7 @@ export default function Home() {
         canonical="/"
         schema={[organizationSchema, websiteSchema]}
       />
-      <div dir={dir} className="home-v2">
+      <div dir={dir} className="site-v2">
 
         {/* Hero */}
         <section className="relative isolate overflow-hidden hero-v3" style={{ background: 'var(--h-hero-ground)' }}>
@@ -184,7 +184,7 @@ export default function Home() {
                       <CalendarCheck size={18} aria-hidden="true" />
                       <span>{ctaOrg}</span>
                     </Link>
-                    <Link href="/incubator" className="h-link inline-flex items-center gap-2 font-bold" style={{ color: 'var(--h-blue)' }}>
+                    <Link href="/consulting" className="h-link inline-flex items-center gap-2 font-bold" style={{ color: 'var(--h-blue)' }}>
                       {he ? 'ייעוץ אסטרטגיית AI לעסקים' : 'AI strategy consulting'}
                       <Arrow size={16} className="h-link-arrow" aria-hidden="true" />
                     </Link>
@@ -353,7 +353,7 @@ export default function Home() {
             </div>
             <p className="mt-10 text-sm" style={{ color: 'rgba(255,255,255,0.7)' }}>
               {he ? 'מחפשים כיוון ל-AI בעסק? ' : 'Looking for an AI direction for your business? '}
-              <Link href="/incubator" className="underline underline-offset-4 decoration-1" style={{ color: 'rgba(255,255,255,0.9)' }}>
+              <Link href="/consulting" className="underline underline-offset-4 decoration-1" style={{ color: 'rgba(255,255,255,0.9)' }}>
                 {he ? 'ייעוץ אסטרטגיית AI לעסקים' : 'AI strategy consulting'}
               </Link>
             </p>

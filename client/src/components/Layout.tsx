@@ -14,7 +14,7 @@ export default function Layout({ children }: LayoutProps) {
   const { dir } = useLanguage();
 
   return (
-    <div className="min-h-screen bg-background text-foreground overflow-x-hidden" dir={dir}>
+    <div className="site-v2 min-h-screen overflow-x-hidden" dir={dir}>
       <a href="#main-content" className="skip-link">
         {dir === 'rtl' ? 'דלג לתוכן הראשי' : 'Skip to main content'}
       </a>
