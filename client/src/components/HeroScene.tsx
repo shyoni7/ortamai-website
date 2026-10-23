@@ -8,9 +8,9 @@ import { buildSlides, socAlert, socLine, SW, SH, type Lang, type Slide, type Tar
 
 const IMG_W = 1376;
 const IMG_H = 768;
-// Inner edge of the screen's frame in the photo, in image pixels: TL, TR, BR, BL.
-// The slide fills the whole fabric so no strip of the blank screen shows.
-const QUAD: [number, number][] = [[248, 162], [660, 162], [660, 425], [248, 425]];
+// Projected area inside the screen's frame in the photo, in image pixels: TL, TR, BR, BL.
+// The photo is retouched so the frame ends right under it, above the students' heads.
+const QUAD: [number, number][] = [[248, 162], [661, 162], [661, 403], [248, 403]];
 // Projector lens in the photo.
 const LENS: [number, number] = [344, 100];
 // Part of the photo shown on narrow screens: projector, screen and the students' heads.

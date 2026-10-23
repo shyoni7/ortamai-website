@@ -12,5 +12,5 @@ AI-generated (Figma generate_image, gemini-3.1-flash-image). Atmosphere only,
 never presented as real students or graduates:
 - ai-private-learner.webp: woman learning on a laptop at home in Tel Aviv, face turned away
 - ai-org-workshop.webp: corporate AI workshop around a long table, instructor at a wall screen
-- ai-hero-projector.webp (+ -sm): classroom in warm daylight with a ceiling projector and a blank projection screen, students seen from behind (hero; the presentation and beam are drawn in code)
+- ai-hero-projector.webp (+ -sm): classroom in warm daylight with a ceiling projector and a blank projection screen, students seen from behind (hero; the presentation and beam are drawn in code). Retouched: the screen's lower frame was moved up to just below the projected area, keeping the students' heads in front
 - handshake-mask.png: AI-generated flat silhouette of two people shaking hands, used only as a shape for the particle drawing
