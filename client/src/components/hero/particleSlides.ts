@@ -4,7 +4,7 @@
 // white screen: charcoal drawing plus one accent colour per slide.
 
 export const SW = 1600; // slide logical width
-export const SH = 950; // slide logical height
+export const SH = 1000; // slide logical height (matches the screen's 1.57 aspect)
 
 export type Lang = 'he' | 'en';
 

@@ -8,8 +8,9 @@ import { buildSlides, socAlert, socLine, SW, SH, type Lang, type Slide, type Tar
 
 const IMG_W = 1376;
 const IMG_H = 768;
-// Projected area of the screen inside the photo, in image pixels: TL, TR, BR, BL.
-const QUAD: [number, number][] = [[253, 162], [660, 162], [660, 403], [254, 403]];
+// Inner edge of the screen's frame in the photo, in image pixels: TL, TR, BR, BL.
+// The slide fills the whole fabric so no strip of the blank screen shows.
+const QUAD: [number, number][] = [[248, 162], [660, 162], [660, 425], [248, 425]];
 // Projector lens in the photo.
 const LENS: [number, number] = [344, 100];
 // Part of the photo shown on narrow screens: projector, screen and the students' heads.
@@ -242,7 +243,7 @@ export default function HeroScene({ lang, src, srcSmall, captions, logoSrc, hand
       // Projector hotspot: a touch brighter in the middle, softer at the edges.
       const g = ctx.createRadialGradient(SW * 0.5, SH * 0.45, 80, SW * 0.5, SH * 0.5, SW * 0.7);
       g.addColorStop(0, '#FFFDF9');
-      g.addColorStop(1, '#EFE9E0');
+      g.addColorStop(1, '#F5F1EA');
       ctx.fillStyle = g;
       ctx.fillRect(0, 0, SW, SH);
 
