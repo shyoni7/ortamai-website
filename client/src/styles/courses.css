@@ -1,0 +1,67 @@
+/* Courses page (v2). Tokens come from .site-v2 in index.css. */
+
+.crs-card {
+  background: var(--h-paper);
+  border: 1px solid var(--h-line);
+  border-radius: 20px;
+  box-shadow: 0 20px 50px -34px rgba(14, 26, 51, 0.5);
+  transition: transform 220ms cubic-bezier(0.22, 1, 0.36, 1), box-shadow 220ms ease;
+}
+.crs-card.is-featured {
+  border-color: var(--h-orange);
+  box-shadow: 0 0 0 1px var(--h-orange), 0 24px 56px -32px rgba(216, 94, 18, 0.55);
+}
+@media (hover: hover) {
+  .crs-card:hover { transform: translateY(-3px); box-shadow: 0 28px 60px -32px rgba(14, 26, 51, 0.55); }
+  .crs-card.is-featured:hover { box-shadow: 0 0 0 1px var(--h-orange), 0 30px 64px -30px rgba(216, 94, 18, 0.6); }
+}
+
+.crs-icon {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 2.75rem; height: 2.75rem; border-radius: 14px; flex-shrink: 0;
+  background: rgba(240, 112, 34, 0.12); color: var(--h-orange-deep);
+}
+
+.crs-pill {
+  display: inline-flex; align-items: center; gap: 0.35rem;
+  padding: 0.3rem 0.75rem; border-radius: 999px;
+  font-size: 0.8rem; font-weight: 600; line-height: 1.2; white-space: nowrap;
+  background: var(--h-ground); color: var(--h-ink-2); border: 1px solid var(--h-line);
+}
+.crs-pill-accent { background: var(--h-orange); color: var(--h-ink); border-color: var(--h-orange); font-weight: 700; }
+
+.crs-btn-block { width: 100%; }
+
+/* Order dialog */
+.crs-backdrop { background: rgba(34, 21, 12, 0.62); }
+@supports (backdrop-filter: blur(1px)) { .crs-backdrop { backdrop-filter: blur(4px); } }
+.crs-dialog {
+  background: var(--h-paper);
+  border-radius: 20px;
+  box-shadow: 0 30px 80px -30px rgba(14, 26, 51, 0.6);
+  animation: crs-dialog-in 260ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+@keyframes crs-dialog-in { from { opacity: 0; transform: translateY(16px) scale(0.98); } to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) {
+  .crs-dialog { animation: none; }
+  .crs-card { transition: none; }
+}
+
+.crs-close {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 2.75rem; height: 2.75rem; border-radius: 999px; color: var(--h-ink-2);
+}
+@media (hover: hover) { .crs-close:hover { background: var(--h-ground); color: var(--h-ink); } }
+
+.crs-label { display: block; font-size: 0.95rem; font-weight: 600; color: var(--h-ink); margin-bottom: 0.4rem; }
+.crs-field {
+  width: 100%; min-height: 3rem; padding: 0.7rem 1rem;
+  border-radius: 12px; border: 1px solid #C5CCDA; background: var(--h-paper);
+  color: var(--h-ink); font-size: 1rem; line-height: 1.4;
+  transition: border-color 150ms ease, box-shadow 150ms ease;
+}
+.crs-field::placeholder { color: #7A8399; }
+.crs-field:focus { outline: none; border-color: var(--h-ink); box-shadow: 0 0 0 3px rgba(240, 112, 34, 0.4); }
+.crs-field[aria-invalid='true'] { border-color: #C0352B; }
+.crs-field[aria-invalid='true']:focus { box-shadow: 0 0 0 3px rgba(192, 53, 43, 0.28); }
+.crs-error { margin-top: 0.35rem; font-size: 0.875rem; font-weight: 500; color: #B42318; }
