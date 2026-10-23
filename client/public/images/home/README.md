@@ -12,3 +12,4 @@ AI-generated (Figma generate_image, gemini-3.1-flash-image). Atmosphere only,
 never presented as real students or graduates:
 - ai-private-learner.webp: woman learning on a laptop at home in Tel Aviv, face turned away
 - ai-org-workshop.webp: corporate AI workshop around a long table, instructor at a wall screen
+- ai-hero-classroom.webp (+ -sm): evening AI class seen from behind, wall screen with a glowing neural network (hero background)

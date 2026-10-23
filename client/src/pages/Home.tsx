@@ -1,7 +1,7 @@
-import { useEffect, useState, type ReactNode } from 'react';
+import type { ReactNode } from 'react';
 import { Link } from 'wouter';
 import { ArrowLeft, ArrowRight, MessageCircle, CalendarCheck } from 'lucide-react';
-import { MeshGradient } from '@paper-design/shaders-react';
+import HeroScene from '@/components/HeroScene';
 import { useLanguage } from '@/contexts/LanguageContext';
 import SEO from '@/components/SEO';
 import { organizationSchema, websiteSchema } from '@/lib/seoSchemas';
@@ -22,23 +22,10 @@ const CLIENTS = [
   { name: 'CyberGo', nameEn: 'CyberGo', url: 'https://files.manuscdn.com/user_upload_by_module/session_file/310519663445418346/ZMeUfaAopZDjYSah.webp' },
 ];
 
-function usePrefersReducedMotion() {
-  const [reduced, setReduced] = useState(false);
-  useEffect(() => {
-    const mq = window.matchMedia('(prefers-reduced-motion: reduce)');
-    const update = () => setReduced(mq.matches);
-    update();
-    mq.addEventListener('change', update);
-    return () => mq.removeEventListener('change', update);
-  }, []);
-  return reduced;
-}
-
 export default function Home() {
   const { lang, dir } = useLanguage();
   const he = lang === 'he';
   const Arrow = he ? ArrowLeft : ArrowRight;
-  const reducedMotion = usePrefersReducedMotion();
 
   const whatsappHref = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(
     he ? 'שלום, אשמח לקבל מידע על הקורסים של ORTAM AI' : "Hi, I'd like more information about ORTAM AI courses",
@@ -106,26 +93,20 @@ export default function Home() {
 
         {/* Hero */}
         <section className="relative isolate overflow-hidden" style={{ background: 'var(--h-navy-deep)' }}>
-          <MeshGradient
-            className="absolute inset-0 -z-10"
-            style={{ width: '100%', height: '100%' }}
-            colors={['#0A1430', '#16306E', '#2B54C7', '#F07022']}
-            distortion={0.75}
-            swirl={0.12}
-            grainOverlay={0.08}
-            speed={reducedMotion ? 0 : 0.22}
-            maxPixelCount={1400 * 900}
+          <HeroScene
+            src={`${IMG}/ai-hero-classroom.webp`}
+            srcSmall={`${IMG}/ai-hero-classroom-sm.webp`}
+            mirrored={!he}
           />
-          {/* Keeps the headline side readable over the brightest part of the field */}
+          {/* Keeps the headline readable: darker toward the text side, and on small screens overall */}
           <div
             aria-hidden="true"
             className="absolute inset-0 -z-10"
             style={{
-              background: he
-                ? 'linear-gradient(270deg, rgba(10,20,48,0.78) 0%, rgba(10,20,48,0.35) 55%, rgba(10,20,48,0.05) 100%)'
-                : 'linear-gradient(90deg, rgba(10,20,48,0.78) 0%, rgba(10,20,48,0.35) 55%, rgba(10,20,48,0.05) 100%)',
+              background: `linear-gradient(${he ? 270 : 90}deg, rgba(10,20,48,0.82) 0%, rgba(10,20,48,0.45) 45%, rgba(10,20,48,0) 75%), linear-gradient(0deg, rgba(10,20,48,0.7) 0%, rgba(10,20,48,0) 35%)`,
             }}
           />
+          <div aria-hidden="true" className="absolute inset-0 -z-10 md:hidden" style={{ background: 'rgba(10,20,48,0.45)' }} />
           <div className="mx-auto max-w-7xl px-5 sm:px-8 pt-16 pb-20 md:pt-28 md:pb-32 min-h-[62svh] md:min-h-[78svh] flex flex-col justify-center">
             <div className="max-w-3xl text-start">
               <h1
