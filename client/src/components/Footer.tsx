@@ -1,115 +1,62 @@
-import React from 'react';
 import { Link } from 'wouter';
 import { useLanguage } from '@/contexts/LanguageContext';
 
 export default function Footer() {
   const { t, dir, lang } = useLanguage();
   const year = new Date().getFullYear();
+  const he = lang === 'he';
+
+  const links = [
+    { href: '/courses', label: t.nav.courses },
+    { href: '/academy', label: t.nav.academy },
+    { href: '/placement', label: t.nav.placement },
+    { href: '/consulting', label: t.nav.incubator },
+    { href: '/about', label: t.nav.about },
+    { href: '/contact', label: t.nav.contact },
+  ];
 
   return (
-    <footer
-      dir={dir}
-      style={{ background: '#08080C', borderTop: '1px solid rgba(200,200,208,0.1)' }}
-    >
-      <div className="max-w-7xl mx-auto px-4 py-12 md:py-16">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12 mb-10">
-
-          {/* Brand */}
-          <div>
-            <img
-              src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663445418346/DUvoZJgmUPGXkGcy.png"
-              alt="ORTAM AI"
-              className="h-9 w-auto object-contain mb-4"
-              style={{ filter: 'brightness(1.1)' }}
-            />
-            <p style={{ color: '#FFFFFF', fontSize: '0.875rem', lineHeight: '1.7' }}>
+    <footer dir={dir} className="site-footer">
+      <div className="max-w-7xl mx-auto px-5 sm:px-8 pt-14 pb-8 md:pt-16">
+        <div className="grid gap-10 md:grid-cols-12">
+          <div className="md:col-span-5">
+            <Link href="/" aria-label={he ? 'ORTAM AI, דף הבית' : 'ORTAM AI, home'} className="inline-block rounded-lg">
+              <img src="/images/brand/ortam-logo.png" alt="ORTAM AI" className="h-9 w-auto" />
+            </Link>
+            <p className="mt-4 text-base leading-relaxed max-w-[42ch]" style={{ color: 'var(--h-ink-2)' }}>
               {t.footer.tagline}
             </p>
           </div>
 
-          {/* Quick links */}
-          <div>
-            <h3
-              className="font-semibold text-sm uppercase tracking-widest mb-5"
-              style={{ color: '#C8C8D0', letterSpacing: '0.12em' }}
-            >
-              {lang === 'he' ? 'ניווט מהיר' : 'Quick Links'}
-            </h3>
-            <div className="space-y-2.5">
-              {[
-                { href: '/', label: t.nav.home },
-                { href: '/about', label: t.nav.about },
-                { href: '/incubator', label: t.nav.incubator },
-                { href: '/academy', label: t.nav.academy },
-                { href: '/placement', label: t.nav.placement },
-                { href: '/contact', label: t.nav.contact },
-              ].map(link => (
-                <Link key={link.href} href={link.href}>
-                  <span
-                    className="block text-sm cursor-pointer transition-colors duration-200"
-                    style={{ color: '#FFFFFF' }}
-                    onMouseEnter={e => (e.currentTarget.style.color = '#C8C8D0')}
-                    onMouseLeave={e => (e.currentTarget.style.color = '#FFFFFF')}
-                  >
-                    {link.label}
-                  </span>
-                </Link>
+          <nav aria-label={he ? 'ניווט בפוטר' : 'Footer navigation'} className="md:col-span-4">
+            <h2 className="site-footer-title">{he ? 'ניווט' : 'Navigate'}</h2>
+            <ul className="mt-4 grid grid-cols-2 gap-x-6 gap-y-1">
+              {links.map(link => (
+                <li key={link.href}>
+                  <Link href={link.href} className="site-footer-link">{link.label}</Link>
+                </li>
               ))}
-            </div>
-          </div>
+            </ul>
+          </nav>
 
-          {/* Contact */}
-          <div>
-            <h3
-              className="font-semibold text-sm uppercase tracking-widest mb-5"
-              style={{ color: '#C8C8D0', letterSpacing: '0.12em' }}
-            >
-              {lang === 'he' ? 'צור קשר' : 'Contact'}
-            </h3>
-            <div className="space-y-2.5 text-sm" style={{ color: '#FFFFFF' }}>
-              <p>info@ortamai.com</p>
-              <a
-                href="https://wa.me/972523381822"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="block transition-colors duration-200"
-                style={{ color: '#FFFFFF' }}
-                onMouseEnter={e => (e.currentTarget.style.color = '#C8C8D0')}
-                onMouseLeave={e => (e.currentTarget.style.color = '#FFFFFF')}
-              >
-                WhatsApp: 052-338-1822
-              </a>
-            </div>
+          <div className="md:col-span-3">
+            <h2 className="site-footer-title">{he ? 'צור קשר' : 'Contact'}</h2>
+            <ul className="mt-4 space-y-1">
+              <li><a href="mailto:info@ortamai.com" className="site-footer-link" dir="ltr">info@ortamai.com</a></li>
+              <li>
+                <a href="https://wa.me/972523381822" target="_blank" rel="noopener noreferrer" className="site-footer-link">
+                  WhatsApp: <span dir="ltr">052-338-1822</span>
+                </a>
+              </li>
+            </ul>
           </div>
         </div>
 
-        {/* Bottom bar */}
-        <div
-          className="pt-6 flex flex-col sm:flex-row justify-between items-center gap-4 text-sm"
-          style={{ borderTop: '1px solid rgba(200,200,208,0.08)', color: '#FFFFFF' }}
-        >
+        <div className="mt-12 pt-6 border-t flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-sm" style={{ borderColor: 'var(--h-line)', color: 'var(--h-ink-2)' }}>
           <p>© {year} ORTAM AI. {t.footer.rights}</p>
-          <div className="flex gap-5">
-            <Link href="/accessibility">
-              <span
-                className="cursor-pointer transition-colors duration-200"
-                style={{ color: '#FFFFFF' }}
-                onMouseEnter={e => (e.currentTarget.style.color = '#C8C8D0')}
-                onMouseLeave={e => (e.currentTarget.style.color = '#FFFFFF')}
-              >
-                {t.footer.accessibility}
-              </span>
-            </Link>
-            <Link href="/privacy">
-              <span
-                className="cursor-pointer transition-colors duration-200"
-                style={{ color: '#FFFFFF' }}
-                onMouseEnter={e => (e.currentTarget.style.color = '#C8C8D0')}
-                onMouseLeave={e => (e.currentTarget.style.color = '#FFFFFF')}
-              >
-                {lang === 'he' ? 'מדיניות פרטיות' : 'Privacy Policy'}
-              </span>
-            </Link>
+          <div className="flex gap-6">
+            <Link href="/accessibility" className="site-footer-link">{t.footer.accessibility}</Link>
+            <Link href="/privacy" className="site-footer-link">{he ? 'מדיניות פרטיות' : 'Privacy Policy'}</Link>
           </div>
         </div>
       </div>

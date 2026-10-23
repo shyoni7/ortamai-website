@@ -1,16 +1,13 @@
 import React, { useState, useRef, useCallback } from 'react';
 import { Link } from 'wouter';
 import { motion, AnimatePresence } from 'framer-motion';
-import { User, Building, CheckCircle, Upload, FileText, X, Send, Briefcase, ChevronDown } from 'lucide-react';
+import { User, Building, CheckCircle, Upload, FileText, X, Send, ChevronDown, ArrowLeft, ArrowRight } from 'lucide-react';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { trpc } from '@/lib/trpc';
 import { toast } from 'sonner';
-import ScrollDownArrow from '@/components/ScrollDownArrow';
 import SEO from '@/components/SEO';
 import { placementServiceSchema } from '@/lib/seoSchemas';
-
-const fadeUp = { hidden: { opacity: 0, y: 30 }, visible: { opacity: 1, y: 0, transition: { duration: 0.7 } } };
-const stagger = { hidden: {}, visible: { transition: { staggerChildren: 0.12 } } };
+import '@/styles/placement.css';
 
 const MAX_FILE_SIZE_MB = 10;
 const ALLOWED_TYPES = ['application/pdf', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'];
@@ -118,7 +115,9 @@ export default function Placement() {
     });
   };
 
-  const inputClass = `w-full px-4 py-3 rounded-xl bg-gray-50 border border-gray-200 text-gray-900 placeholder-gray-400 focus:outline-none focus:border-gray-200 focus:bg-white transition-all`;
+
+  const Arrow = isRtl ? ArrowLeft : ArrowRight;
+  const inputClass = 'placement-input';
 
   return (
     <>
@@ -130,394 +129,310 @@ export default function Placement() {
       canonical="/placement"
       schema={placementServiceSchema}
     />
-    <div dir={dir}>
+    <div dir={dir} className="placement-v2">
       {/* Hero */}
-      <section
-        dir="rtl"
-        style={{
-          background: 'linear-gradient(135deg, #0d1228 0%, #08080C 40%, #08080C 70%, #08080C 100%)',
-          position: 'relative',
-          overflow: 'hidden',
-          minHeight: '55svh',
-          display: 'flex',
-          alignItems: 'center',
-        }}
-      >
-        {/* Subtle glow blobs */}
-        <div style={{ position: 'absolute', top: '-60px', right: '-60px', width: '340px', height: '340px', borderRadius: '50%', background: 'radial-gradient(circle, rgba(200,200,208,0.12) 0%, transparent 70%)', pointerEvents: 'none' }} />
-        <div style={{ position: 'absolute', bottom: '-40px', left: '10%', width: '260px', height: '260px', borderRadius: '50%', background: 'radial-gradient(circle, rgba(200,200,208,0.06) 0%, transparent 70%)', pointerEvents: 'none' }} />
-
-        <div className="w-full max-w-6xl mx-auto px-4 sm:px-6 py-10 md:py-16 flex flex-col md:flex-row items-center gap-8 md:gap-12">
-          {/* Text — right side in RTL */}
-          <motion.div
-            initial={{ opacity: 0, x: 40 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8 }}
-            className="flex-1 w-full text-center md:text-right"
-          >
-            {/* Badge */}
-            <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', background: 'rgba(255,255,255,0.1)', border: '1px solid rgba(255,255,255,0.2)', borderRadius: '999px', padding: '6px 16px', marginBottom: '1.25rem' }}>
-              <Briefcase style={{ width: '14px', height: '14px', color: '#C8C8D0' }} />
-              <span style={{ fontSize: '13px', color: 'rgba(255,255,255,0.85)', fontWeight: 600 }}>
-                {isRtl ? 'מרכז השמה' : 'Placement Center'}
-              </span>
-            </div>
-
-            <h1 style={{ fontSize: 'clamp(2rem, 5vw, 3.75rem)', fontWeight: 800, color: '#ffffff', lineHeight: 1.2, marginBottom: '1rem' }}>
+      <section aria-labelledby="placement-title" style={{ background: 'var(--h-dark)' }}>
+        <div className="placement-hero mx-auto max-w-7xl px-5 sm:px-8 py-14 md:py-24">
+          <div className="placement-hero-text text-start">
+            <h1
+              id="placement-title"
+              className="h-rise text-white font-extrabold leading-[1.05]"
+              style={{ fontSize: 'clamp(2.4rem, 6vw, 4.5rem)' }}
+            >
               {isRtl ? 'מרכז השמה מוכוון AI' : 'AI-Driven Placement Center'}
             </h1>
-
-            <p style={{ fontSize: '1.05rem', color: 'rgba(255,255,255,0.75)', lineHeight: 1.7, marginBottom: '1.5rem', maxWidth: '480px' }}>
+            <p className="h-rise h-rise-2 mt-5 md:mt-7 text-lg md:text-xl leading-relaxed max-w-[56ch]" style={{ color: 'var(--h-on-dark)' }}>
               {isRtl
                 ? 'בשוק העבודה המשתנה יש צורך באיפיון משרות מתאימות לעולם ה-AI. אנו מתמחים במציאת עובדים שעברו הכשרת AI מותאמת לתפקידם.'
                 : 'In the changing job market, there is a need to define roles suited to the AI era. We specialize in finding employees who have undergone AI training tailored to their role.'}
             </p>
+          </div>
 
-            {/* Mobile-only video — shown between text and CTA button */}
-            <div className="block sm:hidden w-full mb-5 relative">
-              <div style={{
-                position: 'absolute', inset: '-8px',
-                borderRadius: '16px',
-                background: 'linear-gradient(135deg, rgba(200,200,208,0.15), rgba(200,200,208,0.05))',
-                filter: 'blur(14px)',
-                zIndex: 0,
-              }} />
-              <video
-                src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663445418346/mYNIxIlFvGEcEMgl.mp4"
-                autoPlay
-                loop
-                muted
-                playsInline
-                style={{
-                  width: '100%',
-                  borderRadius: '12px',
-                  position: 'relative',
-                  zIndex: 1,
-                  boxShadow: '0 12px 40px rgba(0,0,0,0.5)',
-                  display: 'block',
-                }}
-              />
-            </div>
-
-            <div style={{ display: 'flex', justifyContent: 'center' }} className="md:justify-start">
-            <motion.a
-              href="#cv-form"
-              whileHover={{ scale: 1.04 }}
-              whileTap={{ scale: 0.97 }}
-              style={{
-                display: 'inline-flex', alignItems: 'center', gap: '8px',
-                background: '#C8C8D0', color: '#08080C',
-                fontWeight: 700, fontSize: '1rem',
-                padding: '12px 28px', borderRadius: '12px',
-                textDecoration: 'none', boxShadow: '0 4px 20px rgba(0,0,0,0.25)',
-              }}
-            >
-              {isRtl ? 'שלח קורות חיים' : 'Submit CV'}
-              <span style={{ fontSize: '1.1rem' }}>←</span>
-            </motion.a>
-            </div>
-          </motion.div>
-
-          {/* Video — left side in RTL */}
-          <motion.div
-            initial={{ opacity: 0, x: -40 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.9, delay: 0.15 }}
-            className="flex-1 w-full max-w-lg relative hidden sm:block"
-          >
-            {/* Glow ring behind video */}
-            <div style={{
-              position: 'absolute', inset: '-12px',
-              borderRadius: '20px',
-              background: 'linear-gradient(135deg, rgba(200,200,208,0.15), rgba(200,200,208,0.05))',
-              filter: 'blur(18px)',
-              zIndex: 0,
-            }} />
+          <div className="placement-hero-media h-rise h-rise-2">
             <video
               src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663445418346/mYNIxIlFvGEcEMgl.mp4"
               autoPlay
               loop
               muted
               playsInline
-              style={{
-                width: '100%',
-                borderRadius: '16px',
-                position: 'relative',
-                zIndex: 1,
-                boxShadow: '0 20px 60px rgba(0,0,0,0.5)',
-                display: 'block',
-              }}
+              aria-hidden="true"
+              className="block w-full aspect-video object-cover rounded-[20px]"
             />
-          </motion.div>
-        </div>
+          </div>
 
-        {/* Scroll hint — mobile only */}
-        <div className="relative z-10">
-          <ScrollDownArrow />
+          <div className="placement-hero-cta h-rise h-rise-3 flex flex-col sm:flex-row gap-3">
+            <a href="#cv-form" className="h-btn h-btn-orange">
+              {isRtl ? 'שלח קורות חיים' : 'Submit CV'}
+              <Arrow size={18} aria-hidden="true" />
+            </a>
+          </div>
         </div>
       </section>
 
-      {/* Cards */}
-      <section className="py-16 md:py-24">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+      {/* Candidates / Employers */}
+      <section aria-label={isRtl ? 'למועמדים ולמעסיקים' : 'For candidates and employers'} className="py-16 md:py-24" style={{ background: 'var(--h-paper)' }}>
+        <div className="mx-auto max-w-7xl px-5 sm:px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-8">
             {/* Candidates */}
-            <div
-              className="bg-white border border-gray-200 rounded-2xl shadow-sm p-6 md:p-10 hover:border-gray-200 transition-all"
-            >
-              <div className="inline-flex p-3 rounded-xl bg-gradient-to-br from-gray-900 to-gray-900 mb-6">
-                <User className="w-6 h-6 text-white" />
+            <article className="placement-card p-6 md:p-10 flex flex-col text-start">
+              <div className="placement-icon-tile" aria-hidden="true">
+                <User className="w-6 h-6" />
               </div>
-              <h2 className="text-2xl font-bold text-gray-900 mb-4">{t.placement.candidate_title}</h2>
-              <p className="text-gray-600 leading-relaxed mb-6">{t.placement.candidate_desc}</p>
-              <div className="space-y-3">
+              <h2 className="mt-6 text-2xl md:text-3xl font-bold" style={{ color: 'var(--h-ink)' }}>{t.placement.candidate_title}</h2>
+              <p className="mt-4 text-base md:text-lg leading-relaxed max-w-[60ch]" style={{ color: 'var(--h-ink-2)' }}>{t.placement.candidate_desc}</p>
+              <ul className="placement-list mt-6">
                 {benefits.map((b, i) => (
-                  <div key={i} className="flex items-center gap-3">
-                    <CheckCircle className="w-5 h-5 flex-shrink-0" style={{ color: '#1A1A22' }} />
-                    <span className="text-gray-600 text-sm">{b}</span>
-                  </div>
+                  <li key={i}>
+                    <CheckCircle className="w-5 h-5 shrink-0" style={{ color: 'var(--h-orange-deep)' }} aria-hidden="true" />
+                    <span>{b}</span>
+                  </li>
                 ))}
-              </div>
-            </div>
+              </ul>
+            </article>
 
             {/* Employers */}
-            <div
-              className="bg-white border border-gray-200 rounded-2xl shadow-sm p-6 md:p-10 hover:border-gray-200/30 transition-all"
-            >
-              <div className="inline-flex p-3 rounded-xl bg-gradient-to-br from-gray-900 to-gray-900 mb-6">
-                <Building className="w-6 h-6 text-white" />
+            <article className="placement-card p-6 md:p-10 flex flex-col text-start">
+              <div className="placement-icon-tile" aria-hidden="true">
+                <Building className="w-6 h-6" />
               </div>
-              <h2 className="text-2xl font-bold text-gray-900 mb-4">{t.placement.employer_title}</h2>
-              <p className="text-gray-600 leading-relaxed mb-6">{t.placement.employer_desc}</p>
-              <div className="space-y-3 mb-8">
+              <h2 className="mt-6 text-2xl md:text-3xl font-bold" style={{ color: 'var(--h-ink)' }}>{t.placement.employer_title}</h2>
+              <p className="mt-4 text-base md:text-lg leading-relaxed max-w-[60ch]" style={{ color: 'var(--h-ink-2)' }}>{t.placement.employer_desc}</p>
+              <ul className="placement-list mt-6">
                 {benefits.map((b, i) => (
-                  <div key={i} className="flex items-center gap-3">
-                    <CheckCircle className="w-5 h-5 flex-shrink-0" style={{ color: '#1A1A22' }} />
-                    <span className="text-gray-600 text-sm">{b}</span>
-                  </div>
+                  <li key={i}>
+                    <CheckCircle className="w-5 h-5 shrink-0" style={{ color: 'var(--h-orange-deep)' }} aria-hidden="true" />
+                    <span>{b}</span>
+                  </li>
                 ))}
+              </ul>
+              <div className="mt-auto pt-8">
+                <Link href="/contact" className="h-btn placement-btn-dark w-full sm:w-auto">
+                  {t.placement.cta}
+                </Link>
               </div>
-              <Link href="/contact">
-                <button className="w-full py-3 rounded-xl bg-gray-900 text-white hover:bg-gray-800 transition-colors font-semibold">{t.placement.cta}</button>
-              </Link>
-            </div>
+            </article>
           </div>
         </div>
       </section>
 
       {/* CV Submission Form */}
-      <section id="cv-form" className="py-20">
-        <div className="max-w-3xl mx-auto px-4">
-          <div>
-            {/* Section Header */}
-            <div className="text-center mb-10">
-              <div className="inline-flex items-center gap-2 bg-white border border-gray-200 px-4 py-2 rounded-full mb-4">
-                <FileText className="w-4 h-4 text-gray-900" />
-                <span className="text-sm text-gray-900 font-medium">{t.placement.cv_form_title}</span>
-              </div>
-              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-3">{t.placement.cv_form_title}</h2>
-              <p className="text-gray-500">{t.placement.cv_form_sub}</p>
-            </div>
-
-            <AnimatePresence mode="wait">
-              {submitted ? (
-                <motion.div
-                  key="success"
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0 }}
-                  className="bg-white border border-gray-200 rounded-2xl shadow-sm p-12 text-center"
-                >
-                  <div className="w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6" style={{ background: 'linear-gradient(135deg, #1A1A22 0%, #2A2A32 100%)', border: '1px solid rgba(200,200,208,0.25)' }}>
-                    <CheckCircle className="w-10 h-10" style={{ color: '#C8C8D0' }} />
-                  </div>
-                  <h3 className="text-2xl font-bold text-gray-900 mb-3">{t.placement.cv_success}</h3>
-                  <p className="text-gray-500 mb-6">{lang === 'he' ? 'נחזור אליך בהקדם האפשרי' : "We'll be in touch soon"}</p>
-                  <button
-                    onClick={() => setSubmitted(false)}
-                    className="btn-primary px-8 py-3"
-                  >
-                    {lang === 'he' ? 'שלח קורות חיים נוספים' : 'Submit Another CV'}
-                  </button>
-                </motion.div>
-              ) : (
-                <motion.form
-                  key="form"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                  onSubmit={handleSubmit}
-                  className="bg-white border border-gray-200 rounded-2xl shadow-sm p-8 md:p-10 space-y-6"
-                >
-                  {/* Name + Email */}
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div>
-                      <label className="block text-sm text-gray-500 mb-2">{t.placement.cv_name}</label>
-                      <input
-                        type="text"
-                        value={form.name}
-                        onChange={e => setForm(f => ({ ...f, name: e.target.value }))}
-                        placeholder={lang === 'he' ? 'ישראל ישראלי' : 'John Doe'}
-                        className={inputClass}
-                        required
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-sm text-gray-500 mb-2">{t.placement.cv_email}</label>
-                      <input
-                        type="email"
-                        value={form.email}
-                        onChange={e => setForm(f => ({ ...f, email: e.target.value }))}
-                        placeholder="email@example.com"
-                        className={inputClass}
-                        required
-                      />
-                    </div>
-                  </div>
-
-                  {/* Phone + Role */}
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div>
-                      <label className="block text-sm text-gray-500 mb-2">{t.placement.cv_phone}</label>
-                      <input
-                        type="tel"
-                        value={form.phone}
-                        onChange={e => setForm(f => ({ ...f, phone: e.target.value }))}
-                        placeholder="050-0000000"
-                        className={inputClass}
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-sm text-gray-500 mb-2">{t.placement.cv_role}</label>
-                      <input
-                        type="text"
-                        value={form.role}
-                        onChange={e => setForm(f => ({ ...f, role: e.target.value }))}
-                        placeholder={lang === 'he' ? 'למשל: מנהל מוצר AI' : 'e.g. AI Product Manager'}
-                        className={inputClass}
-                      />
-                    </div>
-                  </div>
-
-                  {/* Field of Work */}
-                  <div>
-                    <label className="block text-sm text-gray-500 mb-2">{t.placement.cv_field}</label>
-                    <div className="relative">
-                      <select
-                        value={form.field}
-                        onChange={e => setForm(f => ({ ...f, field: e.target.value }))}
-                        className={`${inputClass} appearance-none cursor-pointer`}
-                        style={{ paddingInlineEnd: '2.5rem' }}
-                      >
-                        <option value="" className="bg-white">{lang === 'he' ? 'בחר תחום...' : 'Select field...'}</option>
-                        {fields.map(f => (
-                          <option key={f.value} value={f.value} className="bg-white">{f.label}</option>
-                        ))}
-                      </select>
-                      <ChevronDown className={`absolute top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500 pointer-events-none ${isRtl ? 'left-3' : 'right-3'}`} />
-                    </div>
-                  </div>
-
-                  {/* CV File Upload */}
-                  <div>
-                    <label className="block text-sm text-gray-500 mb-2">{t.placement.cv_file}</label>
-                    <div
-                      onDrop={onDrop}
-                      onDragOver={onDragOver}
-                      onDragLeave={onDragLeave}
-                      onClick={() => fileInputRef.current?.click()}
-                      className={`relative border-2 border-dashed rounded-xl p-5 md:p-8 text-center cursor-pointer transition-all ${
-                        isDragging
-                          ? 'border-[#C8C8D0] bg-[#C8C8D0]/10'
-                          : cvFile
-                          ? 'border-[#C8C8D0]/60 bg-[#C8C8D0]/5'
-                          : 'border-gray-200 hover:border-[#C8C8D0]/50 hover:bg-gray-50'
-                      }`}
-                    >
-                      <input
-                        ref={fileInputRef}
-                        type="file"
-                        accept=".pdf,.doc,.docx"
-                        className="hidden"
-                        onChange={e => { const f = e.target.files?.[0]; if (f) handleFile(f); }}
-                      />
-                      {cvFile ? (
-                        <div className="flex items-center justify-center gap-3">
-                          <FileText className="w-8 h-8 text-[#C8C8D0]" />
-                          <div className={`${isRtl ? 'text-right' : 'text-left'}`}>
-                            <p className="text-gray-900 font-medium text-sm">{cvFile.name}</p>
-                            <p className="text-gray-500 text-xs">{(cvFile.size / 1024 / 1024).toFixed(2)} MB</p>
-                          </div>
-                          <button
-                            type="button"
-                            onClick={e => { e.stopPropagation(); setCvFile(null); if (fileInputRef.current) fileInputRef.current.value = ''; }}
-                            className="p-1 rounded-full hover:bg-white/10 text-gray-500 hover:text-gray-900 transition-colors"
-                          >
-                            <X className="w-4 h-4" />
-                          </button>
-                        </div>
-                      ) : (
-                        <div>
-                          <Upload className={`w-10 h-10 mx-auto mb-3 ${isDragging ? 'text-gray-900' : 'text-gray-500'}`} />
-                          <p className="text-gray-600 font-medium">{t.placement.cv_file_hint}</p>
-                          <p className="text-gray-500 text-sm mt-1">PDF, DOC, DOCX · {lang === 'he' ? 'עד' : 'up to'} {MAX_FILE_SIZE_MB}MB</p>
-                        </div>
-                      )}
-                    </div>
-                  </div>
-
-                  {/* Message */}
-                  <div>
-                    <label className="block text-sm text-gray-500 mb-2">{t.placement.cv_message}</label>
-                    <textarea
-                      value={form.message}
-                      onChange={e => setForm(f => ({ ...f, message: e.target.value }))}
-                      rows={4}
-                      placeholder={lang === 'he' ? 'ספר לנו קצת על עצמך, ניסיונך, ומה אתה מחפש...' : 'Tell us a bit about yourself, your experience, and what you are looking for...'}
-                      className={`${inputClass} resize-none`}
-                    />
-                  </div>
-
-                  {/* Privacy consent */}
-                  <div className="flex items-start gap-3" dir={lang === 'he' ? 'rtl' : 'ltr'}>
-                    <input
-                      type="checkbox"
-                      id="placement-privacy"
-                      checked={privacyConsent}
-                      onChange={e => setPrivacyConsent(e.target.checked)}
-                      className="mt-1 w-4 h-4 accent-blue-600 cursor-pointer flex-shrink-0"
-                    />
-                    <label htmlFor="placement-privacy" className="text-sm text-gray-600 cursor-pointer leading-relaxed">
-                      {lang === 'he' ? (
-                        <>אני מאשר/ת את{' '}<a href="/privacy-policy" className="text-gray-900 underline hover:text-gray-900" target="_blank" rel="noopener noreferrer">מדיניות הפרטיות</a>{' '}ומסכים/ה שהמידע שאני מספק/ת ישמר בהתאם לדרישות החוק</>
-                      ) : (
-                        <>I accept the{' '}<a href="/privacy-policy" className="text-gray-900 underline hover:text-gray-900" target="_blank" rel="noopener noreferrer">Privacy Policy</a>{' '}and agree that my information will be stored in accordance with legal requirements</>
-                      )}
-                    </label>
-                  </div>
-
-                  {/* Submit */}
-                  <button
-                    type="submit"
-                    disabled={submitCv.isPending || !privacyConsent}
-                    className="btn-primary w-full py-4 text-base font-semibold flex items-center justify-center gap-2 disabled:opacity-60 disabled:cursor-not-allowed"
-                  >
-                    {submitCv.isPending ? (
-                      <>
-                        <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-                        {lang === 'he' ? 'שולח...' : 'Sending...'}
-                      </>
-                    ) : (
-                      <>
-                        <Send className="w-5 h-5" />
-                        {t.placement.cv_submit}
-                      </>
-                    )}
-                  </button>
-                </motion.form>
-              )}
-            </AnimatePresence>
+      <section id="cv-form" aria-labelledby="cv-form-title" className="py-16 md:py-24" style={{ background: 'var(--h-ground)' }}>
+        <div className="mx-auto max-w-3xl px-5 sm:px-8">
+          <div className="text-start mb-8 md:mb-10">
+            <h2 id="cv-form-title" className="text-3xl md:text-5xl font-bold" style={{ color: 'var(--h-ink)' }}>{t.placement.cv_form_title}</h2>
+            <p className="mt-3 text-base md:text-lg max-w-[65ch]" style={{ color: 'var(--h-ink-2)' }}>{t.placement.cv_form_sub}</p>
           </div>
+
+          <AnimatePresence mode="wait">
+            {submitted ? (
+              <motion.div
+                key="success"
+                initial={{ opacity: 0, y: 12 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0 }}
+                className="placement-card p-8 md:p-12 text-center"
+                role="status"
+              >
+                <div className="placement-success-icon mx-auto mb-6" aria-hidden="true">
+                  <CheckCircle className="w-9 h-9" />
+                </div>
+                <h3 className="text-2xl font-bold mb-3" style={{ color: 'var(--h-ink)' }}>{t.placement.cv_success}</h3>
+                <p className="mb-7" style={{ color: 'var(--h-ink-2)' }}>{lang === 'he' ? 'נחזור אליך בהקדם האפשרי' : "We'll be in touch soon"}</p>
+                <button
+                  type="button"
+                  onClick={() => setSubmitted(false)}
+                  className="h-btn h-btn-orange"
+                >
+                  {lang === 'he' ? 'שלח קורות חיים נוספים' : 'Submit Another CV'}
+                </button>
+              </motion.div>
+            ) : (
+              <motion.form
+                key="form"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                onSubmit={handleSubmit}
+                className="placement-card p-5 sm:p-8 md:p-10 space-y-6 text-start"
+              >
+                {/* Name + Email */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                  <div>
+                    <label htmlFor="cv-name" className="placement-label">{t.placement.cv_name}</label>
+                    <input
+                      id="cv-name"
+                      type="text"
+                      autoComplete="name"
+                      value={form.name}
+                      onChange={e => setForm(f => ({ ...f, name: e.target.value }))}
+                      placeholder={lang === 'he' ? 'ישראל ישראלי' : 'John Doe'}
+                      className={inputClass}
+                      required
+                    />
+                  </div>
+                  <div>
+                    <label htmlFor="cv-email" className="placement-label">{t.placement.cv_email}</label>
+                    <input
+                      id="cv-email"
+                      type="email"
+                      autoComplete="email"
+                      dir="ltr"
+                      value={form.email}
+                      onChange={e => setForm(f => ({ ...f, email: e.target.value }))}
+                      placeholder="email@example.com"
+                      className={inputClass}
+                      required
+                    />
+                  </div>
+                </div>
+
+                {/* Phone + Role */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                  <div>
+                    <label htmlFor="cv-phone" className="placement-label">{t.placement.cv_phone}</label>
+                    <input
+                      id="cv-phone"
+                      type="tel"
+                      autoComplete="tel"
+                      dir="ltr"
+                      value={form.phone}
+                      onChange={e => setForm(f => ({ ...f, phone: e.target.value }))}
+                      placeholder="050-0000000"
+                      className={inputClass}
+                    />
+                  </div>
+                  <div>
+                    <label htmlFor="cv-role" className="placement-label">{t.placement.cv_role}</label>
+                    <input
+                      id="cv-role"
+                      type="text"
+                      value={form.role}
+                      onChange={e => setForm(f => ({ ...f, role: e.target.value }))}
+                      placeholder={lang === 'he' ? 'למשל: מנהל מוצר AI' : 'e.g. AI Product Manager'}
+                      className={inputClass}
+                    />
+                  </div>
+                </div>
+
+                {/* Field of Work */}
+                <div>
+                  <label htmlFor="cv-field" className="placement-label">{t.placement.cv_field}</label>
+                  <div className="relative">
+                    <select
+                      id="cv-field"
+                      value={form.field}
+                      onChange={e => setForm(f => ({ ...f, field: e.target.value }))}
+                      className={`${inputClass} appearance-none cursor-pointer`}
+                      style={{ paddingInlineEnd: '2.75rem' }}
+                    >
+                      <option value="">{lang === 'he' ? 'בחר תחום...' : 'Select field...'}</option>
+                      {fields.map(f => (
+                        <option key={f.value} value={f.value}>{f.label}</option>
+                      ))}
+                    </select>
+                    <ChevronDown className="placement-select-chevron w-5 h-5 pointer-events-none" aria-hidden="true" />
+                  </div>
+                </div>
+
+                {/* CV File Upload */}
+                <div>
+                  <span id="cv-file-label" className="placement-label">{t.placement.cv_file}</span>
+                  <div
+                    role="button"
+                    tabIndex={0}
+                    aria-labelledby="cv-file-label"
+                    onDrop={onDrop}
+                    onDragOver={onDragOver}
+                    onDragLeave={onDragLeave}
+                    onClick={() => fileInputRef.current?.click()}
+                    onKeyDown={e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); fileInputRef.current?.click(); } }}
+                    className={`placement-drop ${isDragging ? 'is-dragging' : cvFile ? 'has-file' : ''}`}
+                  >
+                    <input
+                      ref={fileInputRef}
+                      type="file"
+                      accept=".pdf,.doc,.docx"
+                      className="hidden"
+                      onChange={e => { const f = e.target.files?.[0]; if (f) handleFile(f); }}
+                    />
+                    {cvFile ? (
+                      <div className="flex items-center justify-center gap-3">
+                        <FileText className="w-8 h-8 shrink-0" style={{ color: 'var(--h-orange-deep)' }} aria-hidden="true" />
+                        <div className="text-start min-w-0">
+                          <p className="font-medium text-sm break-all" style={{ color: 'var(--h-ink)' }}>{cvFile.name}</p>
+                          <p className="text-xs" style={{ color: 'var(--h-ink-2)' }}>{(cvFile.size / 1024 / 1024).toFixed(2)} MB</p>
+                        </div>
+                        <button
+                          type="button"
+                          aria-label={lang === 'he' ? 'הסרת קובץ' : 'Remove file'}
+                          onClick={e => { e.stopPropagation(); setCvFile(null); if (fileInputRef.current) fileInputRef.current.value = ''; }}
+                          className="placement-icon-btn shrink-0"
+                        >
+                          <X className="w-4 h-4" aria-hidden="true" />
+                        </button>
+                      </div>
+                    ) : (
+                      <div>
+                        <Upload className="w-9 h-9 mx-auto mb-3" style={{ color: isDragging ? 'var(--h-ink)' : 'var(--h-ink-2)' }} aria-hidden="true" />
+                        <p className="font-medium" style={{ color: 'var(--h-ink)' }}>{t.placement.cv_file_hint}</p>
+                        <p className="text-sm mt-1" style={{ color: 'var(--h-ink-2)' }}>PDF, DOC, DOCX · {lang === 'he' ? 'עד' : 'up to'} {MAX_FILE_SIZE_MB}MB</p>
+                      </div>
+                    )}
+                  </div>
+                </div>
+
+                {/* Message */}
+                <div>
+                  <label htmlFor="cv-message" className="placement-label">{t.placement.cv_message}</label>
+                  <textarea
+                    id="cv-message"
+                    value={form.message}
+                    onChange={e => setForm(f => ({ ...f, message: e.target.value }))}
+                    rows={4}
+                    placeholder={lang === 'he' ? 'ספר לנו קצת על עצמך, ניסיונך, ומה אתה מחפש...' : 'Tell us a bit about yourself, your experience, and what you are looking for...'}
+                    className={`${inputClass} resize-none`}
+                  />
+                </div>
+
+                {/* Privacy consent */}
+                <div className="placement-consent" dir={lang === 'he' ? 'rtl' : 'ltr'}>
+                  <input
+                    type="checkbox"
+                    id="placement-privacy"
+                    checked={privacyConsent}
+                    onChange={e => setPrivacyConsent(e.target.checked)}
+                    className="placement-checkbox"
+                  />
+                  <label htmlFor="placement-privacy" className="text-sm md:text-base cursor-pointer leading-relaxed" style={{ color: 'var(--h-ink-2)' }}>
+                    {lang === 'he' ? (
+                      <>אני מאשר/ת את{' '}<a href="/privacy-policy" className="placement-inline-link" target="_blank" rel="noopener noreferrer">מדיניות הפרטיות</a>{' '}ומסכים/ה שהמידע שאני מספק/ת ישמר בהתאם לדרישות החוק</>
+                    ) : (
+                      <>I accept the{' '}<a href="/privacy-policy" className="placement-inline-link" target="_blank" rel="noopener noreferrer">Privacy Policy</a>{' '}and agree that my information will be stored in accordance with legal requirements</>
+                    )}
+                  </label>
+                </div>
+
+                {/* Submit */}
+                <button
+                  type="submit"
+                  disabled={submitCv.isPending || !privacyConsent}
+                  className="h-btn h-btn-orange placement-submit w-full"
+                >
+                  {submitCv.isPending ? (
+                    <>
+                      <span className="w-5 h-5 border-2 rounded-full animate-spin" style={{ borderColor: 'rgba(14,26,51,0.25)', borderTopColor: 'var(--h-ink)' }} aria-hidden="true" />
+                      {lang === 'he' ? 'שולח...' : 'Sending...'}
+                    </>
+                  ) : (
+                    <>
+                      <Send className="w-5 h-5" aria-hidden="true" />
+                      {t.placement.cv_submit}
+                    </>
+                  )}
+                </button>
+              </motion.form>
+            )}
+          </AnimatePresence>
         </div>
       </section>
     </div>

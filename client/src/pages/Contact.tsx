@@ -1,17 +1,16 @@
 import React, { useState } from 'react';
-import { motion } from 'framer-motion';
-import { Mail, Phone, MapPin, Send } from 'lucide-react';
+import { Mail, Phone, MapPin, Send, ArrowLeft, ArrowRight } from 'lucide-react';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { trpc } from '@/lib/trpc';
 import { toast } from 'sonner';
 import SEO from '@/components/SEO';
 import { contactPageSchema } from '@/lib/seoSchemas';
-
-
+import '@/styles/contact.css';
 
 export default function Contact() {
   const { t, lang, dir } = useLanguage();
   const isRtl = lang === 'he';
+  const Arrow = isRtl ? ArrowLeft : ArrowRight;
 
   const [form, setForm] = useState({ name: '', email: '', phone: '', company: '', message: '' });
   const [privacyConsent, setPrivacyConsent] = useState(false);
@@ -49,87 +48,107 @@ export default function Contact() {
       canonical="/contact"
       schema={contactPageSchema}
     />
-    <div dir={dir}>
+    <div dir={dir} className="contact-v2">
       {/* Hero */}
-      <section className="relative flex items-center justify-center overflow-hidden" style={{ minHeight: '40svh', background: '#08080C' }}>
-        {/* Dot-grid */}
-        <div className="absolute inset-0" style={{ backgroundImage: 'radial-gradient(circle, rgba(200,200,208,0.07) 1px, transparent 1px)', backgroundSize: '32px 32px' }} />
-        {/* Sphere accents */}
-        <div className="sphere-3d sphere-3d-primary absolute -top-16 -right-16 w-48 h-48 sm:w-72 sm:h-72 opacity-50 pointer-events-none" />
-        <div className="sphere-3d sphere-3d-secondary absolute -bottom-16 -left-16 w-36 h-36 sm:w-56 sm:h-56 opacity-40 pointer-events-none" />
-        <div className="relative z-10 max-w-4xl mx-auto px-4 py-14 text-center">
-          {/* Badge */}
-          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="inline-flex items-center gap-2 px-4 py-2 rounded-full mb-5" style={{ background: 'rgba(255,255,255,0.08)', border: '1px solid rgba(200,200,208,0.2)' }}>
-            <span className="w-2 h-2 rounded-full animate-pulse" style={{ background: '#C8C8D0' }} />
-            <span className="text-sm font-semibold" style={{ color: '#C8C8D0' }}>{isRtl ? 'אנחנו כאן בשבילכם' : 'We\'re here for you'}</span>
-          </motion.div>
-          <motion.h1 initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }} className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4 leading-tight">
+      <section aria-labelledby="contact-title" style={{ background: 'var(--h-dark)' }}>
+        <div className="mx-auto max-w-7xl px-5 sm:px-8 pt-14 pb-14 md:pt-24 md:pb-20 text-start">
+          <h1
+            id="contact-title"
+            className="h-rise text-white font-extrabold leading-[1.05] max-w-4xl"
+            style={{ fontSize: 'clamp(2.4rem, 6vw, 4.5rem)' }}
+          >
             {t.contact.hero_title}
-          </motion.h1>
-          <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.2 }} className="text-lg md:text-xl max-w-xl mx-auto" style={{ color: 'rgba(200,200,208,0.65)' }}>
+          </h1>
+          <p className="h-rise h-rise-2 mt-6 md:mt-8 text-lg md:text-xl leading-relaxed max-w-[60ch]" style={{ color: 'var(--h-on-dark)' }}>
             {t.contact.hero_sub}
-          </motion.p>
+          </p>
         </div>
       </section>
 
       {/* Form + Info */}
-      <section className="py-16 md:py-24">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <section className="py-16 md:py-24" style={{ background: 'var(--h-ground)' }}>
+        <div className="mx-auto max-w-7xl px-5 sm:px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-start">
             {/* Form */}
-            <motion.div initial={{ opacity: 0, x: isRtl ? 40 : -40 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true, margin: "-100px", amount: 0 }} transition={{ duration: 0.8 }}>
-              <form onSubmit={handleSubmit} className="bg-white border border-gray-200 rounded-2xl shadow-sm p-6 space-y-3">
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div className="lg:col-span-7">
+              <form onSubmit={handleSubmit} className="contact-card p-5 sm:p-8 md:p-10 space-y-5 text-start">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                   <div>
-                    <label className="block text-sm font-medium text-gray-600 mb-1">{t.contact.form_name}</label>
+                    <label htmlFor="contact-name" className="contact-label">
+                      {t.contact.form_name}
+                    </label>
                     <input
+                      id="contact-name"
+                      name="name"
                       type="text"
+                      autoComplete="name"
+                      aria-required="true"
                       value={form.name}
                       onChange={e => setForm(p => ({ ...p, name: e.target.value }))}
-                      className="w-full px-4 py-3 rounded-xl bg-gray-50 border border-gray-200 text-gray-900 placeholder-gray-400 focus:outline-none focus:border-[#C8C8D0]/50 transition-colors"
+                      className="contact-field"
                       placeholder={isRtl ? 'ישראל ישראלי' : 'John Doe'}
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-600 mb-1">{t.contact.form_email}</label>
+                    <label htmlFor="contact-email" className="contact-label">
+                      {t.contact.form_email}
+                    </label>
                     <input
+                      id="contact-email"
+                      name="email"
                       type="email"
+                      autoComplete="email"
+                      inputMode="email"
+                      dir="ltr"
+                      aria-required="true"
                       value={form.email}
                       onChange={e => setForm(p => ({ ...p, email: e.target.value }))}
-                      className="w-full px-4 py-3 rounded-xl bg-gray-50 border border-gray-200 text-gray-900 placeholder-gray-400 focus:outline-none focus:border-[#C8C8D0]/50 transition-colors"
+                      className="contact-field contact-field-ltr"
                       placeholder="email@example.com"
                     />
                   </div>
                 </div>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                   <div>
-                    <label className="block text-sm font-medium text-gray-600 mb-1">{t.contact.form_phone}</label>
+                    <label htmlFor="contact-phone" className="contact-label">{t.contact.form_phone}</label>
                     <input
+                      id="contact-phone"
+                      name="phone"
                       type="tel"
+                      autoComplete="tel"
+                      dir="ltr"
                       value={form.phone}
                       onChange={e => setForm(p => ({ ...p, phone: e.target.value }))}
-                      className="w-full px-4 py-3 rounded-xl bg-gray-50 border border-gray-200 text-gray-900 placeholder-gray-400 focus:outline-none focus:border-[#C8C8D0]/50 transition-colors"
+                      className="contact-field contact-field-ltr"
                       placeholder="050-000-0000"
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-600 mb-1">{t.contact.form_company}</label>
+                    <label htmlFor="contact-company" className="contact-label">{t.contact.form_company}</label>
                     <input
+                      id="contact-company"
+                      name="company"
                       type="text"
+                      autoComplete="organization"
                       value={form.company}
                       onChange={e => setForm(p => ({ ...p, company: e.target.value }))}
-                      className="w-full px-4 py-3 rounded-xl bg-gray-50 border border-gray-200 text-gray-900 placeholder-gray-400 focus:outline-none focus:border-[#C8C8D0]/50 transition-colors"
+                      className="contact-field"
                       placeholder={isRtl ? 'שם החברה' : 'Company name'}
                     />
                   </div>
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-600 mb-1">{t.contact.form_message}</label>
+                  <label htmlFor="contact-message" className="contact-label">
+                    {t.contact.form_message}
+                  </label>
                   <textarea
-                    rows={3}
+                    id="contact-message"
+                    name="message"
+                    rows={5}
+                    aria-required="true"
                     value={form.message}
                     onChange={e => setForm(p => ({ ...p, message: e.target.value }))}
-                    className="w-full px-4 py-3 rounded-xl bg-gray-50 border border-gray-200 text-gray-900 placeholder-gray-400 focus:outline-none focus:border-[#C8C8D0]/50 transition-colors resize-none"
+                    className="contact-field contact-textarea"
                     placeholder={isRtl ? 'ספר לנו כיצד נוכל לעזור...' : 'Tell us how we can help...'}
                   />
                 </div>
@@ -140,182 +159,77 @@ export default function Contact() {
                     id="contact-privacy"
                     checked={privacyConsent}
                     onChange={e => setPrivacyConsent(e.target.checked)}
-                    className="mt-1 w-4 h-4 accent-blue-600 cursor-pointer flex-shrink-0"
+                    className="contact-check"
                   />
-                  <label htmlFor="contact-privacy" className="text-sm text-gray-600 cursor-pointer leading-relaxed">
+                  <label htmlFor="contact-privacy" className="text-sm md:text-base cursor-pointer leading-relaxed" style={{ color: 'var(--h-ink-2)' }}>
                     {isRtl ? (
-                      <>אני מאשר/ת את <a href="/privacy-policy" className="text-gray-900 underline hover:text-gray-900" target="_blank" rel="noopener noreferrer">מדיניות הפרטיות</a> ומסכים/ה שהמידע שאני מספק/ת ישמר בהתאם לדרישות החוק</>
+                      <>אני מאשר/ת את <a href="/privacy-policy" className="contact-inline-link" target="_blank" rel="noopener noreferrer">מדיניות הפרטיות</a> ומסכים/ה שהמידע שאני מספק/ת ישמר בהתאם לדרישות החוק</>
                     ) : (
-                      <>I accept the <a href="/privacy-policy" className="text-gray-900 underline hover:text-gray-900" target="_blank" rel="noopener noreferrer">Privacy Policy</a> and agree that my information will be stored in accordance with legal requirements</>
+                      <>I accept the <a href="/privacy-policy" className="contact-inline-link" target="_blank" rel="noopener noreferrer">Privacy Policy</a> and agree that my information will be stored in accordance with legal requirements</>
                     )}
                   </label>
                 </div>
-                <motion.button
+                <button
                   type="submit"
                   disabled={submitContact.isPending || !privacyConsent}
-                  className="w-full btn-primary py-4 flex items-center justify-center gap-2 disabled:opacity-50"
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
+                  className="h-btn h-btn-orange contact-submit w-full"
                 >
                   {submitContact.isPending ? (isRtl ? 'שולח...' : 'Sending...') : (
                     <>
-                      <Send size={18} />
+                      <Send size={18} aria-hidden="true" className="contact-send-icon" />
                       {t.contact.form_submit}
                     </>
                   )}
-                </motion.button>
+                </button>
               </form>
-            </motion.div>
+            </div>
 
             {/* Info */}
-            <motion.div initial={{ opacity: 0, x: isRtl ? -40 : 40 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true, margin: "-100px", amount: 0 }} transition={{ duration: 0.8 }} className="space-y-4">
-              <div>
-                <h2 className="text-2xl font-bold text-gray-900 mb-3">{t.contact.info_title}</h2>
-                <div className="space-y-4">
-                  <div className="flex items-center gap-4">
-                    <div className="p-3 rounded-xl bg-[#C8C8D0]/10">
-                      <Mail className="w-5 h-5 text-gray-900" />
-                    </div>
-                    <div>
-                      <p className="text-gray-500 text-sm">{t.contact.email_label}</p>
-                      <a href="mailto:info@ortamai.com" className="text-gray-900 hover:text-gray-900 transition-colors">info@ortamai.com</a>
-                    </div>
+            <div className="lg:col-span-5 text-start">
+              <h2 className="text-3xl md:text-4xl font-bold" style={{ color: 'var(--h-ink)' }}>{t.contact.info_title}</h2>
+              <ul className="mt-6 border-t" style={{ borderColor: 'var(--h-line)' }}>
+                <li className="flex items-center gap-4 py-4 border-b" style={{ borderColor: 'var(--h-line)' }}>
+                  <span className="contact-icon" aria-hidden="true"><Mail className="w-5 h-5" /></span>
+                  <div className="min-w-0">
+                    <p className="text-sm" style={{ color: 'var(--h-ink-2)' }}>{t.contact.email_label}</p>
+                    <a href="mailto:info@ortamai.com" className="contact-value-link" dir="ltr">info@ortamai.com</a>
                   </div>
-                  <div className="flex items-center gap-4">
-                    <div className="p-3 rounded-xl bg-[#C8C8D0]/10">
-                      <Phone className="w-5 h-5 text-gray-900" />
-                    </div>
-                    <div>
-                      <p className="text-gray-500 text-sm">{t.contact.phone_label}</p>
-                      <a href="tel:+972523381822" className="text-gray-900 hover:text-gray-900 transition-colors">052-338-1822</a>
-                    </div>
+                </li>
+                <li className="flex items-center gap-4 py-4 border-b" style={{ borderColor: 'var(--h-line)' }}>
+                  <span className="contact-icon" aria-hidden="true"><Phone className="w-5 h-5" /></span>
+                  <div className="min-w-0">
+                    <p className="text-sm" style={{ color: 'var(--h-ink-2)' }}>{t.contact.phone_label}</p>
+                    <a href="tel:+972523381822" className="contact-value-link" dir="ltr">052-338-1822</a>
                   </div>
-                  <div className="flex items-center gap-4">
-                    <div className="p-3 rounded-xl bg-[#C8C8D0]/10">
-                      <MapPin className="w-5 h-5 text-gray-900" />
-                    </div>
-                    <div>
-                      <p className="text-gray-500 text-sm">{isRtl ? 'מיקום' : 'Location'}</p>
-                      <p className="text-gray-900">{t.contact.address}</p>
-                    </div>
+                </li>
+                <li className="flex items-center gap-4 py-4 border-b" style={{ borderColor: 'var(--h-line)' }}>
+                  <span className="contact-icon" aria-hidden="true"><MapPin className="w-5 h-5" /></span>
+                  <div className="min-w-0">
+                    <p className="text-sm" style={{ color: 'var(--h-ink-2)' }}>{isRtl ? 'מיקום' : 'Location'}</p>
+                    <p className="text-lg font-medium" style={{ color: 'var(--h-ink)' }}>{t.contact.address}</p>
                   </div>
-                </div>
-              </div>
+                </li>
+              </ul>
 
               {/* WhatsApp CTA */}
               <a
                 href="https://wa.me/972523381822"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-4 bg-white border border-gray-200 rounded-2xl shadow-sm p-6 hover:border-green-400/40 transition-all group"
+                className="contact-card contact-wa mt-8 flex items-center gap-4 p-5 md:p-6"
               >
-                <div className="w-12 h-12 rounded-full flex items-center justify-center flex-shrink-0" style={{ background: 'linear-gradient(135deg, #25D366, #128C7E)' }}>
+                <span className="w-12 h-12 rounded-full flex items-center justify-center flex-shrink-0" style={{ background: '#25D366' }} aria-hidden="true">
                   <svg viewBox="0 0 24 24" className="w-6 h-6 fill-white" xmlns="http://www.w3.org/2000/svg">
                     <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
                   </svg>
-                </div>
-                <div>
-                  <p className="text-gray-900 font-semibold group-hover:text-green-400 transition-colors">{t.contact.whatsapp}</p>
-                  <p className="text-gray-500 text-sm">052-338-1822</p>
-                </div>
+                </span>
+                <span className="flex-1 min-w-0">
+                  <span className="block text-lg font-bold" style={{ color: 'var(--h-ink)' }}>{t.contact.whatsapp}</span>
+                  <span className="block text-base" style={{ color: 'var(--h-ink-2)' }}><span dir="ltr">052-338-1822</span></span>
+                </span>
+                <Arrow size={20} className="h-link-arrow flex-shrink-0" style={{ color: 'var(--h-blue)' }} aria-hidden="true" />
               </a>
-
-              {/* 3D Animated Envelope */}
-              <div className="relative w-full h-40 flex items-center justify-center overflow-hidden rounded-2xl bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900">
-                {/* Floating particles */}
-                <div className="absolute inset-0 overflow-hidden">
-                  {[...Array(6)].map((_, i) => (
-                    <div key={i} className="absolute rounded-full bg-gray-500/30" style={{
-                      width: `${4 + i * 2}px`, height: `${4 + i * 2}px`,
-                      left: `${10 + i * 15}%`, top: `${20 + (i % 3) * 25}%`,
-                      animation: `envelope-float ${2.5 + i * 0.4}s ease-in-out infinite`,
-                      animationDelay: `${i * 0.3}s`
-                    }} />
-                  ))}
-                </div>
-
-                {/* Envelope 3D */}
-                <div className="relative" style={{ perspective: '800px' }}>
-                  <div className="envelope-3d" style={{
-                    width: '200px', height: '136px', position: 'relative',
-                    transformStyle: 'preserve-3d',
-                    animation: 'envelope-fly 4s ease-in-out infinite',
-                  }}>
-                    {/* Envelope body */}
-                    <div style={{
-                      position: 'absolute', inset: 0,
-                      background: 'linear-gradient(135deg, #08080C 0%, #C8C8D0 50%, #C8C8D0 100%)',
-                      borderRadius: '8px',
-                      boxShadow: '0 20px 60px rgba(8,8,12,0.45), 0 4px 20px rgba(8,8,12,0.3)',
-                    }} />
-
-                    {/* Envelope flap (top triangle) */}
-                    <div style={{
-                      position: 'absolute', top: 0, left: 0, right: 0,
-                      height: '68px', overflow: 'hidden',
-                      animation: 'flap-open 4s ease-in-out infinite',
-                      transformOrigin: 'top center',
-                      transformStyle: 'preserve-3d',
-                    }}>
-                      <div style={{
-                        width: 0, height: 0,
-                        borderLeft: '100px solid transparent',
-                        borderRight: '100px solid transparent',
-                        borderTop: '68px solid #08080C',
-                        filter: 'drop-shadow(0 4px 8px rgba(8,8,12,0.4))',
-                      }} />
-                    </div>
-
-                    {/* V-fold lines */}
-                    <div style={{
-                      position: 'absolute', bottom: 0, left: 0,
-                      width: 0, height: 0,
-                      borderLeft: '100px solid #C8C8D0',
-                      borderBottom: '68px solid transparent',
-                    }} />
-                    <div style={{
-                      position: 'absolute', bottom: 0, right: 0,
-                      width: 0, height: 0,
-                      borderRight: '100px solid #C8C8D0',
-                      borderBottom: '68px solid transparent',
-                    }} />
-
-                    {/* Letter peeking out */}
-                    <div style={{
-                      position: 'absolute', left: '20px', right: '20px',
-                      top: '10px', height: '60px',
-                      background: 'white',
-                      borderRadius: '4px',
-                      boxShadow: '0 2px 8px rgba(0,0,0,0.15)',
-                      animation: 'letter-peek 4s ease-in-out infinite',
-                      transformOrigin: 'bottom center',
-                    }}>
-                      <div style={{ padding: '8px 10px' }}>
-                        <div style={{ height: '4px', background: '#c8d4ec', borderRadius: '2px', marginBottom: '5px' }} />
-                        <div style={{ height: '4px', background: '#c8d4ec', borderRadius: '2px', marginBottom: '5px', width: '70%' }} />
-                        <div style={{ height: '4px', background: '#c8d4ec', borderRadius: '2px', width: '85%' }} />
-                      </div>
-                    </div>
-
-                    {/* Shine overlay */}
-                    <div style={{
-                      position: 'absolute', inset: 0,
-                      background: 'linear-gradient(135deg, rgba(255,255,255,0.25) 0%, transparent 50%)',
-                      borderRadius: '8px',
-                      pointerEvents: 'none',
-                    }} />
-                  </div>
-                </div>
-
-                {/* Dotted trail */}
-                <div className="absolute" style={{ right: '15%', top: '30%', animation: 'trail-fade 4s ease-in-out infinite' }}>
-                  {[0,1,2].map(i => (
-                    <div key={i} className="inline-block w-1.5 h-1.5 rounded-full bg-gray-500/60 mx-0.5"
-                      style={{ animationDelay: `${i * 0.15}s`, animation: `trail-dot 4s ease-in-out infinite ${i * 0.15}s` }} />
-                  ))}
-                </div>
-              </div>
-            </motion.div>
+            </div>
           </div>
         </div>
       </section>

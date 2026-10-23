@@ -1,5 +1,4 @@
 import React from 'react';
-import { motion } from 'framer-motion';
 import { useLanguage } from '@/contexts/LanguageContext';
 
 export default function AccessibilityStatement() {
@@ -8,22 +7,24 @@ export default function AccessibilityStatement() {
 
   return (
     <div dir={dir} className="min-h-screen">
-      <section className="relative py-16 md:py-32 overflow-hidden">
-        <div className="absolute inset-0" style={{ background: '#08080C' }} />
-        <div className="relative z-10 max-w-4xl mx-auto px-4">
-          <motion.h1 initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} className="text-3xl md:text-5xl font-bold text-gradient-cyan mb-4">
+      <section style={{ background: 'var(--h-dark)' }}>
+        <div className="max-w-4xl mx-auto px-5 sm:px-8 py-16 md:py-24">
+          <h1 className="h-rise font-extrabold text-white leading-[1.05]" style={{ fontSize: 'clamp(2.4rem, 6vw, 4.5rem)' }}>
             {isRtl ? 'הצהרת נגישות' : 'Accessibility Statement'}
-          </motion.h1>
-          <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.2 }} className="text-gray-400 mb-12">
+          </h1>
+          <p className="mt-4" style={{ color: 'var(--h-on-dark)' }}>
             {isRtl ? 'עודכן: 15/11/2025' : 'Updated: 15/11/2025'}
-          </motion.p>
-
-          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }} className="glass rounded-2xl p-5 md:p-8 space-y-6 text-gray-300 leading-relaxed">
+          </p>
+        </div>
+      </section>
+      <section className="py-12 md:py-16">
+        <div className="max-w-4xl mx-auto px-5 sm:px-8">
+          <div className="legal-card space-y-6">
             {isRtl ? (
               <>
                 <p>ORTAM AI מחויבת לנגישות דיגיטלית ומשתדלת לאפשר לאנשים עם מוגבלויות להשתמש באתר שלנו בצורה נוחה ומלאה.</p>
-                <h2 className="text-xl font-bold text-white">מה אנחנו עושים?</h2>
-                <ul className="list-disc list-inside space-y-2 text-gray-300">
+                <h2 className="text-xl md:text-2xl font-bold">מה אנחנו עושים?</h2>
+                <ul className="list-disc ps-5 space-y-2">
                   <li>האתר בנוי בהתאם לתקן WCAG 2.1 ברמה AA</li>
                   <li>ניתן לנווט באתר באמצעות מקלדת בלבד</li>
                   <li>כל התמונות כוללות טקסט חלופי (alt text)</li>
@@ -31,9 +32,9 @@ export default function AccessibilityStatement() {
                   <li>האתר תומך בקוראי מסך</li>
                   <li>ניתן להגדיל את גודל הטקסט ללא פגיעה בתצוגה</li>
                 </ul>
-                <h2 className="text-xl font-bold text-white">יצירת קשר בנושא נגישות</h2>
+                <h2 className="text-xl md:text-2xl font-bold">יצירת קשר בנושא נגישות</h2>
                 <p>אם נתקלתם בבעיית נגישות באתר, אנא צרו איתנו קשר:</p>
-                <ul className="list-disc list-inside space-y-2">
+                <ul className="list-disc ps-5 space-y-2">
                   <li>אימייל: info@ortamai.com</li>
                   <li>טלפון: 052-338-1822</li>
                 </ul>
@@ -42,8 +43,8 @@ export default function AccessibilityStatement() {
             ) : (
               <>
                 <p>ORTAM AI is committed to digital accessibility and strives to enable people with disabilities to use our website comfortably and fully.</p>
-                <h2 className="text-xl font-bold text-white">What We Do</h2>
-                <ul className="list-disc list-inside space-y-2">
+                <h2 className="text-xl md:text-2xl font-bold">What We Do</h2>
+                <ul className="list-disc ps-5 space-y-2">
                   <li>The site is built according to WCAG 2.1 Level AA standard</li>
                   <li>The site can be navigated using keyboard only</li>
                   <li>All images include alternative text (alt text)</li>
@@ -51,16 +52,16 @@ export default function AccessibilityStatement() {
                   <li>The site supports screen readers</li>
                   <li>Text size can be increased without affecting display</li>
                 </ul>
-                <h2 className="text-xl font-bold text-white">Contact Us About Accessibility</h2>
+                <h2 className="text-xl md:text-2xl font-bold">Contact Us About Accessibility</h2>
                 <p>If you encounter an accessibility issue on the site, please contact us:</p>
-                <ul className="list-disc list-inside space-y-2">
+                <ul className="list-disc ps-5 space-y-2">
                   <li>Email: info@ortamai.com</li>
                   <li>Phone: 052-338-1822</li>
                 </ul>
                 <p>We will try to handle your inquiry within 5 business days.</p>
               </>
             )}
-          </motion.div>
+          </div>
         </div>
       </section>
     </div>

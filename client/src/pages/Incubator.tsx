@@ -1,120 +1,46 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'wouter';
-import { motion, useInView } from 'framer-motion';
-import { useRef, useState } from 'react';
 import {
-  Target, Lightbulb, Users, RefreshCw,
+  Target, Lightbulb, Users,
   Code2, Zap, CheckCircle2, Rocket,
-  ArrowLeft, Send, CheckCheck
+  ArrowLeft, ArrowRight, Send, CheckCheck, AlertCircle, CalendarCheck,
 } from 'lucide-react';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { trpc } from '@/lib/trpc';
-import ScrollDownArrow from '@/components/ScrollDownArrow';
 import SEO from '@/components/SEO';
-import { incubatorServiceSchema } from '@/lib/seoSchemas';
-
-// ─── Reusable animation variants ─────────────────────────────────────────────
-const fadeUp = {
-  hidden: { opacity: 0, y: 40 },
-  visible: (i = 0) => ({
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.6, delay: i * 0.1 },
-  }),
-};
-
-const fadeLeft = {
-  hidden: { opacity: 0, x: 60 },
-  visible: (i = 0) => ({
-    opacity: 1,
-    x: 0,
-    transition: { duration: 0.6, delay: i * 0.12 },
-  }),
-};
-
-const fadeRight = {
-  hidden: { opacity: 0, x: -60 },
-  visible: (i = 0) => ({
-    opacity: 1,
-    x: 0,
-    transition: { duration: 0.6, delay: i * 0.12 },
-  }),
-};
-
-const scaleIn = {
-  hidden: { opacity: 0, scale: 0.8 },
-  visible: (i = 0) => ({
-    opacity: 1,
-    scale: 1,
-    transition: { duration: 0.5, delay: i * 0.1 },
-  }),
-};
-
-// ─── Section wrapper that triggers animation when in view ────────────────────
-function AnimatedSection({
-  children,
-  className = '',
-  delay = 0,
-}: {
-  children: React.ReactNode;
-  className?: string;
-  delay?: number;
-}) {
-  const ref = useRef(null);
-  const inView = useInView(ref, { once: true, margin: '0px' });
-  return (
-    <motion.div
-      ref={ref}
-      initial={{ opacity: 0, y: 50 }}
-      animate={inView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.7, delay }}
-      className={className}
-    >
-      {children}
-    </motion.div>
-  );
-}
+import { consultingServiceSchema } from '@/lib/seoSchemas';
+import '@/styles/consulting.css';
 
 // ─── Content ─────────────────────────────────────────────────────────────────
 const CONTENT = {
   he: {
-    badge: 'אקסלרטור AI',
-    hero_title: 'אקסלרטור ליזמים ועסקים',
+    hero_title: 'ייעוץ אסטרטגיית AI לעסקים',
+    hero_title_2: 'עם ORTAM AI',
     hero_desc:
-      'עסק שלא יעבוד עם AI ישאר תקוע מאחור. בנינו את האקסלרטור שלנו כדי לוודא שאתם מתקדמים עם התקופה ולא נתקעים מאחור.',
+      'עסק שלא יעבוד עם AI ישאר תקוע מאחור. בנינו את תהליך הייעוץ שלנו כדי לוודא שאתם מתקדמים עם התקופה ולא נתקעים מאחור.',
     hero_cta: 'ספרו לנו על העסק שלכם',
 
-    what_title: 'מה תקבלו באקסלרטור של ORTAM AI?',
+    what_title: 'מה תקבלו בייעוץ אסטרטגיית AI של ORTAM AI?',
     what_sub: 'תהליך מלא ומובנה להצלחה שלכם',
 
     benefits: [
       {
         icon: Target,
-        color: 'bg-gray-900',
         title: 'איפיון צרכי העסק וייעוץ ממומחה AI',
         desc: 'ניתוח מעמיק של העסק שלך והזדמנויות יישום AI',
         items: ['פגישת Discovery מקיפה', 'מיפוי תהליכים קיימים', 'זיהוי נקודות כאב וצוואר בקבוק'],
       },
       {
         icon: Lightbulb,
-        color: 'bg-gray-900',
         title: 'הכשרות מקצועיות מותאמות לצרכי העסק שלך',
         desc: 'תוכניות הדרכה ייעודיות לצוות שלך',
         items: ['הכשרת מנהלים והנהלה', 'הדרכת צוות טכני', 'ליווי אישי לכל משתתף'],
       },
       {
         icon: Users,
-        color: 'bg-gray-900',
         title: 'הדרכה וליווי צמוד עד להטמעה מלאה',
         desc: 'ליווי צמוד בכל שלב עד שתהליכי העבודה משולבים לחלוטין',
-        items: ['ליווי שוטף של צוות מומחים', 'תמיכה טכנית 24/7', 'מעקב אחרי KPIs והצלחה'],
-      },
-      {
-        icon: RefreshCw,
-        color: 'bg-[#1A1A22]',
-        title: 'עדכון גרסה כל חצי שנה',
-        desc: 'תמיד עם הכלים הכי מתקדמים ומדויקים בשוק',
-        items: ['עדכונים טכנולוגיים שוטפים', 'שיפורים מבוססי פידבק', 'התאמה לשינויים בשוק'],
+        items: ['ליווי שוטף של צוות מומחים', 'ליווי ותמיכה לאורך כל תקופת ההטמעה', 'מעקב אחרי KPIs והצלחה'],
       },
     ],
 
@@ -137,49 +63,44 @@ const CONTENT = {
 
     models_title: 'מודלים עסקיים גמישים',
     models_sub: 'מצאו את המודל המתאים ביותר לצרכים שלכם',
+    models: [
+      { title: 'ריטיינר חודשי', desc: 'ליווי שוטף וגישה קבועה לצוות המומחים — מתקדמים יחד, חודש אחרי חודש' },
+      { title: 'פרויקט ממוקד', desc: 'היקף ותוצר מוגדרים מראש — מהאיפיון ועד המסירה, במחיר סגור' },
+      { title: 'הדרכות וליווי לפי שעות', desc: 'גמישות מלאה לצרכים נקודתיים — הדרכה, ייעוץ או ליווי בדיוק כשצריך' },
+    ],
 
-    cta_title: 'מוכנים להתחיל?',
-    cta_sub: 'ספרו לנו על העסק שלכם ונבנה יחד תוכנית מותאמת',
-    cta_btn: 'ספרו לנו על העסק שלכם',
+    close_title: 'מוכנים לקחת את ה\u2011AI שלכם לשלב הבא?',
+    close_sub: 'קבעו פגישת ייעוץ עם מומחי ה-AI של ORTAM.',
+    close_btn: 'קבעו פגישת ייעוץ',
   },
   en: {
-    badge: 'AI Accelerator',
-    hero_title: 'Business & Entrepreneur Accelerator',
+    hero_title: 'AI Strategy Consulting for Businesses',
+    hero_title_2: 'with ORTAM AI',
     hero_desc:
-      "A business that doesn't work with AI will fall behind. We built our accelerator to ensure you advance with the times and don't get left behind.",
+      "A business that doesn't work with AI will fall behind. We built our consulting process to ensure you advance with the times and don't get left behind.",
     hero_cta: 'Tell Us About Your Business',
 
-    what_title: 'What Will You Get in the ORTAM AI Accelerator?',
+    what_title: 'What Will You Get from ORTAM AI Strategy Consulting?',
     what_sub: 'A complete, structured path to your success',
 
     benefits: [
       {
         icon: Target,
-        color: 'bg-gray-900',
         title: 'Business Needs Analysis & Expert AI Consulting',
         desc: 'Deep analysis of your business and AI implementation opportunities',
         items: ['Comprehensive Discovery Meeting', 'Mapping Existing Processes', 'Identifying Pain Points & Bottlenecks'],
       },
       {
         icon: Lightbulb,
-        color: 'bg-gray-900',
         title: 'Professional Training Tailored to Your Business',
         desc: 'Dedicated training programs for your team',
         items: ['Management & Leadership Training', 'Technical Team Guidance', 'Personal Mentoring for Each Participant'],
       },
       {
         icon: Users,
-        color: 'bg-gray-900',
         title: 'Guidance & Close Support Until Full Adoption',
         desc: 'Close support at every stage until workflows are fully integrated',
-        items: ['Ongoing Expert Team Support', '24/7 Technical Support', 'KPI & Success Tracking'],
-      },
-      {
-        icon: RefreshCw,
-        color: 'bg-[#1A1A22]',
-        title: 'Version Update Every 6 Months',
-        desc: 'Always equipped with the most advanced and accurate tools on the market',
-        items: ['Ongoing Technology Updates', 'Feedback-Based Improvements', 'Adaptation to Market Changes'],
+        items: ['Ongoing Expert Team Support', 'Guidance and support throughout the implementation period', 'KPI & Success Tracking'],
       },
     ],
 
@@ -202,181 +123,89 @@ const CONTENT = {
 
     models_title: 'Flexible Business Models',
     models_sub: 'Find the model that best suits your needs',
+    models: [
+      { title: 'Monthly Retainer', desc: 'Ongoing guidance and steady access to our expert team, month after month' },
+      { title: 'Scoped Project', desc: 'A pre-defined scope and deliverable — from discovery to handoff, at a fixed price' },
+      { title: 'Training & Hourly Support', desc: 'Full flexibility for focused needs — training, consulting or guidance exactly when needed' },
+    ],
 
-    cta_title: 'Ready to Start?',
-    cta_sub: "Tell us about your business and we'll build a tailored plan together",
-    cta_btn: 'Tell Us About Your Business',
+    close_title: 'Ready to take your AI to the next level?',
+    close_sub: 'Schedule a consultation with ORTAM AI experts.',
+    close_btn: 'Schedule a Consultation',
   },
 };
+
+function SectionHeader({ id, title, sub }: { id: string; title: string; sub: string }) {
+  return (
+    <div className="mb-10 md:mb-14 text-start">
+      <h2 id={id} className="text-3xl md:text-5xl font-bold max-w-4xl" style={{ color: 'var(--h-ink)' }}>{title}</h2>
+      <p className="mt-4 text-base md:text-lg leading-relaxed max-w-[65ch]" style={{ color: 'var(--h-ink-2)' }}>{sub}</p>
+    </div>
+  );
+}
 
 // ─── Component ───────────────────────────────────────────────────────────────
 export default function Incubator() {
   const { lang, dir } = useLanguage();
   const isRtl = lang === 'he';
   const c = isRtl ? CONTENT.he : CONTENT.en;
+  const Arrow = isRtl ? ArrowLeft : ArrowRight;
 
   return (
     <>
     <SEO
-      title={isRtl ? 'אקסלרטור AI ליזמים ועסקים | ORTAM AI' : 'AI Accelerator for Startups & Businesses | ORTAM AI'}
+      title={isRtl ? 'ייעוץ אסטרטגיית AI לעסקים' : 'AI Strategy Consulting for Businesses'}
       description={isRtl
-        ? 'אקסלרטור AI ליזמים ועסקים: אבחון עסקי, פיילוטים מהירים, בניית מוצרים מבוססי AI וליווי מקצועי עד יישום. הטמעת AI בארגון שלך בצורה מהירה ויעילה.'
-        : 'AI accelerator for startups and businesses: business diagnostics, rapid pilots, AI product development, and hands-on implementation guidance.'}
-      canonical="/incubator"
-      schema={incubatorServiceSchema}
+        ? 'ייעוץ אסטרטגיית AI לעסקים: אבחון עסקי ומיפוי תהליכים, הכשרת צוותים, פיילוטים מהירים, סוכני AI ואינטגרציות, וליווי מקצועי עד יישום.'
+        : 'AI strategy consulting for businesses: business diagnosis and process mapping, team training, rapid pilots, AI agents and integrations, and hands-on implementation guidance.'}
+      canonical="/consulting"
+      schema={consultingServiceSchema}
     />
-    <div dir={dir} className="bg-white">
+    <div dir={dir} className="cns-page">
       {/* ── Hero ─────────────────────────────────────────────────────────── */}
-      <section
-        className="relative overflow-hidden flex items-center"
-        style={{
-          minHeight: '100svh',
-          background: 'linear-gradient(135deg, #0d1228 0%, #08080C 30%, #08080C 55%, #08080C 80%, #0d1228 100%)',
-        }}
-      >
-        {/* ── Background glow blobs ── */}
-        <div className="absolute inset-0 pointer-events-none overflow-hidden">
-          {/* Right glow */}
-          <motion.div
-            animate={{ scale: [1, 1.15, 1], opacity: [0.35, 0.55, 0.35] }}
-            transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}
-            className="absolute -right-20 top-1/2 -translate-y-1/2 w-[400px] h-[400px] rounded-full"
-            style={{ background: 'radial-gradient(circle, rgba(200,200,208,0.25) 0%, rgba(8,8,12,0.1) 50%, transparent 75%)' }}
-          />
-          {/* Left glow */}
-          <motion.div
-            animate={{ scale: [1, 1.1, 1], opacity: [0.2, 0.4, 0.2] }}
-            transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut', delay: 2 }}
-            className="absolute -left-10 top-1/2 -translate-y-1/2 w-[300px] h-[300px] rounded-full"
-            style={{ background: 'radial-gradient(circle, rgba(200,200,208,0.15) 0%, transparent 70%)' }}
-          />
-          {/* Subtle wave lines */}
-          <svg className="absolute inset-0 w-full h-full opacity-10" xmlns="http://www.w3.org/2000/svg">
-            <defs>
-              <pattern id="wave-lines" x="0" y="0" width="80" height="80" patternUnits="userSpaceOnUse">
-                <path d="M0 40 Q20 20 40 40 Q60 60 80 40" stroke="rgba(136,153,187,0.6)" strokeWidth="1" fill="none" />
-              </pattern>
-            </defs>
-            <rect width="100%" height="100%" fill="url(#wave-lines)" />
-          </svg>
-        </div>
-
-        {/* ── Main hero content ── */}
-        <div className="relative z-10 w-full max-w-6xl mx-auto px-4 sm:px-6 py-4 md:py-16">
-          {/* Hero text - centered on mobile, full width */}
-          <div className="flex flex-col items-center text-center md:items-end md:text-right max-w-2xl mx-auto md:mr-0 md:ml-auto mb-6 md:mb-16">
-            {/* Badge */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-full mb-5"
-              style={{ background: 'rgba(255,255,255,0.1)', border: '1px solid rgba(255,255,255,0.2)' }}
-            >
-              <span className="w-2 h-2 rounded-full animate-pulse" style={{ background: '#C8C8D0' }} />
-              <span className="text-sm font-semibold" style={{ color: '#C8C8D0' }}>{isRtl ? 'אקסלרטור AI' : 'AI Accelerator'}</span>
-            </motion.div>
-
-            {/* Main heading */}
-            <motion.h1
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.1 }}
-              className="text-2xl sm:text-4xl lg:text-6xl font-bold text-white mb-3 leading-tight"
-            >
-              {isRtl ? (
-                <>{c.hero_title}<br /><span style={{ color: '#C8C8D0' }}>עם ORTAM AI</span></>
-              ) : (
-                <>{c.hero_title}<br /><span style={{ color: '#C8C8D0' }}>with ORTAM AI</span></>
-              )}
-            </motion.h1>
-
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.25 }}
-              className="text-sm md:text-lg mb-5 leading-relaxed max-w-xl"
-              style={{ color: 'rgba(200,200,208,0.75)' }}
-            >
-              {c.hero_desc}
-            </motion.p>
-
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.4 }}
-              className="flex flex-wrap gap-4 justify-center md:justify-end"
-            >
-              <Link href="/contact">
-                <motion.button
-                  whileHover={{ scale: 1.04 }}
-                  whileTap={{ scale: 0.97 }}
-                  className="inline-flex items-center gap-2 bg-white text-gray-900 font-bold px-6 py-3 rounded-xl text-base shadow-lg"
-                >
-                  {c.hero_cta}
-                  <ArrowLeft className={`w-4 h-4 ${isRtl ? '' : 'rotate-180'}`} />
-                </motion.button>
-              </Link>
-            </motion.div>
+      <section aria-labelledby="cns-title" style={{ background: 'var(--h-dark)' }}>
+        <div className="mx-auto max-w-7xl px-5 sm:px-8 py-14 md:py-24 text-start">
+          <h1
+            id="cns-title"
+            className="h-rise text-white font-extrabold leading-[1.05] max-w-4xl"
+            style={{ fontSize: 'clamp(2.4rem, 6vw, 4.5rem)' }}
+          >
+            {c.hero_title}
+            <span className="block mt-2" style={{ color: '#B9AAFF' }}>{c.hero_title_2}</span>
+          </h1>
+          <p className="h-rise h-rise-2 mt-5 md:mt-7 text-lg md:text-xl leading-relaxed max-w-[60ch]" style={{ color: 'var(--h-on-dark)' }}>
+            {c.hero_desc}
+          </p>
+          <div className="h-rise h-rise-3 mt-8 md:mt-10 flex flex-col sm:flex-row gap-3 sm:gap-4">
+            <Link href="/contact" className="h-btn cns-btn-violet">
+              <span>{c.hero_cta}</span>
+              <Arrow size={18} aria-hidden="true" />
+            </Link>
           </div>
-
-        </div>
-
-        {/* Scroll hint — mobile only */}
-        <div className="relative z-10">
-          <ScrollDownArrow />
         </div>
       </section>
 
       {/* ── What You Get ─────────────────────────────────────────────────── */}
-      <section className="py-16 md:py-24 bg-white">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-          <AnimatedSection className={`mb-16 ${isRtl ? 'text-right' : 'text-center'}`}>
-            <h2 className="text-2xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-4">{c.what_title}</h2>
-            <p className="text-gray-500 text-lg">{c.what_sub}</p>
-          </AnimatedSection>
-
-          <div className="space-y-6">
-            {c.benefits.map((b, i) => {
+      <section aria-labelledby="cns-what" className="py-16 md:py-24" style={{ background: 'var(--h-ground)' }}>
+        <div className="mx-auto max-w-7xl px-5 sm:px-8">
+          <SectionHeader id="cns-what" title={c.what_title} sub={c.what_sub} />
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            {c.benefits.map(b => {
               const Icon = b.icon;
-              const ref = useRef(null);
-              const inView = useInView(ref, { once: true, margin: '-60px' });
               return (
-                <motion.div
-                  key={i}
-                  ref={ref}
-                  custom={i}
-                  variants={isRtl ? fadeLeft : fadeRight}
-                  initial="hidden"
-                  animate={inView ? 'visible' : 'hidden'}
-                  className="bg-white border border-gray-200 rounded-2xl p-8 shadow-sm hover:shadow-md hover:border-gray-200 transition-all"
-                  dir={isRtl ? 'rtl' : 'ltr'}
-                >
-                  <div className="flex items-start gap-5">
-                    <div className={`flex-shrink-0 flex items-center justify-center w-14 h-14 rounded-2xl ${b.color} shadow-lg`}>
-                      <Icon className="w-7 h-7 text-white" />
-                    </div>
-                    <div className="flex-1">
-                      <h3 className="text-gray-900 font-bold text-xl mb-1">{b.title}</h3>
-                      <p className="text-gray-500 mb-4 text-sm">{b.desc}</p>
-                      <ul className="space-y-2">
-                        {b.items.map((item, j) => (
-                          <motion.li
-                            key={j}
-                            custom={j}
-                            variants={fadeUp}
-                            initial="hidden"
-                            animate={inView ? 'visible' : 'hidden'}
-                            className="flex items-center gap-2 text-gray-700 text-sm"
-                          >
-                            <CheckCircle2 className="w-4 h-4 text-gray-900 flex-shrink-0" />
-                            <span>{item}</span>
-                          </motion.li>
-                        ))}
-                      </ul>
-                    </div>
-                  </div>
-                </motion.div>
+                <article key={b.title} className="cns-card p-6 md:p-8 flex flex-col text-start">
+                  <span className="cns-icon mb-5"><Icon className="w-6 h-6" aria-hidden="true" /></span>
+                  <h3 className="text-xl md:text-2xl font-bold leading-snug" style={{ color: 'var(--h-ink)' }}>{b.title}</h3>
+                  <p className="mt-2 text-base leading-relaxed" style={{ color: 'var(--h-ink-2)' }}>{b.desc}</p>
+                  <ul className="mt-5 border-t" style={{ borderColor: 'var(--h-line)' }}>
+                    {b.items.map(item => (
+                      <li key={item} className="py-3 border-b flex items-start gap-3 text-base" style={{ borderColor: 'var(--h-line)', color: 'var(--h-ink)' }}>
+                        <CheckCircle2 className="w-5 h-5 mt-0.5 shrink-0" style={{ color: 'var(--c-violet)' }} aria-hidden="true" />
+                        <span>{item}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </article>
               );
             })}
           </div>
@@ -384,39 +213,18 @@ export default function Incubator() {
       </section>
 
       {/* ── What We Build ────────────────────────────────────────────────── */}
-      <section className="py-16 md:py-24 bg-gray-50">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <AnimatedSection className={`mb-14 ${isRtl ? 'text-right' : 'text-center'}`}>
-            <h2 className="text-2xl md:text-4xl font-bold text-gray-900 mb-4">{c.build_title}</h2>
-            <p className="text-gray-500 text-lg">{c.build_sub}</p>
-          </AnimatedSection>
-
+      <section aria-labelledby="cns-build" className="py-16 md:py-24" style={{ background: 'var(--h-paper)' }}>
+        <div className="mx-auto max-w-7xl px-5 sm:px-8">
+          <SectionHeader id="cns-build" title={c.build_title} sub={c.build_sub} />
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {c.build_items.map((item, i) => {
+            {c.build_items.map(item => {
               const Icon = item.icon;
-              const ref = useRef(null);
-              const inView = useInView(ref, { once: true, margin: '-60px' });
               return (
-                <motion.div
-                  key={i}
-                  ref={ref}
-                  custom={i}
-                  variants={scaleIn}
-                  initial="hidden"
-                  animate={inView ? 'visible' : 'hidden'}
-                  className={`bg-white border border-gray-200 rounded-2xl p-8 shadow-sm hover:shadow-md hover:border-gray-200 transition-all group ${isRtl ? 'text-right' : 'text-center'}`}
-                >
-                  <motion.div
-                    whileHover={{ scale: 1.1, rotate: 5 }}
-                    transition={{ type: 'spring', stiffness: 300 }}
-                    className={`inline-flex p-4 rounded-2xl mb-5 ${isRtl ? '' : 'mx-auto'}`}
-                    style={{ background: 'rgba(200,200,208,0.1)', border: '1px solid rgba(200,200,208,0.2)' }}
-                  >
-                    <Icon className="w-8 h-8" style={{ color: '#08080C' }} />
-                  </motion.div>
-                  <h3 className="text-gray-900 font-bold text-xl mb-3">{item.title}</h3>
-                  <p className="text-gray-500 leading-relaxed">{item.desc}</p>
-                </motion.div>
+                <article key={item.title} className="cns-card p-6 md:p-8 text-start">
+                  <span className="cns-icon mb-5"><Icon className="w-6 h-6" aria-hidden="true" /></span>
+                  <h3 className="text-xl md:text-2xl font-bold" style={{ color: 'var(--h-ink)' }}>{item.title}</h3>
+                  <p className="mt-3 text-base leading-relaxed" style={{ color: 'var(--h-ink-2)' }}>{item.desc}</p>
+                </article>
               );
             })}
           </div>
@@ -424,71 +232,35 @@ export default function Incubator() {
       </section>
 
       {/* ── Process Steps ────────────────────────────────────────────────── */}
-      <section className="py-16 md:py-24 bg-white">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-          <AnimatedSection className={`mb-14 ${isRtl ? 'text-right' : 'text-center'}`}>
-            <h2 className="text-2xl md:text-4xl font-bold text-gray-900 mb-4">{c.process_title}</h2>
-            <p className="text-gray-500 text-lg">{c.process_sub}</p>
-          </AnimatedSection>
-
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            {(isRtl ? [...c.steps].reverse() : c.steps).map((step, i) => {
-              const ref = useRef(null);
-              const inView = useInView(ref, { once: true, margin: '-60px' });
-              return (
-                <motion.div
-                  key={step.num}
-                  ref={ref}
-                  custom={i}
-                  variants={fadeUp}
-                  initial="hidden"
-                  animate={inView ? 'visible' : 'hidden'}
-                  className={`bg-white border border-gray-200 rounded-2xl p-6 shadow-sm relative ${isRtl ? 'text-right' : 'text-center'}`}
-                  dir={isRtl ? 'rtl' : 'ltr'}
-                >
-                  {i < c.steps.length - 1 && (
-                    <div className={`absolute top-1/2 ${isRtl ? '-left-2' : '-right-2'} w-4 h-0.5 bg-blue-300 hidden md:block`} />
-                  )}
-                  <motion.div
-                    initial={{ scale: 0 }}
-                    animate={inView ? { scale: 1 } : {}}
-                    transition={{ delay: i * 0.12 + 0.2, type: 'spring', stiffness: 300 }}
-                    className={`inline-flex items-center justify-center w-12 h-12 rounded-full text-white font-bold text-lg mb-4 shadow-lg ${isRtl ? '' : 'mx-auto'}`}
-                    style={{ background: '#1A1A22', boxShadow: '0 4px 14px rgba(200,200,208,0.15)' }}
-                  >
-                    {step.num}
-                  </motion.div>
-                  <h3 className="text-gray-900 font-bold text-lg mb-2">{step.label}</h3>
-                  <p className="text-gray-500 text-sm">{step.desc}</p>
-                </motion.div>
-              );
-            })}
-          </div>
+      <section aria-labelledby="cns-process" className="py-16 md:py-24" style={{ background: 'var(--h-ground)' }}>
+        <div className="mx-auto max-w-7xl px-5 sm:px-8">
+          <SectionHeader id="cns-process" title={c.process_title} sub={c.process_sub} />
+          <ol className="grid gap-10 md:gap-8 sm:grid-cols-2 md:grid-cols-4">
+            {c.steps.map((step, i) => (
+              <li key={step.num} className="text-start border-t-2 pt-6"
+                style={{ borderColor: i === 0 ? 'var(--c-violet)' : 'var(--h-line)' }}>
+                <span className="cns-step-num" aria-hidden="true">{step.num}</span>
+                <h3 className="mt-4 text-xl md:text-2xl font-bold" style={{ color: 'var(--h-ink)' }}>
+                  <span className="sr-only">{isRtl ? `שלב ${step.num}: ` : `Step ${step.num}: `}</span>
+                  {step.label}
+                </h3>
+                <p className="mt-2 text-base leading-relaxed" style={{ color: 'var(--h-ink-2)' }}>{step.desc}</p>
+              </li>
+            ))}
+          </ol>
         </div>
       </section>
 
       {/* ── Flexible Business Models ─────────────────────────────────────── */}
-      <section className="py-16 md:py-24 bg-gray-50">
-        <div className="max-w-5xl mx-auto px-4">
-          <AnimatedSection className="text-center mb-10 md:mb-14">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-3">{c.models_title}</h2>
-            <p className="text-gray-500 text-lg">{c.models_sub}</p>
-          </AnimatedSection>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6" dir={isRtl ? 'rtl' : 'ltr'}>
-            {(isRtl ? [
-              { title: 'ריטיינר חודשי', desc: 'ליווי שוטף וגישה קבועה לצוות המומחים — מתקדמים יחד, חודש אחרי חודש' },
-              { title: 'פרויקט ממוקד', desc: 'היקף ותוצר מוגדרים מראש — מהאיפיון ועד המסירה, במחיר סגור' },
-              { title: 'הדרכות וליווי לפי שעות', desc: 'גמישות מלאה לצרכים נקודתיים — הדרכה, ייעוץ או ליווי בדיוק כשצריך' },
-            ] : [
-              { title: 'Monthly Retainer', desc: 'Ongoing guidance and steady access to our expert team, month after month' },
-              { title: 'Scoped Project', desc: 'A pre-defined scope and deliverable — from discovery to handoff, at a fixed price' },
-              { title: 'Training & Hourly Support', desc: 'Full flexibility for focused needs — training, consulting or guidance exactly when needed' },
-            ]).map(model => (
-              <div key={model.title}
-                className={`bg-white border border-gray-200 rounded-2xl p-8 shadow-sm hover:shadow-md transition-shadow ${isRtl ? 'text-right' : 'text-left'}`}>
-                <h3 className="text-xl font-bold text-gray-900 mb-2">{model.title}</h3>
-                <p className="text-gray-500 leading-relaxed">{model.desc}</p>
-              </div>
+      <section aria-labelledby="cns-models" className="py-16 md:py-24" style={{ background: 'var(--h-paper)' }}>
+        <div className="mx-auto max-w-7xl px-5 sm:px-8">
+          <SectionHeader id="cns-models" title={c.models_title} sub={c.models_sub} />
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {c.models.map(model => (
+              <article key={model.title} className="cns-card p-6 md:p-8 text-start">
+                <h3 className="text-xl md:text-2xl font-bold" style={{ color: 'var(--h-ink)' }}>{model.title}</h3>
+                <p className="mt-3 text-base leading-relaxed" style={{ color: 'var(--h-ink-2)' }}>{model.desc}</p>
+              </article>
             ))}
           </div>
         </div>
@@ -497,210 +269,18 @@ export default function Incubator() {
       {/* ── Consultation Form ──────────────────────────────────────────────────── */}
       <ConsultationForm isRtl={isRtl} />
 
-      {/* ── Closing CTA — the atom sphere sends visitors off ── */}
-      <section className="py-16 md:py-24 relative overflow-hidden" dir={isRtl ? 'rtl' : 'ltr'}
-        style={{ background: 'linear-gradient(135deg, #0d1228 0%, #08080C 45%, #08080C 100%)' }}>
-        <div className="max-w-5xl mx-auto px-4 sm:px-6">
-          <div className={`flex flex-col items-center gap-10 md:flex-row md:items-center ${isRtl ? 'md:flex-row-reverse' : 'md:flex-row'}`}>
-
-            {/* ── 3D AI Atom Sphere ── */}
-            <motion.div
-              initial={{ opacity: 0, scale: 0.6 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.9, ease: 'backOut' }}
-              className="flex-shrink-0 relative self-center md:self-auto"
-              style={{ width: 150, height: 150 }}
-            >
-              {/* ── BACK halves of rings (behind sphere) ── */}
-
-              {/* Ring 1 back half */}
-              <motion.div
-                animate={{ rotate: [0, 360] }}
-                transition={{ duration: 5, repeat: Infinity, ease: 'linear' }}
-                className="absolute inset-0 pointer-events-none"
-                style={{ zIndex: 0 }}
-              >
-                <div className="absolute inset-0" style={{
-                  transform: 'rotateX(75deg)',
-                  borderRadius: '50%',
-                  border: '2px solid transparent',
-                  borderTopColor: 'rgba(136,153,187,0.0)',
-                  borderBottomColor: 'rgba(136,153,187,0.55)',
-                  borderLeftColor: 'rgba(136,153,187,0.55)',
-                  borderRightColor: 'rgba(136,153,187,0.0)',
-                  boxShadow: '0 0 8px rgba(136,153,187,0.3)',
-                }} />
-              </motion.div>
-
-              {/* Ring 2 back half */}
-              <motion.div
-                animate={{ rotate: [360, 0] }}
-                transition={{ duration: 7, repeat: Infinity, ease: 'linear' }}
-                className="absolute inset-0 pointer-events-none"
-                style={{ zIndex: 0 }}
-              >
-                <div className="absolute inset-0" style={{
-                  transform: 'rotateX(65deg) rotateZ(45deg)',
-                  borderRadius: '50%',
-                  border: '2px solid transparent',
-                  borderTopColor: 'rgba(136,153,187,0.0)',
-                  borderBottomColor: 'rgba(136,153,187,0.5)',
-                  borderLeftColor: 'rgba(136,153,187,0.5)',
-                  borderRightColor: 'rgba(136,153,187,0.0)',
-                  boxShadow: '0 0 6px rgba(136,153,187,0.25)',
-                }} />
-              </motion.div>
-
-              {/* ── Core 3D sphere (middle layer) ── */}
-              <motion.div
-                animate={{ scale: [1, 1.04, 1] }}
-                transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
-                className="absolute rounded-full"
-                style={{
-                  inset: '22px',
-                  zIndex: 1,
-                  background: [
-                    'radial-gradient(circle at 32% 28%, rgba(255,255,255,0.85) 0%, rgba(255,255,255,0) 22%)',
-                    'radial-gradient(circle at 70% 72%, rgba(20,28,60,0.7) 0%, rgba(20,28,60,0) 45%)',
-                    'radial-gradient(circle at 50% 50%, #C8C8D0 0%, #08080C 40%, #08080C 75%, #0d1228 100%)',
-                  ].join(', '),
-                  boxShadow: '0 0 40px rgba(139,92,246,0.7), 0 0 80px rgba(8,8,12,0.4), inset 0 0 20px rgba(20,28,60,0.5)',
-                }}
-              >
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <span
-                    className="font-black text-white select-none"
-                    style={{ fontSize: '22px', textShadow: '0 0 12px rgba(255,255,255,0.8)', letterSpacing: '-0.5px' }}
-                  >
-                    AI
-                  </span>
-                </div>
-              </motion.div>
-
-              {/* ── FRONT halves of rings (in front of sphere) ── */}
-
-              {/* Ring 1 front half + orbiting dot */}
-              <motion.div
-                animate={{ rotate: [0, 360] }}
-                transition={{ duration: 5, repeat: Infinity, ease: 'linear' }}
-                className="absolute inset-0 pointer-events-none"
-                style={{ zIndex: 2 }}
-              >
-                <div className="absolute inset-0" style={{
-                  transform: 'rotateX(75deg)',
-                  borderRadius: '50%',
-                  border: '2px solid transparent',
-                  borderTopColor: 'rgba(136,153,187,0.9)',
-                  borderBottomColor: 'rgba(136,153,187,0.0)',
-                  borderLeftColor: 'rgba(136,153,187,0.0)',
-                  borderRightColor: 'rgba(136,153,187,0.9)',
-                  boxShadow: '0 0 10px rgba(136,153,187,0.5)',
-                }} />
-                {/* Orbiting dot — top of ring (front) */}
-                <div
-                  className="absolute w-3 h-3 rounded-full bg-white"
-                  style={{
-                    top: '-5px',
-                    left: '50%',
-                    marginLeft: '-6px',
-                    boxShadow: '0 0 10px rgba(255,255,255,0.95), 0 0 20px rgba(136,153,187,0.9)',
-                  }}
-                />
-              </motion.div>
-
-              {/* Ring 2 front half + orbiting dot */}
-              <motion.div
-                animate={{ rotate: [360, 0] }}
-                transition={{ duration: 7, repeat: Infinity, ease: 'linear' }}
-                className="absolute inset-0 pointer-events-none"
-                style={{ zIndex: 2 }}
-              >
-                <div className="absolute inset-0" style={{
-                  transform: 'rotateX(65deg) rotateZ(45deg)',
-                  borderRadius: '50%',
-                  border: '2px solid transparent',
-                  borderTopColor: 'rgba(136,153,187,0.85)',
-                  borderBottomColor: 'rgba(136,153,187,0.0)',
-                  borderLeftColor: 'rgba(136,153,187,0.0)',
-                  borderRightColor: 'rgba(136,153,187,0.85)',
-                  boxShadow: '0 0 8px rgba(136,153,187,0.4)',
-                }} />
-                {/* Orbiting dot */}
-                <div
-                  className="absolute w-2.5 h-2.5 rounded-full"
-                  style={{
-                    background: '#E8E8F0',
-                    top: '-5px',
-                    left: '50%',
-                    marginLeft: '-5px',
-                    boxShadow: '0 0 8px rgba(200,200,208,0.9), 0 0 16px rgba(200,200,208,0.4)',
-                  }}
-                />
-              </motion.div>
-
-              {/* Outer glow */}
-              <motion.div
-                animate={{ opacity: [0.4, 0.8, 0.4], scale: [1, 1.08, 1] }}
-                transition={{ duration: 2.5, repeat: Infinity, ease: 'easeInOut' }}
-                className="absolute inset-0 rounded-full pointer-events-none"
-                style={{ zIndex: 0, boxShadow: '0 0 50px rgba(200,200,208,0.2), 0 0 100px rgba(200,200,208,0.08)' }}
-              />
-            </motion.div>
-
-            {/* ── Text column ── */}
-            <motion.div
-              initial={{ opacity: 0, x: isRtl ? 50 : -50 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.7, delay: 0.2 }}
-              className={`flex-1 w-full ${isRtl ? 'text-right' : 'text-left'}`}
-            >
-              <motion.h2
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.3 }}
-                className="text-xl md:text-3xl lg:text-4xl font-bold text-white mb-3 leading-tight"
-              >
-                {isRtl ? 'מוכנים לקחת את ה-AI שלכם לשלב הבא?' : 'Ready to take your AI to the next level?'}
-              </motion.h2>
-
-              <motion.p
-                initial={{ opacity: 0, y: 15 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.45 }}
-                className="text-base md:text-lg mb-7 leading-relaxed"
-                style={{ color: 'rgba(200,200,208,0.75)' }}
-              >
-                {isRtl
-                  ? 'קבעו פגישת ייעוץ עם מומחי ה-AI של ORTAM.'
-                  : 'Schedule a consultation with ORTAM AI experts.'}
-              </motion.p>
-
-              <motion.div
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.6 }}
-              >
-                <Link href="/contact">
-                  <motion.button
-                    whileHover={{ scale: 1.04, x: isRtl ? -4 : 4 }}
-                    whileTap={{ scale: 0.97 }}
-                    className={`inline-flex items-center gap-3 bg-white text-[#2d1b8e] font-bold px-7 py-3.5 rounded-xl text-base shadow-lg hover:shadow-blue-200/30 transition-shadow ${
-                      isRtl ? 'flex-row-reverse' : ''
-                    }`}
-                    style={{ boxShadow: '0 4px 24px rgba(139,92,246,0.25)' }}
-                  >
-                    <span>{isRtl ? 'קבעו פגישת ייעוץ' : 'Schedule a Consultation'}</span>
-                    <motion.span
-                      animate={{ x: isRtl ? [-3, 0, -3] : [0, 4, 0] }}
-                      transition={{ duration: 1.5, repeat: Infinity, ease: 'easeInOut' }}
-                    >
-                      <ArrowLeft className={`w-5 h-5 ${isRtl ? '' : 'rotate-180'}`} />
-                    </motion.span>
-                  </motion.button>
-                </Link>
-              </motion.div>
-            </motion.div>
-
+      {/* ── Closing CTA ── */}
+      <section aria-labelledby="cns-close" style={{ background: 'var(--h-dark)' }}>
+        <div className="mx-auto max-w-7xl px-5 sm:px-8 py-16 md:py-24 text-start">
+          <h2 id="cns-close" className="text-white font-extrabold leading-[1.08] max-w-3xl" style={{ fontSize: 'clamp(2rem, 5vw, 3.5rem)' }}>
+            {c.close_title}
+          </h2>
+          <p className="mt-5 text-lg leading-relaxed max-w-[60ch]" style={{ color: 'var(--h-on-dark)' }}>{c.close_sub}</p>
+          <div className="mt-8">
+            <Link href="/contact" className="h-btn h-btn-light">
+              <CalendarCheck size={19} aria-hidden="true" />
+              <span>{c.close_btn}</span>
+            </Link>
           </div>
         </div>
       </section>
@@ -714,17 +294,20 @@ function ConsultationForm({ isRtl }: { isRtl: boolean }) {
   const [form, setForm] = useState({ businessName: '', firstName: '', email: '', phone: '', about: '' });
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState('');
+  const [missing, setMissing] = useState(false);
   const [privacyConsent, setPrivacyConsent] = useState(false);
 
   const mutation = trpc.incubator.submitConsultation.useMutation({
     onSuccess: () => setSubmitted(true),
-    onError: (e) => setError(isRtl ? 'אירעה שגיאה. נסה שוב.' : 'An error occurred. Please try again.'),
+    onError: () => setError(isRtl ? 'אירעה שגיאה. נסה שוב.' : 'An error occurred. Please try again.'),
   });
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
+    setMissing(false);
     if (!form.businessName || !form.firstName || !form.email || !form.phone) {
+      setMissing(true);
       setError(isRtl ? 'אנא מלא את כל השדות הנדרשים.' : 'Please fill in all required fields.');
       return;
     }
@@ -737,7 +320,7 @@ function ConsultationForm({ isRtl }: { isRtl: boolean }) {
 
   const labels = {
     title: isRtl ? 'ספרו לנו קצת על החברה שלכם' : 'Tell us about your company',
-    sub: isRtl ? 'נחזור אליכם תוך 24 שעות לתיאום שיחת האיפיון' : 'We\'ll get back to you within 24 hours',
+    sub: isRtl ? 'נחזור אליכם בהקדם לתיאום שיחת האיפיון' : 'We\'ll get back to you soon',
     businessName: isRtl ? 'שם העסק' : 'Business Name',
     firstName: isRtl ? 'שם פרטי' : 'First Name',
     email: isRtl ? 'אימייל' : 'Email',
@@ -749,104 +332,78 @@ function ConsultationForm({ isRtl }: { isRtl: boolean }) {
     successSub: isRtl ? 'נחזור אליכם בהקדם לתיאום שיחת האיפיון.' : 'We\'ll be in touch shortly to schedule your discovery call.',
   };
 
+  const fieldProps = (key: 'businessName' | 'firstName' | 'email' | 'phone') => ({
+    id: `cns-${key}`,
+    value: form[key],
+    'aria-required': true,
+    'aria-invalid': missing && !form[key] ? true : undefined,
+    'aria-describedby': error ? 'cns-form-error' : undefined,
+    onChange: (e: React.ChangeEvent<HTMLInputElement>) => setForm(f => ({ ...f, [key]: e.target.value })),
+    className: 'cns-field',
+  });
+
   return (
-    <section className="py-16 md:py-24 relative overflow-hidden" style={{ background: '#08080C' }} dir={isRtl ? 'rtl' : 'ltr'}>
-      <div className="absolute inset-0 opacity-10" style={{ backgroundImage: 'radial-gradient(circle at 30% 50%, white 1px, transparent 1px)', backgroundSize: '40px 40px' }} />
-      {/* decorative blobs */}
-      <div className="absolute top-0 left-0 w-96 h-96 bg-gray-500/20 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2" />
-      <div className="absolute bottom-0 right-0 w-80 h-80 rounded-full blur-3xl translate-x-1/3 translate-y-1/3" style={{ background: 'rgba(200,200,208,0.06)' }} />
+    <section aria-labelledby="cns-form-title" className="py-16 md:py-24" style={{ background: 'var(--h-ground)' }}>
+      <div className="mx-auto max-w-7xl px-5 sm:px-8 grid gap-10 lg:grid-cols-12 lg:gap-14 items-start">
+        <div className="lg:col-span-5 text-start">
+          <h2 id="cns-form-title" className="text-3xl md:text-5xl font-bold" style={{ color: 'var(--h-ink)' }}>{labels.title}</h2>
+          <p className="mt-4 text-base md:text-lg leading-relaxed max-w-[50ch]" style={{ color: 'var(--h-ink-2)' }}>{labels.sub}</p>
+        </div>
 
-      <div className="max-w-2xl mx-auto px-4 relative z-10">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "0px", amount: 0 }}
-          transition={{ duration: 0.6 }}
-        >
-          <h2 className="text-3xl md:text-4xl font-bold text-white mb-3 text-center">{labels.title}</h2>
-          <p className="text-center mb-10" style={{ color: 'rgba(200,200,208,0.6)' }}>{labels.sub}</p>
-
+        <div className="lg:col-span-7">
           {submitted ? (
-            <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              className="bg-white/10 backdrop-blur-sm rounded-2xl p-10 text-center border border-white/20"
-            >
-              <div className="w-16 h-16 bg-green-400/20 rounded-full flex items-center justify-center mx-auto mb-4">
-                <CheckCheck className="w-8 h-8 text-green-300" />
+            <div className="cns-card p-8 md:p-10 text-center" role="status">
+              <div className="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4" style={{ background: '#E7F6EC' }}>
+                <CheckCheck className="w-8 h-8" style={{ color: '#1F7A3D' }} aria-hidden="true" />
               </div>
-              <h3 className="text-2xl font-bold text-white mb-2">{labels.successTitle}</h3>
-              <p className="text-white">{labels.successSub}</p>
-            </motion.div>
+              <h3 className="text-2xl font-bold mb-2" style={{ color: 'var(--h-ink)' }}>{labels.successTitle}</h3>
+              <p style={{ color: 'var(--h-ink-2)' }}>{labels.successSub}</p>
+            </div>
           ) : (
-            <form onSubmit={handleSubmit} className="bg-white/10 backdrop-blur-sm rounded-2xl p-8 border border-white/20 space-y-5">
-              {/* Row: business name + first name */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <form onSubmit={handleSubmit} className="cns-card p-6 md:p-8 space-y-5 text-start">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                 <div>
-                  <label className="block text-sm font-medium mb-1.5" style={{ color: '#C8C8D0' }}>
-                    {labels.businessName} <span className="text-red-300">*</span>
+                  <label htmlFor="cns-businessName" className="cns-label">
+                    {labels.businessName} <span className="cns-req" aria-hidden="true">*</span>
                   </label>
-                  <input
-                    type="text"
-                    value={form.businessName}
-                    onChange={e => setForm(f => ({ ...f, businessName: e.target.value }))}
-                    placeholder={isRtl ? 'שם החברה / העסק' : 'Company name'}
-                    className="w-full bg-white/10 border border-white/25 rounded-xl px-4 py-3 text-white placeholder-blue-200/60 focus:outline-none focus:border-white/60 focus:bg-white/15 transition"
-                  />
+                  <input type="text" autoComplete="organization" {...fieldProps('businessName')}
+                    placeholder={isRtl ? 'שם החברה / העסק' : 'Company name'} />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium mb-1.5" style={{ color: '#C8C8D0' }}>
-                    {labels.firstName} <span className="text-red-300">*</span>
+                  <label htmlFor="cns-firstName" className="cns-label">
+                    {labels.firstName} <span className="cns-req" aria-hidden="true">*</span>
                   </label>
-                  <input
-                    type="text"
-                    value={form.firstName}
-                    onChange={e => setForm(f => ({ ...f, firstName: e.target.value }))}
-                    placeholder={isRtl ? 'שמך הפרטי' : 'Your first name'}
-                    className="w-full bg-white/10 border border-white/25 rounded-xl px-4 py-3 text-white placeholder-blue-200/60 focus:outline-none focus:border-white/60 focus:bg-white/15 transition"
-                  />
+                  <input type="text" autoComplete="given-name" {...fieldProps('firstName')}
+                    placeholder={isRtl ? 'שמך הפרטי' : 'Your first name'} />
                 </div>
               </div>
 
-              {/* Row: email + phone */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                 <div>
-                  <label className="block text-sm font-medium mb-1.5" style={{ color: '#C8C8D0' }}>
-                    {labels.email} <span className="text-red-300">*</span>
+                  <label htmlFor="cns-email" className="cns-label">
+                    {labels.email} <span className="cns-req" aria-hidden="true">*</span>
                   </label>
-                  <input
-                    type="email"
-                    value={form.email}
-                    onChange={e => setForm(f => ({ ...f, email: e.target.value }))}
-                    placeholder="name@company.com"
-                    className="w-full bg-white/10 border border-white/25 rounded-xl px-4 py-3 text-white placeholder-blue-200/60 focus:outline-none focus:border-white/60 focus:bg-white/15 transition"
-                    dir="ltr"
-                  />
+                  <input type="email" autoComplete="email" {...fieldProps('email')}
+                    placeholder="name@company.com" dir="ltr" />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium mb-1.5" style={{ color: '#C8C8D0' }}>
-                    {labels.phone} <span className="text-red-300">*</span>
+                  <label htmlFor="cns-phone" className="cns-label">
+                    {labels.phone} <span className="cns-req" aria-hidden="true">*</span>
                   </label>
-                  <input
-                    type="tel"
-                    value={form.phone}
-                    onChange={e => setForm(f => ({ ...f, phone: e.target.value }))}
-                    placeholder="05X-XXX-XXXX"
-                    className="w-full bg-white/10 border border-white/25 rounded-xl px-4 py-3 text-white placeholder-blue-200/60 focus:outline-none focus:border-white/60 focus:bg-white/15 transition"
-                    dir="ltr"
-                  />
+                  <input type="tel" autoComplete="tel" {...fieldProps('phone')}
+                    placeholder="05X-XXX-XXXX" dir="ltr" />
                 </div>
               </div>
 
-              {/* About textarea */}
               <div>
-                <label className="block text-sm font-medium mb-1.5" style={{ color: '#C8C8D0' }}>{labels.about}</label>
+                <label htmlFor="cns-about" className="cns-label">{labels.about}</label>
                 <textarea
+                  id="cns-about"
                   value={form.about}
                   onChange={e => setForm(f => ({ ...f, about: e.target.value }))}
                   placeholder={labels.aboutPlaceholder}
                   rows={4}
-                  className="w-full bg-white/10 border border-white/25 rounded-xl px-4 py-3 text-white placeholder-blue-200/60 focus:outline-none focus:border-white/60 focus:bg-white/15 transition resize-none"
+                  className="cns-field resize-none"
                 />
               </div>
 
@@ -857,38 +414,40 @@ function ConsultationForm({ isRtl }: { isRtl: boolean }) {
                   id="incubator-privacy"
                   checked={privacyConsent}
                   onChange={e => setPrivacyConsent(e.target.checked)}
-                  className="mt-1 w-4 h-4 accent-white cursor-pointer flex-shrink-0"
+                  className="cns-check mt-0.5"
                 />
-                <label htmlFor="incubator-privacy" className="text-sm text-white cursor-pointer leading-relaxed">
+                <label htmlFor="incubator-privacy" className="text-[0.95rem] cursor-pointer leading-relaxed" style={{ color: 'var(--h-ink-2)' }}>
                   {isRtl ? (
-                    <>אני מאשר/ת את{' '}<a href="/privacy-policy" className="text-white underline hover:text-gray-900" target="_blank" rel="noopener noreferrer">מדיניות הפרטיות</a>{' '}ומסכים/ה שהמידע שאני מספק/ת ישמר בהתאם לדרישות החוק</>
+                    <>אני מאשר/ת את{' '}<a href="/privacy-policy" className="underline underline-offset-2 font-semibold" style={{ color: 'var(--h-blue)' }} target="_blank" rel="noopener noreferrer">מדיניות הפרטיות</a>{' '}ומסכים/ה שהמידע שאני מספק/ת ישמר בהתאם לדרישות החוק</>
                   ) : (
-                    <>I accept the{' '}<a href="/privacy-policy" className="text-white underline hover:text-gray-900" target="_blank" rel="noopener noreferrer">Privacy Policy</a>{' '}and agree that my information will be stored in accordance with legal requirements</>
+                    <>I accept the{' '}<a href="/privacy-policy" className="underline underline-offset-2 font-semibold" style={{ color: 'var(--h-blue)' }} target="_blank" rel="noopener noreferrer">Privacy Policy</a>{' '}and agree that my information will be stored in accordance with legal requirements</>
                   )}
                 </label>
               </div>
 
-              {/* Error */}
-              {error && <p className="text-red-300 text-sm">{error}</p>}
+              {error && (
+                <p id="cns-form-error" role="alert" className="cns-error">
+                  <AlertCircle className="w-5 h-5 shrink-0 mt-px" aria-hidden="true" />
+                  <span>{error}</span>
+                </p>
+              )}
 
-              {/* Submit */}
-              <motion.button
+              <button
                 type="submit"
                 disabled={mutation.isPending || !privacyConsent}
-                whileHover={{ scale: mutation.isPending ? 1 : 1.02 }}
-                whileTap={{ scale: mutation.isPending ? 1 : 0.98 }}
-                className="w-full flex items-center justify-center gap-2 bg-white text-gray-900 font-bold py-4 rounded-xl text-lg hover:bg-gray-50 transition-colors shadow-lg disabled:opacity-60 disabled:cursor-not-allowed"
+                className="h-btn cns-btn-violet w-full"
+                style={{ minHeight: '3.5rem', fontSize: '1.05rem' }}
               >
                 {mutation.isPending ? (
-                  <span className="animate-spin w-5 h-5 border-2 border-gray-200 border-t-blue-700 rounded-full" />
+                  <span className="cns-spinner" aria-hidden="true" />
                 ) : (
-                  <Send className="w-5 h-5" />
+                  <Send className="w-5 h-5" aria-hidden="true" />
                 )}
                 {labels.cta}
-              </motion.button>
+              </button>
             </form>
           )}
-        </motion.div>
+        </div>
       </div>
     </section>
   );
