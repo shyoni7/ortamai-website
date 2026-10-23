@@ -14,7 +14,7 @@ Two audiences of equal weight for the training offer:
 Secondary: employers looking to hire AI-trained graduates (placement).
 
 ## Product Purpose
-ORTAM AI is an AI training center in Tel Aviv. Its main service is AI training programs and courses, including a dedicated Cyber AI track. Secondary service: placement of AI-trained graduates. Marginal service: an accelerator for entrepreneurs and small businesses, currently low volume and not promoted.
+ORTAM AI is an AI training center in Tel Aviv. Its main service is AI training programs and courses, including a dedicated Cyber AI track. Secondary service: placement of AI-trained graduates. Growth service for the coming year: AI strategy consulting for businesses (ייעוץ אסטרטגיית AI לעסקים), which replaces the former accelerator; the site's /incubator page and nav still use the old name.
 
 Success on the site: organizations book a consultation and fit call; private individuals ask for more information over WhatsApp.
 
@@ -25,7 +25,7 @@ Hands-on AI and Cyber AI training delivered in real classrooms, for both corpora
 - Bilingual site, Hebrew (RTL, primary) and English.
 - Organizations action: "תאמו שיחת ייעוץ והתאמה" to the contact form.
 - Private action: "קבלו מידע בוואטסאפ" to WhatsApp 972523381822.
-- Accelerator appears only as a footer link.
+- AI strategy consulting is linked from the organizations path, the hero presentation and the page close.
 
 ## Brand Commitments
 - Name: ORTAM AI. Logo colors: navy and orange.

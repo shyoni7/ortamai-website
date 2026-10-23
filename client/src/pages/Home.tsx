@@ -65,6 +65,14 @@ export default function Home() {
     },
   ];
 
+  const heroCaptions = [
+    { id: 'logo', caption: he ? 'הכשרות AI לארגונים ולאנשים פרטיים' : 'AI training for organizations and individuals', href: '/academy' },
+    { id: 'ai', caption: he ? 'קורסי AI מעשיים, מאפס ועד מוצר' : 'Hands-on AI courses, from zero to product', href: '/courses' },
+    { id: 'cyber', caption: he ? 'הכשרות סייבר AI' : 'Cyber AI training', href: '/academy' },
+    { id: 'placement', caption: he ? 'מרכז השמה לבוגרים' : 'Placement for graduates', href: '/placement' },
+    { id: 'strategy', caption: he ? 'ייעוץ אסטרטגיית AI לעסקים' : 'AI strategy consulting for businesses', href: '/incubator' },
+  ];
+
   const facts = [
     { value: '15', label: he ? 'תוכניות הכשרה' : 'training programs' },
     { value: '15', label: he ? 'כיתות שסיימו' : 'classes completed' },
@@ -92,26 +100,29 @@ export default function Home() {
       <div dir={dir} className="home-v2">
 
         {/* Hero */}
-        <section className="relative isolate overflow-hidden" style={{ background: 'var(--h-navy-deep)' }}>
+        <section className="relative isolate overflow-hidden hero-v3" style={{ background: 'var(--h-hero-ground)' }}>
           <HeroScene
-            src={`${IMG}/ai-hero-classroom.webp`}
-            srcSmall={`${IMG}/ai-hero-classroom-sm.webp`}
-            mirrored={!he}
+            lang={he ? 'he' : 'en'}
+            src={`${IMG}/ai-hero-daylight.webp`}
+            srcSmall={`${IMG}/ai-hero-daylight-sm.webp`}
+            logoSrc="/images/brand/ortam-logo.png"
+            captions={heroCaptions}
           />
-          {/* Keeps the headline readable: darker toward the text side, and on small screens overall */}
+          {/* Desktop: warm shade behind the headline so it reads over the window light */}
           <div
             aria-hidden="true"
-            className="absolute inset-0 -z-10"
+            className="absolute inset-0 -z-10 hidden lg:block pointer-events-none"
             style={{
-              background: `linear-gradient(${he ? 270 : 90}deg, rgba(10,20,48,0.82) 0%, rgba(10,20,48,0.45) 45%, rgba(10,20,48,0) 75%), linear-gradient(0deg, rgba(10,20,48,0.7) 0%, rgba(10,20,48,0) 35%)`,
+              background: `linear-gradient(${he ? 270 : 90}deg, rgba(34,21,12,0.9) 0%, rgba(34,21,12,0.62) 36%, rgba(34,21,12,0) 60%), linear-gradient(0deg, rgba(34,21,12,0.55) 0%, rgba(34,21,12,0) 30%)`,
             }}
           />
-          <div aria-hidden="true" className="absolute inset-0 -z-10 md:hidden" style={{ background: 'rgba(10,20,48,0.45)' }} />
-          <div className="mx-auto max-w-7xl px-5 sm:px-8 pt-16 pb-20 md:pt-28 md:pb-32 min-h-[62svh] md:min-h-[78svh] flex flex-col justify-center">
-            <div className="max-w-3xl text-start">
+          {/* Below lg: shade the photo under the screen where the text sits */}
+          <div aria-hidden="true" className="absolute inset-0 -z-10 lg:hidden pointer-events-none hero-v3-shade" />
+          <div className="hero-v3-content mx-auto max-w-7xl px-5 sm:px-8 pb-16 lg:pt-28 lg:pb-32 lg:min-h-[80svh] flex flex-col lg:justify-center pointer-events-none">
+            <div className="lg:max-w-[36rem] text-start pointer-events-auto">
               <h1
                 className="h-rise text-white font-extrabold leading-[1.02]"
-                style={{ fontSize: 'clamp(2.9rem, 8.2vw, 6rem)' }}
+                style={{ fontSize: 'clamp(2.75rem, 6vw, 5.25rem)' }}
               >
                 {he ? (
                   <>לומדים AI.<br /><span style={{ color: 'var(--h-orange)' }}>עובדים</span> עם AI.</>
@@ -119,7 +130,7 @@ export default function Home() {
                   <>Learn AI.<br /><span style={{ color: 'var(--h-orange)' }}>Work</span> with AI.</>
                 )}
               </h1>
-              <p className="h-rise h-rise-2 mt-6 md:mt-8 text-lg md:text-2xl leading-relaxed max-w-2xl" style={{ color: 'rgba(255,255,255,0.86)' }}>
+              <p className="h-rise h-rise-2 mt-6 md:mt-8 text-lg md:text-xl leading-relaxed max-w-2xl" style={{ color: 'rgba(255,255,255,0.86)' }}>
                 {he
                   ? 'הכשרות AI והכשרות סייבר AI בכיתה, לארגונים ולאנשים פרטיים.'
                   : 'Classroom AI and Cyber AI training, for organizations and individuals.'}
@@ -167,10 +178,16 @@ export default function Home() {
                   ? 'תוכנית הכשרה שנבנית סביב העבודה של הצוות שלכם: AI לעבודה היומיומית, אוטומציות, וסייבר AI לצוותי אבטחה.'
                   : 'A training program built around your team’s work: AI for daily work, automation, and Cyber AI for security teams.'}
                 action={
-                  <Link href="/contact" className="h-btn h-btn-navy">
-                    <CalendarCheck size={18} aria-hidden="true" />
-                    <span>{ctaOrg}</span>
-                  </Link>
+                  <div className="flex flex-wrap items-center gap-x-6 gap-y-4">
+                    <Link href="/contact" className="h-btn h-btn-navy">
+                      <CalendarCheck size={18} aria-hidden="true" />
+                      <span>{ctaOrg}</span>
+                    </Link>
+                    <Link href="/incubator" className="h-link inline-flex items-center gap-2 font-bold" style={{ color: 'var(--h-blue)' }}>
+                      {he ? 'ייעוץ אסטרטגיית AI לעסקים' : 'AI strategy consulting'}
+                      <Arrow size={16} className="h-link-arrow" aria-hidden="true" />
+                    </Link>
+                  </div>
                 }
               />
             </div>
@@ -334,9 +351,9 @@ export default function Home() {
               </Link>
             </div>
             <p className="mt-10 text-sm" style={{ color: 'rgba(255,255,255,0.7)' }}>
-              {he ? 'יזמים ועסקים קטנים? ' : 'Entrepreneurs and small businesses? '}
+              {he ? 'מחפשים כיוון ל-AI בעסק? ' : 'Looking for an AI direction for your business? '}
               <Link href="/incubator" className="underline underline-offset-4 decoration-1" style={{ color: 'rgba(255,255,255,0.9)' }}>
-                {he ? 'לאקסלרטור' : 'See the accelerator'}
+                {he ? 'ייעוץ אסטרטגיית AI לעסקים' : 'AI strategy consulting'}
               </Link>
             </p>
           </div>

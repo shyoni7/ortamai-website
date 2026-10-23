@@ -1,277 +1,441 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import { Link } from 'wouter';
+import { buildSlides, SW, SH, type Lang, type Slide, type Target } from './hero/particleSlides';
 
-// Hero background: an AI-generated classroom photo with a live neural
-// network drawn over the wall screen. Signals leave the screen and travel
-// toward the learners; the pointer lights up nearby nodes; scroll and
-// pointer move the photo and the network at different depths.
+// Home hero background: a real-looking classroom in daylight. The wall
+// screen in the photo plays a live particle presentation, mapped onto the
+// screen with a perspective transform so it reads as part of the room.
 
 const IMG_W = 1376;
 const IMG_H = 768;
-// The glowing wall screen inside the photo, in image pixels.
-const SCREEN = { x0: 0, y0: 90, x1: 430, y1: 460 };
-// Headroom so pointer and scroll parallax never expose the photo's edges.
-const ZOOM = 1.12;
+// Screen corners inside the photo, in image pixels: TL, TR, BR, BL.
+const QUAD: [number, number][] = [[131, 56], [629, 84], [629, 379], [132, 389]];
+const ZOOM = 1.04;
 
-type Node = { bx: number; by: number; x: number; y: number; phase: number; r: number; screen: boolean };
-type Pulse = { from: number; to: number; t: number; hops: number; speed: number };
+export interface SlideCaption { id: string; caption: string; href: string }
 
 interface Props {
+  lang: Lang;
   src: string;
   srcSmall: string;
-  /** Mirror the scene so the screen sits on the reading-start side (LTR). */
-  mirrored: boolean;
+  captions: SlideCaption[];
+  logoSrc: string;
 }
 
-export default function HeroScene({ src, srcSmall, mirrored }: Props) {
+type Pt = [number, number];
+
+// 3x3 homography mapping the 4 src points onto the 4 dst points.
+function homography(src: Pt[], dst: Pt[]) {
+  const A: number[][] = [];
+  const b: number[] = [];
+  for (let i = 0; i < 4; i++) {
+    const [x, y] = src[i];
+    const [u, v] = dst[i];
+    A.push([x, y, 1, 0, 0, 0, -u * x, -u * y]); b.push(u);
+    A.push([0, 0, 0, x, y, 1, -v * x, -v * y]); b.push(v);
+  }
+  // Gaussian elimination.
+  for (let c = 0; c < 8; c++) {
+    let p = c;
+    for (let r = c + 1; r < 8; r++) if (Math.abs(A[r][c]) > Math.abs(A[p][c])) p = r;
+    [A[c], A[p]] = [A[p], A[c]]; [b[c], b[p]] = [b[p], b[c]];
+    for (let r = 0; r < 8; r++) {
+      if (r === c) continue;
+      const f = A[r][c] / A[c][c];
+      for (let k = c; k < 8; k++) A[r][k] -= f * A[c][k];
+      b[r] -= f * b[c];
+    }
+  }
+  const h = b.map((v, i) => v / A[i][i]);
+  return [h[0], h[1], h[2], h[3], h[4], h[5], h[6], h[7], 1];
+}
+
+function invert3(m: number[]) {
+  const [a, b, c, d, e, f, g, h, i] = m;
+  const A = e * i - f * h, B = -(d * i - f * g), C = d * h - e * g;
+  const det = a * A + b * B + c * C;
+  return [A, -(b * i - c * h), b * f - c * e, B, a * i - c * g, -(a * f - c * d), C, -(a * h - b * g), a * e - b * d].map(v => v / det);
+}
+
+function apply3(m: number[], x: number, y: number): Pt {
+  const w = m[6] * x + m[7] * y + m[8];
+  return [(m[0] * x + m[1] * y + m[2]) / w, (m[3] * x + m[4] * y + m[5]) / w];
+}
+
+function mix(a: string, b: string, t: number) {
+  const pa = [1, 3, 5].map(i => parseInt(a.slice(i, i + 2), 16));
+  const pb = [1, 3, 5].map(i => parseInt(b.slice(i, i + 2), 16));
+  return `rgb(${pa.map((v, i) => Math.round(v + (pb[i] - v) * t)).join(',')})`;
+}
+
+export default function HeroScene({ lang, src, srcSmall, captions, logoSrc }: Props) {
   const rootRef = useRef<HTMLDivElement>(null);
-  const photoRef = useRef<HTMLDivElement>(null);
+  const sceneRef = useRef<HTMLDivElement>(null);
+  const imgRef = useRef<HTMLImageElement>(null);
+  const slideRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const [active, setActive] = useState(0);
+  const [inks, setInks] = useState<{ ink: string; id: string; duration: number }[]>([]);
+  const mirrored = lang === 'en';
 
   useEffect(() => {
-    const root = rootRef.current;
-    const photo = photoRef.current;
-    const canvas = canvasRef.current;
-    if (!root || !photo || !canvas) return;
+    const root = rootRef.current, scene = sceneRef.current, img = imgRef.current;
+    const slideEl = slideRef.current, canvas = canvasRef.current;
+    if (!root || !scene || !img || !slideEl || !canvas) return;
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
 
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const finePointer = window.matchMedia('(pointer: fine)').matches;
-
-    let W = 0, H = 0, dpr = 1;
-    let nodes: Node[] = [];
-    let edges: number[][] = [];
-    let screenRect = { x0: 0, y0: 0, x1: 0, y1: 0 };
-    const pulses: Pulse[] = [];
-    const pointer = { x: -9999, y: -9999, tx: 0, ty: 0, nx: 0, ny: 0 };
-    let start = performance.now();
-    let lastSpawn = 0;
+    let disposed = false;
     let raf = 0;
     let visible = true;
+    let slides: Slide[] = [];
 
-    // Deterministic noise so the layout is stable across resizes.
-    let seed = 7;
-    const rand = () => ((seed = (seed * 16807) % 2147483647) - 1) / 2147483646;
+    // geometry
+    let W = 0, H = 0, mobile = false;
+    let toScreen = [1, 0, 0, 0, 1, 0, 0, 0, 1];
+    let toSlide = toScreen;
+    const par = { x: 0, y: 0, tx: 0, ty: 0 };
+    const pointer = { x: -1e4, y: -1e4, inside: false };
+    const off = { x: 0, y: 0 }; // current scene translation
+
+    // particles
+    const N = window.innerWidth < 768 ? 1400 : 2200;
+    const px = new Float32Array(N), py = new Float32Array(N);
+    const vx = new Float32Array(N), vy = new Float32Array(N);
+    const tx = new Float32Array(N), ty = new Float32Array(N);
+    const col = new Uint8Array(N), on = new Uint8Array(N);
+    for (let i = 0; i < N; i++) { px[i] = Math.random() * SW; py[i] = Math.random() * SH; tx[i] = px[i]; ty[i] = py[i]; }
+
+    let idx = 0, slideStart = 0, stageIdx = -1;
+    let stageTargets: Target[] = [];
+    let caught: null | { x: number; y: number; t: number } = null;
 
     const layout = () => {
-      const rect = root.getBoundingClientRect();
-      W = rect.width; H = rect.height;
-      dpr = Math.min(window.devicePixelRatio || 1, 1.5);
-      canvas.width = Math.round(W * dpr);
-      canvas.height = Math.round(H * dpr);
-      canvas.style.width = `${W}px`;
-      canvas.style.height = `${H}px`;
-
-      // object-fit: cover at left center, then the wrapper's scale about its centre.
-      const cover = Math.max(W / IMG_W, H / IMG_H);
-      const scale = cover * ZOOM;
-      const ox = (W / 2) * (1 - ZOOM);
-      const oy = (H - IMG_H * scale) / 2;
-      screenRect = {
-        x0: ox + SCREEN.x0 * scale,
-        y0: oy + SCREEN.y0 * scale,
-        x1: ox + SCREEN.x1 * scale,
-        y1: oy + SCREEN.y1 * scale,
-      };
-
-      seed = 7;
-      const count = Math.round(Math.min(90, Math.max(30, (W * H) / 15000)));
-      nodes = [];
-      for (let i = 0; i < count; i++) {
-        const onScreen = i < count * 0.55;
-        let x: number, y: number;
-        if (onScreen) {
-          x = screenRect.x0 + rand() * (screenRect.x1 - screenRect.x0);
-          y = screenRect.y0 + rand() * (screenRect.y1 - screenRect.y0);
-        } else {
-          // Thin out with distance from the screen so the text side stays calm.
-          x = screenRect.x1 + Math.pow(rand(), 1.6) * (W - screenRect.x1);
-          y = H * 0.08 + rand() * H * 0.84;
-        }
-        nodes.push({ bx: x, by: y, x, y, phase: rand() * Math.PI * 2, r: onScreen ? 1.4 + rand() * 1.6 : 1 + rand() * 1.2, screen: onScreen });
+      const r = root.getBoundingClientRect();
+      W = r.width; H = r.height;
+      mobile = W < 1024;
+      let scale: number, left: number, top: number;
+      if (mobile) {
+        scale = (W * 0.94) / (QUAD[1][0] - QUAD[0][0]);
+        left = W / 2 - ((QUAD[0][0] + QUAD[1][0]) / 2) * scale;
+        top = 20 - QUAD[0][1] * scale;
+      } else {
+        scale = Math.max(W / IMG_W, H / IMG_H) * ZOOM;
+        left = -14;
+        // Keep the whole screen below the fixed nav while the photo still covers the hero.
+        top = Math.min(0, Math.max(H - IMG_H * scale, 36 - QUAD[0][1] * scale));
       }
-      const maxD = Math.max(90, Math.min(W, H) * 0.17);
-      edges = nodes.map((a, i) => {
-        const near: [number, number][] = [];
-        nodes.forEach((b, j) => {
-          if (i === j) return;
-          const d = Math.hypot(a.bx - b.bx, a.by - b.by);
-          if (d < maxD) near.push([j, d]);
-        });
-        return near.sort((p, q) => p[1] - q[1]).slice(0, 4).map(p => p[0]);
+      const iw = IMG_W * scale, ih = IMG_H * scale;
+      const x0 = mirrored ? W - left - iw : left;
+      Object.assign(img.style, {
+        width: `${iw}px`, height: `${ih}px`, left: `${x0}px`, top: `${top}px`,
+        transform: mirrored ? 'scaleX(-1)' : 'none',
+        maskImage: mobile ? 'linear-gradient(to bottom, #000 72%, transparent 100%)' : 'none',
+        WebkitMaskImage: mobile ? 'linear-gradient(to bottom, #000 72%, transparent 100%)' : 'none',
       });
+      let q = QUAD.map(([x, y]) => [left + x * scale, top + y * scale] as Pt);
+      if (mirrored) q = [q[1], q[0], q[3], q[2]].map(([x, y]) => [W - x, y] as Pt);
+      toScreen = homography([[0, 0], [SW, 0], [SW, SH], [0, SH]], q);
+      toSlide = invert3(toScreen);
+      const m = toScreen;
+      slideEl.style.transform = `matrix3d(${m[0]},${m[3]},0,${m[6]},${m[1]},${m[4]},0,${m[7]},0,0,1,0,${m[2]},${m[5]},0,${m[8]})`;
+      const qw = Math.hypot(q[1][0] - q[0][0], q[1][1] - q[0][1]);
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      const cw = Math.round(Math.min(1400, Math.max(480, qw * dpr * 1.15)));
+      canvas.width = cw;
+      canvas.height = Math.round((cw * SH) / SW);
+      const bottom = Math.max(q[2][1], q[3][1]);
+      root.parentElement?.style.setProperty('--hero-screen-bottom', `${Math.round(bottom)}px`);
     };
 
-    const spawnPulse = () => {
-      const candidates = nodes.map((n, i) => (n.screen ? i : -1)).filter(i => i >= 0);
-      if (!candidates.length) return;
-      const from = candidates[Math.floor(Math.random() * candidates.length)];
-      const to = nextHop(from);
-      if (to < 0) return;
-      pulses.push({ from, to, t: 0, hops: 0, speed: 0.012 + Math.random() * 0.01 });
+    const setStage = (targets: Target[], kick: boolean) => {
+      stageTargets = targets;
+      const n = targets.length;
+      const stride = n > N ? n / N : 1;
+      for (let i = 0; i < N; i++) {
+        if (i < Math.min(n, N)) {
+          const t = targets[Math.floor(i * stride)];
+          tx[i] = t.x; ty[i] = t.y; col[i] = t.c; on[i] = 1;
+        } else {
+          tx[i] = Math.random() * SW; ty[i] = Math.random() * SH; col[i] = 0; on[i] = 0;
+        }
+        if (kick) {
+          const a = Math.random() * Math.PI * 2, s = 10 + Math.random() * 22;
+          vx[i] += Math.cos(a) * s; vy[i] += Math.sin(a) * s;
+        }
+      }
     };
 
-    // Prefer neighbours further from the screen, so signals flow outward.
-    const nextHop = (i: number) => {
-      const opts = edges[i].filter(j => nodes[j].bx > nodes[i].bx - 10);
-      const pool = opts.length ? opts : edges[i];
-      return pool.length ? pool[Math.floor(Math.random() * pool.length)] : -1;
+    const goTo = (n: number, now: number) => {
+      idx = n % slides.length;
+      slideStart = now;
+      stageIdx = -1;
+      caught = null;
+      setActive(idx);
+    };
+
+    const step = (now: number) => {
+      const s = slides[idx];
+      const ts = now - slideStart;
+      if (ts > s.duration) { goTo(idx + 1, now); return step(now); }
+      let si = 0;
+      s.stages.forEach((st, i) => { if (ts >= st.at) si = i; });
+      const stage = s.stages[si];
+      if (si !== stageIdx) {
+        setStage(stage.targets, stageIdx === -1 || si > 0);
+        stageIdx = si;
+      }
+
+      const he = lang === 'he';
+      if (stage.mode === 'typing') {
+        const shown = Math.floor(Math.min(1, ts / 1600) * Math.min(N, stageTargets.length));
+        // Letters appear in reading order; the rest wait at the caret's start.
+        for (let i = 0; i < Math.min(N, stageTargets.length); i++) {
+          const t = stageTargets[i];
+          if (i < shown) { tx[i] = t.x; ty[i] = t.y; on[i] = 1; } else { tx[i] = he ? SW * 0.95 : SW * 0.05; ty[i] = SH * 0.44; on[i] = 0; }
+        }
+      } else if (stage.mode === 'wave') {
+        const M = Math.min(N, 1500), rows = 13, cols = Math.ceil(M / rows);
+        const calm = caught ? Math.max(0.25, 1 - (ts - caught.t) / 900) : 1;
+        for (let i = 0; i < M; i++) {
+          const r = i % rows, c = Math.floor(i / rows);
+          const span = SW * 1.1;
+          let x = ((c / cols) * span + ts * 0.11 * (he ? -1 : 1)) % span;
+          if (x < 0) x += span;
+          x -= SW * 0.05;
+          tx[i] = x;
+          ty[i] = 150 + r * 56 + Math.sin(x * 0.006 + ts * 0.0016 + r * 0.55) * 30 * calm;
+          col[i] = 0; on[i] = 1;
+        }
+        // The anomaly: a knot moving against the flow until it is caught.
+        let ax: number, ay: number;
+        if (caught) { ax = caught.x; ay = caught.y; } else {
+          ax = SW / 2 + Math.sin(ts * 0.0012) * 430 * (he ? 1 : -1);
+          ay = SH * 0.5 + Math.sin(ts * 0.0021 + 1) * 210;
+          const pp = apply3(toSlide, pointer.x - off.x, pointer.y - off.y);
+          const near = pointer.inside && Math.hypot(pp[0] - ax, pp[1] - ay) < 150;
+          if (near || ts > 3300) caught = { x: ax, y: ay, t: ts };
+        }
+        for (let k = 0; k < 46; k++) {
+          const i = M + k;
+          if (i >= N) break;
+          const a = k * 0.62 + ts * 0.004;
+          const rr = caught ? 18 + (k % 4) * 6 : 14 + Math.sin(ts * 0.01 + k) * 10;
+          tx[i] = ax + Math.cos(a) * rr; ty[i] = ay + Math.sin(a) * rr; col[i] = 1; on[i] = 1;
+        }
+        for (let i = M + 46; i < N; i++) on[i] = 0;
+      } else if (stage.mode === 'noise') {
+        for (let i = 0; i < Math.min(N, stageTargets.length); i++) {
+          const t = stageTargets[i];
+          tx[i] = t.x + Math.sin(ts * 0.0023 + i * 1.7) * 46;
+          ty[i] = t.y + Math.cos(ts * 0.0019 + i * 2.3) * 46;
+        }
+      }
+
+      // physics
+      const p = pointer.inside ? apply3(toSlide, pointer.x - off.x, pointer.y - off.y) : null;
+      const R = 170;
+      for (let i = 0; i < N; i++) {
+        let ax = (tx[i] - px[i]) * 0.022, ay = (ty[i] - py[i]) * 0.022;
+        if (p) {
+          const dx = px[i] - p[0], dy = py[i] - p[1];
+          const d2 = dx * dx + dy * dy;
+          if (d2 < R * R && d2 > 1) {
+            const d = Math.sqrt(d2), f = (1 - d / R) * 7;
+            ax += (dx / d) * f; ay += (dy / d) * f;
+          }
+        }
+        vx[i] = (vx[i] + ax) * 0.84;
+        vy[i] = (vy[i] + ay) * 0.84;
+        px[i] += vx[i]; py[i] += vy[i];
+      }
     };
 
     const draw = (now: number) => {
-      const t = (now - start) / 1000;
-      const intro = reduced ? 1 : Math.min(1, t / 1.6);
-      const ease = 1 - Math.pow(1 - intro, 3);
+      const s = slides[idx];
+      const ts = now - slideStart;
+      const prev = slides[(idx + slides.length - 1) % slides.length];
+      const k = canvas.width / SW;
+      ctx.setTransform(k, 0, 0, k, 0, 0);
+      ctx.fillStyle = ts < 520 ? mix(prev.bg, s.bg, 1 - Math.pow(1 - ts / 520, 3)) : s.bg;
+      ctx.fillRect(0, 0, SW, SH);
 
-      // Depth: pointer offset eases toward its target.
-      pointer.nx += (pointer.tx - pointer.nx) * 0.06;
-      pointer.ny += (pointer.ty - pointer.ny) * 0.06;
-      const scrollY = Math.min(window.scrollY, H);
-      photo.style.transform = `translate3d(${pointer.nx * -10}px, ${scrollY * 0.18 + pointer.ny * -6}px, 0) scale(${ZOOM})`;
-      const cx = pointer.nx * -18;
-      const cy = scrollY * 0.1 + pointer.ny * -10;
-
-      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-      ctx.clearRect(0, 0, W, H);
-      ctx.translate(cx, cy);
-
-      for (const n of nodes) {
-        const drift = reduced ? 0 : 1;
-        n.x = n.bx + Math.sin(t * 0.35 + n.phase) * 6 * drift;
-        n.y = n.by + Math.cos(t * 0.3 + n.phase * 1.3) * 5 * drift;
+      // Inactive particles: faint dust.
+      ctx.globalAlpha = 0.22;
+      ctx.fillStyle = s.colors[0];
+      for (let i = 0; i < N; i++) if (!on[i]) ctx.fillRect(px[i], py[i], 4, 4);
+      ctx.globalAlpha = 1;
+      // Formed particles shimmer slightly so the slide never sits still.
+      for (let c = 0; c < s.colors.length; c++) {
+        ctx.fillStyle = s.colors[c];
+        for (let i = 0; i < N; i++) {
+          if (!on[i] || col[i] !== c) continue;
+          const z = 7 + Math.sin(ts * 0.004 + i * 0.37) * 1.6;
+          ctx.fillRect(px[i] - z / 2, py[i] - z / 2, z, z);
+        }
       }
 
-      // Screen glow breathes with the signal traffic.
-      const glow = 0.18 + 0.06 * Math.sin(t * 1.1) + Math.min(0.12, pulses.length * 0.01);
-      const sx = (screenRect.x0 + screenRect.x1) / 2, sy = (screenRect.y0 + screenRect.y1) / 2;
-      const gr = ctx.createRadialGradient(sx, sy, 0, sx, sy, (screenRect.x1 - screenRect.x0) * 0.9);
-      gr.addColorStop(0, `rgba(90,150,255,${glow * ease})`);
-      gr.addColorStop(1, 'rgba(90,150,255,0)');
-      ctx.globalCompositeOperation = 'lighter';
-      ctx.fillStyle = gr;
-      ctx.fillRect(sx - W, sy - H, W * 2, H * 2);
-
-      const px = pointer.x - cx, py = pointer.y - cy;
-      const lit = (n: Node) => {
-        const d = Math.hypot(n.x - px, n.y - py);
-        return d < 170 ? 1 - d / 170 : 0;
-      };
-
-      // Edges draw in from the screen outward during the intro.
-      ctx.lineWidth = 1;
-      nodes.forEach((a, i) => {
-        const reveal = Math.min(1, Math.max(0, (ease * W * 1.2 - (a.bx - screenRect.x0)) / 200));
-        if (reveal <= 0) return;
-        for (const j of edges[i]) {
-          if (j < i) continue;
-          const b = nodes[j];
-          const l = Math.max(lit(a), lit(b));
-          const base = a.screen && b.screen ? 0.32 : 0.16;
-          ctx.strokeStyle = `rgba(140,180,255,${(base + l * 0.5) * reveal})`;
+      if (s.labels && ts > s.labels.at && ts < s.labels.until) {
+        const a = Math.min(1, (ts - s.labels.at) / 300, (s.labels.until - ts) / 250);
+        ctx.globalAlpha = Math.max(0, a);
+        ctx.font = '700 50px Rubik, Heebo, sans-serif';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.direction = lang === 'he' ? 'rtl' : 'ltr';
+        for (const l of s.labels.items) {
+          const w = ctx.measureText(l.text).width + 56;
+          ctx.fillStyle = s.colors[1];
           ctx.beginPath();
-          ctx.moveTo(a.x, a.y);
-          ctx.lineTo(b.x, b.y);
-          ctx.stroke();
+          ctx.roundRect(l.x - w / 2, l.y - 38, w, 76, 38);
+          ctx.fill();
+          ctx.fillStyle = s.colors[0];
+          ctx.fillText(l.text, l.x, l.y + 2);
         }
-      });
+        ctx.textBaseline = 'alphabetic';
+        ctx.globalAlpha = 1;
+      }
 
-      for (const n of nodes) {
-        const reveal = Math.min(1, Math.max(0, (ease * W * 1.2 - (n.bx - screenRect.x0)) / 200));
-        if (reveal <= 0) continue;
-        const l = lit(n);
-        ctx.fillStyle = l > 0.05 ? `rgba(255,170,110,${(0.6 + l * 0.4) * reveal})` : `rgba(170,205,255,${(n.screen ? 0.85 : 0.55) * reveal})`;
+      if (s.id === 'cyber' && caught && ts < s.stages[1].at) {
+        const a = Math.min(1, (ts - caught.t) / 250);
+        ctx.strokeStyle = s.colors[1];
+        ctx.lineWidth = 6;
+        ctx.globalAlpha = a;
         ctx.beginPath();
-        ctx.arc(n.x, n.y, n.r + l * 2.2, 0, Math.PI * 2);
-        ctx.fill();
+        ctx.arc(caught.x, caught.y, 70 + (1 - a) * 60, 0, Math.PI * 2);
+        ctx.stroke();
+        ctx.font = '700 44px Rubik, Heebo, sans-serif';
+        ctx.fillStyle = s.colors[1];
+        ctx.textAlign = 'center';
+        ctx.direction = lang === 'he' ? 'rtl' : 'ltr';
+        ctx.fillText(lang === 'he' ? 'חריגה זוהתה' : 'Anomaly found', caught.x, caught.y - 105);
+        ctx.globalAlpha = 1;
       }
+    };
 
-      // Signals.
-      if (!reduced && intro >= 1 && now - lastSpawn > 420 && pulses.length < 14) {
-        spawnPulse();
-        lastSpawn = now;
-      }
-      for (let k = pulses.length - 1; k >= 0; k--) {
-        const p = pulses[k];
-        p.t += p.speed * 2.2;
-        if (p.t >= 1) {
-          p.hops++;
-          const nxt = nextHop(p.to);
-          if (p.hops > 4 || nxt < 0) { pulses.splice(k, 1); continue; }
-          p.from = p.to; p.to = nxt; p.t = 0;
-        }
-        const a = nodes[p.from], b = nodes[p.to];
-        const x = a.x + (b.x - a.x) * p.t, y = a.y + (b.y - a.y) * p.t;
-        const fade = 1 - p.hops / 5;
-        const g = ctx.createRadialGradient(x, y, 0, x, y, 14);
-        g.addColorStop(0, `rgba(255,150,70,${0.95 * fade})`);
-        g.addColorStop(1, 'rgba(240,112,34,0)');
-        ctx.fillStyle = g;
-        ctx.fillRect(x - 14, y - 14, 28, 28);
-      }
-      ctx.globalCompositeOperation = 'source-over';
+    const frame = (now: number) => {
+      par.x += (par.tx - par.x) * 0.07;
+      par.y += (par.ty - par.y) * 0.07;
+      const sy = mobile ? 0 : Math.min(window.scrollY, H) * 0.12;
+      off.x = par.x; off.y = par.y + sy;
+      scene.style.transform = `translate3d(${off.x}px, ${off.y}px, 0)`;
+      step(now);
+      draw(now);
+      if (visible && !document.hidden) raf = requestAnimationFrame(frame);
+    };
 
-      if (!reduced && visible) raf = requestAnimationFrame(draw);
+    const resume = () => {
+      cancelAnimationFrame(raf);
+      if (!reduced && visible && !document.hidden && slides.length) raf = requestAnimationFrame(frame);
     };
 
     const onPointer = (e: PointerEvent) => {
-      const rect = root.getBoundingClientRect();
-      const lx = mirrored ? rect.right - e.clientX : e.clientX - rect.left;
-      pointer.x = lx;
-      pointer.y = e.clientY - rect.top;
-      pointer.tx = (lx / rect.width - 0.5) * 2;
-      pointer.ty = ((e.clientY - rect.top) / rect.height - 0.5) * 2;
+      const r = root.getBoundingClientRect();
+      pointer.x = e.clientX - r.left; pointer.y = e.clientY - r.top; pointer.inside = true;
+      par.tx = -((pointer.x / r.width) - 0.5) * 14;
+      par.ty = -((pointer.y / r.height) - 0.5) * 8;
     };
-    const onLeave = () => { pointer.x = -9999; pointer.y = -9999; pointer.tx = 0; pointer.ty = 0; };
-    const resume = () => {
-      cancelAnimationFrame(raf);
-      if (!reduced && visible && !document.hidden) raf = requestAnimationFrame(draw);
-    };
+    const onLeave = () => { pointer.inside = false; par.tx = 0; par.ty = 0; };
 
-    layout();
-    draw(performance.now());
-    if (reduced) start = performance.now() - 2000;
+    const logo = new Image();
+    logo.src = logoSrc;
+    Promise.all([
+      document.fonts?.load('800 100px Rubik').catch(() => null),
+      document.fonts?.load('700 100px Rubik').catch(() => null),
+      logo.decode().catch(() => null),
+    ]).then(() => {
+      if (disposed) return;
+      slides = buildSlides(lang, logo.complete && logo.naturalWidth ? logo : null);
+      setInks(slides.map(s => ({ ink: s.ink, id: s.id, duration: s.duration })));
+      layout();
+      const now = performance.now();
+      if (reduced) {
+        // A still frame: the first course slide, already formed.
+        idx = 1; slideStart = now - 6000; stageIdx = -1; setActive(1);
+        step(now);
+        for (let i = 0; i < N; i++) { px[i] = tx[i]; py[i] = ty[i]; }
+        draw(now);
+      } else {
+        goTo(0, now);
+        resume();
+      }
+    });
 
-    const ro = new ResizeObserver(() => { layout(); if (reduced) draw(performance.now()); });
+    const ro = new ResizeObserver(() => { layout(); if (reduced && slides.length) draw(performance.now()); });
     ro.observe(root);
-    const io = new IntersectionObserver(([entry]) => { visible = entry.isIntersecting; resume(); });
+    const io = new IntersectionObserver(([e]) => { visible = e.isIntersecting; resume(); });
     io.observe(root);
-    const onVis = () => resume();
-    document.addEventListener('visibilitychange', onVis);
+    document.addEventListener('visibilitychange', resume);
     const host = root.parentElement ?? root;
     if (finePointer && !reduced) {
       host.addEventListener('pointermove', onPointer);
       host.addEventListener('pointerleave', onLeave);
     }
-
     return () => {
+      disposed = true;
       cancelAnimationFrame(raf);
-      ro.disconnect();
-      io.disconnect();
-      document.removeEventListener('visibilitychange', onVis);
+      ro.disconnect(); io.disconnect();
+      document.removeEventListener('visibilitychange', resume);
       host.removeEventListener('pointermove', onPointer);
       host.removeEventListener('pointerleave', onLeave);
     };
-  }, [mirrored]);
+  }, [lang, logoSrc, mirrored]);
+
+  const slideId = inks[active]?.id;
+  const ink = inks[active]?.ink ?? '#2A2622';
+  const cap = captions.find(c => c.id === slideId);
+  const lightInk = parseInt(ink.slice(1, 3), 16) > 128;
 
   return (
-    <div
-      ref={rootRef}
-      aria-hidden="true"
-      className="absolute inset-0 -z-10 overflow-hidden"
-      style={{ transform: mirrored ? 'scaleX(-1)' : undefined }}
-    >
-      <div ref={photoRef} className="absolute inset-0 hero-scene-photo" style={{ transform: `scale(${ZOOM})` }}>
+    <div ref={rootRef} className="absolute inset-0 -z-10 overflow-hidden">
+      <div ref={sceneRef} className="absolute inset-0">
         <img
+          ref={imgRef}
           src={src}
-          srcSet={`${srcSmall} 800w, ${src} 1376w`}
-          sizes="100vw"
+          srcSet={`${srcSmall} 900w, ${src} 1376w`}
+          sizes="(max-width: 767px) 260vw, 100vw"
           alt=""
+          aria-hidden="true"
           fetchPriority="high"
-          className="w-full h-full object-cover"
-          style={{ objectPosition: 'left center' }}
+          className="absolute max-w-none hero-scene-photo"
         />
+        <div
+          ref={slideRef}
+          className="absolute left-0 top-0 hero-slide"
+          style={{ width: SW, height: SH, transformOrigin: '0 0' }}
+          dir={lang === 'he' ? 'rtl' : 'ltr'}
+        >
+          <canvas ref={canvasRef} aria-hidden="true" className="absolute inset-0" style={{ width: SW, height: SH }} />
+          {slideId && slideId !== 'logo' && (
+            <img
+              src={logoSrc}
+              alt=""
+              aria-hidden="true"
+              className="absolute"
+              style={{ top: 56, insetInlineStart: 64, height: 64, filter: lightInk ? 'brightness(0) invert(1)' : 'brightness(0)', opacity: 0.9 }}
+            />
+          )}
+          {cap && (
+            <Link
+              href={cap.href}
+              className="absolute flex items-center gap-6 font-bold hero-slide-cta"
+              style={{ bottom: 56, insetInlineStart: 64, insetInlineEnd: 64, color: ink, fontSize: 46, fontFamily: 'Rubik, Heebo, sans-serif' }}
+              aria-label={cap.caption}
+            >
+              <span key={cap.id} className="hero-slide-caption">{cap.caption}</span>
+              <span aria-hidden="true" className="ms-auto flex gap-3">
+                {inks.slice(1).map((s, i) => (
+                  <span key={s.id} className="block rounded-full overflow-hidden" style={{ width: 70, height: 10, background: lightInk ? 'rgba(255,255,255,0.3)' : 'rgba(0,0,0,0.18)' }}>
+                    {i + 1 === active && <span key={`p${active}`} className="block h-full hero-slide-progress" style={{ background: ink, animationDuration: `${s.duration}ms` }} />}
+                    {i + 1 < active && <span className="block h-full w-full" style={{ background: ink }} />}
+                  </span>
+                ))}
+              </span>
+            </Link>
+          )}
+        </div>
       </div>
-      <canvas ref={canvasRef} className="absolute inset-0" />
     </div>
   );
 }
