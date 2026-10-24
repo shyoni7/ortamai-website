@@ -197,13 +197,24 @@ function BulletList({ items }: { items: string[] }) {
   );
 }
 
-function PriceRow({ price, unit }: { price: number; unit: string }) {
+// A price of 0 means the price is given on request.
+const onRequest = (price: number) => price <= 0;
+
+function PriceRow({ price, unit, isRtl }: { price: number; unit: string; isRtl: boolean }) {
   return (
     <div className="flex items-baseline gap-2 mb-5 pt-5 border-t" style={{ borderColor: 'var(--h-line)' }}>
-      <span className="font-extrabold tracking-tight tabular-nums" style={{ fontFamily: 'Rubik, Heebo, sans-serif', fontSize: '2.1rem', color: 'var(--h-ink)' }}>
-        {formatPrice(price)}
-      </span>
-      <span className="text-sm" style={{ color: 'var(--h-ink-2)' }}>{unit}</span>
+      {onRequest(price) ? (
+        <span className="font-bold text-lg" style={{ fontFamily: 'Rubik, Heebo, sans-serif', color: 'var(--h-ink)' }}>
+          {isRtl ? 'המחיר נמסר בשיחה' : 'Price on request'}
+        </span>
+      ) : (
+        <>
+          <span className="font-extrabold tracking-tight tabular-nums" style={{ fontFamily: 'Rubik, Heebo, sans-serif', fontSize: '2.1rem', color: 'var(--h-ink)' }}>
+            {formatPrice(price)}
+          </span>
+          <span className="text-sm" style={{ color: 'var(--h-ink-2)' }}>{unit}</span>
+        </>
+      )}
     </div>
   );
 }
@@ -243,9 +254,9 @@ function FlagshipCard({ course, isRtl, onOrder }: {
       {bullets.length > 0 && <BulletList items={bullets} />}
 
       <div className="mt-auto">
-        <PriceRow price={course.price} unit={isRtl ? 'לקורס המלא' : 'full course'} />
+        <PriceRow price={course.price} unit={isRtl ? 'לקורס המלא' : 'full course'} isRtl={isRtl} />
         <button type="button" className="h-btn h-btn-accent crs-btn-block" onClick={onOrder}>
-          {isRtl ? 'הזמנת מקום' : 'Book a Spot'}
+          {onRequest(course.price) ? (isRtl ? 'צרו קשר לפרטים' : 'Contact us for details') : (isRtl ? 'הזמנת מקום' : 'Book a Spot')}
         </button>
       </div>
     </article>
@@ -280,9 +291,9 @@ function CourseCard({ course, isRtl, onOrder }: { course: CourseItem; isRtl: boo
 
       <div className="mt-auto">
         <PriceRow price={course.price}
-          unit={perLesson ? (isRtl ? 'למפגש' : 'per lesson') : (isRtl ? 'לקורס המלא' : 'full course')} />
+          unit={perLesson ? (isRtl ? 'למפגש' : 'per lesson') : (isRtl ? 'לקורס המלא' : 'full course')} isRtl={isRtl} />
         <button type="button" className="h-btn h-btn-accent crs-btn-block" onClick={onOrder}>
-          {isRtl ? 'הזמנת מקום' : 'Book a Spot'}
+          {onRequest(course.price) ? (isRtl ? 'צרו קשר לפרטים' : 'Contact us for details') : (isRtl ? 'הזמנת מקום' : 'Book a Spot')}
         </button>
       </div>
     </article>
@@ -443,7 +454,9 @@ function OrderDialog({ target, isRtl, dir, lang, onClose }: {
               <span className="crs-pill">
                 {isEligibility
                   ? (isRtl ? 'בדיקת זכאות — מסלול מסובסד' : 'Eligibility check — subsidized track')
-                  : (isRtl ? 'הזמנת מקום' : 'Booking')}
+                  : onRequest(course.price)
+                    ? (isRtl ? 'בקשת פרטים' : 'Request details')
+                    : (isRtl ? 'הזמנת מקום' : 'Booking')}
               </span>
               <h3 className="text-xl md:text-2xl font-bold mt-3" style={{ color: 'var(--h-ink)' }}>{title}</h3>
               <p className="text-[0.95rem] leading-relaxed mt-2" style={{ color: 'var(--h-ink-2)' }}>
@@ -451,9 +464,13 @@ function OrderDialog({ target, isRtl, dir, lang, onClose }: {
                   ? (isRtl
                     ? 'משאירים פרטים ואנחנו בודקים זכאות וחוזרים אליכם. ההרשמה אינה מחייבת.'
                     : 'Leave your details and we will verify eligibility and get back to you. Not binding.')
-                  : (isRtl
-                    ? `${formatPrice(course.price)} ${course.priceUnit === 'lesson' ? 'למפגש' : 'לקורס המלא'} · התשלום מוסדר בהמשך, לא באתר`
-                    : `${formatPrice(course.price)} ${course.priceUnit === 'lesson' ? 'per lesson' : 'full course'} · Payment is arranged later, not on the site`)}
+                  : onRequest(course.price)
+                    ? (isRtl
+                      ? 'משאירים פרטים ואנחנו חוזרים אליכם עם כל הפרטים על הקורס. ההשארה אינה מחייבת.'
+                      : 'Leave your details and we will get back to you with everything about the course. Not binding.')
+                    : (isRtl
+                      ? `${formatPrice(course.price)} ${course.priceUnit === 'lesson' ? 'למפגש' : 'לקורס המלא'} · התשלום מוסדר בהמשך, לא באתר`
+                      : `${formatPrice(course.price)} ${course.priceUnit === 'lesson' ? 'per lesson' : 'full course'} · Payment is arranged later, not on the site`)}
               </p>
             </div>
 
@@ -505,7 +522,9 @@ function OrderDialog({ target, isRtl, dir, lang, onClose }: {
                 ? (isRtl ? 'שולח...' : 'Sending...')
                 : isEligibility
                   ? (isRtl ? 'שליחה לבדיקת זכאות' : 'Submit for eligibility check')
-                  : (isRtl ? 'שליחת הזמנה' : 'Send booking request')}
+                  : onRequest(course.price)
+                    ? (isRtl ? 'שליחת פרטים' : 'Send my details')
+                    : (isRtl ? 'שליחת הזמנה' : 'Send booking request')}
             </button>
             <p className="text-sm text-center flex items-center justify-center gap-1.5" style={{ color: 'var(--h-ink-2)' }}>
               <Clock className="w-4 h-4" aria-hidden="true" />

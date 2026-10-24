@@ -59,7 +59,7 @@ export default function FeaturedCourses({ he }: { he: boolean }) {
         : 'Monitoring, detection and threat analysis in the AI era. Know the attackers’ tools and use them on defence.',
       img: `${IMG}/course-cyber-ai.webp`,
       alt: he ? 'אנליסט אבטחה מול מסכי ניטור' : 'A security analyst in front of monitoring screens',
-      href: '/academy',
+      href: '/courses',
     },
   ];
 

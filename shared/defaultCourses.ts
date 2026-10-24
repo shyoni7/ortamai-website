@@ -20,6 +20,7 @@ export interface CatalogCourse {
   /** Newline-separated "what you get" bullets rendered on the card. */
   highlights: string | null;
   highlightsEn: string | null;
+  /** Whole shekels; 0 means the price is given on request ("contact for details"). */
   price: number;
   originalPrice: number | null;
   priceUnit: PriceUnit;
@@ -48,7 +49,7 @@ export const DEFAULT_COURSES: CatalogCourse[] = [
       "6 מפגשים חיים + הקלטות\nבונים פרויקט אמיתי שעולה לאוויר\nליווי בקבוצת תמיכה גם אחרי הקורס",
     highlightsEn:
       "6 live sessions + recordings\nBuild a real project that goes live\nSupport group access after the course",
-    price: 5900,
+    price: 2900,
     originalPrice: null,
     priceUnit: "course",
     badge: "6 מפגשים",
@@ -73,7 +74,7 @@ export const DEFAULT_COURSES: CatalogCourse[] = [
       "בלי רקע טכני — מתחילים מאפס\nהכלים שחוסכים לכם שעות כל שבוע\nתרגול על המשימות האמיתיות שלכם",
     highlightsEn:
       "No technical background needed\nThe tools that save you hours every week\nPractice on your own real tasks",
-    price: 3900,
+    price: 1500,
     originalPrice: null,
     priceUnit: "course",
     badge: "למתחילים",
@@ -106,6 +107,57 @@ export const DEFAULT_COURSES: CatalogCourse[] = [
     audience: null,
     audienceEn: null,
     sortOrder: 3,
+    visible: true,
+  },
+
+  {
+    slug: "ai-agents-automation",
+    section: "courses",
+    title: "סוכני AI ואוטומציות לעסקים",
+    titleEn: "AI Agents & Automation for Business",
+    subtitle: "סוכנים שעובדים בשבילכם, וכל הכלים של העסק בזרימה אחת",
+    subtitleEn: "Agents that work for you, with all your business tools in one flow",
+    description:
+      "בונים סוכני AI שעונים ללקוחות, מתאמים ומעדכנים, ומחברים את הכלים של העסק לאוטומציות שחוסכות עבודה ידנית.",
+    descriptionEn:
+      "Build AI agents that answer customers, schedule and update, and connect your business tools into automations that cut manual work.",
+    highlights:
+      "בניית סוכני AI לשירות ולתיאום\nאוטומציות שמחברות את הכלים של העסק\nעבודה על תהליכים מהעסק שלכם",
+    highlightsEn:
+      "Build AI agents for service and scheduling\nAutomations that connect your business tools\nWork on processes from your own business",
+    price: 0,
+    originalPrice: null,
+    priceUnit: "course",
+    badge: "לבעלי עסקים",
+    badgeEn: "For business owners",
+    audience: null,
+    audienceEn: null,
+    sortOrder: 4,
+    visible: true,
+  },
+  {
+    slug: "cyber-ai-security",
+    section: "courses",
+    title: "סייבר AI לאנשי אבטחת מידע",
+    titleEn: "Cyber AI for Security Professionals",
+    subtitle: "ניטור, זיהוי וניתוח איומים בעידן ה-AI",
+    subtitleEn: "Monitoring, detection and threat analysis in the AI era",
+    description:
+      "מכירים את הכלים שהתוקפים משתמשים בהם ועובדים איתם בצד המגן: ניטור, זיהוי איומים וניתוח אירועי אבטחה בסביבה מבוססת AI.",
+    descriptionEn:
+      "Know the tools attackers use and put them to work on defence: monitoring, threat detection and security incident analysis in an AI-driven environment.",
+    highlights:
+      "ניטור וזיהוי איומים\nניתוח אירועי אבטחה\nכלי AI בצד התוקף ובצד המגן",
+    highlightsEn:
+      "Monitoring and threat detection\nSecurity incident analysis\nAI tools on the attack and defence side",
+    price: 0,
+    originalPrice: null,
+    priceUnit: "course",
+    badge: "לאנשי אבטחת מידע",
+    badgeEn: "For security teams",
+    audience: null,
+    audienceEn: null,
+    sortOrder: 5,
     visible: true,
   },
 
