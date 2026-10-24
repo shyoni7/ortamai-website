@@ -14,7 +14,7 @@ Two audiences of equal weight for the training offer:
 Secondary: employers looking to hire AI-trained graduates (placement).
 
 ## Product Purpose
-ORTAM AI is an AI training center in Tel Aviv. Its main service is AI training programs and courses, including a dedicated Cyber AI track. Secondary service: placement of AI-trained graduates. Growth service for the coming year: AI strategy consulting for businesses (ייעוץ אסטרטגיית AI לעסקים), which replaces the former accelerator; the site's /incubator page and nav still use the old name.
+ORTAM AI is an AI training center in Tel Aviv. Its main service is AI training programs and courses, including a dedicated Cyber AI track. Secondary service: placement of AI-trained graduates. Growth service for the coming year: AI strategy consulting for businesses (ייעוץ אסטרטגיית AI לעסקים), which replaces the former accelerator; served at /consulting (/incubator redirects).
 
 Success on the site: organizations book a consultation and fit call; private individuals ask for more information over WhatsApp.
 
@@ -28,7 +28,8 @@ Hands-on AI and Cyber AI training delivered in real classrooms, for both corpora
 - AI strategy consulting is linked from the organizations path, the hero presentation and the page close.
 
 ## Brand Commitments
-- Name: ORTAM AI. Logo colors: navy and orange.
+- Name: ORTAM AI. Logo recoloured to the site palette: aubergine wordmark (#2A1238) with a deep mint mark (#17A673); a white-and-mint version exists for dark backgrounds (client/public/images/brand/). Made from the site PNG; no vector original on hand.
+- Site palette: aubergine and mint (dark #2A1238, action mint #3DDC97, secondary purple #7B3FA8).
 - Home headline (approved): "לומדים AI. עובדים עם AI."
 
 ## Evidence on Hand

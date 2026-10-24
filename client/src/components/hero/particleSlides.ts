@@ -120,8 +120,8 @@ export function buildSlides(lang: Lang, assets: Assets): Slide[] {
 
   // 0 · logo
   const logo: Slide = {
-    id: 'logo', bg: BG, ink: INK, accent: '#7B3FA8',
-    colors: [INK, '#7B3FA8', '#C9A8E0'],
+    id: 'logo', bg: BG, ink: INK, accent: '#17A673',
+    colors: [INK, '#17A673', '#9BE8C6'],
     duration: 4600,
     stages: [{
       at: 0, mode: 'shape',
@@ -131,11 +131,12 @@ export function buildSlides(lang: Lang, assets: Assets): Slide[] {
             const k = Math.min((SW * 0.74) / img.naturalWidth, (SH * 0.34) / img.naturalHeight);
             const w = img.naturalWidth * k, h = img.naturalHeight * k;
             ctx.drawImage(img, (SW - w) / 2, SH * 0.45 - h / 2, w, h);
-            // Recolour: orange mark to the accent tag, everything else ink.
+            // Recolour: the logo mark to the accent tag, everything else ink.
             const d = ctx.getImageData(0, 0, ctx.canvas.width, ctx.canvas.height);
             for (let i = 0; i < d.data.length; i += 4) {
-              const isOrange = d.data[i] > 170 && d.data[i + 1] < 170 && d.data[i + 2] < 120;
-              d.data[i] = isOrange ? 255 : 0; d.data[i + 1] = 0; d.data[i + 2] = 0;
+              // The logo's mark is green; the wordmark is dark aubergine.
+              const isMark = d.data[i + 1] > d.data[i] + 40 && d.data[i + 1] > 90;
+              d.data[i] = isMark ? 255 : 0; d.data[i + 1] = 0; d.data[i + 2] = 0;
             }
             ctx.putImageData(d, 0, 0);
           }, 7)
