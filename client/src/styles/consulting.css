@@ -1,0 +1,55 @@
+/* Consulting page (v2). Tokens come from .site-v2 in index.css; purple marks details, mint the actions. */
+.site-v2 .cns-page { --c-violet: #7B3FA8; --c-violet-deep: #6E2FA0; --c-violet-soft: rgba(123, 63, 168, 0.1); }
+
+.cns-card {
+  background: var(--h-paper);
+  border: 1px solid var(--h-line);
+  border-radius: 20px;
+  box-shadow: 0 20px 50px -34px rgba(31, 16, 41, 0.5);
+}
+
+.cns-icon {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 3rem; height: 3rem; border-radius: 14px; flex-shrink: 0;
+  background: var(--c-violet-soft); color: var(--c-violet);
+}
+
+.site-v2 .cns-btn-violet { background: var(--h-accent); color: var(--h-ink); box-shadow: 0 8px 24px -10px rgba(61, 220, 151, 0.75); }
+@media (hover: hover) {
+  .site-v2 .cns-btn-violet:hover { background: var(--h-accent-hover); }
+}
+.site-v2 .cns-btn-violet:disabled { background: #E3DEFA; color: #4A4170; cursor: not-allowed; box-shadow: none; }
+
+.cns-step-num {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 2.5rem; height: 2.5rem; border-radius: 999px;
+  font-family: 'Rubik', 'Heebo', sans-serif; font-weight: 800; font-size: 1.05rem;
+  background: var(--c-violet); color: #FFFFFF;
+}
+
+/* Form */
+.cns-label { display: block; font-size: 0.95rem; font-weight: 600; color: var(--h-ink); margin-bottom: 0.4rem; }
+.cns-req { color: #B42318; }
+.cns-field {
+  width: 100%; min-height: 3rem; padding: 0.7rem 1rem;
+  border-radius: 12px; border: 1px solid #C5CCDA; background: var(--h-paper);
+  color: var(--h-ink); font-size: 1rem; line-height: 1.4;
+  transition: border-color 150ms ease, box-shadow 150ms ease;
+}
+.cns-field::placeholder { color: #7A8399; }
+.cns-field:focus { outline: none; border-color: var(--c-violet); box-shadow: 0 0 0 3px rgba(123, 63, 168, 0.28); }
+.cns-field[aria-invalid='true'] { border-color: #C0352B; }
+.cns-check { width: 1.375rem; height: 1.375rem; accent-color: var(--c-violet); flex-shrink: 0; cursor: pointer; }
+.cns-check:focus-visible { outline: 3px solid var(--c-violet); outline-offset: 2px; }
+.cns-error {
+  display: flex; align-items: flex-start; gap: 0.5rem;
+  padding: 0.75rem 1rem; border-radius: 12px;
+  background: #FEF1F0; border: 1px solid #F5C2BD; color: #B42318; font-size: 0.95rem; font-weight: 500;
+}
+.cns-spinner {
+  width: 1.15rem; height: 1.15rem; border-radius: 999px;
+  border: 2px solid rgba(255, 255, 255, 0.45); border-top-color: #FFFFFF;
+  animation: cns-spin 800ms linear infinite;
+}
+@keyframes cns-spin { to { transform: rotate(360deg); } }
+@media (prefers-reduced-motion: reduce) { .cns-spinner { animation-duration: 2s; } }

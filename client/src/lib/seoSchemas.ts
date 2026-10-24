@@ -48,21 +48,21 @@ export const websiteSchema = {
   },
 };
 
-export const incubatorServiceSchema = {
+export const consultingServiceSchema = {
   '@context': 'https://schema.org',
   '@type': 'Service',
-  name: 'אקסלרטור AI ליזמים ועסקים',
-  alternateName: 'AI Accelerator for Startups & Businesses',
+  name: 'ייעוץ אסטרטגיית AI לעסקים',
+  alternateName: 'AI Strategy Consulting for Businesses',
   description:
-    'אבחון עסקי, פיילוטים מהירים, בניית מוצרים מבוססי AI וליווי מקצועי עד יישום.',
+    'אבחון עסקי ומיפוי תהליכים, הכשרת צוותים, פיילוטים מהירים, סוכני AI ואינטגרציות, וליווי מקצועי עד יישום.',
   provider: {
     '@type': 'Organization',
     name: 'ORTAM AI',
     url: BASE_URL,
   },
-  serviceType: 'AI Business Acceleration',
+  serviceType: 'AI Strategy Consulting',
   areaServed: 'IL',
-  url: `${BASE_URL}/incubator`,
+  url: `${BASE_URL}/consulting`,
 };
 
 export const academyServiceSchema = {
@@ -98,7 +98,7 @@ export const academyServiceSchema = {
         itemOffered: {
           '@type': 'Course',
           name: 'AI למורים ובתי ספר',
-          description: 'קורס AI לצוותי הוראה — מאושר משרד החינוך.',
+          description: 'קורס AI לצוותי הוראה.',
           provider: { '@type': 'Organization', name: 'ORTAM AI' },
           educationalLevel: 'Beginner',
           inLanguage: 'he',

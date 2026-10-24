@@ -1,42 +1,32 @@
 import React from 'react';
-import { motion } from 'framer-motion';
 import { Link } from 'wouter';
 import { useLanguage } from '@/contexts/LanguageContext';
-import { ShieldCheck, ArrowRight } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 
 export default function PrivacyPolicy() {
   const { lang } = useLanguage();
   const isRtl = lang === 'he';
 
   return (
-    <div className="min-h-screen" style={{ background: '#F5F5F5' }} dir={isRtl ? 'rtl' : 'ltr'}>
+    <div className="min-h-screen" dir={isRtl ? 'rtl' : 'ltr'}>
       {/* Hero */}
-      <section className="py-16 px-4" style={{ background: '#08080C' }}>
-        <div className="max-w-3xl mx-auto text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-          >
-            <div className="w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-5" style={{ background: 'rgba(200,200,208,0.1)', border: '1px solid rgba(200,200,208,0.2)' }}>
-              <ShieldCheck className="w-8 h-8 text-white" />
-            </div>
-            <h1 className="text-3xl md:text-4xl font-bold text-white mb-3">
-              {isRtl ? 'מדיניות פרטיות' : 'Privacy Policy'}
-            </h1>
-            <p className="text-lg" style={{ color: 'rgba(200,200,208,0.65)' }}>
-              {isRtl ? 'אנו מכבדים את פרטיותכם ופועלים על פי חוק הגנת הפרטיות' : 'We respect your privacy and comply with privacy protection law'}
-            </p>
-          </motion.div>
+      <section style={{ background: 'var(--h-dark)' }}>
+        <div className="max-w-3xl mx-auto px-5 sm:px-8 py-16 md:py-24">
+          <h1 className="h-rise font-extrabold text-white leading-[1.05]" style={{ fontSize: 'clamp(2.4rem, 6vw, 4.5rem)' }}>
+            {isRtl ? 'מדיניות פרטיות' : 'Privacy Policy'}
+          </h1>
+          <p className="mt-4 text-lg" style={{ color: 'var(--h-on-dark)' }}>
+            {isRtl ? 'אנו מכבדים את פרטיותכם ופועלים על פי חוק הגנת הפרטיות' : 'We respect your privacy and comply with privacy protection law'}
+          </p>
         </div>
       </section>
 
       {/* Content */}
-      <section className="py-12 px-4">
-        <div className="max-w-3xl mx-auto">
+      <section className="py-12 md:py-16">
+        <div className="max-w-3xl mx-auto px-5 sm:px-8">
           {/* Back link */}
-          <Link href="/" className="inline-flex items-center gap-2 text-sm font-medium mb-8 transition-colors" style={{ color: '#C8C8D0' }}>
-            <ArrowRight className="w-4 h-4" />
+          <Link href="/" className="h-link inline-flex items-center gap-2 font-bold mb-8" style={{ color: 'var(--h-link)' }}>
+            <ArrowRight className="w-4 h-4 h-link-arrow" style={{ transform: isRtl ? undefined : 'scaleX(-1)' }} aria-hidden="true" />
             {isRtl ? 'חזרה לדף הבית' : 'Back to Home'}
           </Link>
 
@@ -51,14 +41,14 @@ export default function PrivacyPolicy() {
               {
                 title: isRtl ? '2. איסוף מידע' : '2. Information We Collect',
                 body: isRtl
-                  ? <><p className="mb-3">אנו אוספים מידע שאתה מספק לנו מרצונך, לרבות:</p><ul className="list-disc list-inside space-y-1 text-gray-600 pr-2"><li>שם מלא</li><li>כתובת דואר אלקטרוני</li><li>מספר טלפון</li><li>שם חברה/ארגון</li><li>תוכן הודעות ופניות שאתה שולח אלינו</li><li>קורות חיים וקבצים שאתה מעלה דרך הטפסים באתר</li></ul></>
-                  : <><p className="mb-3">We collect information you voluntarily provide, including:</p><ul className="list-disc list-inside space-y-1 text-gray-600 pl-2"><li>Full name</li><li>Email address</li><li>Phone number</li><li>Company/organization name</li><li>Messages and inquiries you send us</li><li>CVs and files uploaded through our forms</li></ul></>,
+                  ? <><p className="mb-3">אנו אוספים מידע שאתה מספק לנו מרצונך, לרבות:</p><ul className="list-disc ps-5 space-y-1"><li>שם מלא</li><li>כתובת דואר אלקטרוני</li><li>מספר טלפון</li><li>שם חברה/ארגון</li><li>תוכן הודעות ופניות שאתה שולח אלינו</li><li>קורות חיים וקבצים שאתה מעלה דרך הטפסים באתר</li></ul></>
+                  : <><p className="mb-3">We collect information you voluntarily provide, including:</p><ul className="list-disc ps-5 space-y-1"><li>Full name</li><li>Email address</li><li>Phone number</li><li>Company/organization name</li><li>Messages and inquiries you send us</li><li>CVs and files uploaded through our forms</li></ul></>,
               },
               {
                 title: isRtl ? '3. שימוש במידע' : '3. How We Use Information',
                 body: isRtl
-                  ? <><p className="mb-3">אנו משתמשים במידע שנאסף למטרות הבאות:</p><ul className="list-disc list-inside space-y-1 text-gray-600 pr-2"><li>מתן שירותים והצעות מחיר</li><li>תקשורת עם לקוחות ומועמדים</li><li>שיפור השירותים שלנו</li><li>עמידה בדרישות חוקיות</li></ul></>
-                  : <><p className="mb-3">We use collected information for:</p><ul className="list-disc list-inside space-y-1 text-gray-600 pl-2"><li>Providing services and quotes</li><li>Communicating with clients and candidates</li><li>Improving our services</li><li>Complying with legal requirements</li></ul></>,
+                  ? <><p className="mb-3">אנו משתמשים במידע שנאסף למטרות הבאות:</p><ul className="list-disc ps-5 space-y-1"><li>מתן שירותים והצעות מחיר</li><li>תקשורת עם לקוחות ומועמדים</li><li>שיפור השירותים שלנו</li><li>עמידה בדרישות חוקיות</li></ul></>
+                  : <><p className="mb-3">We use collected information for:</p><ul className="list-disc ps-5 space-y-1"><li>Providing services and quotes</li><li>Communicating with clients and candidates</li><li>Improving our services</li><li>Complying with legal requirements</li></ul></>,
               },
               {
                 title: isRtl ? '4. אחסון ואבטחת מידע' : '4. Storage & Data Security',
@@ -69,14 +59,14 @@ export default function PrivacyPolicy() {
               {
                 title: isRtl ? '5. שיתוף מידע עם צדדים שלישיים' : '5. Sharing with Third Parties',
                 body: isRtl
-                  ? <><p className="mb-3">אנו לא נמכור, נשכיר או נשתף את המידע האישי שלך, למעט:</p><ul className="list-disc list-inside space-y-1 text-gray-600 pr-2"><li>כאשר נדרש על פי חוק</li><li>לספקי שירות שעובדים מטעמנו (כגון שירותי ענן)</li><li>במקרה של מיזוג, רכישה או מכירת נכסים</li></ul></>
-                  : <><p className="mb-3">We will not sell, rent, or share your personal information, except:</p><ul className="list-disc list-inside space-y-1 text-gray-600 pl-2"><li>When required by law</li><li>Service providers acting on our behalf</li><li>In case of merger, acquisition, or asset sale</li></ul></>,
+                  ? <><p className="mb-3">אנו לא נמכור, נשכיר או נשתף את המידע האישי שלך, למעט:</p><ul className="list-disc ps-5 space-y-1"><li>כאשר נדרש על פי חוק</li><li>לספקי שירות שעובדים מטעמנו (כגון שירותי ענן)</li><li>במקרה של מיזוג, רכישה או מכירת נכסים</li></ul></>
+                  : <><p className="mb-3">We will not sell, rent, or share your personal information, except:</p><ul className="list-disc ps-5 space-y-1"><li>When required by law</li><li>Service providers acting on our behalf</li><li>In case of merger, acquisition, or asset sale</li></ul></>,
               },
               {
                 title: isRtl ? '6. זכויותיך' : '6. Your Rights',
                 body: isRtl
-                  ? <><p className="mb-3">על פי חוק הגנת הפרטיות, יש לך את הזכויות הבאות:</p><ul className="space-y-2 text-gray-600 pr-2"><li><strong>זכות עיון:</strong> לקבל מידע על הנתונים האישיים שלך</li><li><strong>זכות תיקון:</strong> לבקש תיקון של מידע לא מדויק</li><li><strong>זכות מחיקה:</strong> לבקש מחיקת המידע האישי שלך</li><li><strong>זכות להתנגדות:</strong> להתנגד לשימוש במידע שלך למטרות שיווקיות</li></ul></>
-                  : <><p className="mb-3">Under privacy protection law, you have the right to:</p><ul className="space-y-2 text-gray-600 pl-2"><li><strong>Access:</strong> Receive information about your personal data we hold</li><li><strong>Correction:</strong> Request correction of inaccurate data</li><li><strong>Deletion:</strong> Request deletion of your personal data</li><li><strong>Objection:</strong> Object to use of your data for marketing</li></ul></>,
+                  ? <><p className="mb-3">על פי חוק הגנת הפרטיות, יש לך את הזכויות הבאות:</p><ul className="space-y-2"><li><strong>זכות עיון:</strong> לקבל מידע על הנתונים האישיים שלך</li><li><strong>זכות תיקון:</strong> לבקש תיקון של מידע לא מדויק</li><li><strong>זכות מחיקה:</strong> לבקש מחיקת המידע האישי שלך</li><li><strong>זכות להתנגדות:</strong> להתנגד לשימוש במידע שלך למטרות שיווקיות</li></ul></>
+                  : <><p className="mb-3">Under privacy protection law, you have the right to:</p><ul className="space-y-2"><li><strong>Access:</strong> Receive information about your personal data we hold</li><li><strong>Correction:</strong> Request correction of inaccurate data</li><li><strong>Deletion:</strong> Request deletion of your personal data</li><li><strong>Objection:</strong> Object to use of your data for marketing</li></ul></>,
               },
               {
                 title: isRtl ? '7. קובצי Cookie' : '7. Cookies',
@@ -93,29 +83,23 @@ export default function PrivacyPolicy() {
               {
                 title: isRtl ? '9. יצירת קשר' : '9. Contact Us',
                 body: (
-                  <div className="space-y-1 text-gray-600">
+                  <div className="space-y-1">
                     <p>{isRtl ? 'לשאלות בנוגע למדיניות הפרטיות:' : 'For questions about this Privacy Policy:'}</p>
-                    <p className="mt-3"><a href="mailto:info@ortamai.com" className="text-blue-700 hover:underline">info@ortamai.com</a></p>
-                    <p><a href="tel:052-338-1822" className="text-blue-700 hover:underline">052-338-1822</a></p>
+                    <p className="mt-3"><a href="mailto:info@ortamai.com" >info@ortamai.com</a></p>
+                    <p><a href="tel:052-338-1822" >052-338-1822</a></p>
                     <p>{isRtl ? "רח' אילת 26, תל אביב יפו" : "26 Eilat St., Tel Aviv-Jaffa"}</p>
                   </div>
                 ),
               },
-            ].map((section, i) => (
-              <motion.div
-                key={section.title}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.4, delay: i * 0.04 }}
-                className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100"
-              >
-                <h2 className="text-xl font-bold text-gray-900 mb-4 pb-3 border-b border-gray-100">{section.title}</h2>
-                <div className="text-gray-600 leading-relaxed">{section.body}</div>
-              </motion.div>
+            ].map(section => (
+              <div key={section.title} className="legal-card">
+                <h2 className="text-xl md:text-2xl font-bold mb-4 pb-3 border-b" style={{ borderColor: 'var(--h-line)' }}>{section.title}</h2>
+                <div>{section.body}</div>
+              </div>
             ))}
           </div>
 
-          <p className="text-center text-gray-400 text-sm mt-10">
+          <p className="text-sm mt-10" style={{ color: 'var(--h-ink-2)' }}>
             {isRtl ? 'מדיניות פרטיות זו עודכנה לאחרונה ב-15 בינואר 2025' : 'This Privacy Policy was last updated on January 15, 2025'}
           </p>
         </div>

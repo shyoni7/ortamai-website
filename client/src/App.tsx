@@ -1,6 +1,6 @@
 import { Toaster } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
-import { Route, Switch } from "wouter";
+import { Redirect, Route, Switch } from "wouter";
 import ErrorBoundary from "./components/ErrorBoundary";
 import { ThemeProvider } from "./contexts/ThemeContext";
 import { LanguageProvider } from "./contexts/LanguageContext";
@@ -35,7 +35,8 @@ function PublicRoutes() {
       <Switch>
         <Route path="/" component={Home} />
         <Route path="/about" component={About} />
-        <Route path="/incubator" component={Incubator} />
+        <Route path="/consulting" component={Incubator} />
+        <Route path="/incubator"><Redirect to="/consulting" replace /></Route>
         <Route path="/academy" component={Academy} />
         <Route path="/courses" component={Courses} />
         <Route path="/placement" component={Placement} />

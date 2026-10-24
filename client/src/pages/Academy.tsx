@@ -1,20 +1,16 @@
 import React, { useState } from 'react';
 import { Link } from 'wouter';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Clock, Users, Award, BookOpen, X, ChevronDown, ChevronUp, Building, Star, CheckCircle } from 'lucide-react';
+import { Clock, Users, Award, BookOpen, X, ChevronDown, ChevronUp, Building, Star, CheckCircle, ArrowLeft, ArrowRight, ExternalLink } from 'lucide-react';
 import { useLanguage } from '@/contexts/LanguageContext';
-import GradientButton from '@/components/GradientButton';
-import ScrollDownArrow from '@/components/ScrollDownArrow';
 import SEO from '@/components/SEO';
 import { academyServiceSchema } from '@/lib/seoSchemas';
+import '@/styles/academy.css';
 
 const CDN = 'https://d2xsxph8kpxj0f.cloudfront.net/310519663445418346/oDFneUKwvw2xJYXYaumUdB';
 const AI_TRAINING_IMAGE = `${CDN}/81fe03d01_create_a_professional_and_modern_image_for_a_website_that_promotes_ai_training_programs_the_image_s_y01604j7g7gqe2rbe6tu_0_2b7c34bf.png`;
 const MINISTRY_LOGO = `${CDN}/73e8a1f5d_images_f41438b1.png`;
 const HERO_IMAGE = `${CDN}/a00800906_______________ai______________1ztf6h7ulzz1cg0t1nwp_1_450c2a58.png`;
-
-const fadeUp = { hidden: { opacity: 0, y: 30 }, visible: { opacity: 1, y: 0, transition: { duration: 0.7 } } };
-const stagger = { hidden: {}, visible: { transition: { staggerChildren: 0.1 } } };
 
 interface Module {
   title: string;
@@ -355,8 +351,8 @@ const publicCourses: PublicCourse[] = [
   {
     title: 'מטמיע מערכות AI',
     titleEn: 'AI Systems Implementer',
-    desc: 'הקורס הרשמי היחיד בישראל להטמעת מערכות AI בארגונים. הכשרה מקצועית בפיקוח משרד העבודה.',
-    descEn: 'The only official course in Israel for AI systems implementation in organizations. Professional training supervised by the Ministry of Labor.',
+    desc: 'את הקורס הרשמי של משרד העבודה למטמיעי מערכות AI כתבנו ובנינו ב-ORTAM AI. הכשרה מקצועית להטמעת מערכות AI בארגונים, בפיקוח משרד העבודה.',
+    descEn: 'ORTAM AI wrote and built the Ministry of Labor’s official course for AI systems implementers. Professional training in implementing AI systems in organizations, supervised by the Ministry of Labor.',
     duration: '3 חודשים',
     durationEn: '3 months',
     level: 'מתקדם',
@@ -384,355 +380,206 @@ export default function Academy() {
   const { lang } = useLanguage();
   const isRtl = lang === 'he';
   const dir = isRtl ? 'rtl' : 'ltr';
+  const Arrow = isRtl ? ArrowLeft : ArrowRight;
   const [selectedProgram, setSelectedProgram] = useState<TrainingProgram | null>(null);
   const [expandedModule, setExpandedModule] = useState<number | null>(null);
 
-  const getLevelColor = (level: string) => {
-    if (level === 'בינוני' || level === 'Intermediate') return 'bg-gray-100 text-gray-900 border border-gray-200';
-    if (level === 'מתקדמים' || level === 'Advanced') return 'bg-gray-100 text-gray-900 border border-gray-200';
-    return 'bg-gray-100 text-gray-900 border border-gray-200';
-  };
+  const closeModal = () => { setSelectedProgram(null); setExpandedModule(null); };
 
   return (
     <>
     <SEO
       title={isRtl ? 'קורסי AI לארגונים ועסקים | מרכז הכשרות ORTAM AI' : 'AI Courses for Organizations & Businesses | ORTAM AI Academy'}
       description={isRtl
-        ? 'הכשרות AI מעשיות לארגונים, מנהלים, צוותי שיווק, פיננסים ומשאבי אנוש. קורס AI למורים, בינה מלאכותית בחינוך, הכשרת AI לעולם העבודה החדש. פתוח משרד החינוך.'
-        : 'Practical AI training for organizations, managers, marketing, finance, and HR teams. AI courses for teachers, AI in education, and workforce upskilling. Ministry of Education certified.'}
+        ? 'הכשרות AI מעשיות לארגונים, מנהלים, צוותי שיווק, פיננסים ומשאבי אנוש. קורס AI למורים, בינה מלאכותית בחינוך, הכשרת AI לעולם העבודה החדש.'
+        : 'Practical AI training for organizations, managers, marketing, finance, and HR teams. AI courses for teachers, AI in education, and workforce upskilling.'}
       canonical="/academy"
       schema={academyServiceSchema}
     />
-    <div dir={dir} className="min-h-screen">
-      {/* Hero + Training Programs — unified single section */}
-      <section className="relative overflow-hidden flex flex-col justify-center" style={{ minHeight: '62svh' }}>
-        {/* Background */}
-        <div className="absolute inset-0" style={{ background: '#08080C' }} />
-        <div className="absolute inset-0 grid-pattern opacity-20" />
-        <motion.div animate={{ x: [0, 60, 0], y: [0, 30, 0] }} transition={{ duration: 10, repeat: Infinity }}
-          className="absolute top-10 left-10 w-72 h-72 rounded-full blur-3xl" style={{ background: 'rgba(200,200,208,0.06)' }} />
-        <motion.div animate={{ x: [0, -40, 0], y: [0, -20, 0] }} transition={{ duration: 12, repeat: Infinity, delay: 2 }}
-          className="absolute bottom-10 right-10 w-80 h-80 rounded-full blur-3xl" style={{ background: 'rgba(200,200,208,0.04)' }} />
-
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 pb-10">
-          {/* Hero row: text left, 3D object right */}
-          <div className="flex flex-col lg:flex-row items-center gap-8 mb-12">
-            {/* Text */}
-            <div className="flex-1 text-center lg:text-right">
-              <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="inline-flex mb-4">
-                <div className="px-4 py-2 rounded-full" style={{ background: 'rgba(255,255,255,0.08)', border: '1px solid rgba(200,200,208,0.2)' }}>
-                  <span className="text-sm font-semibold" style={{ color: '#C8C8D0' }}>{isRtl ? 'מרכז הכשרות AI' : 'AI Training Center'}</span>
-                </div>
-              </motion.div>
-              <motion.h1 initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}
-                className="text-4xl md:text-6xl font-bold text-white mb-4">
-                {isRtl ? 'מסלולי ההכשרה שלנו' : 'Our Training Programs'}
-              </motion.h1>
-              <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.2 }}
-                className="text-lg mb-6 max-w-xl mx-auto lg:mx-0" style={{ color: 'rgba(200,200,208,0.65)' }}>
-                {isRtl
-                  ? 'הכשרות מותאמות לכל מחלקה ותפקיד. בנינו תוכניות ייחודיות שמביאות תוצאות מדידות לארגון שלכם.'
-                  : 'Training tailored for every department and role. We built unique programs that deliver measurable results for your organization.'}
-              </motion.p>
-              <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.4 }}
-                className="flex items-center justify-center lg:justify-end gap-4 flex-wrap">
-                <div className="px-4 py-2 rounded-full flex items-center gap-2" style={{ background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(200,200,208,0.15)' }}>
-                  <Award className="w-4 h-4" style={{ color: '#C8C8D0' }} />
-                  <span className="text-sm" style={{ color: 'rgba(200,200,208,0.7)' }}>{isRtl ? 'קורס מוסמך' : 'Certified Course'}</span>
-                </div>
-                <div className="px-4 py-2 rounded-full flex items-center gap-2" style={{ background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(200,200,208,0.15)' }}>
-                  <Users className="w-4 h-4" style={{ color: '#C8C8D0' }} />
-                  <span className="text-sm font-bold" style={{ color: '#C8C8D0' }}>{isRtl ? '+250 בוגרים' : '+250 Graduates'}</span>
-                </div>
-              </motion.div>
-            </div>
-
-            {/* 3D Animated Education Object */}
-            <motion.div initial={{ opacity: 0, scale: 0.8 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 1 }}
-              className="flex-shrink-0 flex items-center justify-center" style={{ width: 'min(220px, 60vw)', height: 'min(220px, 60vw)' }}>
-              <div style={{ perspective: '800px', width: '220px', height: '220px' }}>
-                {/* Outer orbit ring */}
-                <div style={{
-                  position: 'absolute', width: '220px', height: '220px',
-                  borderRadius: '50%',
-                  border: '2px solid rgba(200,200,208,0.2)',
-                  animation: 'academy-orbit1 8s linear infinite',
-                  transformStyle: 'preserve-3d',
-                  transform: 'rotateX(70deg)',
-                }} />
-                {/* Inner orbit ring */}
-                <div style={{
-                  position: 'absolute', width: '160px', height: '160px',
-                  top: '30px', left: '30px',
-                  borderRadius: '50%',
-                  border: '2px solid rgba(200,200,208,0.4)',
-                  animation: 'academy-orbit2 5s linear infinite reverse',
-                  transformStyle: 'preserve-3d',
-                  transform: 'rotateX(70deg) rotateZ(45deg)',
-                }} />
-
-                {/* Central 3D book */}
-                <div style={{
-                  position: 'absolute', top: '60px', left: '60px',
-                  width: '100px', height: '100px',
-                  animation: 'academy-float 4s ease-in-out infinite',
-                  transformStyle: 'preserve-3d',
-                }}>
-                  {/* Book body */}
-                  <div style={{
-                    position: 'absolute', inset: 0,
-                    background: 'linear-gradient(135deg, #08080C 0%, #C8C8D0 50%, #C8C8D0 100%)',
-                    borderRadius: '6px 14px 14px 6px',
-                    boxShadow: '0 20px 50px rgba(8,8,12,0.5), 0 4px 15px rgba(8,8,12,0.3)',
-                  }} />
-                  {/* Book spine */}
-                  <div style={{
-                    position: 'absolute', top: 0, bottom: 0, left: 0, width: '14px',
-                    background: 'linear-gradient(180deg, #5b21b6, #08080C)',
-                    borderRadius: '6px 0 0 6px',
-                    boxShadow: 'inset -2px 0 4px rgba(0,0,0,0.2)',
-                  }} />
-                  {/* Book pages lines */}
-                  {[0,1,2,3].map(i => (
-                    <div key={i} style={{
-                      position: 'absolute',
-                      top: `${22 + i * 14}px`, left: '22px', right: '10px', height: '3px',
-                      background: 'rgba(255,255,255,0.3)',
-                      borderRadius: '2px',
-                    }} />
-                  ))}
-                  {/* AI text on book */}
-                  <div style={{
-                    position: 'absolute', top: '50%', left: '55%',
-                    transform: 'translate(-50%, -50%)',
-                    fontSize: '22px', fontWeight: 900, color: 'white',
-                    textShadow: '0 2px 8px rgba(0,0,0,0.3)',
-                    letterSpacing: '-1px',
-                  }}>AI</div>
-                  {/* Specular shine */}
-                  <div style={{
-                    position: 'absolute', inset: 0,
-                    background: 'linear-gradient(135deg, rgba(255,255,255,0.3) 0%, transparent 45%)',
-                    borderRadius: '6px 14px 14px 6px',
-                  }} />
-                </div>
-
-                {/* Orbiting dot 1 — graduation cap */}
-                <div style={{
-                  position: 'absolute', top: '0px', left: '100px',
-                  width: '28px', height: '28px',
-                  background: 'linear-gradient(135deg, #C8C8D0, #08080C)',
-                  borderRadius: '50%',
-                  boxShadow: '0 4px 12px rgba(200,200,208,0.6)',
-                  display: 'flex', alignItems: 'center', justifyContent: 'center',
-                  fontSize: '14px',
-                  animation: 'academy-orbit1 8s linear infinite',
-                  transformOrigin: '-86px 110px',
-                }}>🎓</div>
-
-                {/* Orbiting dot 2 — star */}
-                <div style={{
-                  position: 'absolute', top: '75px', left: '185px',
-                  width: '22px', height: '22px',
-                  background: 'linear-gradient(135deg, #C8C8D0, #C8C8D0)',
-                  borderRadius: '50%',
-                  boxShadow: '0 4px 10px rgba(136,153,187,0.6)',
-                  display: 'flex', alignItems: 'center', justifyContent: 'center',
-                  fontSize: '11px',
-                  animation: 'academy-orbit2 5s linear infinite reverse',
-                  transformOrigin: '-75px 35px',
-                }}>⭐</div>
-
-                {/* Orbiting dot 3 — lightbulb */}
-                <div style={{
-                  position: 'absolute', top: '180px', left: '90px',
-                  width: '24px', height: '24px',
-                  background: 'linear-gradient(135deg, #C8C8D0, #08080C)',
-                  borderRadius: '50%',
-                  boxShadow: '0 4px 10px rgba(139,92,246,0.6)',
-                  display: 'flex', alignItems: 'center', justifyContent: 'center',
-                  fontSize: '12px',
-                  animation: 'academy-orbit1 8s linear infinite',
-                  animationDelay: '-4s',
-                  transformOrigin: '20px -70px',
-                }}>💡</div>
-              </div>
-            </motion.div>
+    <div dir={dir} className="academy-v2 min-h-screen">
+      {/* Hero */}
+      <section aria-labelledby="academy-title" style={{ background: 'var(--h-dark)' }}>
+        <div className="mx-auto max-w-7xl px-5 sm:px-8 py-14 md:py-24 text-start">
+          <h1
+            id="academy-title"
+            className="h-rise text-white font-extrabold leading-[1.05] max-w-4xl"
+            style={{ fontSize: 'clamp(2.4rem, 6vw, 4.5rem)' }}
+          >
+            {isRtl ? 'מסלולי ההכשרה שלנו' : 'Our Training Programs'}
+          </h1>
+          <p className="h-rise h-rise-2 mt-5 md:mt-7 text-lg md:text-xl leading-relaxed max-w-[60ch]" style={{ color: 'var(--h-on-dark)' }}>
+            {isRtl
+              ? 'הכשרות מותאמות לכל מחלקה ותפקיד. בנינו תוכניות ייחודיות שמביאות תוצאות מדידות לארגון שלכם.'
+              : 'Training tailored for every department and role. We built unique programs that deliver measurable results for your organization.'}
+          </p>
+          <ul className="h-rise h-rise-3 mt-7 flex flex-wrap gap-x-6 gap-y-3" style={{ color: 'var(--h-on-dark)' }}>
+            <li className="flex items-center gap-2 text-base">
+              <Award className="w-5 h-5 shrink-0" style={{ color: 'var(--h-accent)' }} aria-hidden="true" />
+              {isRtl ? 'קורס מוסמך' : 'Certified Course'}
+            </li>
+            <li className="flex items-center gap-2 text-base font-bold">
+              <Users className="w-5 h-5 shrink-0" style={{ color: 'var(--h-accent)' }} aria-hidden="true" />
+              <span>{isRtl ? 'כ-300 בוגרים' : '~300 graduates'}</span>
+            </li>
+          </ul>
+          <div className="h-rise h-rise-3 mt-9 md:mt-10 flex flex-col sm:flex-row gap-3">
+            <Link href="/contact" className="h-btn h-btn-accent">
+              {isRtl ? 'צרו קשר לפרטים' : 'Contact Us for Details'}
+              <Arrow size={18} aria-hidden="true" />
+            </Link>
           </div>
-
-        </div>
-
-        {/* Scroll hint — mobile only */}
-        <div className="relative z-10">
-          <ScrollDownArrow />
         </div>
       </section>
 
-      {/* Training Cards Grid */}
-      <section className="py-16 md:py-24 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-6">
-            {trainingPrograms.map((program, idx) => (
-              <div
+      {/* Training programs */}
+      <section aria-label={isRtl ? 'מסלולי ההכשרה' : 'Training programs'} className="py-16 md:py-24" style={{ background: 'var(--h-ground)' }}>
+        <div className="mx-auto max-w-7xl px-5 sm:px-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-6 md:gap-7">
+            {trainingPrograms.map((program) => (
+              <article
                 key={program.id}
-                className="bg-white border border-gray-200 rounded-2xl shadow-sm overflow-hidden hover:border-gray-300 transition-all group cursor-pointer h-full flex flex-col"
+                className="academy-card academy-program flex flex-col overflow-hidden cursor-pointer"
                 onClick={() => setSelectedProgram(program)}
               >
-                {/* Card Image */}
-                <div className="relative h-48 overflow-hidden">
+                <div className="aspect-[2/1] sm:aspect-[16/10] overflow-hidden" style={{ background: 'var(--h-ground)' }}>
                   <img
                     src={program.image}
                     alt={isRtl ? program.title : program.titleEn}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    loading="lazy"
+                    className="academy-program-img w-full h-full object-cover"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-gray-900/60 via-gray-900/20 to-transparent" />
-
                 </div>
-
-                {/* Card Content */}
-                <div className="p-6 flex flex-col flex-1">
-                  <h3 className="text-lg font-bold text-gray-900 mb-3 group-hover:text-gray-900 transition-colors leading-snug">
+                <div className="p-5 md:p-6 flex flex-col flex-1 text-start">
+                  <h3 className="text-xl font-bold leading-snug" style={{ color: 'var(--h-ink)' }}>
                     {isRtl ? program.title : program.titleEn}
                   </h3>
-                  <div className="flex items-center gap-4 text-sm text-gray-500 mb-5">
-                    <div className="flex items-center gap-1.5">
-                      <Users className="w-4 h-4 text-gray-900" />
+                  <ul className="mt-3 flex flex-wrap gap-x-4 gap-y-1.5 text-sm" style={{ color: 'var(--h-ink-2)' }}>
+                    <li className="flex items-center gap-1.5">
+                      <Users className="w-4 h-4 shrink-0" aria-hidden="true" />
                       <span>{isRtl ? program.audience : program.audienceEn}</span>
-                    </div>
-                    <div className="flex items-center gap-1.5">
-                      <Clock className="w-4 h-4 text-gray-900" />
+                    </li>
+                    <li className="flex items-center gap-1.5">
+                      <Clock className="w-4 h-4 shrink-0" aria-hidden="true" />
                       <span>{program.hours} {isRtl ? 'שעות' : 'hours'}</span>
-                    </div>
-                  </div>
-                  <div className="flex gap-2 mt-auto">
+                    </li>
+                  </ul>
+                  <div className="mt-auto pt-6 flex items-center justify-between gap-3 flex-wrap">
                     <button
-                      className="flex-1 btn-primary text-sm py-2.5 text-center"
+                      type="button"
+                      className="h-btn academy-btn-dark"
                       onClick={(e) => { e.stopPropagation(); setSelectedProgram(program); }}
                     >
                       {isRtl ? 'צפה בסילבוס' : 'View Syllabus'}
                     </button>
-                    <Link href="/contact" className="flex-1">
-                      <button
-                        className="w-full bg-white border border-gray-300 text-sm py-2.5 text-center text-gray-900 hover:bg-gray-100 transition-all rounded-lg"
-                        onClick={(e) => e.stopPropagation()}
-                      >
-                        {isRtl ? 'לפרטים' : 'Details'}
-                      </button>
+                    <Link
+                      href="/contact"
+                      className="h-link academy-text-link inline-flex items-center gap-2 font-bold"
+                      onClick={(e: React.MouseEvent) => e.stopPropagation()}
+                    >
+                      {isRtl ? 'לפרטים' : 'Details'}
+                      <Arrow size={16} className="h-link-arrow" aria-hidden="true" />
                     </Link>
                   </div>
                 </div>
-              </div>
+              </article>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Public Courses Section */}
-      <section className="py-16 md:py-24 relative">
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-gray-800/30 to-transparent" />
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-100px", amount: 0 }}
-            className="text-center mb-12"
-          >
-            <h2 className="text-2xl md:text-4xl font-bold text-gray-900 mb-4">
-              {isRtl ? 'קורסים פתוחים לציבור' : 'Public Courses'}
-            </h2>
-            <p className="text-gray-500 text-lg">
-              {isRtl ? 'קורסים מקצועיים לאנשים פרטיים ועסקים קטנים' : 'Professional courses for individuals and small businesses'}
-            </p>
-          </motion.div>
+      {/* Public courses */}
+      <section aria-labelledby="public-title" className="py-16 md:py-24" style={{ background: 'var(--h-paper)' }}>
+        <div className="mx-auto max-w-7xl px-5 sm:px-8">
+          <h2 id="public-title" className="text-3xl md:text-5xl font-bold max-w-3xl" style={{ color: 'var(--h-ink)' }}>
+            {isRtl ? 'קורסים פתוחים לציבור' : 'Public Courses'}
+          </h2>
+          <p className="mt-4 text-base md:text-lg leading-relaxed max-w-[65ch]" style={{ color: 'var(--h-ink-2)' }}>
+            {isRtl ? 'קורסים מקצועיים לאנשים פרטיים ועסקים קטנים' : 'Professional courses for individuals and small businesses'}
+          </p>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="mt-10 md:mt-14 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-7">
             {publicCourses.map((course, i) => {
               const Icon = course.icon;
+              const isCyber = !!course.externalLink;
               return (
-                <div
+                <article
                   key={i}
-                  className="bg-white border border-gray-200 rounded-2xl shadow-sm p-6 hover:border-gray-200 transition-all group"
+                  className={`academy-card academy-course flex flex-col p-6 md:p-7 text-start ${isCyber ? 'is-cyber' : ''}`}
                 >
-                  <div className={`inline-flex p-3 rounded-xl bg-gradient-to-br ${course.color} mb-4`}>
-                    <Icon className="w-6 h-6 text-white" />
+                  <div className="academy-icon-tile" aria-hidden="true">
+                    <Icon className="w-6 h-6" />
                   </div>
-                  <h3 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-gray-900 transition-colors">
+                  <h3 className="mt-5 text-xl md:text-2xl font-bold leading-snug" style={{ color: 'var(--h-ink)' }}>
                     {isRtl ? course.title : course.titleEn}
                   </h3>
-                  <p className="text-gray-500 mb-4 text-sm leading-relaxed">
+                  <p className="mt-3 text-base leading-relaxed max-w-[65ch]" style={{ color: 'var(--h-ink-2)' }}>
                     {isRtl ? course.desc : course.descEn}
                   </p>
-                  <div className="flex items-center justify-between mb-3">
-                    <div className="flex items-center gap-2 text-gray-500 text-sm">
-                      <Clock className="w-4 h-4" />
-                      <span>{isRtl ? course.duration : course.durationEn}</span>
-                    </div>
-                    <span className={`text-xs font-semibold px-3 py-1 rounded-full ${getLevelColor(isRtl ? course.level : course.levelEn)}`}>
+                  <div className="mt-5 flex items-center justify-between gap-3 flex-wrap">
+                    <span className="flex items-center gap-2 text-sm" style={{ color: 'var(--h-ink-2)' }}>
+                      <Clock className="w-4 h-4 shrink-0" aria-hidden="true" />
+                      {isRtl ? course.duration : course.durationEn}
+                    </span>
+                    <span className="academy-pill">
                       {isRtl ? course.level : course.levelEn}
                     </span>
                   </div>
                   {course.ministrySupervised && (
-                    <div className="flex items-center gap-2 mb-4 px-3 py-2 rounded-lg bg-[#1A1A22] border border-[#C8C8D0]/20">
-                      <Award className="w-4 h-4 text-[#C8C8D0] flex-shrink-0" />
-                      <span className="text-xs text-[#C8C8D0] font-medium">
-                        {isRtl ? 'בפיקוח משרד העבודה' : 'Supervised by Ministry of Labor'}
-                      </span>
-                    </div>
+                    <p className="academy-note mt-4">
+                      <Award className="w-4 h-4 shrink-0" aria-hidden="true" />
+                      <span>{isRtl ? 'בפיקוח משרד העבודה' : 'Supervised by Ministry of Labor'}</span>
+                    </p>
                   )}
-                  <div className="w-full">
+                  <div className="mt-auto pt-6">
                     {course.externalLink ? (
-                      <a href={course.externalLink} target="_blank" rel="noopener noreferrer" className="block w-full">
-                        <GradientButton size="sm" className="w-full justify-center">
-                          {isRtl ? 'הירשם לקורס' : 'Enroll Now'}
-                        </GradientButton>
+                      <a
+                        href={course.externalLink}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="h-btn academy-btn-cyber w-full"
+                      >
+                        {isRtl ? 'הירשם לקורס' : 'Enroll Now'}
+                        <ExternalLink size={16} aria-hidden="true" />
                       </a>
                     ) : (
-                      <GradientButton href="/courses" size="sm" className="w-full justify-center">
+                      <Link href="/courses" className="h-btn academy-btn-dark w-full">
                         {isRtl ? 'הירשם לקורס' : 'Enroll Now'}
-                      </GradientButton>
+                      </Link>
                     )}
                   </div>
-                </div>
+                </article>
               );
             })}
           </div>
         </div>
       </section>
 
-      {/* Corporate Training CTA */}
-      <section className="py-16 md:py-24">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="bg-white border border-gray-200 rounded-3xl shadow-sm p-8 md:p-12 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <motion.div
-              initial={{ opacity: 0, x: isRtl ? 40 : -40 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true, margin: "-100px", amount: 0 }}
-              transition={{ duration: 0.8 }}
-            >
-              <img src={AI_TRAINING_IMAGE} alt="Corporate Training" className="rounded-2xl w-full glow-cyan" />
-            </motion.div>
-            <motion.div
-              initial={{ opacity: 0, x: isRtl ? -40 : 40 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true, margin: "-100px", amount: 0 }}
-              transition={{ duration: 0.8 }}
-              className={isRtl ? 'text-right' : 'text-left'}
-            >
-              <div className="inline-flex p-3 rounded-xl bg-gradient-to-br from-gray-900 to-gray-900 mb-6">
-                <Building className="w-6 h-6 text-white" />
-              </div>
-              <h2 className="text-2xl md:text-4xl font-bold text-gray-900 mb-4">
-                {isRtl ? 'הכשרה ארגונית מותאמת אישית' : 'Customized Corporate Training'}
-              </h2>
-              <p className="text-gray-600 text-lg leading-relaxed mb-8">
-                {isRtl
-                  ? 'אנו בונים תוכניות הכשרה מותאמות לצרכים הספציפיים של הארגון שלכם. נגיע אליכם, נלמד את התהליכים שלכם ונבנה הכשרה שמביאה תוצאות מדידות.'
-                  : 'We build training programs tailored to your organization\'s specific needs. We\'ll come to you, learn your processes, and build training that delivers measurable results.'}
-              </p>
-              <GradientButton href="/contact" size="md">
+      {/* Corporate training CTA */}
+      <section aria-labelledby="corporate-title" style={{ background: 'var(--h-dark)' }}>
+        <div className="mx-auto max-w-7xl px-5 sm:px-8 py-16 md:py-24 grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
+          <div className="lg:col-span-6">
+            <img
+              src={AI_TRAINING_IMAGE}
+              alt="Corporate Training"
+              loading="lazy"
+              className="w-full aspect-[16/10] object-cover rounded-[20px]"
+            />
+          </div>
+          <div className="lg:col-span-6 text-start">
+            <h2 id="corporate-title" className="text-white font-extrabold leading-[1.08] max-w-[20ch]" style={{ fontSize: 'clamp(2rem, 4.5vw, 3.25rem)' }}>
+              {isRtl ? 'הכשרה ארגונית מותאמת אישית' : 'Customized Corporate Training'}
+            </h2>
+            <p className="mt-5 text-lg leading-relaxed max-w-[60ch]" style={{ color: 'var(--h-on-dark)' }}>
+              {isRtl
+                ? 'אנו בונים תוכניות הכשרה מותאמות לצרכים הספציפיים של הארגון שלכם. נגיע אליכם, נלמד את התהליכים שלכם ונבנה הכשרה שמביאה תוצאות מדידות.'
+                : 'We build training programs tailored to your organization\'s specific needs. We\'ll come to you, learn your processes, and build training that delivers measurable results.'}
+            </p>
+            <div className="mt-8 flex flex-col sm:flex-row gap-3">
+              <Link href="/contact" className="h-btn h-btn-accent">
                 {isRtl ? 'צרו קשר לפרטים' : 'Contact Us for Details'}
-              </GradientButton>
-            </motion.div>
+                <Arrow size={18} aria-hidden="true" />
+              </Link>
+            </div>
           </div>
         </div>
       </section>
@@ -744,72 +591,78 @@ export default function Academy() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50 flex items-center justify-center p-4"
-            onClick={() => { setSelectedProgram(null); setExpandedModule(null); }}
+            transition={{ duration: 0.2 }}
+            className="fixed inset-0 z-50 flex items-end sm:items-center justify-center sm:p-4"
+            onClick={closeModal}
           >
-            <div className="absolute inset-0 bg-black/70 backdrop-blur-sm" />
+            <div className="absolute inset-0" style={{ background: 'rgba(42, 18, 56,0.62)' }} />
             <motion.div
-              initial={{ opacity: 0, scale: 0.9, y: 20 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.9, y: 20 }}
-              transition={{ duration: 0.3 }}
-              className="relative bg-white border border-gray-200 rounded-3xl max-w-2xl w-full max-h-[85vh] overflow-y-auto shadow-2xl"
+              role="dialog"
+              aria-modal="true"
+              aria-labelledby="syllabus-title"
+              initial={{ opacity: 0, y: 24 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: 24 }}
+              transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1] }}
+              className="academy-modal relative w-full sm:max-w-2xl max-h-[88svh] overflow-y-auto text-start"
               onClick={(e) => e.stopPropagation()}
             >
               {/* Modal Header */}
-              <div className={`sticky top-0 bg-white/95 backdrop-blur-md border-b border-gray-200 p-6 flex items-start justify-between gap-4 z-10`}>
-                <div>
-                  <h2 className="text-2xl font-bold text-gray-900 leading-tight">
+              <div className="academy-modal-head sticky top-0 z-10 p-5 md:p-6 flex items-start justify-between gap-4">
+                <div className="min-w-0">
+                  <h2 id="syllabus-title" className="text-2xl md:text-3xl font-bold leading-tight" style={{ color: 'var(--h-ink)' }}>
                     {isRtl ? selectedProgram.title : selectedProgram.titleEn}
                   </h2>
-                  <div className="flex items-center gap-3 mt-2 flex-wrap">
-                    <span className="flex items-center gap-1.5 text-sm text-gray-500">
-                      <Users className="w-4 h-4 text-gray-900" />
+                  <div className="flex items-center gap-x-4 gap-y-2 mt-3 flex-wrap text-sm" style={{ color: 'var(--h-ink-2)' }}>
+                    <span className="flex items-center gap-1.5">
+                      <Users className="w-4 h-4 shrink-0" aria-hidden="true" />
                       {isRtl ? selectedProgram.audience : selectedProgram.audienceEn}
                     </span>
-                    <span className="flex items-center gap-1.5 text-sm text-gray-500">
-                      <Clock className="w-4 h-4 text-gray-900" />
+                    <span className="flex items-center gap-1.5">
+                      <Clock className="w-4 h-4 shrink-0" aria-hidden="true" />
                       {selectedProgram.hours} {isRtl ? 'שעות הכשרה' : 'training hours'}
                     </span>
-                    <span className={`text-xs font-semibold px-3 py-1 rounded-full ${getLevelColor(isRtl ? selectedProgram.level : selectedProgram.levelEn)}`}>
+                    <span className="academy-pill">
                       {isRtl ? selectedProgram.level : selectedProgram.levelEn}
                     </span>
                   </div>
                 </div>
                 <button
-                  onClick={() => { setSelectedProgram(null); setExpandedModule(null); }}
-                  className="p-2 rounded-xl bg-white border border-gray-200 hover:bg-gray-100 transition-colors flex-shrink-0"
+                  type="button"
+                  onClick={closeModal}
+                  aria-label={isRtl ? 'סגירה' : 'Close'}
+                  className="academy-icon-btn shrink-0"
                 >
-                  <X className="w-5 h-5 text-gray-500" />
+                  <X className="w-5 h-5" aria-hidden="true" />
                 </button>
               </div>
 
-              <div className="p-6 space-y-6">
+              <div className="p-5 md:p-6 space-y-8">
                 {/* Modules */}
                 <div>
-                  <h3 className="text-lg font-bold text-gray-900 mb-4">
+                  <h3 className="text-lg font-bold mb-4" style={{ color: 'var(--h-ink)' }}>
                     {isRtl ? '📋 מודולי ההכשרה' : '📋 Training Modules'}
                   </h3>
-                  <div className="space-y-3">
+                  <ol className="academy-modules">
                     {(isRtl ? selectedProgram.modules : selectedProgram.modulesEn).map((module, i) => (
-                      <div key={i} className="bg-white border border-gray-200 rounded-xl overflow-hidden">
+                      <li key={i}>
                         <button
-                          className="w-full flex items-center justify-between p-4 text-right hover:bg-white/5 transition-colors"
+                          type="button"
+                          className="academy-module-btn w-full flex items-center justify-between gap-3 text-start"
+                          aria-expanded={expandedModule === i}
                           onClick={() => setExpandedModule(expandedModule === i ? null : i)}
                         >
-                          <div className="flex items-center gap-3">
-                            <div className="w-7 h-7 rounded-full bg-gradient-to-br from-gray-900 to-gray-900 flex items-center justify-center text-xs font-bold text-white flex-shrink-0">
-                              {i + 1}
-                            </div>
-                            <div className={isRtl ? 'text-right' : 'text-left'}>
-                              <p className="font-semibold text-gray-900 text-sm">{module.title}</p>
-                              <p className="text-xs text-gray-500">{module.duration}</p>
-                            </div>
-                          </div>
+                          <span className="flex items-center gap-3 min-w-0">
+                            <span className="academy-module-num" aria-hidden="true">{i + 1}</span>
+                            <span className="min-w-0">
+                              <span className="block font-semibold text-base" style={{ color: 'var(--h-ink)' }}>{module.title}</span>
+                              <span className="block text-sm" style={{ color: 'var(--h-ink-2)' }}>{module.duration}</span>
+                            </span>
+                          </span>
                           {expandedModule === i ? (
-                            <ChevronUp className="w-4 h-4 text-gray-900 flex-shrink-0" />
+                            <ChevronUp className="w-5 h-5 shrink-0" style={{ color: 'var(--h-ink)' }} aria-hidden="true" />
                           ) : (
-                            <ChevronDown className="w-4 h-4 text-gray-500 flex-shrink-0" />
+                            <ChevronDown className="w-5 h-5 shrink-0" style={{ color: 'var(--h-ink-2)' }} aria-hidden="true" />
                           )}
                         </button>
                         <AnimatePresence>
@@ -821,60 +674,54 @@ export default function Academy() {
                               transition={{ duration: 0.2 }}
                               className="overflow-hidden"
                             >
-                              <div className="px-4 pb-4 border-t border-gray-100">
-                                <ul className="mt-3 space-y-2">
-                                  {module.topics.map((topic, j) => (
-                                    <li key={j} className="flex items-center gap-2 text-sm text-gray-600">
-                                      <div className="w-1.5 h-1.5 rounded-full bg-gray-500 flex-shrink-0" />
-                                      {topic}
-                                    </li>
-                                  ))}
-                                </ul>
-                              </div>
+                              <ul className="academy-topics">
+                                {module.topics.map((topic, j) => (
+                                  <li key={j} className="flex items-center gap-2.5 text-base" style={{ color: 'var(--h-ink-2)' }}>
+                                    <span className="inline-block w-1.5 h-1.5 rounded-full shrink-0" style={{ background: 'var(--h-accent)' }} aria-hidden="true" />
+                                    {topic}
+                                  </li>
+                                ))}
+                              </ul>
                             </motion.div>
                           )}
                         </AnimatePresence>
-                      </div>
+                      </li>
                     ))}
-                  </div>
+                  </ol>
                 </div>
 
                 {/* Tools */}
                 <div>
-                  <h3 className="text-lg font-bold text-gray-900 mb-3">
+                  <h3 className="text-lg font-bold mb-3" style={{ color: 'var(--h-ink)' }}>
                     {isRtl ? '🛠️ כלים שנלמד' : '🛠️ Tools We Cover'}
                   </h3>
-                  <div className="flex flex-wrap gap-2">
+                  <ul className="flex flex-wrap gap-2">
                     {selectedProgram.tools.map((tool, i) => (
-                      <span key={i} className="px-3 py-1.5 bg-gray-100 border border-gray-200 rounded-full text-sm text-gray-900 border border-gray-200">
-                        {tool}
-                      </span>
+                      <li key={i} className="academy-pill" dir="ltr">{tool}</li>
                     ))}
-                  </div>
+                  </ul>
                 </div>
 
                 {/* Outcomes */}
                 <div>
-                  <h3 className="text-lg font-bold text-[#C8C8D0] mb-3">
+                  <h3 className="text-lg font-bold mb-3" style={{ color: 'var(--h-ink)' }}>
                     {isRtl ? '✅ מה תקבלו בסיום?' : '✅ What You\'ll Gain'}
                   </h3>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                  <ul className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
                     {(isRtl ? selectedProgram.outcomes : selectedProgram.outcomesEn).map((outcome, i) => (
-                      <div key={i} className="flex items-center gap-2 text-sm text-gray-600">
-                        <CheckCircle className="w-4 h-4 text-[#C8C8D0] flex-shrink-0" />
+                      <li key={i} className="flex items-center gap-2 text-base" style={{ color: 'var(--h-ink-2)' }}>
+                        <CheckCircle className="w-5 h-5 shrink-0" style={{ color: 'var(--h-accent-ink)' }} aria-hidden="true" />
                         {outcome}
-                      </div>
+                      </li>
                     ))}
-                  </div>
+                  </ul>
                 </div>
 
                 {/* CTA */}
-                <div className="pt-2">
-                  <div className="w-full">
-                    <GradientButton href="/contact" size="md" className="w-full justify-center" onClick={() => setSelectedProgram(null)}>
-                      {isRtl ? 'מעוניינים בהכשרה? צרו קשר' : 'Interested? Contact Us'}
-                    </GradientButton>
-                  </div>
+                <div className="pt-1">
+                  <Link href="/contact" className="h-btn h-btn-accent w-full" onClick={() => setSelectedProgram(null)}>
+                    {isRtl ? 'מעוניינים בהכשרה? צרו קשר' : 'Interested? Contact Us'}
+                  </Link>
                 </div>
               </div>
             </motion.div>
