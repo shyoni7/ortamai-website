@@ -229,7 +229,7 @@ export function buildSlides(lang: Lang, assets: Assets): Slide[] {
     duration: 9400,
     stages: [
       { at: 0, mode: 'soc', targets: shuffle(soc, 17) },
-      { at: 5600, mode: 'shape', targets: title(he ? 'קורסי סייבר AI' : 'Cyber AI Courses', lang) },
+      { at: 5600, mode: 'shape', targets: title(he ? 'הכשרות עובדים' : 'Employee Training', lang) },
     ],
   };
 
@@ -305,11 +305,13 @@ export function buildSlides(lang: Lang, assets: Assets): Slide[] {
     stages: [
       { at: 0, mode: 'shape', targets: shuffle(shop(SW / 2 - 240, 1, false), 13) },
       { at: 2100, mode: 'shape', targets: shuffle(shop(120, 0.92, true), 13) },
-      { at: 5600, mode: 'shape', targets: title(he ? 'ייעוץ אסטרטגיית AI' : 'AI Strategy Consulting', lang) },
+      { at: 5600, mode: 'shape', targets: title(he ? 'ייעוץ AI לעסקים' : 'AI for Business', lang) },
     ],
   };
 
-  return [logo, ai, cyber, placement, strategy];
+  // Placement lives further down the page; the screen covers the three entry services.
+  void placement;
+  return [logo, ai, cyber, strategy];
 }
 
 // SOC line chart: points along a moving signal inside the chart panel.

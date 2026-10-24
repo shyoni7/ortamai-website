@@ -1,5 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
-import { Link } from 'wouter';
+import { useEffect, useRef, useState, type MutableRefObject } from 'react';
 import { buildSlides, socAlert, socLine, SW, SH, type Lang, type Slide, type Target } from './hero/particleSlides';
 
 // Home hero background: a classroom in daylight with a ceiling projector.
@@ -17,13 +16,16 @@ const LENS: [number, number] = [344, 100];
 const CROP = { w: 735, h: 585 };
 const ZOOM = 1.04;
 
-export interface SlideCaption { id: string; caption: string; href: string }
+export interface HeroSceneApi { show: (id: string) => void }
+export interface ActiveSlide { id: string; duration: number; startedAt: number }
 
 interface Props {
   lang: Lang;
   src: string;
   srcSmall: string;
-  captions: SlideCaption[];
+  /** Called whenever a new slide starts, from the loop or from show(). */
+  onSlide?: (slide: ActiveSlide) => void;
+  apiRef?: MutableRefObject<HeroSceneApi | null>;
   logoSrc: string;
   handshakeSrc: string;
 }
@@ -69,7 +71,7 @@ function apply3(m: number[], x: number, y: number): Pt {
 
 const hex = (c: string) => [1, 3, 5].map(i => parseInt(c.slice(i, i + 2), 16));
 
-export default function HeroScene({ lang, src, srcSmall, captions, logoSrc, handshakeSrc }: Props) {
+export default function HeroScene({ lang, src, srcSmall, onSlide, apiRef, logoSrc, handshakeSrc }: Props) {
   const rootRef = useRef<HTMLDivElement>(null);
   const sceneRef = useRef<HTMLDivElement>(null);
   const imgRef = useRef<HTMLImageElement>(null);
@@ -79,6 +81,8 @@ export default function HeroScene({ lang, src, srcSmall, captions, logoSrc, hand
   const [active, setActive] = useState(0);
   const [meta, setMeta] = useState<{ id: string; ink: string; accent: string; duration: number }[]>([]);
   const mirrored = lang === 'en';
+  const onSlideRef = useRef(onSlide);
+  onSlideRef.current = onSlide;
 
   useEffect(() => {
     const root = rootRef.current, scene = sceneRef.current, img = imgRef.current;
@@ -180,6 +184,7 @@ export default function HeroScene({ lang, src, srcSmall, captions, logoSrc, hand
       stageIdx = -1;
       resolved = false;
       setActive(idx);
+      onSlideRef.current?.({ id: slides[idx].id, duration: slides[idx].duration, startedAt: Date.now() });
     };
 
     const slidePointer = () => (pointer.inside ? apply3(toSlide, pointer.x - off.x, pointer.y - off.y) : null);
@@ -362,6 +367,23 @@ export default function HeroScene({ lang, src, srcSmall, captions, logoSrc, hand
       slides = buildSlides(lang, { logo, handshake });
       setMeta(slides.map(s => ({ id: s.id, ink: s.ink, accent: s.accent, duration: s.duration })));
       layout();
+      if (apiRef) apiRef.current = {
+        show: (id: string) => {
+          const n = slides.findIndex(x => x.id === id);
+          if (n < 0) return;
+          const now = performance.now();
+          // Reduced motion: jump straight to the slide's finished drawing.
+          if (reduced) {
+            goTo(n, now - (slides[n].stages[slides[n].stages.length - 2]?.at ?? 0) - 2600);
+            step(now);
+            for (let i = 0; i < N; i++) { px[i] = tx[i]; py[i] = ty[i]; }
+            drawSlide(now); drawBeam(now);
+          } else {
+            goTo(n, now);
+            resume();
+          }
+        },
+      };
       const now = performance.now();
       if (reduced) {
         // A still frame: the courses slide, already formed.
@@ -397,7 +419,6 @@ export default function HeroScene({ lang, src, srcSmall, captions, logoSrc, hand
   }, [lang, logoSrc, handshakeSrc, mirrored]);
 
   const cur = meta[active];
-  const cap = captions.find(c => c.id === cur?.id);
 
   return (
     <div ref={rootRef} className="absolute inset-0 -z-10 overflow-hidden">
@@ -422,24 +443,6 @@ export default function HeroScene({ lang, src, srcSmall, captions, logoSrc, hand
           <canvas ref={canvasRef} aria-hidden="true" className="absolute inset-0" style={{ width: SW, height: SH }} />
           {cur && cur.id !== 'logo' && (
             <img src={logoSrc} alt="" aria-hidden="true" className="absolute" style={{ top: 48, insetInlineEnd: 60, height: 60 }} />
-          )}
-          {cap && cur && (
-            <Link
-              href={cap.href}
-              className="absolute flex items-center gap-6 font-bold hero-slide-cta"
-              style={{ bottom: 44, insetInlineStart: 60, insetInlineEnd: 60, color: cur.ink, fontSize: 44, fontFamily: 'Rubik, Heebo, sans-serif' }}
-              aria-label={cap.caption}
-            >
-              <span key={cap.id} className="hero-slide-caption">{cap.caption}</span>
-              <span aria-hidden="true" className="ms-auto flex gap-3">
-                {meta.slice(1).map((s, i) => (
-                  <span key={s.id} className="block rounded-full overflow-hidden" style={{ width: 64, height: 10, background: 'rgba(38,34,30,0.14)' }}>
-                    {i + 1 === active && <span key={`p${active}`} className="block h-full hero-slide-progress" style={{ background: s.accent, animationDuration: `${s.duration}ms` }} />}
-                    {i + 1 < active && <span className="block h-full w-full" style={{ background: 'rgba(38,34,30,0.45)' }} />}
-                  </span>
-                ))}
-              </span>
-            </Link>
           )}
         </div>
       </div>

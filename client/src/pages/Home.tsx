@@ -1,7 +1,8 @@
-import type { ReactNode } from 'react';
 import { Link } from 'wouter';
 import { ArrowLeft, ArrowRight, MessageCircle, CalendarCheck } from 'lucide-react';
-import HeroScene from '@/components/HeroScene';
+import { useRef, useState, type ReactNode } from 'react';
+import HeroScene, { type ActiveSlide, type HeroSceneApi } from '@/components/HeroScene';
+import ServiceTabs, { type Service } from '@/components/hero/ServiceTabs';
 import { useLanguage } from '@/contexts/LanguageContext';
 import SEO from '@/components/SEO';
 import { organizationSchema, websiteSchema } from '@/lib/seoSchemas';
@@ -26,6 +27,8 @@ export default function Home() {
   const { lang, dir } = useLanguage();
   const he = lang === 'he';
   const Arrow = he ? ArrowLeft : ArrowRight;
+  const heroApi = useRef<HeroSceneApi | null>(null);
+  const [heroSlide, setHeroSlide] = useState<ActiveSlide | null>(null);
 
   const whatsappHref = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(
     he ? 'שלום, אשמח לקבל מידע על הקורסים של ORTAM AI' : "Hi, I'd like more information about ORTAM AI courses",
@@ -65,12 +68,22 @@ export default function Home() {
     },
   ];
 
-  const heroCaptions = [
-    { id: 'logo', caption: he ? 'הכשרות AI לארגונים ולאנשים פרטיים' : 'AI training for organizations and individuals', href: '/academy' },
-    { id: 'ai', caption: he ? 'מבקשה בצ׳אט ועד תוכנית מוצר' : 'From a chat request to a product plan', href: '/courses' },
-    { id: 'cyber', caption: he ? 'ניטור וזיהוי איומים בסביבת SOC' : 'Monitoring and threat detection in a SOC', href: '/academy' },
-    { id: 'placement', caption: he ? 'מהכיתה לתפקיד' : 'From the classroom to the job', href: '/placement' },
-    { id: 'strategy', caption: he ? 'תוכנית AI מעשית לעסק שלכם' : 'A practical AI plan for your business', href: '/consulting' },
+  const services: Service[] = [
+    {
+      id: 'ai', short: he ? 'קורסי AI' : 'AI courses', audience: he ? 'לאנשים פרטיים' : 'for individuals',
+      line: he ? 'קורסים פתוחים לכל אחד, מאפס ועד בניית מוצרים, גם בלי רקע טכני.' : 'Open courses for anyone, from zero to building products, no tech background needed.',
+      cta: ctaPrivate, href: whatsappHref, external: true, more: he ? 'לכל הקורסים' : 'All courses', moreHref: '/courses',
+    },
+    {
+      id: 'cyber', short: he ? 'הכשרות עובדים' : 'Staff training', audience: he ? 'לארגונים' : 'for organizations',
+      line: he ? 'תוכניות AI וסייבר AI שנבנות סביב העבודה של הצוות שלכם.' : 'AI and Cyber AI programs built around your team’s work.',
+      cta: ctaOrg, href: '/contact', more: he ? 'לתוכניות לארגונים' : 'Programs for organizations', moreHref: '/academy',
+    },
+    {
+      id: 'strategy', short: he ? 'ייעוץ AI' : 'AI consulting', audience: he ? 'לעסקים' : 'for businesses',
+      line: he ? 'אבחון, תוכנית וליווי בהטמעת AI בעסק, עד שזה עובד.' : 'Diagnosis, a plan and hands-on support until AI works in your business.',
+      cta: he ? 'תאמו פגישת ייעוץ' : 'Book a consultation', href: '/contact', more: he ? 'על הייעוץ' : 'About consulting', moreHref: '/consulting',
+    },
   ];
 
   const facts = [
@@ -107,7 +120,8 @@ export default function Home() {
             srcSmall={`${IMG}/ai-hero-projector-sm.webp`}
             logoSrc="/images/brand/ortam-logo.png"
             handshakeSrc={`${IMG}/handshake-mask.png`}
-            captions={heroCaptions}
+            apiRef={heroApi}
+            onSlide={setHeroSlide}
           />
           {/* Desktop: warm shade behind the headline so it reads over the window light */}
           <div
@@ -120,31 +134,26 @@ export default function Home() {
           {/* Below lg: shade the photo under the screen where the text sits */}
           <div aria-hidden="true" className="absolute inset-0 -z-10 lg:hidden pointer-events-none hero-v3-shade" />
           <div className="hero-v3-content mx-auto max-w-7xl px-5 sm:px-8 pb-16 lg:pt-28 lg:pb-32 lg:min-h-[80svh] flex flex-col lg:justify-center pointer-events-none">
-            <div className="lg:max-w-[34rem] text-start pointer-events-auto">
-              <h1
-                className="h-rise text-white font-extrabold leading-[1.02]"
-                style={{ fontSize: 'clamp(2.75rem, 6vw, 5.25rem)' }}
-              >
-                {he ? (
-                  <>לומדים AI.<br /><span style={{ color: 'var(--h-accent)' }}>עובדים</span> עם AI.</>
-                ) : (
-                  <>Learn AI.<br /><span style={{ color: 'var(--h-accent)' }}>Work</span> with AI.</>
-                )}
-              </h1>
-              <p className="h-rise h-rise-2 mt-6 md:mt-8 text-lg md:text-xl leading-relaxed max-w-2xl" style={{ color: 'rgba(255,255,255,0.86)' }}>
-                {he
-                  ? 'הכשרות AI והכשרות סייבר AI בכיתה, לארגונים ולאנשים פרטיים.'
-                  : 'Classroom AI and Cyber AI training, for organizations and individuals.'}
-              </p>
-              <div className="h-rise h-rise-3 mt-9 md:mt-12 flex flex-col sm:flex-row gap-3 sm:gap-4">
-                <a href={whatsappHref} target="_blank" rel="noopener noreferrer" className="h-btn h-btn-accent">
-                  <MessageCircle size={19} aria-hidden="true" />
-                  <span>{ctaPrivate}</span>
-                </a>
-                <Link href="/contact" className="h-btn h-btn-light">
-                  <CalendarCheck size={19} aria-hidden="true" />
-                  <span>{ctaOrg}</span>
-                </Link>
+            <div className="lg:max-w-[34rem] text-start pointer-events-auto flex flex-col">
+              <div className="order-2 lg:order-1 mt-10 lg:mt-0">
+                <h1
+                  className="h-rise text-white font-extrabold leading-[1.02]"
+                  style={{ fontSize: 'clamp(2.5rem, 6vw, 5.25rem)' }}
+                >
+                  {he ? (
+                    <>לומדים AI.<br /><span style={{ color: 'var(--h-accent)' }}>עובדים</span> עם AI.</>
+                  ) : (
+                    <>Learn AI.<br /><span style={{ color: 'var(--h-accent)' }}>Work</span> with AI.</>
+                  )}
+                </h1>
+                <p className="h-rise h-rise-2 mt-5 md:mt-7 text-lg md:text-xl leading-relaxed max-w-2xl" style={{ color: 'rgba(255,255,255,0.86)' }}>
+                  {he
+                    ? 'הכשרות AI והכשרות סייבר AI בכיתה, לארגונים ולאנשים פרטיים.'
+                    : 'Classroom AI and Cyber AI training, for organizations and individuals.'}
+                </p>
+              </div>
+              <div className="order-1 lg:order-2 lg:mt-10 h-rise h-rise-3">
+                <ServiceTabs he={he} services={services} active={heroSlide} onPick={id => heroApi.current?.show(id)} />
               </div>
             </div>
           </div>

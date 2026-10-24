@@ -561,7 +561,7 @@ html.a11y-mark-links a {
   .site-v2 .hero-slide-progress { animation: none; width: 100%; }
 }
 /* Below lg the screen sits at the top of the hero and the text follows it */
-.site-v2 .hero-v3-content { padding-top: calc(var(--hero-screen-bottom, 320px) + 32px); }
+.site-v2 .hero-v3-content { padding-top: calc(var(--hero-screen-bottom, 320px) + 18px); }
 @media (min-width: 1024px) { .site-v2 .hero-v3-content { padding-top: 7rem; } }
 .site-v2 .hero-v3-shade {
   background: linear-gradient(to bottom, rgba(42, 18, 56,0) calc(var(--hero-screen-bottom, 320px) - 10px), rgba(42, 18, 56,0.82) calc(var(--hero-screen-bottom, 320px) + 70px), rgba(42, 18, 56,0.92) 100%);
@@ -628,3 +628,38 @@ html.a11y-mark-links a {
 .site-v2 .legal-card { background: var(--h-paper); border: 1px solid var(--h-line); border-radius: 20px; padding: clamp(1.25rem, 4vw, 2.5rem); color: var(--h-ink-2); line-height: 1.75; }
 .site-v2 .legal-card h2, .site-v2 .legal-card h3 { color: var(--h-ink); }
 .site-v2 .legal-card a { color: var(--h-link); text-decoration: underline; text-underline-offset: 3px; }
+
+/* ── Hero service tabs (under the projected screen) ── */
+.hero-tabs-row { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.5rem; }
+.hero-tab {
+  position: relative; display: flex; flex-direction: column; align-items: flex-start; gap: 0.15rem;
+  min-height: 5.5rem; padding: 0.8rem 0.75rem 1rem; border-radius: 16px; text-align: start; overflow: hidden;
+  background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(255, 255, 255, 0.16); color: #fff;
+  -webkit-tap-highlight-color: transparent;
+  transition: background-color 180ms ease, border-color 180ms ease, transform 160ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+.hero-tab:active { transform: scale(0.97); }
+.hero-tab[aria-pressed='true'] { background: #fff; border-color: #fff; color: var(--h-ink); }
+.hero-tab-icon { color: var(--h-accent); margin-bottom: 0.2rem; }
+.hero-tab[aria-pressed='true'] .hero-tab-icon { color: var(--h-accent-ink); }
+.hero-tab-label { font-family: 'Rubik', 'Heebo', sans-serif; font-weight: 800; font-size: 0.98rem; line-height: 1.15; }
+.hero-tab-aud { font-size: 0.8rem; line-height: 1.2; opacity: 0.78; }
+.hero-tab-track { position: absolute; inset-inline: 0; bottom: 0; height: 4px; background: transparent; }
+.hero-tab-fill { display: block; height: 100%; width: 0; background: var(--h-accent); animation: h-progress linear forwards; }
+@media (hover: hover) { .hero-tab:not([aria-pressed='true']):hover { background: rgba(255, 255, 255, 0.14); } }
+.site-v2 .hero-tab:focus-visible { outline: 3px solid var(--h-accent); outline-offset: 2px; }
+.hero-tabs-panel { margin-top: 1rem; }
+.hero-tabs-line { color: rgba(255, 255, 255, 0.86); font-size: 1rem; line-height: 1.55; min-height: 3.1em; animation: h-cap-in 420ms cubic-bezier(0.16, 1, 0.3, 1) both; }
+.hero-tabs-actions { margin-top: 0.9rem; display: flex; flex-wrap: wrap; align-items: center; gap: 0.75rem 1.25rem; }
+.hero-tabs-actions .h-btn { flex: 1 1 100%; }
+.hero-tabs-more { display: inline-flex; align-items: center; gap: 0.4rem; min-height: 2.75rem; font-weight: 700; color: #fff; }
+@media (min-width: 640px) {
+  .hero-tab { padding: 1rem 1rem 1.15rem; }
+  .hero-tab-label { font-size: 1.1rem; }
+  .hero-tab-aud { font-size: 0.875rem; }
+  .hero-tabs-actions .h-btn { flex: 0 0 auto; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-tab-fill { animation: none; width: 100%; }
+  .hero-tabs-line { animation: none; }
+}
