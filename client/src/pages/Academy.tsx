@@ -391,8 +391,8 @@ export default function Academy() {
     <SEO
       title={isRtl ? 'קורסי AI לארגונים ועסקים | מרכז הכשרות ORTAM AI' : 'AI Courses for Organizations & Businesses | ORTAM AI Academy'}
       description={isRtl
-        ? 'הכשרות AI מעשיות לארגונים, מנהלים, צוותי שיווק, פיננסים ומשאבי אנוש. קורס AI למורים, בינה מלאכותית בחינוך, הכשרת AI לעולם העבודה החדש. פתוח משרד החינוך.'
-        : 'Practical AI training for organizations, managers, marketing, finance, and HR teams. AI courses for teachers, AI in education, and workforce upskilling. Ministry of Education certified.'}
+        ? 'הכשרות AI מעשיות לארגונים, מנהלים, צוותי שיווק, פיננסים ומשאבי אנוש. קורס AI למורים, בינה מלאכותית בחינוך, הכשרת AI לעולם העבודה החדש.'
+        : 'Practical AI training for organizations, managers, marketing, finance, and HR teams. AI courses for teachers, AI in education, and workforce upskilling.'}
       canonical="/academy"
       schema={academyServiceSchema}
     />

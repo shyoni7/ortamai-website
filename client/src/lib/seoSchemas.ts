@@ -98,7 +98,7 @@ export const academyServiceSchema = {
         itemOffered: {
           '@type': 'Course',
           name: 'AI למורים ובתי ספר',
-          description: 'קורס AI לצוותי הוראה — מאושר משרד החינוך.',
+          description: 'קורס AI לצוותי הוראה.',
           provider: { '@type': 'Organization', name: 'ORTAM AI' },
           educationalLevel: 'Beginner',
           inLanguage: 'he',
