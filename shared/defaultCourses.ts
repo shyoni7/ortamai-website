@@ -255,7 +255,7 @@ export const DEFAULT_COURSES: CatalogCourse[] = [
     highlightsEn:
       "The full course at a subsidized price\nTools for efficiency, marketing and automation\nSimple eligibility check by phone",
     price: 750,
-    originalPrice: 3900,
+    originalPrice: null,
     priceUnit: "course",
     badge: "מסובסד",
     badgeEn: "Subsidized",
@@ -280,7 +280,7 @@ export const DEFAULT_COURSES: CatalogCourse[] = [
     highlightsEn:
       "The entire course at a symbolic price\nTools for work and income\nClose guidance all the way",
     price: 550,
-    originalPrice: 6900,
+    originalPrice: null,
     priceUnit: "course",
     badge: "מסובסד",
     badgeEn: "Subsidized",
@@ -305,7 +305,7 @@ export const DEFAULT_COURSES: CatalogCourse[] = [
     highlightsEn:
       "The hottest profession in AI\nFrom fundamentals to working agents\nA door-opener to a tech career",
     price: 550,
-    originalPrice: 4900,
+    originalPrice: null,
     priceUnit: "course",
     badge: "מסובסד",
     badgeEn: "Subsidized",
