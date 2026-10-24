@@ -1,8 +1,9 @@
 import { Link } from 'wouter';
 import { ArrowLeft, ArrowRight, MessageCircle, CalendarCheck } from 'lucide-react';
-import { useRef, useState, type ReactNode } from 'react';
+import { useRef, useState } from 'react';
 import HeroScene, { type ActiveSlide, type HeroSceneApi } from '@/components/HeroScene';
 import ServiceTabs, { type Service } from '@/components/hero/ServiceTabs';
+import FeaturedCourses from '@/components/home/FeaturedCourses';
 import { useLanguage } from '@/contexts/LanguageContext';
 import SEO from '@/components/SEO';
 import { organizationSchema, websiteSchema } from '@/lib/seoSchemas';
@@ -159,50 +160,7 @@ export default function Home() {
           </div>
         </section>
 
-        {/* Two doors */}
-        <section aria-labelledby="doors-title" className="py-16 md:py-24">
-          <div className="mx-auto max-w-7xl px-5 sm:px-8">
-            <h2 id="doors-title" className="text-3xl md:text-5xl font-bold max-w-3xl" style={{ color: 'var(--h-ink)' }}>
-              {he ? 'שתי דרכים להתחיל' : 'Two ways to start'}
-            </h2>
-            <div className="mt-10 md:mt-14 grid gap-6 md:gap-8 md:grid-cols-2">
-              <Door
-                img={`${IMG}/ai-private-learner.webp`}
-                alt={he ? 'אישה לומדת על מחשב נייד בבית בשעות הערב' : 'A woman learning on a laptop at home in the evening'}
-                title={he ? 'לאנשים פרטיים' : 'For individuals'}
-                body={he
-                  ? 'רוצים להסב מקצוע, להתקדם בעבודה או פשוט להבין מה AI יכול לעשות בשבילכם? קורסים פתוחים לכל אחד, גם בלי רקע טכני.'
-                  : 'Changing careers, moving up at work, or just curious what AI can do for you? Open courses, no technical background needed.'}
-                action={
-                  <a href={whatsappHref} target="_blank" rel="noopener noreferrer" className="h-btn h-btn-accent">
-                    <MessageCircle size={18} aria-hidden="true" />
-                    <span>{ctaPrivate}</span>
-                  </a>
-                }
-              />
-              <Door
-                img={`${IMG}/ai-org-workshop.webp`}
-                alt={he ? 'סדנת AI לצוות בחדר ישיבות, מרצה מול מסך' : 'An AI workshop for a team in a meeting room, instructor at a screen'}
-                title={he ? 'לארגונים' : 'For organizations'}
-                body={he
-                  ? 'תוכנית הכשרה שנבנית סביב העבודה של הצוות שלכם: AI לעבודה היומיומית, אוטומציות, וסייבר AI לצוותי אבטחה.'
-                  : 'A training program built around your team’s work: AI for daily work, automation, and Cyber AI for security teams.'}
-                action={
-                  <div className="flex flex-wrap items-center gap-x-6 gap-y-4">
-                    <Link href="/contact" className="h-btn h-btn-dark">
-                      <CalendarCheck size={18} aria-hidden="true" />
-                      <span>{ctaOrg}</span>
-                    </Link>
-                    <Link href="/consulting" className="h-link inline-flex items-center gap-2 font-bold" style={{ color: 'var(--h-link)' }}>
-                      {he ? 'ייעוץ אסטרטגיית AI לעסקים' : 'AI strategy consulting'}
-                      <Arrow size={16} className="h-link-arrow" aria-hidden="true" />
-                    </Link>
-                  </div>
-                }
-              />
-            </div>
-          </div>
-        </section>
+        <FeaturedCourses he={he} />
 
         {/* Tracks */}
         <section aria-labelledby="tracks-title" className="py-16 md:py-24" style={{ background: 'var(--h-paper)' }}>
@@ -370,18 +328,5 @@ export default function Home() {
         </section>
       </div>
     </>
-  );
-}
-
-function Door({ img, alt, title, body, action }: { img: string; alt: string; title: string; body: string; action: ReactNode }) {
-  return (
-    <article className="flex flex-col rounded-[24px] overflow-hidden" style={{ background: 'var(--h-paper)', boxShadow: '0 1px 0 var(--h-line), 0 20px 50px -34px rgba(31, 16, 41,0.5)' }}>
-      <img src={img} alt={alt} loading="lazy" className="w-full aspect-[3/2] object-cover" />
-      <div className="flex flex-col flex-1 p-6 md:p-9 text-start">
-        <h3 className="text-2xl md:text-3xl font-bold">{title}</h3>
-        <p className="mt-3 text-base md:text-lg leading-relaxed flex-1" style={{ color: 'var(--h-ink-2)' }}>{body}</p>
-        <div className="mt-7">{action}</div>
-      </div>
-    </article>
   );
 }
