@@ -172,7 +172,7 @@ export default function Contact() {
                 <button
                   type="submit"
                   disabled={submitContact.isPending || !privacyConsent}
-                  className="h-btn h-btn-orange contact-submit w-full"
+                  className="h-btn h-btn-accent contact-submit w-full"
                 >
                   {submitContact.isPending ? (isRtl ? 'שולח...' : 'Sending...') : (
                     <>
@@ -227,7 +227,7 @@ export default function Contact() {
                   <span className="block text-lg font-bold" style={{ color: 'var(--h-ink)' }}>{t.contact.whatsapp}</span>
                   <span className="block text-base" style={{ color: 'var(--h-ink-2)' }}><span dir="ltr">052-338-1822</span></span>
                 </span>
-                <Arrow size={20} className="h-link-arrow flex-shrink-0" style={{ color: 'var(--h-blue)' }} aria-hidden="true" />
+                <Arrow size={20} className="h-link-arrow flex-shrink-0" style={{ color: 'var(--h-link)' }} aria-hidden="true" />
               </a>
             </div>
           </div>

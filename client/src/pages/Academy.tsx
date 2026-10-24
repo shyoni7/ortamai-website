@@ -414,16 +414,16 @@ export default function Academy() {
           </p>
           <ul className="h-rise h-rise-3 mt-7 flex flex-wrap gap-x-6 gap-y-3" style={{ color: 'var(--h-on-dark)' }}>
             <li className="flex items-center gap-2 text-base">
-              <Award className="w-5 h-5 shrink-0" style={{ color: 'var(--h-orange)' }} aria-hidden="true" />
+              <Award className="w-5 h-5 shrink-0" style={{ color: 'var(--h-accent)' }} aria-hidden="true" />
               {isRtl ? 'קורס מוסמך' : 'Certified Course'}
             </li>
             <li className="flex items-center gap-2 text-base font-bold">
-              <Users className="w-5 h-5 shrink-0" style={{ color: 'var(--h-orange)' }} aria-hidden="true" />
+              <Users className="w-5 h-5 shrink-0" style={{ color: 'var(--h-accent)' }} aria-hidden="true" />
               <span>{isRtl ? 'כ-300 בוגרים' : '~300 graduates'}</span>
             </li>
           </ul>
           <div className="h-rise h-rise-3 mt-9 md:mt-10 flex flex-col sm:flex-row gap-3">
-            <Link href="/contact" className="h-btn h-btn-orange">
+            <Link href="/contact" className="h-btn h-btn-accent">
               {isRtl ? 'צרו קשר לפרטים' : 'Contact Us for Details'}
               <Arrow size={18} aria-hidden="true" />
             </Link>
@@ -575,7 +575,7 @@ export default function Academy() {
                 : 'We build training programs tailored to your organization\'s specific needs. We\'ll come to you, learn your processes, and build training that delivers measurable results.'}
             </p>
             <div className="mt-8 flex flex-col sm:flex-row gap-3">
-              <Link href="/contact" className="h-btn h-btn-orange">
+              <Link href="/contact" className="h-btn h-btn-accent">
                 {isRtl ? 'צרו קשר לפרטים' : 'Contact Us for Details'}
                 <Arrow size={18} aria-hidden="true" />
               </Link>
@@ -595,7 +595,7 @@ export default function Academy() {
             className="fixed inset-0 z-50 flex items-end sm:items-center justify-center sm:p-4"
             onClick={closeModal}
           >
-            <div className="absolute inset-0" style={{ background: 'rgba(34,21,12,0.62)' }} />
+            <div className="absolute inset-0" style={{ background: 'rgba(42, 18, 56,0.62)' }} />
             <motion.div
               role="dialog"
               aria-modal="true"
@@ -677,7 +677,7 @@ export default function Academy() {
                               <ul className="academy-topics">
                                 {module.topics.map((topic, j) => (
                                   <li key={j} className="flex items-center gap-2.5 text-base" style={{ color: 'var(--h-ink-2)' }}>
-                                    <span className="inline-block w-1.5 h-1.5 rounded-full shrink-0" style={{ background: 'var(--h-orange)' }} aria-hidden="true" />
+                                    <span className="inline-block w-1.5 h-1.5 rounded-full shrink-0" style={{ background: 'var(--h-accent)' }} aria-hidden="true" />
                                     {topic}
                                   </li>
                                 ))}
@@ -710,7 +710,7 @@ export default function Academy() {
                   <ul className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
                     {(isRtl ? selectedProgram.outcomes : selectedProgram.outcomesEn).map((outcome, i) => (
                       <li key={i} className="flex items-center gap-2 text-base" style={{ color: 'var(--h-ink-2)' }}>
-                        <CheckCircle className="w-5 h-5 shrink-0" style={{ color: 'var(--h-orange-deep)' }} aria-hidden="true" />
+                        <CheckCircle className="w-5 h-5 shrink-0" style={{ color: 'var(--h-accent-ink)' }} aria-hidden="true" />
                         {outcome}
                       </li>
                     ))}
@@ -719,7 +719,7 @@ export default function Academy() {
 
                 {/* CTA */}
                 <div className="pt-1">
-                  <Link href="/contact" className="h-btn h-btn-orange w-full" onClick={() => setSelectedProgram(null)}>
+                  <Link href="/contact" className="h-btn h-btn-accent w-full" onClick={() => setSelectedProgram(null)}>
                     {isRtl ? 'מעוניינים בהכשרה? צרו קשר' : 'Interested? Contact Us'}
                   </Link>
                 </div>

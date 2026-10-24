@@ -14,7 +14,7 @@ export default function NotFound() {
           {he ? 'ייתכן שהעמוד הועבר או נמחק.' : 'The page may have been moved or deleted.'}
         </p>
         <div className="mt-8 flex flex-col sm:flex-row gap-3">
-          <Link href="/" className="h-btn h-btn-orange">{he ? 'לדף הבית' : 'Go home'}</Link>
+          <Link href="/" className="h-btn h-btn-accent">{he ? 'לדף הבית' : 'Go home'}</Link>
           <Link href="/courses" className="h-btn h-btn-light">{he ? 'לקורסים' : 'See courses'}</Link>
         </div>
       </div>

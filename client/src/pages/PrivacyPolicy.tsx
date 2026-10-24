@@ -25,7 +25,7 @@ export default function PrivacyPolicy() {
       <section className="py-12 md:py-16">
         <div className="max-w-3xl mx-auto px-5 sm:px-8">
           {/* Back link */}
-          <Link href="/" className="h-link inline-flex items-center gap-2 font-bold mb-8" style={{ color: 'var(--h-blue)' }}>
+          <Link href="/" className="h-link inline-flex items-center gap-2 font-bold mb-8" style={{ color: 'var(--h-link)' }}>
             <ArrowRight className="w-4 h-4 h-link-arrow" style={{ transform: isRtl ? undefined : 'scaleX(-1)' }} aria-hidden="true" />
             {isRtl ? 'חזרה לדף הבית' : 'Back to Home'}
           </Link>

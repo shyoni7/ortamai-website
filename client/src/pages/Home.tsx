@@ -100,7 +100,7 @@ export default function Home() {
       <div dir={dir} className="site-v2">
 
         {/* Hero */}
-        <section className="relative isolate overflow-hidden hero-v3" style={{ background: 'var(--h-hero-ground)' }}>
+        <section className="relative isolate overflow-hidden hero-v3" style={{ background: 'var(--h-dark)' }}>
           <HeroScene
             lang={he ? 'he' : 'en'}
             src={`${IMG}/ai-hero-projector.webp`}
@@ -114,7 +114,7 @@ export default function Home() {
             aria-hidden="true"
             className="absolute inset-0 -z-10 hidden lg:block pointer-events-none"
             style={{
-              background: `linear-gradient(${he ? 270 : 90}deg, rgba(34,21,12,0.9) 0%, rgba(34,21,12,0.62) 36%, rgba(34,21,12,0) 60%), linear-gradient(0deg, rgba(34,21,12,0.55) 0%, rgba(34,21,12,0) 30%)`,
+              background: `linear-gradient(${he ? 270 : 90}deg, rgba(42, 18, 56,0.9) 0%, rgba(42, 18, 56,0.62) 36%, rgba(42, 18, 56,0) 60%), linear-gradient(0deg, rgba(42, 18, 56,0.55) 0%, rgba(42, 18, 56,0) 30%)`,
             }}
           />
           {/* Below lg: shade the photo under the screen where the text sits */}
@@ -126,9 +126,9 @@ export default function Home() {
                 style={{ fontSize: 'clamp(2.75rem, 6vw, 5.25rem)' }}
               >
                 {he ? (
-                  <>לומדים AI.<br /><span style={{ color: 'var(--h-orange)' }}>עובדים</span> עם AI.</>
+                  <>לומדים AI.<br /><span style={{ color: 'var(--h-accent)' }}>עובדים</span> עם AI.</>
                 ) : (
-                  <>Learn AI.<br /><span style={{ color: 'var(--h-orange)' }}>Work</span> with AI.</>
+                  <>Learn AI.<br /><span style={{ color: 'var(--h-accent)' }}>Work</span> with AI.</>
                 )}
               </h1>
               <p className="h-rise h-rise-2 mt-6 md:mt-8 text-lg md:text-xl leading-relaxed max-w-2xl" style={{ color: 'rgba(255,255,255,0.86)' }}>
@@ -137,7 +137,7 @@ export default function Home() {
                   : 'Classroom AI and Cyber AI training, for organizations and individuals.'}
               </p>
               <div className="h-rise h-rise-3 mt-9 md:mt-12 flex flex-col sm:flex-row gap-3 sm:gap-4">
-                <a href={whatsappHref} target="_blank" rel="noopener noreferrer" className="h-btn h-btn-orange">
+                <a href={whatsappHref} target="_blank" rel="noopener noreferrer" className="h-btn h-btn-accent">
                   <MessageCircle size={19} aria-hidden="true" />
                   <span>{ctaPrivate}</span>
                 </a>
@@ -165,7 +165,7 @@ export default function Home() {
                   ? 'רוצים להסב מקצוע, להתקדם בעבודה או פשוט להבין מה AI יכול לעשות בשבילכם? קורסים פתוחים לכל אחד, גם בלי רקע טכני.'
                   : 'Changing careers, moving up at work, or just curious what AI can do for you? Open courses, no technical background needed.'}
                 action={
-                  <a href={whatsappHref} target="_blank" rel="noopener noreferrer" className="h-btn h-btn-orange">
+                  <a href={whatsappHref} target="_blank" rel="noopener noreferrer" className="h-btn h-btn-accent">
                     <MessageCircle size={18} aria-hidden="true" />
                     <span>{ctaPrivate}</span>
                   </a>
@@ -180,11 +180,11 @@ export default function Home() {
                   : 'A training program built around your team’s work: AI for daily work, automation, and Cyber AI for security teams.'}
                 action={
                   <div className="flex flex-wrap items-center gap-x-6 gap-y-4">
-                    <Link href="/contact" className="h-btn h-btn-navy">
+                    <Link href="/contact" className="h-btn h-btn-dark">
                       <CalendarCheck size={18} aria-hidden="true" />
                       <span>{ctaOrg}</span>
                     </Link>
-                    <Link href="/consulting" className="h-link inline-flex items-center gap-2 font-bold" style={{ color: 'var(--h-blue)' }}>
+                    <Link href="/consulting" className="h-link inline-flex items-center gap-2 font-bold" style={{ color: 'var(--h-link)' }}>
                       {he ? 'ייעוץ אסטרטגיית AI לעסקים' : 'AI strategy consulting'}
                       <Arrow size={16} className="h-link-arrow" aria-hidden="true" />
                     </Link>
@@ -210,7 +210,7 @@ export default function Home() {
                       alt={track.alt}
                       loading="lazy"
                       className="w-full aspect-[16/10] object-cover rounded-[20px]"
-                      style={{ boxShadow: '0 24px 60px -30px rgba(14,26,51,0.45)' }}
+                      style={{ boxShadow: '0 24px 60px -30px rgba(31, 16, 41,0.45)' }}
                     />
                   </div>
                   <div className="md:col-span-5 text-start">
@@ -219,12 +219,12 @@ export default function Home() {
                     <ul className="mt-6 border-t" style={{ borderColor: 'var(--h-line)' }}>
                       {track.courses.map(c => (
                         <li key={c} className="py-3 border-b text-base font-medium flex items-center gap-3" style={{ borderColor: 'var(--h-line)' }}>
-                          <span aria-hidden="true" className="inline-block w-2 h-2 rounded-full shrink-0" style={{ background: 'var(--h-orange)' }} />
+                          <span aria-hidden="true" className="inline-block w-2 h-2 rounded-full shrink-0" style={{ background: 'var(--h-accent)' }} />
                           {c}
                         </li>
                       ))}
                     </ul>
-                    <Link href={track.href} className="h-link mt-6 inline-flex items-center gap-2 font-bold text-lg" style={{ color: 'var(--h-blue)' }}>
+                    <Link href={track.href} className="h-link mt-6 inline-flex items-center gap-2 font-bold text-lg" style={{ color: 'var(--h-link)' }}>
                       {track.link}
                       <Arrow size={18} className="h-link-arrow" aria-hidden="true" />
                     </Link>
@@ -236,7 +236,7 @@ export default function Home() {
         </section>
 
         {/* From our classrooms + facts */}
-        <section aria-labelledby="class-title" className="py-16 md:py-24" style={{ background: 'var(--h-navy)' }}>
+        <section aria-labelledby="class-title" className="py-16 md:py-24" style={{ background: 'var(--h-dark-2)' }}>
           <div className="mx-auto max-w-7xl px-5 sm:px-8">
             <h2 id="class-title" className="text-3xl md:text-5xl font-bold text-white max-w-3xl">
               {he ? 'מהכיתות שלנו' : 'From our classrooms'}
@@ -280,7 +280,7 @@ export default function Home() {
               </p>
             </div>
             <div className="md:col-span-4 md:text-end">
-              <Link href="/placement" className="h-link inline-flex items-center gap-2 font-bold text-lg" style={{ color: 'var(--h-blue)' }}>
+              <Link href="/placement" className="h-link inline-flex items-center gap-2 font-bold text-lg" style={{ color: 'var(--h-link)' }}>
                 {he ? 'למרכז ההשמה' : 'Placement center'}
                 <Arrow size={18} className="h-link-arrow" aria-hidden="true" />
               </Link>
@@ -302,7 +302,7 @@ export default function Home() {
                     alt={he ? c.name : c.nameEn}
                     loading="lazy"
                     className={`max-h-12 md:max-h-14 max-w-[140px] w-auto object-contain ${c.darkBg ? 'rounded-md p-2' : ''}`}
-                    style={c.darkBg ? { background: 'var(--h-navy-deep)' } : undefined}
+                    style={c.darkBg ? { background: 'var(--h-dark)' } : undefined}
                   />
                 </li>
               ))}
@@ -318,8 +318,8 @@ export default function Home() {
             </h2>
             <ol className="mt-12 grid gap-10 md:gap-8 md:grid-cols-4">
               {steps.map((s, i) => (
-                <li key={s.title} className="text-start border-t-2 pt-6" style={{ borderColor: i === 0 ? 'var(--h-orange)' : 'var(--h-line)' }}>
-                  <span className="block text-sm font-bold tabular-nums" style={{ color: 'var(--h-orange-deep)' }}>
+                <li key={s.title} className="text-start border-t-2 pt-6" style={{ borderColor: i === 0 ? 'var(--h-accent)' : 'var(--h-line)' }}>
+                  <span className="block text-sm font-bold tabular-nums" style={{ color: 'var(--h-accent-ink)' }}>
                     {he ? `שלב ${i + 1}` : `Step ${i + 1}`}
                   </span>
                   <h3 className="mt-2 text-xl md:text-2xl font-bold">{s.title}</h3>
@@ -331,18 +331,18 @@ export default function Home() {
         </section>
 
         {/* Close */}
-        <section aria-labelledby="close-title" className="relative isolate overflow-hidden" style={{ background: 'var(--h-navy-deep)' }}>
+        <section aria-labelledby="close-title" className="relative isolate overflow-hidden" style={{ background: 'var(--h-dark)' }}>
           <div
             aria-hidden="true"
             className="absolute inset-0 -z-10"
-            style={{ background: 'radial-gradient(80% 120% at 85% 100%, rgba(240,112,34,0.32) 0%, rgba(43,84,199,0.22) 45%, rgba(10,20,48,0) 75%)' }}
+            style={{ background: 'radial-gradient(80% 120% at 85% 100%, rgba(61, 220, 151,0.32) 0%, rgba(123, 63, 168,0.22) 45%, rgba(10,20,48,0) 75%)' }}
           />
           <div className="mx-auto max-w-7xl px-5 sm:px-8 py-20 md:py-28 text-start">
             <h2 id="close-title" className="text-white font-extrabold leading-[1.05] max-w-3xl" style={{ fontSize: 'clamp(2.2rem, 5.5vw, 4.25rem)' }}>
               {he ? 'הקורס הבא שלכם מתחיל בשיחה אחת.' : 'Your next course starts with one conversation.'}
             </h2>
             <div className="mt-10 flex flex-col sm:flex-row gap-3 sm:gap-4">
-              <a href={whatsappHref} target="_blank" rel="noopener noreferrer" className="h-btn h-btn-orange">
+              <a href={whatsappHref} target="_blank" rel="noopener noreferrer" className="h-btn h-btn-accent">
                 <MessageCircle size={19} aria-hidden="true" />
                 <span>{ctaPrivate}</span>
               </a>
@@ -366,7 +366,7 @@ export default function Home() {
 
 function Door({ img, alt, title, body, action }: { img: string; alt: string; title: string; body: string; action: ReactNode }) {
   return (
-    <article className="flex flex-col rounded-[24px] overflow-hidden" style={{ background: 'var(--h-paper)', boxShadow: '0 1px 0 var(--h-line), 0 20px 50px -34px rgba(14,26,51,0.5)' }}>
+    <article className="flex flex-col rounded-[24px] overflow-hidden" style={{ background: 'var(--h-paper)', boxShadow: '0 1px 0 var(--h-line), 0 20px 50px -34px rgba(31, 16, 41,0.5)' }}>
       <img src={img} alt={alt} loading="lazy" className="w-full aspect-[3/2] object-cover" />
       <div className="flex flex-col flex-1 p-6 md:p-9 text-start">
         <h3 className="text-2xl md:text-3xl font-bold">{title}</h3>

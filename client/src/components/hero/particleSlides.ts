@@ -34,7 +34,7 @@ export interface Slide {
 }
 
 const BG = '#FBF8F3';
-const INK = '#26221E';
+const INK = '#1F1029';
 
 // ── sampling ──────────────────────────────────────────────────────
 
@@ -120,8 +120,8 @@ export function buildSlides(lang: Lang, assets: Assets): Slide[] {
 
   // 0 · logo
   const logo: Slide = {
-    id: 'logo', bg: BG, ink: INK, accent: '#F07022',
-    colors: [INK, '#F07022', '#F7B267'],
+    id: 'logo', bg: BG, ink: INK, accent: '#7B3FA8',
+    colors: [INK, '#7B3FA8', '#C9A8E0'],
     duration: 4600,
     stages: [{
       at: 0, mode: 'shape',
@@ -186,8 +186,8 @@ export function buildSlides(lang: Lang, assets: Assets): Slide[] {
     [0, 1, 2].forEach(i => { rrect(ctx, x0 + bw / 2 + i * (bw + gap) - 6, 690 + (i % 2) * 40, 230, 22, 11); ctx.fill(); });
   }, 9);
   const ai: Slide = {
-    id: 'ai', bg: BG, ink: INK, accent: '#F07022',
-    colors: [INK, '#F07022', '#F7B267'],
+    id: 'ai', bg: BG, ink: INK, accent: '#17A673',
+    colors: [INK, '#17A673', '#9BE8C6'],
     duration: 9800,
     stages: [
       { at: 0, mode: 'typing', targets: [...chatFrame, ...promptText], typeFrom: chatFrame.length, typeMs: 1500 },
@@ -224,8 +224,8 @@ export function buildSlides(lang: Lang, assets: Assets): Slide[] {
     }
   }, 9);
   const cyber: Slide = {
-    id: 'cyber', bg: BG, ink: INK, accent: '#12A26B',
-    colors: [INK, '#12A26B', '#E5533D'],
+    id: 'cyber', bg: BG, ink: INK, accent: '#2F6FE4',
+    colors: [INK, '#2F6FE4', '#E5533D'],
     duration: 9400,
     stages: [
       { at: 0, mode: 'soc', targets: shuffle(soc, 17) },

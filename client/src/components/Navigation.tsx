@@ -76,7 +76,7 @@ export default function Navigation() {
               <span>{he ? 'EN' : 'עב'}</span>
             </button>
             <span className="hidden sm:block">
-              <Link href="/contact" className="h-btn h-btn-orange site-nav-cta whitespace-nowrap">
+              <Link href="/contact" className="h-btn h-btn-accent site-nav-cta whitespace-nowrap">
                 <CalendarCheck size={17} aria-hidden="true" />
                 <span>{ctaLabel}</span>
               </Link>
@@ -106,7 +106,7 @@ export default function Navigation() {
               </li>
             ))}
             <li className="pt-5 site-nav-sheet-item" style={{ animationDelay: `${navLinks.length * 35}ms` }}>
-              <Link href="/contact" className="h-btn h-btn-orange w-full">
+              <Link href="/contact" className="h-btn h-btn-accent w-full">
                 <CalendarCheck size={18} aria-hidden="true" />
                 <span>{ctaLabel}</span>
               </Link>

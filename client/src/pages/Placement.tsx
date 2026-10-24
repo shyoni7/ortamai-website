@@ -161,7 +161,7 @@ export default function Placement() {
           </div>
 
           <div className="placement-hero-cta h-rise h-rise-3 flex flex-col sm:flex-row gap-3">
-            <a href="#cv-form" className="h-btn h-btn-orange">
+            <a href="#cv-form" className="h-btn h-btn-accent">
               {isRtl ? 'שלח קורות חיים' : 'Submit CV'}
               <Arrow size={18} aria-hidden="true" />
             </a>
@@ -183,7 +183,7 @@ export default function Placement() {
               <ul className="placement-list mt-6">
                 {benefits.map((b, i) => (
                   <li key={i}>
-                    <CheckCircle className="w-5 h-5 shrink-0" style={{ color: 'var(--h-orange-deep)' }} aria-hidden="true" />
+                    <CheckCircle className="w-5 h-5 shrink-0" style={{ color: 'var(--h-accent-ink)' }} aria-hidden="true" />
                     <span>{b}</span>
                   </li>
                 ))}
@@ -200,7 +200,7 @@ export default function Placement() {
               <ul className="placement-list mt-6">
                 {benefits.map((b, i) => (
                   <li key={i}>
-                    <CheckCircle className="w-5 h-5 shrink-0" style={{ color: 'var(--h-orange-deep)' }} aria-hidden="true" />
+                    <CheckCircle className="w-5 h-5 shrink-0" style={{ color: 'var(--h-accent-ink)' }} aria-hidden="true" />
                     <span>{b}</span>
                   </li>
                 ))}
@@ -241,7 +241,7 @@ export default function Placement() {
                 <button
                   type="button"
                   onClick={() => setSubmitted(false)}
-                  className="h-btn h-btn-orange"
+                  className="h-btn h-btn-accent"
                 >
                   {lang === 'he' ? 'שלח קורות חיים נוספים' : 'Submit Another CV'}
                 </button>
@@ -357,7 +357,7 @@ export default function Placement() {
                     />
                     {cvFile ? (
                       <div className="flex items-center justify-center gap-3">
-                        <FileText className="w-8 h-8 shrink-0" style={{ color: 'var(--h-orange-deep)' }} aria-hidden="true" />
+                        <FileText className="w-8 h-8 shrink-0" style={{ color: 'var(--h-accent-ink)' }} aria-hidden="true" />
                         <div className="text-start min-w-0">
                           <p className="font-medium text-sm break-all" style={{ color: 'var(--h-ink)' }}>{cvFile.name}</p>
                           <p className="text-xs" style={{ color: 'var(--h-ink-2)' }}>{(cvFile.size / 1024 / 1024).toFixed(2)} MB</p>
@@ -416,11 +416,11 @@ export default function Placement() {
                 <button
                   type="submit"
                   disabled={submitCv.isPending || !privacyConsent}
-                  className="h-btn h-btn-orange placement-submit w-full"
+                  className="h-btn h-btn-accent placement-submit w-full"
                 >
                   {submitCv.isPending ? (
                     <>
-                      <span className="w-5 h-5 border-2 rounded-full animate-spin" style={{ borderColor: 'rgba(14,26,51,0.25)', borderTopColor: 'var(--h-ink)' }} aria-hidden="true" />
+                      <span className="w-5 h-5 border-2 rounded-full animate-spin" style={{ borderColor: 'rgba(31, 16, 41,0.25)', borderTopColor: 'var(--h-ink)' }} aria-hidden="true" />
                       {lang === 'he' ? 'שולח...' : 'Sending...'}
                     </>
                   ) : (

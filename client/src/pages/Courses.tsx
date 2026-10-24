@@ -96,7 +96,7 @@ export default function Courses() {
                 : ['No commitment', 'No online payment', 'Personal phone follow-up']
               ).map(chip => (
                 <li key={chip} className="flex items-center gap-2.5 text-base font-medium" style={{ color: 'var(--h-on-dark)' }}>
-                  <CheckCircle className="w-5 h-5 shrink-0" style={{ color: 'var(--h-orange)' }} aria-hidden="true" />
+                  <CheckCircle className="w-5 h-5 shrink-0" style={{ color: 'var(--h-accent)' }} aria-hidden="true" />
                   <span>{chip}</span>
                 </li>
               ))}
@@ -153,7 +153,7 @@ export default function Courses() {
                   : 'Symbolically-priced tracks for those who deserve it. Leave your details — we check eligibility and call you back.'}
               </p>
               <p className="mt-4 inline-flex items-center gap-2 text-base font-semibold" style={{ color: 'var(--h-ink)' }}>
-                <HeartHandshake className="w-5 h-5 shrink-0" style={{ color: 'var(--h-orange-deep)' }} aria-hidden="true" />
+                <HeartHandshake className="w-5 h-5 shrink-0" style={{ color: 'var(--h-accent-ink)' }} aria-hidden="true" />
                 {isRtl ? 'בסבסוד מלא של ORTAM AI' : 'Fully subsidized by ORTAM AI'}
               </p>
             </div>
@@ -189,7 +189,7 @@ function BulletList({ items }: { items: string[] }) {
     <ul className="space-y-2.5 mb-6">
       {items.map(b => (
         <li key={b} className="flex items-start gap-2.5 text-[0.95rem] leading-relaxed" style={{ color: 'var(--h-ink)' }}>
-          <CheckCircle className="w-[18px] h-[18px] mt-[3px] shrink-0" style={{ color: 'var(--h-orange-deep)' }} aria-hidden="true" />
+          <CheckCircle className="w-[18px] h-[18px] mt-[3px] shrink-0" style={{ color: 'var(--h-accent-ink)' }} aria-hidden="true" />
           <span>{b}</span>
         </li>
       ))}
@@ -244,7 +244,7 @@ function FlagshipCard({ course, isRtl, onOrder }: {
 
       <div className="mt-auto">
         <PriceRow price={course.price} unit={isRtl ? 'לקורס המלא' : 'full course'} />
-        <button type="button" className="h-btn h-btn-orange crs-btn-block" onClick={onOrder}>
+        <button type="button" className="h-btn h-btn-accent crs-btn-block" onClick={onOrder}>
           {isRtl ? 'הזמנת מקום' : 'Book a Spot'}
         </button>
       </div>
@@ -281,7 +281,7 @@ function CourseCard({ course, isRtl, onOrder }: { course: CourseItem; isRtl: boo
       <div className="mt-auto">
         <PriceRow price={course.price}
           unit={perLesson ? (isRtl ? 'למפגש' : 'per lesson') : (isRtl ? 'לקורס המלא' : 'full course')} />
-        <button type="button" className="h-btn h-btn-orange crs-btn-block" onClick={onOrder}>
+        <button type="button" className="h-btn h-btn-accent crs-btn-block" onClick={onOrder}>
           {isRtl ? 'הזמנת מקום' : 'Book a Spot'}
         </button>
       </div>
@@ -435,7 +435,7 @@ function OrderDialog({ target, isRtl, dir, lang, onClose }: {
                   ? 'ניצור איתך קשר תוך יום עסקים לתיאום מועד והסדרת התשלום.'
                   : 'We will contact you within one business day to arrange a date and payment.')}
             </p>
-            <button type="button" className="h-btn h-btn-orange" onClick={onClose}>{isRtl ? 'סגירה' : 'Close'}</button>
+            <button type="button" className="h-btn h-btn-accent" onClick={onClose}>{isRtl ? 'סגירה' : 'Close'}</button>
           </div>
         ) : (
           <form onSubmit={handleSubmit} noValidate className="p-6 sm:p-8 space-y-5">
@@ -500,7 +500,7 @@ function OrderDialog({ target, isRtl, dir, lang, onClose }: {
                   : (isRtl ? 'שאלות, העדפת ימים/שעות...' : 'Questions, preferred days/times...')} />
             </div>
 
-            <button type="submit" className="h-btn h-btn-orange crs-btn-block" aria-busy={submitOrder.isPending}>
+            <button type="submit" className="h-btn h-btn-accent crs-btn-block" aria-busy={submitOrder.isPending}>
               {submitOrder.isPending
                 ? (isRtl ? 'שולח...' : 'Sending...')
                 : isEligibility

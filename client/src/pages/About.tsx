@@ -33,7 +33,7 @@ const CARD_STYLE: React.CSSProperties = {
   background: 'var(--h-paper)',
   border: '1px solid var(--h-line)',
   borderRadius: 20,
-  boxShadow: '0 20px 50px -34px rgba(14,26,51,0.5)',
+  boxShadow: '0 20px 50px -34px rgba(31, 16, 41,0.5)',
 };
 
 export default function About() {
@@ -74,9 +74,9 @@ export default function About() {
             style={{ fontSize: 'clamp(2.4rem, 6vw, 4.5rem)' }}
           >
             {isRtl ? (
-              <><span style={{ color: 'var(--h-orange)' }}>אנחנו</span>{' '}בונים<br />את עתיד ה-AI</>
+              <><span style={{ color: 'var(--h-accent)' }}>אנחנו</span>{' '}בונים<br />את עתיד ה-AI</>
             ) : (
-              <>We <span style={{ color: 'var(--h-orange)' }}>Build</span><br />the AI Future</>
+              <>We <span style={{ color: 'var(--h-accent)' }}>Build</span><br />the AI Future</>
             )}
           </h1>
           <p className="h-rise h-rise-2 mt-6 md:mt-8 text-lg md:text-xl leading-relaxed max-w-[60ch]" style={{ color: 'var(--h-on-dark)' }}>
@@ -85,7 +85,7 @@ export default function About() {
               : 'We believe AI is not just technology – it is a revolution. We are here to lead it together with you.'}
           </p>
           <div className="h-rise h-rise-3 mt-9 md:mt-12 flex flex-col sm:flex-row gap-3 sm:gap-4">
-            <Link href="/contact" className="h-btn h-btn-orange">
+            <Link href="/contact" className="h-btn h-btn-accent">
               {isRtl ? 'צור קשר' : 'Contact Us'}
             </Link>
             <Link href="/" className="h-btn h-btn-light">
@@ -98,7 +98,7 @@ export default function About() {
 
           <dl
             className="mt-10 md:mt-14 grid grid-cols-2 md:grid-cols-4 gap-y-8 gap-x-6 border-t pt-8 md:pt-10"
-            style={{ borderColor: 'rgba(255,246,236,0.16)' }}
+            style={{ borderColor: 'rgba(255, 255, 255,0.16)' }}
           >
             {stats.map(s => (
               <div key={s.label} className="text-start">
@@ -153,10 +153,10 @@ export default function About() {
                 <li key={v.title} className="p-6 md:p-8 text-start" style={CARD_STYLE}>
                   <span
                     className="inline-flex items-center justify-center w-12 h-12 rounded-full"
-                    style={{ background: 'rgba(240,112,34,0.12)' }}
+                    style={{ background: 'rgba(61, 220, 151,0.12)' }}
                     aria-hidden="true"
                   >
-                    <Icon className="w-6 h-6" style={{ color: 'var(--h-orange-deep)' }} />
+                    <Icon className="w-6 h-6" style={{ color: 'var(--h-accent-ink)' }} />
                   </span>
                   <h3 className="mt-5 text-xl md:text-2xl font-bold" style={{ color: 'var(--h-ink)' }}>{v.title}</h3>
                   <p className="mt-2 text-base leading-relaxed" style={{ color: 'var(--h-ink-2)' }}>{v.desc}</p>
@@ -205,7 +205,7 @@ export default function About() {
           </h2>
           <p className="mt-5 text-lg md:text-xl max-w-[60ch]" style={{ color: 'var(--h-on-dark)' }}>{t.about.cta_sub}</p>
           <div className="mt-10">
-            <Link href="/contact" className="h-btn h-btn-orange">
+            <Link href="/contact" className="h-btn h-btn-accent">
               {t.about.cta_btn}
               <Arrow size={18} className="h-link-arrow" aria-hidden="true" />
             </Link>

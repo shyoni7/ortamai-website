@@ -1,6 +1,6 @@
 /* Academy page (v2 design language). Tokens come from .site-v2 in index.css. */
 .academy-v2 {
-  --a-shadow: 0 20px 50px -34px rgba(14, 26, 51, 0.5);
+  --a-shadow: 0 20px 50px -34px rgba(31, 16, 41, 0.5);
   --a-green: #12A26B;
   --a-green-deep: #0B7A50;
 }
@@ -16,13 +16,13 @@
 
 .academy-v2 .academy-btn-dark { background: var(--h-dark); color: #fff; }
 .academy-v2 .academy-btn-cyber { background: var(--a-green-deep); color: #fff; }
-.academy-v2 .academy-text-link { color: var(--h-blue); min-height: 2.75rem; }
+.academy-v2 .academy-text-link { color: var(--h-link); min-height: 2.75rem; }
 
 /* Course icon tile */
 .academy-v2 .academy-icon-tile {
   display: inline-flex; align-items: center; justify-content: center;
   width: 3rem; height: 3rem; border-radius: 14px;
-  background: rgba(240, 112, 34, 0.12); color: var(--h-orange-deep);
+  background: rgba(61, 220, 151, 0.12); color: var(--h-accent-ink);
 }
 .academy-v2 .academy-course.is-cyber { border-top: 4px solid var(--a-green); }
 .academy-v2 .academy-course.is-cyber .academy-icon-tile { background: rgba(18, 162, 107, 0.12); color: var(--a-green-deep); }
@@ -39,15 +39,15 @@
   display: flex; align-items: center; gap: 0.5rem;
   padding: 0.6rem 0.85rem; border-radius: 12px;
   font-size: 0.875rem; font-weight: 600;
-  background: rgba(240, 112, 34, 0.1); color: var(--h-ink);
+  background: rgba(61, 220, 151, 0.1); color: var(--h-ink);
 }
-.academy-v2 .academy-note svg { color: var(--h-orange-deep); }
+.academy-v2 .academy-note svg { color: var(--h-accent-ink); }
 
 /* Modal */
 .academy-v2 .academy-modal {
   background: var(--h-paper);
   border-radius: 20px 20px 0 0;
-  box-shadow: 0 30px 80px -30px rgba(34, 21, 12, 0.6);
+  box-shadow: 0 30px 80px -30px rgba(42, 18, 56, 0.6);
   overscroll-behavior: contain;
 }
 @media (min-width: 640px) {
@@ -75,7 +75,7 @@
 .academy-v2 .academy-topics { padding: 0 0.25rem 1rem; padding-inline-start: 3rem; display: grid; gap: 0.5rem; }
 
 @media (hover: hover) {
-  .academy-v2 .academy-card:hover { border-color: #C9D0DD; box-shadow: 0 26px 60px -32px rgba(14, 26, 51, 0.55); }
+  .academy-v2 .academy-card:hover { border-color: #C9D0DD; box-shadow: 0 26px 60px -32px rgba(31, 16, 41, 0.55); }
   .academy-v2 .academy-program:hover .academy-program-img { transform: scale(1.04); }
   .academy-v2 .academy-btn-dark:hover { background: var(--h-dark-3); }
   .academy-v2 .academy-btn-cyber:hover { background: #096A45; }

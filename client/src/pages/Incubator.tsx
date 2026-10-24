@@ -418,9 +418,9 @@ function ConsultationForm({ isRtl }: { isRtl: boolean }) {
                 />
                 <label htmlFor="incubator-privacy" className="text-[0.95rem] cursor-pointer leading-relaxed" style={{ color: 'var(--h-ink-2)' }}>
                   {isRtl ? (
-                    <>אני מאשר/ת את{' '}<a href="/privacy-policy" className="underline underline-offset-2 font-semibold" style={{ color: 'var(--h-blue)' }} target="_blank" rel="noopener noreferrer">מדיניות הפרטיות</a>{' '}ומסכים/ה שהמידע שאני מספק/ת ישמר בהתאם לדרישות החוק</>
+                    <>אני מאשר/ת את{' '}<a href="/privacy-policy" className="underline underline-offset-2 font-semibold" style={{ color: 'var(--h-link)' }} target="_blank" rel="noopener noreferrer">מדיניות הפרטיות</a>{' '}ומסכים/ה שהמידע שאני מספק/ת ישמר בהתאם לדרישות החוק</>
                   ) : (
-                    <>I accept the{' '}<a href="/privacy-policy" className="underline underline-offset-2 font-semibold" style={{ color: 'var(--h-blue)' }} target="_blank" rel="noopener noreferrer">Privacy Policy</a>{' '}and agree that my information will be stored in accordance with legal requirements</>
+                    <>I accept the{' '}<a href="/privacy-policy" className="underline underline-offset-2 font-semibold" style={{ color: 'var(--h-link)' }} target="_blank" rel="noopener noreferrer">Privacy Policy</a>{' '}and agree that my information will be stored in accordance with legal requirements</>
                   )}
                 </label>
               </div>
