@@ -201,7 +201,7 @@ export async function sendCourseOrderConfirmationEmail(payload: CourseOrderEmail
 
   const body = isEligibility
     ? `היי ${name},\n\nקיבלנו את בקשתך לבדיקת זכאות למסלול "${courseTitle}".\nצוות ORTAM AI יבדוק את הפרטים ויחזור אליך טלפונית בהקדם.\n\nתודה,\nצוות ORTAM AI`
-    : `היי ${name},\n\nקיבלנו את הזמנתך ל"${courseTitle}".\nניצור איתך קשר תוך יום עסקים לתיאום מועד והסדרת התשלום.\n\nתודה,\nצוות ORTAM AI`;
+    : `היי ${name},\n\nקיבלנו את הזמנתך ל"${courseTitle}".\nניצור איתך קשר בהקדם לתיאום מועד והסדרת התשלום.\n\nתודה,\nצוות ORTAM AI`;
 
   await transporter.sendMail({
     from: `"ORTAM AI" <${process.env.SMTP_USER}>`,

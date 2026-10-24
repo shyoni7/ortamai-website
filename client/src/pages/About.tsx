@@ -92,9 +92,6 @@ export default function About() {
               {isRtl ? 'חזרה לדף הבית' : 'Back to Home'}
             </Link>
           </div>
-          <p className="mt-8 text-sm font-medium" style={{ color: 'var(--h-on-dark-2)' }}>
-            {isRtl ? 'מרכז ה-AI המוביל בישראל' : 'Israel\'s Leading AI Center'}
-          </p>
 
           <dl
             className="mt-10 md:mt-14 grid grid-cols-2 md:grid-cols-4 gap-y-8 gap-x-6 border-t pt-8 md:pt-10"

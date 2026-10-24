@@ -351,8 +351,8 @@ const publicCourses: PublicCourse[] = [
   {
     title: 'מטמיע מערכות AI',
     titleEn: 'AI Systems Implementer',
-    desc: 'הקורס הרשמי היחיד בישראל להטמעת מערכות AI בארגונים. הכשרה מקצועית בפיקוח משרד העבודה.',
-    descEn: 'The only official course in Israel for AI systems implementation in organizations. Professional training supervised by the Ministry of Labor.',
+    desc: 'את הקורס הרשמי של משרד העבודה למטמיעי מערכות AI כתבנו ובנינו ב-ORTAM AI. הכשרה מקצועית להטמעת מערכות AI בארגונים, בפיקוח משרד העבודה.',
+    descEn: 'ORTAM AI wrote and built the Ministry of Labor’s official course for AI systems implementers. Professional training in implementing AI systems in organizations, supervised by the Ministry of Labor.',
     duration: '3 חודשים',
     durationEn: '3 months',
     level: 'מתקדם',

@@ -443,8 +443,8 @@ function OrderDialog({ target, isRtl, dir, lang, onClose }: {
                   ? 'צוות ORTAM AI יבדוק את הזכאות ויחזור אליך טלפונית בהקדם.'
                   : 'The ORTAM AI team will check your eligibility and call you back soon.')
                 : (isRtl
-                  ? 'ניצור איתך קשר תוך יום עסקים לתיאום מועד והסדרת התשלום.'
-                  : 'We will contact you within one business day to arrange a date and payment.')}
+                  ? 'ניצור איתך קשר בהקדם לתיאום מועד והסדרת התשלום.'
+                  : 'We will contact you soon to arrange a date and payment.')}
             </p>
             <button type="button" className="h-btn h-btn-accent" onClick={onClose}>{isRtl ? 'סגירה' : 'Close'}</button>
           </div>
@@ -528,7 +528,7 @@ function OrderDialog({ target, isRtl, dir, lang, onClose }: {
             </button>
             <p className="text-sm text-center flex items-center justify-center gap-1.5" style={{ color: 'var(--h-ink-2)' }}>
               <Clock className="w-4 h-4" aria-hidden="true" />
-              {isRtl ? 'נחזור אליכם תוך יום עסקים' : 'We reply within one business day'}
+              {isRtl ? 'נחזור אליכם בהקדם' : 'We will get back to you soon'}
             </p>
           </form>
         )}
