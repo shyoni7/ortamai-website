@@ -66,6 +66,24 @@
   </url>
 
   <url>
+    <loc>https://ortamai.com/ai-guide</loc>
+    <lastmod>2026-11-06</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="he" href="https://ortamai.com/ai-guide"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ortamai.com/ai-guide"/>
+  </url>
+
+  <url>
+    <loc>https://ortamai.com/ai-guide/advanced</loc>
+    <lastmod>2026-11-06</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="he" href="https://ortamai.com/ai-guide/advanced"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ortamai.com/ai-guide/advanced"/>
+  </url>
+
+  <url>
     <loc>https://ortamai.com/accessibility</loc>
     <lastmod>2025-01-01</lastmod>
     <changefreq>yearly</changefreq>

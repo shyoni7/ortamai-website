@@ -33,7 +33,7 @@ export default function Navigation() {
     { href: '/placement', label: t.nav.placement },
     { href: '/consulting', label: t.nav.incubator },
     { href: '/about', label: t.nav.about },
-    { href: '/contact', label: t.nav.contact },
+    { href: '/ai-guide', label: t.nav.aiGuide },
   ];
 
   const ctaLabel = he ? 'תאמו שיחה' : 'Book a call';

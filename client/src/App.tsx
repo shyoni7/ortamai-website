@@ -13,6 +13,8 @@ import Courses from "./pages/Courses";
 import Admin from "./pages/Admin";
 import Placement from "./pages/Placement";
 import Contact from "./pages/Contact";
+import AiGuide from "./pages/AiGuide";
+import AiGuideAdvanced from "./pages/AiGuideAdvanced";
 import AccessibilityStatement from "./pages/AccessibilityStatement";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
 import NotFound from "./pages/NotFound";
@@ -41,6 +43,8 @@ function PublicRoutes() {
         <Route path="/courses" component={Courses} />
         <Route path="/placement" component={Placement} />
         <Route path="/contact" component={Contact} />
+        <Route path="/ai-guide/advanced" component={AiGuideAdvanced} />
+        <Route path="/ai-guide" component={AiGuide} />
         <Route path="/accessibility" component={AccessibilityStatement} />
         <Route path="/privacy" component={PrivacyPolicy} />
         <Route path="/privacy-policy" component={PrivacyPolicy} />

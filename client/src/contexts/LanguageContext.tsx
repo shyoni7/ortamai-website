@@ -21,6 +21,7 @@ export const translations = {
       placement: "השמה",
       about: "אודות",
       contact: "צור קשר",
+      aiGuide: "מדריך AI למתחילים",
       accessibility: "נגישות",
       cta: "תאמו שיחה"
     },
@@ -191,6 +192,7 @@ export const translations = {
       placement: "Placement",
       about: "About",
       contact: "Contact",
+      aiGuide: "AI Guide for Beginners",
       accessibility: "Accessibility",
       cta: "Schedule a Call"
     },
