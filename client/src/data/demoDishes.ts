@@ -33,12 +33,12 @@ const DISHES: DemoDish[] = [
   {
     image: `${IMG}/dish-salad.webp`, rating: 4.3, likes: 71, accent: '#f2a6c6',
     he: {
-      title: 'מהגינה', subtitle: 'סלמון', label: 'סלט סלמון', chef: 'קל ורענן', kitchen: 'מנה ראשונה',
+      title: 'מהים', subtitle: 'סלמון', label: 'סלט סלמון', chef: 'קל ורענן', kitchen: 'מנה ראשונה',
       description: 'סלמון כבוש בהדרים על רוקט ואבוקדו, עם מלפפון ורוטב שמיר.',
       ingredients: ['סלמון כבוש', 'אבוקדו', 'רוקט', 'מלפפון', 'שמיר'],
     },
     en: {
-      title: 'Garden', subtitle: 'Salmon', label: 'Garden salmon salad', chef: 'Light and fresh', kitchen: 'Starter',
+      title: 'Ocean', subtitle: 'Salmon', label: 'Salmon salad', chef: 'Light and fresh', kitchen: 'Starter',
       description: 'Citrus-cured salmon over rocket and avocado, with cucumber and a dill dressing.',
       ingredients: ['Cured salmon', 'Avocado', 'Rocket', 'Cucumber', 'Dill'],
     },
@@ -46,12 +46,12 @@ const DISHES: DemoDish[] = [
   {
     image: `${IMG}/dish-fish.webp`, rating: 4.6, likes: 88, accent: '#bcd98e',
     he: {
-      title: 'על עדשים', subtitle: 'לברק', label: 'לברק על עדשים', chef: 'מהים', kitchen: 'מנה עיקרית',
+      title: 'על עדשים', subtitle: 'לברק', label: 'לברק על עדשים', chef: 'דג היום', kitchen: 'מנה עיקרית',
       description: 'לברק בעור פריך על עדשים שחורות, ביצה רכה וגזר מזוגג.',
       ingredients: ['לברק', 'עדשים שחורות', 'ביצה רכה', 'גזר', 'שומשום'],
     },
     en: {
-      title: 'Black lentil', subtitle: 'Sea bass', label: 'Lentil sea bass', chef: 'From the sea', kitchen: 'Main course',
+      title: 'Black lentil', subtitle: 'Sea bass', label: 'Lentil sea bass', chef: 'Catch of the day', kitchen: 'Main course',
       description: 'Crisp-skin sea bass on beluga lentils with a soft egg and glazed carrots.',
       ingredients: ['Sea bass', 'Beluga lentils', 'Soft egg', 'Carrot', 'Sesame'],
     },
@@ -59,12 +59,12 @@ const DISHES: DemoDish[] = [
   {
     image: `${IMG}/dish-melon.webp`, rating: 4.5, likes: 64, accent: '#f5d26a',
     he: {
-      title: 'קיץ', subtitle: 'מלון', label: 'סלט מלון קיצי', chef: 'עונתי', kitchen: 'רק בקיץ',
+      title: 'מהגינה', subtitle: 'מלון', label: 'סלט מלון קיצי', chef: 'עונתי', kitchen: 'רק בקיץ',
       description: 'מלון, עגבניות שרי צלויות ורוקט, עם סחיטה של ליים.',
       ingredients: ['מלון', 'עגבניות שרי', 'רוקט', 'ליים'],
     },
     en: {
-      title: 'Summer', subtitle: 'Melon', label: 'Summer melon salad', chef: 'Seasonal', kitchen: 'Summer only',
+      title: 'Garden', subtitle: 'Melon', label: 'Garden melon salad', chef: 'Seasonal', kitchen: 'Summer only',
       description: 'Cantaloupe, blistered tomatoes and rocket, with a squeeze of lime.',
       ingredients: ['Cantaloupe', 'Cherry tomato', 'Rocket', 'Lime'],
     },
