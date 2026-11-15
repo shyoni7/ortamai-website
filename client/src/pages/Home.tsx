@@ -46,8 +46,8 @@ export default function Home() {
         ? 'מהצעד הראשון ועד בניית מוצרים אמיתיים. לומדים לעבוד עם הכלים שמשנים כל מקצוע, בכיתה, עם מרצה ועם תרגול על משימות מהעבודה.'
         : 'From the first step to building real products. Learn the tools that are changing every profession, in a classroom, with an instructor and hands-on practice on real work tasks.',
       courses: he
-        ? ['מה AI יכול לעשות בשבילך? למתחילים', 'לשלוט ב-Claude Code: מ-0 ל-100', 'בונים אתר עם AI', 'סטודיו AI ליוצרי סרטים']
-        : ['What Can AI Do for You? For beginners', 'Mastering Claude Code: 0 to 100', 'Building a Website with AI', 'AI Studio for Filmmakers'],
+        ? ['מה AI יכול לעשות בשבילך? למתחילים', 'לשלוט ב-Claude Code: מ-0 ל-100', 'בונים אתר עם AI', 'AI STUDIO - קורס ליוצרי סרטים ומדיה']
+        : ['What Can AI Do for You? For beginners', 'Mastering Claude Code: 0 to 100', 'Building a Website with AI', 'AI STUDIO - A Course for Film and Media Creators'],
       href: '/courses',
       link: he ? 'לכל הקורסים' : 'All courses',
       img: `${IMG}/class-applause.webp`,

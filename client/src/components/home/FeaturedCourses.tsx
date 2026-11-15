@@ -35,7 +35,7 @@ export default function FeaturedCourses({ he }: { he: boolean }) {
     },
     {
       id: 'studio',
-      title: he ? 'סטודיו AI ליוצרי תוכן' : 'AI Studio for Creators',
+      title: he ? 'AI STUDIO - קורס ליוצרי סרטים ומדיה' : 'AI STUDIO - A Course for Film and Media Creators',
       line: he
         ? 'מפרומפט לסרט. הופכים רעיון לווידאו ולתמונות ברמה מקצועית.'
         : 'From prompt to film. Turn an idea into professional video and images.',
