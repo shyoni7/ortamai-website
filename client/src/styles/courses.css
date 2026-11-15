@@ -160,11 +160,10 @@
   .syl-hero-tag { inset-block-start: 1.25rem; inset-inline-end: 1.5rem; }
 }
 
-/* Coded hero animation for the Claude Code course: terminal and browser windows. */
-.syl-hero-media.is-demo { aspect-ratio: 7 / 5; }
-.cdh-stage {
-  position: absolute; inset: 0.9rem 0.9rem 4.4rem; transition: opacity 500ms ease;
-}
+/* Coded hero animation for the Claude Code course: a terminal, and a browser
+   window in which a live restaurant site comes together. */
+.syl-hero-media.is-demo { aspect-ratio: auto; padding: 0.9rem 0.9rem 4.4rem; }
+.cdh-stage { position: relative; display: flex; flex-direction: column; gap: 0.6rem; transition: opacity 500ms ease; }
 .cdh-stage.is-leaving { opacity: 0; }
 .cdh-stage::before { /* soft glow behind the windows */
   content: ''; position: absolute; inset: 8% 10%; z-index: -1; border-radius: 50%;
@@ -172,14 +171,11 @@
   filter: blur(26px);
 }
 .cdh-win {
-  position: absolute; display: flex; flex-direction: column; overflow: hidden;
+  position: relative; display: flex; flex-direction: column; overflow: hidden;
   border-radius: 12px; box-shadow: 0 24px 50px -22px rgba(0, 0, 0, 0.7);
 }
-.cdh-term { inset-block: 0 14%; left: 0; right: 34%; background: #170B20; border: 1px solid rgba(255, 255, 255, 0.14); }
-.cdh-browser { inset-block: 22% 0; left: 46%; right: 0; background: #fff; border: 1px solid rgba(255, 255, 255, 0.5); }
-/* Keyed off the page language, not [dir]: the windows are always LTR inside. */
-.cdh-stage.is-rtl .cdh-term { inset-inline: auto; left: 34%; right: 0; }
-.cdh-stage.is-rtl .cdh-browser { inset-inline: auto; left: 0; right: 46%; }
+.cdh-term { background: #170B20; border: 1px solid rgba(255, 255, 255, 0.14); }
+.cdh-browser { background: #fff; border: 1px solid rgba(255, 255, 255, 0.5); }
 
 .cdh-bar { display: flex; align-items: center; gap: 5px; padding: 7px 9px; flex-shrink: 0; }
 .cdh-term .cdh-bar { background: rgba(255, 255, 255, 0.06); }
@@ -190,7 +186,7 @@
 
 .cdh-term-body {
   flex: 1; padding: 9px 11px; display: flex; flex-direction: column; gap: 5px;
-  font: 500 11px/1.5 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; color: rgba(255, 255, 255, 0.9);
+  font: 500 12px/1.5 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; color: rgba(255, 255, 255, 0.9);
 }
 .cdh-term-body p { margin: 0; }
 .cdh-dim { color: rgba(255, 255, 255, 0.45); }
@@ -199,18 +195,21 @@
 .cdh-caret { display: inline-block; width: 6px; height: 1em; margin-inline-start: 2px; vertical-align: -2px; background: var(--h-accent); animation: cdh-blink 900ms steps(2) infinite; }
 @keyframes cdh-blink { 50% { opacity: 0; } }
 
-.cdh-step, .cdh-final {
+.cdh-step, .cdh-final, .cdh-status {
   display: flex; align-items: center; gap: 7px; font-family: 'Heebo', ui-monospace, monospace;
   opacity: 0; transform: translateY(5px); transition: opacity 320ms ease, transform 320ms cubic-bezier(0.22, 1, 0.36, 1), color 200ms ease;
 }
-.cdh-step.is-on, .cdh-final.is-on { opacity: 1; transform: none; }
-.cdh-step { color: rgba(255, 255, 255, 0.92); }
+.cdh-step.is-on, .cdh-final.is-on, .cdh-status.is-on { opacity: 1; transform: none; }
+.cdh-step, .cdh-status { color: rgba(255, 255, 255, 0.92); }
 .cdh-step.is-done { color: rgba(255, 255, 255, 0.6); }
 .cdh-final { color: var(--h-accent); font-weight: 700; margin-top: 2px; }
 .cdh-mark { display: inline-flex; align-items: center; justify-content: center; width: 12px; height: 12px; flex-shrink: 0; color: var(--h-accent); }
 .cdh-mark svg { width: 12px; height: 12px; stroke-width: 3; }
 .cdh-mark b { width: 7px; height: 7px; border-radius: 50%; background: var(--h-accent); animation: cdh-pulse 800ms ease-in-out infinite; }
 @keyframes cdh-pulse { 50% { opacity: 0.3; transform: scale(0.7); } }
+/* Phone: the terminal is a compact command bar, one status line at a time. */
+.cdh-dim, .cdh-step, .cdh-final { display: none; }
+.cdh-status { min-height: 1.5em; }
 
 .cdh-url, .cdh-live { opacity: 0; transition: opacity 400ms ease; }
 .cdh-url.is-on, .cdh-live.is-on { opacity: 1; }
@@ -220,46 +219,65 @@
 }
 .cdh-url svg { width: 9px; height: 9px; color: var(--h-accent-ink); flex-shrink: 0; }
 .cdh-live {
-  display: none; padding: 3px 7px; border-radius: 999px; background: var(--h-accent); color: var(--h-ink);
+  padding: 3px 7px; border-radius: 999px; background: var(--h-accent); color: var(--h-ink);
   font: 700 9.5px/1 'Heebo', ui-sans-serif, sans-serif; white-space: nowrap;
 }
 
-.cdh-page { flex: 1; padding: 9px 11px; display: flex; flex-direction: column; gap: 7px; }
-.cdh-b { opacity: 0; transform: translateY(8px) scale(0.98); transition: opacity 420ms ease, transform 420ms cubic-bezier(0.22, 1, 0.36, 1); }
-.cdh-b.is-on { opacity: 1; transform: none; }
-.cdh-nav { display: flex; align-items: center; gap: 6px; }
-.cdh-nav u { width: 12px; height: 12px; border-radius: 4px; background: var(--h-dark); margin-inline-end: auto; }
-.cdh-nav span { width: 14%; height: 4px; border-radius: 2px; background: #DCD3E1; }
-.cdh-title { display: flex; flex-direction: column; gap: 4px; margin-top: 2px; }
-.cdh-title span { height: 9px; border-radius: 3px; background: var(--h-dark); }
-.cdh-title span:first-child { width: 78%; }
-.cdh-title span:last-child { width: 52%; }
-.cdh-text { display: flex; flex-direction: column; gap: 3px; }
-.cdh-text span { height: 4px; border-radius: 2px; background: #DCD3E1; }
-.cdh-text span:first-child { width: 88%; }
-.cdh-text span:last-child { width: 64%; }
-.cdh-button { width: 34%; height: 14px; border-radius: 999px; background: var(--h-accent); }
-.cdh-cards { flex: 1; display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; min-height: 0; margin-top: 2px; }
-.cdh-card { border-radius: 6px; background: #F1ECF4; border: 1px solid #E6DEEA; }
+/* The page inside the browser. It keeps the carousel's 960 x 520 canvas ratio,
+   and gives the embedded site its own light theme, whatever the host page uses. */
+.cdh-site {
+  position: relative; aspect-ratio: 960 / 520; overflow: hidden; background: #FBF7F2;
+  --color-background: #FBF7F2; --color-foreground: #241530; --color-muted-foreground: #7B6F82; --color-primary: #17A673;
+}
+.cdh-live-site {
+  position: absolute; inset: 0; opacity: 0; transform: scale(1.03);
+  transition: opacity 700ms ease, transform 900ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+.cdh-site.is-designed .cdh-live-site { opacity: 1; transform: none; }
+/* The menu (dish card and thumbnails) arrives one step after the design. */
+.cdh-live-site .dsh-card, .cdh-live-site .dsh-strip, .cdh-live-site .dsh-acts {
+  opacity: 0; translate: 0 10px; transition: opacity 500ms ease, translate 600ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+.cdh-site.has-menu .dsh-card, .cdh-site.has-menu .dsh-strip, .cdh-site.has-menu .dsh-acts { opacity: 1; translate: 0 0; }
+.cdh-site.has-menu .dsh-strip { transition-delay: 150ms; }
+
+/* Wireframe placeholders, laid out like the page they turn into. */
+.cdh-wire { position: absolute; inset: 0; opacity: 0; transition: opacity 400ms ease; }
+.cdh-wire.is-on { opacity: 1; }
+.cdh-site.is-designed .cdh-wire { opacity: 0; }
+.cdh-wire > span { position: absolute; border-radius: 6px; background: #E9E1EC; animation: cdh-wire 1.1s ease-in-out infinite alternate; }
+@keyframes cdh-wire { to { background: #DCD1E1; } }
+.cdh-w-plate { left: 14%; top: 16%; width: 25%; aspect-ratio: 1; border-radius: 50% !important; }
+.cdh-w-t1 { left: 41%; top: 24%; width: 26%; height: 7%; }
+.cdh-w-t2 { left: 41%; top: 35%; width: 32%; height: 9%; }
+.cdh-w-card { left: 75%; top: 26%; width: 22%; height: 46%; border-radius: 10px !important; }
+.cdh-w-strip { left: 14%; top: 74%; width: 56%; height: 17%; background: none !important; animation: none !important; display: flex; gap: 4%; }
+.cdh-w-strip i { flex: 1; border-radius: 8px; background: #E9E1EC; }
 
 @media (min-width: 640px) {
   .cdh-term-body { font-size: 13px; padding: 12px 14px; gap: 7px; }
   .cdh-bar { padding: 9px 11px; }
-  .cdh-live { display: inline-block; }
-  .cdh-page { padding: 12px 14px; gap: 9px; }
-  .cdh-title span { height: 12px; }
-  .cdh-button { height: 18px; }
 }
-@media (min-width: 640px) and (max-width: 1023px) { .syl-hero-media.is-demo { aspect-ratio: 16 / 9; } }
 @media (min-width: 1024px) {
-  .syl-hero-media.is-demo { aspect-ratio: auto; }
-  .cdh-stage { inset: 2rem 2.5rem 5.25rem 3.5rem; }
-  .cdh-stage.is-rtl { inset: 2rem 3.5rem 5.25rem 2.5rem; }
-  .is-demo .syl-caption { inset-inline: 2rem; inset-block-end: 1.6rem; }
+  .syl-hero-media.is-demo { padding: 0; }
+  .cdh-stage { position: absolute; display: block; inset: 1.25rem 2.5rem 4.5rem 3.5rem; }
+  .cdh-stage.is-rtl { inset: 1.25rem 3.5rem 4.5rem 2.5rem; }
+  .cdh-win { position: absolute; }
+  /* The browser is the star; the terminal tucks in behind its corner. Placement is
+     keyed off the page language, not [dir], because the windows are LTR inside. */
+  .cdh-browser { bottom: 0; right: 0; width: 61%; z-index: 1; }
+  .cdh-term { top: 0; left: 0; width: 47%; bottom: 20%; }
+  .cdh-stage.is-rtl .cdh-browser { right: auto; left: 0; }
+  .cdh-stage.is-rtl .cdh-term { left: auto; right: 0; }
+  .cdh-term-body { font-size: 13px; }
+  .cdh-dim, .cdh-final { display: block; }
+  .cdh-step, .cdh-final { display: flex; }
+  .cdh-status { display: none; }
+  .is-demo .syl-caption { inset-inline: 2rem; inset-block-end: 1.4rem; }
   .is-demo .syl-caption > span { max-width: 42rem; }
-  .cdh-term-body { font-size: 14px; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .cdh-stage, .cdh-step, .cdh-final, .cdh-b, .cdh-url, .cdh-live { transition: none; }
-  .cdh-caret, .cdh-mark b { animation: none; }
+  .cdh-stage, .cdh-step, .cdh-final, .cdh-status, .cdh-url, .cdh-live, .cdh-live-site, .cdh-wire,
+  .cdh-live-site .dsh-card, .cdh-live-site .dsh-strip, .cdh-live-site .dsh-acts { transition: none; }
+  .cdh-caret, .cdh-mark b, .cdh-wire > span { animation: none; }
 }
