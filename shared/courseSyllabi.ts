@@ -29,7 +29,13 @@ export interface CourseSyllabus {
   requirements: Bilingual<string[]>;
   sessions: SyllabusSession[];
   /** Optional silent looping clip blended into the page hero. */
-  heroVideo?: { src: string; poster: string; alt: Bilingual };
+  heroVideo?: {
+    src: string;
+    poster: string;
+    alt: Bilingual;
+    /** The course intro, split into subtitle lines shown over the clip in turn. */
+    captions: Bilingual<string[]>;
+  };
 }
 
 export const COURSE_SYLLABI: CourseSyllabus[] = [
@@ -220,6 +226,20 @@ export const COURSE_SYLLABI: CourseSyllabus[] = [
       alt: {
         he: "סרטון אנימציה שנוצר ב-AI: בוסקו, כלב ראפר, נכנס לסטודיו הווידאו שלו ומתיישב לערוך סרט",
         en: "AI-generated animation: Bosco, a rapper dog, walks into his video studio and sits down to edit a film",
+      },
+      captions: {
+        he: [
+          "שישה מפגשים מעשיים שבהם בונים סטודיו AI מלא",
+          "נכסים חזותיים, אווטארים, סרטוני ליפ סינק וסרטוני עלילה",
+          "לומדים לכתוב תסריט ולהפוך אותו לפרומפטים מדויקים",
+          "ומסיימים עם סרט גמר ותיק עבודות ראשון",
+        ],
+        en: [
+          "Six hands-on sessions in which you build a complete AI studio",
+          "Visual assets, avatars, lip-sync videos and narrative films",
+          "Learn to write a script and turn it into precise prompts",
+          "Finish with a capstone film and a first portfolio",
+        ],
       },
     },
     sessionCount: 6,

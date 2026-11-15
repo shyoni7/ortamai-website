@@ -23,20 +23,50 @@ function CheckList({ items }: { items: string[] }) {
   );
 }
 
-/** Silent looping hero clip. Stays on its poster frame when the visitor prefers reduced motion. */
-function HeroVideo({ video, label }: { video: { src: string; poster: string }; label: string }) {
+/**
+ * Silent looping hero clip with the course intro shown as subtitles, one line at a time,
+ * in step with the clip. Under reduced motion the clip stays on its poster and the whole
+ * intro is shown at once.
+ */
+function HeroVideo({ video, label, captions }: {
+  video: { src: string; poster: string };
+  label: string;
+  captions: string[];
+}) {
   const ref = useRef<HTMLVideoElement>(null);
+  const [line, setLine] = useState(0);
+  const [still, setStill] = useState(false);
+
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-    el.play().catch(() => { /* autoplay blocked: the poster stays */ });
-  }, []);
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      setStill(true);
+      return;
+    }
+    const onTime = () => {
+      if (!el.duration) return;
+      setLine(Math.min(captions.length - 1, Math.floor((el.currentTime / el.duration) * captions.length)));
+    };
+    el.addEventListener('timeupdate', onTime);
+    el.play().catch(() => setStill(true)); // autoplay blocked: poster and full text stay
+    return () => el.removeEventListener('timeupdate', onTime);
+  }, [captions.length]);
+
   return (
-    <video ref={ref} className="syl-hero-video" poster={video.poster} muted loop playsInline
-      preload="metadata" aria-label={label}>
-      <source src={video.src} type="video/mp4" />
-    </video>
+    <>
+      <video ref={ref} className="syl-hero-video" poster={video.poster} muted loop playsInline
+        preload="metadata" aria-label={label}>
+        <source src={video.src} type="video/mp4" />
+      </video>
+      {/* Screen readers get the intro once, as a plain paragraph. */}
+      <p className="sr-only">{captions.join('. ')}.</p>
+      <p className="syl-caption" aria-hidden="true">
+        {still
+          ? <span>{captions.join('. ')}.</span>
+          : <span key={line} className="syl-caption-line">{captions[line]}</span>}
+      </p>
+    </>
   );
 }
 
@@ -107,11 +137,12 @@ export default function CourseSyllabus() {
         >
           {syllabus.heroVideo && (
             <div className="syl-hero-media">
-              <HeroVideo video={syllabus.heroVideo} label={syllabus.heroVideo.alt[lang]} />
+              <HeroVideo video={syllabus.heroVideo} label={syllabus.heroVideo.alt[lang]}
+                captions={syllabus.heroVideo.captions[lang]} />
               <span className="syl-hero-tag">{he ? 'נוצר כולו ב-AI' : 'Made entirely with AI'}</span>
             </div>
           )}
-          <div className="syl-hero-body mx-auto max-w-7xl px-5 sm:px-8 py-12 md:py-20 text-start">
+          <div className={`syl-hero-body mx-auto max-w-7xl px-5 sm:px-8 text-start ${syllabus.heroVideo ? 'py-8 md:py-10' : 'py-12 md:py-20'}`}>
             <Link href="/courses" className="inline-flex items-center gap-2 min-h-11 text-base font-medium" style={{ color: 'var(--h-on-dark)' }}>
               <BackArrow className="w-4 h-4" aria-hidden="true" />
               {he ? 'כל הקורסים' : 'All courses'}
@@ -140,13 +171,18 @@ export default function CourseSyllabus() {
         </section>
 
         {/* Program + booking */}
-        <section aria-labelledby="program-title" className="py-14 md:py-20" style={{ background: 'var(--h-ground)' }}>
+        <section aria-labelledby="program-title"
+          className={syllabus.heroVideo ? 'pt-8 md:pt-10 pb-14 md:pb-20' : 'py-14 md:py-20'}
+          style={{ background: 'var(--h-ground)' }}>
           <div className="mx-auto max-w-7xl px-5 sm:px-8 grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_22rem] gap-10 lg:gap-12 text-start">
             <div>
-              <p className="text-lg md:text-xl leading-relaxed max-w-[65ch] mb-10 md:mb-12" style={{ color: 'var(--h-ink-2)' }}>
-                {syllabus.intro[lang]}
-              </p>
-              <h2 id="program-title" className="text-3xl md:text-4xl font-bold mb-6 md:mb-8" style={{ color: 'var(--h-ink)' }}>
+              {/* With a hero clip the intro runs as its subtitles instead. */}
+              {!syllabus.heroVideo && (
+                <p className="text-lg md:text-xl leading-relaxed max-w-[65ch] mb-10 md:mb-12" style={{ color: 'var(--h-ink-2)' }}>
+                  {syllabus.intro[lang]}
+                </p>
+              )}
+              <h2 id="program-title" className={`text-3xl md:text-4xl font-bold ${syllabus.heroVideo ? 'mb-5' : 'mb-6 md:mb-8'}`} style={{ color: 'var(--h-ink)' }}>
                 {he ? 'תוכנית הלימודים' : 'The Program'}
               </h2>
               <ol className="space-y-4">
