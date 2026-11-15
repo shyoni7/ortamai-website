@@ -134,7 +134,7 @@ export default function CourseSyllabus() {
         {/* Hero */}
         <section
           aria-labelledby="syllabus-title"
-          className={hasMedia ? 'syl-hero has-media' : 'syl-hero'}
+          className={`syl-hero${hasMedia ? ' has-media' : ''}${syllabus.heroDemo ? ' has-demo' : ''}`}
           style={{ background: 'var(--h-dark)' }}
         >
           {syllabus.heroVideo && (

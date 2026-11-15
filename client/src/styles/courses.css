@@ -162,8 +162,15 @@
 
 /* Coded hero animation for the Claude Code course: a terminal, and a browser
    window in which a live restaurant site comes together. */
-.syl-hero-media.is-demo { aspect-ratio: auto; padding: 0.9rem 0.9rem 4.4rem; }
-.cdh-stage { position: relative; display: flex; flex-direction: column; gap: 0.6rem; transition: opacity 500ms ease; }
+.syl-hero-media.is-demo { aspect-ratio: auto; padding: 1.4rem 0.9rem 4.4rem; }
+/* Phone: the course title comes first and the demo follows it, so the first thing
+   a visitor reads is what the course is, not a plate of food. */
+@media (max-width: 1023px) {
+  .syl-hero.has-demo { display: flex; flex-direction: column; }
+  .syl-hero.has-demo .syl-hero-media { order: 2; }
+  .syl-hero.has-demo .syl-hero-body { width: 100%; padding-top: 1.5rem; padding-bottom: 0.25rem; }
+}
+.cdh-stage { position: relative; display: flex; flex-direction: column; gap: 1.15rem; transition: opacity 500ms ease; }
 .cdh-stage.is-leaving { opacity: 0; }
 .cdh-stage::before { /* soft glow behind the windows */
   content: ''; position: absolute; inset: 8% 10%; z-index: -1; border-radius: 50%;
@@ -171,9 +178,30 @@
   filter: blur(26px);
 }
 .cdh-win {
-  position: relative; display: flex; flex-direction: column; overflow: hidden;
+  position: relative; display: flex; flex-direction: column;
   border-radius: 12px; box-shadow: 0 24px 50px -22px rgba(0, 0, 0, 0.7);
 }
+.cdh-win > .cdh-bar { border-radius: 11px 11px 0 0; }
+.cdh-term-body, .cdh-site { border-radius: 0 0 11px 11px; }
+
+/* The show opens on the terminal alone. Sending the request (.is-split) moves it
+   aside and brings the browser in, so the site is seen being asked for, then built. */
+.cdh-term { z-index: 2; transition: transform 750ms cubic-bezier(0.16, 1, 0.3, 1); }
+.cdh-stage:not(.is-split) .cdh-term { transform: translateY(5.5rem); }
+.cdh-browser {
+  opacity: 0; transform: translateY(14px) scale(0.97);
+  transition: opacity 500ms ease 200ms, transform 750ms cubic-bezier(0.16, 1, 0.3, 1) 200ms;
+}
+.cdh-stage.is-split .cdh-browser { opacity: 1; transform: none; }
+
+/* Says plainly that the page in the browser is an example, not the site you are on. */
+.cdh-tag {
+  position: absolute; z-index: 3; top: -1.05rem; right: 0.9rem;
+  padding: 0.28rem 0.7rem; border-radius: 999px; white-space: nowrap;
+  font: 700 0.72rem/1.2 'Heebo', ui-sans-serif, sans-serif; color: var(--h-ink);
+  background: var(--h-accent); box-shadow: 0 6px 16px -8px rgba(0, 0, 0, 0.6);
+}
+.cdh-stage.is-rtl .cdh-tag { right: auto; left: 0.9rem; }
 .cdh-term { background: #170B20; border: 1px solid rgba(255, 255, 255, 0.14); }
 .cdh-browser { background: #fff; border: 1px solid rgba(255, 255, 255, 0.5); }
 
@@ -265,8 +293,12 @@
   .cdh-win { position: absolute; }
   /* The browser is the star; the terminal tucks in behind its corner. Placement is
      keyed off the page language, not [dir], because the windows are LTR inside. */
-  .cdh-browser { bottom: 0; right: 0; width: 61%; z-index: 1; }
+  .cdh-browser { bottom: 0; right: 0; width: 61%; z-index: 3; }
   .cdh-term { top: 0; left: 0; width: 47%; bottom: 20%; }
+  /* Alone, the terminal sits in the middle of the stage, a little larger. */
+  .cdh-stage:not(.is-split) .cdh-term { transform: translate(56%, 12%) scale(1.08); }
+  .cdh-stage.is-rtl:not(.is-split) .cdh-term { transform: translate(-56%, 12%) scale(1.08); }
+  .cdh-tag { font-size: 0.78rem; top: -1.15rem; }
   .cdh-stage.is-rtl .cdh-browser { right: auto; left: 0; }
   .cdh-stage.is-rtl .cdh-term { left: auto; right: 0; }
   .cdh-term-body { font-size: 13px; }
@@ -277,7 +309,7 @@
   .is-demo .syl-caption > span { max-width: 42rem; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .cdh-stage, .cdh-step, .cdh-final, .cdh-status, .cdh-url, .cdh-live, .cdh-live-site, .cdh-wire,
+  .cdh-stage, .cdh-term, .cdh-browser, .cdh-step, .cdh-final, .cdh-status, .cdh-url, .cdh-live, .cdh-live-site, .cdh-wire,
   .cdh-live-site .dsh-card, .cdh-live-site .dsh-strip, .cdh-live-site .dsh-acts { transition: none; }
   .cdh-caret, .cdh-mark b, .cdh-wire > span { animation: none; }
 }
