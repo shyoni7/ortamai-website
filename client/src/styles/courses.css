@@ -16,6 +16,17 @@
   .crs-card.is-featured:hover { box-shadow: 0 0 0 1px var(--h-accent), 0 30px 64px -30px rgba(216, 94, 18, 0.6); }
 }
 
+/* The card a home-page banner pointed at: clear of the sticky nav, and flagged for a moment. */
+.crs-card { scroll-margin-top: 6.5rem; }
+.crs-card.is-target { animation: crs-target 2.4s ease-out; }
+@keyframes crs-target {
+  0%, 55% { box-shadow: 0 0 0 3px var(--h-accent), 0 24px 56px -30px rgba(61, 220, 151, 0.7); }
+  100% { box-shadow: 0 20px 50px -34px rgba(31, 16, 41, 0.5); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .crs-card.is-target { animation: none; outline: 3px solid var(--h-accent); outline-offset: 2px; }
+}
+
 .crs-icon {
   display: inline-flex; align-items: center; justify-content: center;
   width: 2.75rem; height: 2.75rem; border-radius: 14px; flex-shrink: 0;

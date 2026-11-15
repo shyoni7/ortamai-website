@@ -16,6 +16,8 @@ interface Course {
 
 // Four featured courses on the home page. Claude Code is the flagship and
 // gets the large dark card; the studio course comes second.
+// Each card goes to its own course: the syllabus page where there is one,
+// otherwise that course's card on the courses page (/courses#<slug>).
 export default function FeaturedCourses({ he }: { he: boolean }) {
   const Arrow = he ? ArrowLeft : ArrowRight;
 
@@ -28,7 +30,7 @@ export default function FeaturedCourses({ he }: { he: boolean }) {
         : 'Build apps, websites and automations with AI. From zero to a real project that goes live.',
       img: `${IMG}/course-claude-code.webp`,
       alt: he ? 'מפתח עובד בערב על מחשב נייד עם עורך קוד פתוח' : 'A developer working in the evening with a code editor open',
-      href: '/courses',
+      href: '/courses/claude-code-mastery',
       badge: he ? 'הקורס הדגל שלנו' : 'Our flagship course',
     },
     {
@@ -39,7 +41,7 @@ export default function FeaturedCourses({ he }: { he: boolean }) {
         : 'From prompt to film. Turn an idea into professional video and images.',
       img: `${IMG}/course-ai-studio.webp`,
       alt: he ? 'יוצרת תוכן עורכת וידאו בסטודיו ביתי' : 'A creator editing video in a home studio',
-      href: '/courses',
+      href: '/courses/ai-filmmaker-studio',
     },
     {
       id: 'agents',
@@ -49,7 +51,7 @@ export default function FeaturedCourses({ he }: { he: boolean }) {
         : 'Agents that answer, schedule and update for you, with all your business tools in one flow.',
       img: `${IMG}/course-ai-agents.webp`,
       alt: he ? 'טאבלט על דלפק של עסק קטן מציג תרשים זרימה של אוטומציה' : 'A tablet on a small business counter showing an automation flow',
-      href: '/courses',
+      href: '/courses#ai-agents-automation',
     },
     {
       id: 'cyber',
@@ -59,7 +61,7 @@ export default function FeaturedCourses({ he }: { he: boolean }) {
         : 'Monitoring, detection and threat analysis in the AI era. Know the attackers’ tools and use them on defence.',
       img: `${IMG}/course-cyber-ai.webp`,
       alt: he ? 'אנליסט אבטחה מול מסכי ניטור' : 'A security analyst in front of monitoring screens',
-      href: '/courses',
+      href: '/courses#cyber-ai-security',
     },
   ];
 
