@@ -10,6 +10,7 @@ import About from "./pages/About";
 import Incubator from "./pages/Incubator";
 import Academy from "./pages/Academy";
 import Courses from "./pages/Courses";
+import CourseSyllabus from "./pages/CourseSyllabus";
 import Admin from "./pages/Admin";
 import Placement from "./pages/Placement";
 import Contact from "./pages/Contact";
@@ -41,6 +42,7 @@ function PublicRoutes() {
         <Route path="/incubator"><Redirect to="/consulting" replace /></Route>
         <Route path="/academy" component={Academy} />
         <Route path="/courses" component={Courses} />
+        <Route path="/courses/:slug" component={CourseSyllabus} />
         <Route path="/placement" component={Placement} />
         <Route path="/contact" component={Contact} />
         <Route path="/ai-guide/advanced" component={AiGuideAdvanced} />

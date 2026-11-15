@@ -97,4 +97,22 @@
     <priority>0.3</priority>
   </url>
 
+  <url>
+    <loc>https://ortamai.com/courses/claude-code-mastery</loc>
+    <lastmod>2026-11-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="he" href="https://ortamai.com/courses/claude-code-mastery"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ortamai.com/courses/claude-code-mastery"/>
+  </url>
+
+  <url>
+    <loc>https://ortamai.com/courses/ai-filmmaker-studio</loc>
+    <lastmod>2026-11-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="he" href="https://ortamai.com/courses/ai-filmmaker-studio"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ortamai.com/courses/ai-filmmaker-studio"/>
+  </url>
+
 </urlset>

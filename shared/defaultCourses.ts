@@ -39,8 +39,8 @@ export const DEFAULT_COURSES: CatalogCourse[] = [
     section: "courses",
     title: "לשלוט ב-Claude Code: מ-0 ל-100",
     titleEn: "Mastering Claude Code: 0 to 100",
-    subtitle: "6 מפגשים. מאפס מוחלט לבניית מוצרים אמיתיים",
-    subtitleEn: "6 sessions. From absolute zero to building real products",
+    subtitle: "6 מפגשים, 30 שעות. מאפס מוחלט לבניית מוצרים אמיתיים",
+    subtitleEn: "6 sessions, 30 hours. From absolute zero to building real products",
     description:
       "המסלול המלא לשליטה ב-Claude Code — הכלי שמאפשר לכל אחד לבנות אפליקציות, אתרים ואוטומציות בעזרת AI. שישה מפגשים מעשיים, מהתקנה ראשונה ועד פרויקט אמיתי שעולה לאוויר.",
     descriptionEn:
@@ -89,21 +89,21 @@ export const DEFAULT_COURSES: CatalogCourse[] = [
     section: "courses",
     title: "להיות יוצר סרטים — סטודיו AI מקצועי",
     titleEn: "Become a Filmmaker — Professional AI Studio",
-    subtitle: "מפרומפט לסרט: הפקת וידאו ותמונות ברמה מקצועית",
-    subtitleEn: "From prompt to film: professional-grade video and image production",
+    subtitle: "6 מפגשים, 30 שעות. מתסריט ופרומפט לסרט מוגמר",
+    subtitleEn: "6 sessions, 30 hours. From script and prompt to a finished film",
     description:
       "סטודיו AI מקצועי משלכם: הפקת סרטונים, תמונות וסאונד עם כלי ה-AI המתקדמים בעולם. מהרעיון והתסריט ועד סרט גמור שאפשר לפרסם.",
     descriptionEn:
       "Your own professional AI studio: producing videos, images and sound with the world's leading AI tools. From idea and script to a finished, publishable film.",
     highlights:
-      "מתסריט לסרט מוגמר\nוידאו, תמונה וסאונד בכלי AI מובילים\nיוצאים עם תיק עבודות ראשון",
+      "אווטארים, ליפ סינק וסרטוני עלילה\nמתסריט לפרומפטים מדויקים\nיוצאים עם סרט גמר ותיק עבודות ראשון",
     highlightsEn:
-      "From script to finished film\nVideo, image and sound with leading AI tools\nLeave with your first portfolio piece",
+      "Avatars, lip sync and narrative films\nFrom script to precise prompts\nLeave with a capstone film and a first portfolio",
     price: 2900,
     originalPrice: null,
     priceUnit: "course",
-    badge: null,
-    badgeEn: null,
+    badge: "6 מפגשים",
+    badgeEn: "6 sessions",
     audience: null,
     audienceEn: null,
     sortOrder: 3,
