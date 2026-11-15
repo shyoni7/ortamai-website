@@ -1,16 +1,18 @@
 import React, { useState } from 'react';
 import {
   GraduationCap, Users, HeartHandshake, CheckCircle, X, Sparkles, Clock,
-  Code2, Clapperboard, Globe, UserRound, Palette, Star,
+  Code2, Clapperboard, Globe, UserRound, Palette, Star, ArrowLeft, ArrowRight,
 } from 'lucide-react';
+import { Link } from 'wouter';
 import { useLanguage } from '@/contexts/LanguageContext';
 import SEO from '@/components/SEO';
 import { trpc } from '@/lib/trpc';
 import { DEFAULT_COURSES, type CatalogCourse } from '@shared/defaultCourses';
+import { getSyllabus } from '@shared/courseSyllabi';
 import { toast } from 'sonner';
 import '@/styles/courses.css';
 
-type CourseItem = CatalogCourse & { id: number };
+export type CourseItem = CatalogCourse & { id: number };
 
 function formatPrice(price: number): string {
   return `₪${price.toLocaleString('he-IL')}`;
@@ -37,7 +39,7 @@ function cardIcon(course: { slug: string; section: string }): React.ElementType 
 /** The flagship course gets a highlighted card. */
 const FEATURED_SLUG = 'claude-code-mastery';
 
-interface OrderTarget {
+export interface OrderTarget {
   course: CourseItem;
   type: 'booking' | 'eligibility_check';
 }
@@ -252,6 +254,14 @@ function FlagshipCard({ course, isRtl, onOrder }: {
         <p className="text-base leading-relaxed mb-5" style={{ color: 'var(--h-ink-2)' }}>{subtitle}</p>
       )}
       {bullets.length > 0 && <BulletList items={bullets} />}
+      {getSyllabus(course.slug) && (
+        <Link href={`/courses/${course.slug}`} className="crs-syllabus-link mb-6">
+          {isRtl ? 'לסילבוס המלא' : 'View the full syllabus'}
+          {isRtl
+            ? <ArrowLeft className="w-4 h-4" aria-hidden="true" />
+            : <ArrowRight className="w-4 h-4" aria-hidden="true" />}
+        </Link>
+      )}
 
       <div className="mt-auto">
         <PriceRow price={course.price} unit={isRtl ? 'לקורס המלא' : 'full course'} isRtl={isRtl} />
@@ -365,7 +375,7 @@ function SubsidizedCard({ course, isRtl, onOrder }: { course: CourseItem; isRtl:
   );
 }
 
-function OrderDialog({ target, isRtl, dir, lang, onClose }: {
+export function OrderDialog({ target, isRtl, dir, lang, onClose }: {
   target: OrderTarget;
   isRtl: boolean;
   dir: 'rtl' | 'ltr';
