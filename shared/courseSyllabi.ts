@@ -70,8 +70,16 @@ export const COURSE_SYLLABI: CourseSyllabus[] = [
       ],
     },
     requirements: {
-      he: ["מחשב נייד אישי", "אין צורך בניסיון קודם בתכנות"],
-      en: ["A personal laptop", "No prior programming experience needed"],
+      he: [
+        "מחשב נייד אישי",
+        "מנוי Claude בתשלום (חובה). המנוי נרכש בנפרד על ידי המשתתף ואינו כלול במחיר הקורס",
+        "אין צורך בניסיון קודם בתכנות",
+      ],
+      en: [
+        "A personal laptop",
+        "A paid Claude subscription (required). Purchased separately by the participant, not included in the course price",
+        "No prior programming experience needed",
+      ],
     },
     sessions: [
       {
@@ -241,8 +249,16 @@ export const COURSE_SYLLABI: CourseSyllabus[] = [
       ],
     },
     requirements: {
-      he: ["מחשב נייד אישי", "אין צורך בניסיון קודם בצילום, בעריכה או ב-AI"],
-      en: ["A personal laptop", "No prior filming, editing or AI experience needed"],
+      he: [
+        "מחשב נייד אישי",
+        "מנויים לכלי ה-AI שבהם עובדים בקורס. המנויים נרכשים בנפרד על ידי המשתתף ואינם כלולים במחיר הקורס",
+        "אין צורך בניסיון קודם בצילום, בעריכה או ב-AI",
+      ],
+      en: [
+        "A personal laptop",
+        "Subscriptions to the AI tools used in the course. Purchased separately by the participant, not included in the course price",
+        "No prior filming, editing or AI experience needed",
+      ],
     },
     sessions: [
       {
