@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   GraduationCap, Users, HeartHandshake, CheckCircle, X, Sparkles, Clock,
   Code2, Clapperboard, Globe, UserRound, Palette, Star, ArrowLeft, ArrowRight,
@@ -66,6 +66,29 @@ export default function Courses() {
   const subsidized = allCourses.filter(c => c.section === 'subsidized');
 
   const [orderTarget, setOrderTarget] = useState<OrderTarget | null>(null);
+
+  // A link to /courses#<slug> lands on that course's card and flags it briefly.
+  // The router changes pages without a reload, so the browser will not scroll to
+  // the anchor by itself.
+  useEffect(() => {
+    let timer = 0;
+    const goToCard = () => {
+      const id = decodeURIComponent(window.location.hash.slice(1));
+      const card = id ? document.getElementById(id) : null;
+      if (!card) return;
+      card.scrollIntoView({ block: 'center', behavior: 'instant' });
+      card.classList.add('is-target');
+      window.clearTimeout(timer);
+      timer = window.setTimeout(() => card.classList.remove('is-target'), 2600);
+    };
+    const frame = requestAnimationFrame(goToCard);
+    window.addEventListener('hashchange', goToCard);
+    return () => {
+      cancelAnimationFrame(frame);
+      window.clearTimeout(timer);
+      window.removeEventListener('hashchange', goToCard);
+    };
+  }, []);
 
   return (
     <>
@@ -242,7 +265,7 @@ function FlagshipCard({ course, isRtl, onOrder }: {
   const Icon = cardIcon(course);
 
   return (
-    <article className={`crs-card ${featured ? 'is-featured' : ''} h-full flex flex-col p-6 md:p-7 text-start`}>
+    <article id={course.slug} className={`crs-card ${featured ? 'is-featured' : ''} h-full flex flex-col p-6 md:p-7 text-start`}>
       <div className="flex items-center gap-3 mb-5 flex-wrap">
         <span className="crs-icon"><Icon className="w-5 h-5" aria-hidden="true" /></span>
         {badge && <span className="crs-pill">{badge}</span>}
@@ -284,7 +307,7 @@ function CourseCard({ course, isRtl, onOrder }: { course: CourseItem; isRtl: boo
   const Icon = cardIcon(course);
 
   return (
-    <article className={`crs-card ${featured ? 'is-featured' : ''} h-full flex flex-col p-6 text-start`}>
+    <article id={course.slug} className={`crs-card ${featured ? 'is-featured' : ''} h-full flex flex-col p-6 text-start`}>
       <div className="flex items-center gap-3 mb-5 flex-wrap">
         <span className="crs-icon"><Icon className="w-5 h-5" aria-hidden="true" /></span>
         {badge && <span className="crs-pill">{badge}</span>}
@@ -322,7 +345,7 @@ function SubsidizedCard({ course, isRtl, onOrder }: { course: CourseItem; isRtl:
     : null;
 
   return (
-    <article className="crs-card h-full flex flex-col p-6 text-start">
+    <article id={course.slug} className="crs-card h-full flex flex-col p-6 text-start">
       <div className="flex items-center gap-3 mb-5 flex-wrap">
         <span className="crs-icon"><HeartHandshake className="w-5 h-5" aria-hidden="true" /></span>
         <span className="crs-pill">
