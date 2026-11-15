@@ -8,6 +8,7 @@ import { DEFAULT_COURSES } from '@shared/defaultCourses';
 import { getSyllabus } from '@shared/courseSyllabi';
 import { OrderDialog, type CourseItem } from './Courses';
 import NotFound from './NotFound';
+import CodeDemoHero from '@/components/CodeDemoHero';
 import '@/styles/courses.css';
 
 function CheckList({ items }: { items: string[] }) {
@@ -90,6 +91,7 @@ export default function CourseSyllabus() {
 
   if (!syllabus || !course) return <NotFound />;
 
+  const hasMedia = Boolean(syllabus.heroVideo || syllabus.heroDemo);
   const title = he ? course.title : course.titleEn ?? course.title;
   const subtitle = he ? course.subtitle : course.subtitleEn ?? course.subtitle;
   const hasPrice = course.price > 0;
@@ -132,7 +134,7 @@ export default function CourseSyllabus() {
         {/* Hero */}
         <section
           aria-labelledby="syllabus-title"
-          className={syllabus.heroVideo ? 'syl-hero has-video' : 'syl-hero'}
+          className={hasMedia ? 'syl-hero has-media' : 'syl-hero'}
           style={{ background: 'var(--h-dark)' }}
         >
           {syllabus.heroVideo && (
@@ -142,7 +144,12 @@ export default function CourseSyllabus() {
               <span className="syl-hero-tag">{he ? 'נוצר כולו ב-AI' : 'Made entirely with AI'}</span>
             </div>
           )}
-          <div className={`syl-hero-body mx-auto max-w-7xl px-5 sm:px-8 text-start ${syllabus.heroVideo ? 'py-8 md:py-10' : 'py-12 md:py-20'}`}>
+          {syllabus.heroDemo && (
+            <div className="syl-hero-media is-demo">
+              <CodeDemoHero lang={lang} captions={syllabus.heroDemo.captions[lang]} />
+            </div>
+          )}
+          <div className={`syl-hero-body mx-auto max-w-7xl px-5 sm:px-8 text-start ${hasMedia ? 'py-8 md:py-10' : 'py-12 md:py-20'}`}>
             <Link href="/courses" className="inline-flex items-center gap-2 min-h-11 text-base font-medium" style={{ color: 'var(--h-on-dark)' }}>
               <BackArrow className="w-4 h-4" aria-hidden="true" />
               {he ? 'כל הקורסים' : 'All courses'}
@@ -172,17 +179,17 @@ export default function CourseSyllabus() {
 
         {/* Program + booking */}
         <section aria-labelledby="program-title"
-          className={syllabus.heroVideo ? 'pt-8 md:pt-10 pb-14 md:pb-20' : 'py-14 md:py-20'}
+          className={hasMedia ? 'pt-8 md:pt-10 pb-14 md:pb-20' : 'py-14 md:py-20'}
           style={{ background: 'var(--h-ground)' }}>
           <div className="mx-auto max-w-7xl px-5 sm:px-8 grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_22rem] gap-10 lg:gap-12 text-start">
             <div>
-              {/* With a hero clip the intro runs as its subtitles instead. */}
-              {!syllabus.heroVideo && (
+              {/* With a hero clip or animation the intro runs as its subtitles instead. */}
+              {!hasMedia && (
                 <p className="text-lg md:text-xl leading-relaxed max-w-[65ch] mb-10 md:mb-12" style={{ color: 'var(--h-ink-2)' }}>
                   {syllabus.intro[lang]}
                 </p>
               )}
-              <h2 id="program-title" className={`text-3xl md:text-4xl font-bold ${syllabus.heroVideo ? 'mb-5' : 'mb-6 md:mb-8'}`} style={{ color: 'var(--h-ink)' }}>
+              <h2 id="program-title" className={`text-3xl md:text-4xl font-bold ${hasMedia ? 'mb-5' : 'mb-6 md:mb-8'}`} style={{ color: 'var(--h-ink)' }}>
                 {he ? 'תוכנית הלימודים' : 'The Program'}
               </h2>
               <ol className="space-y-4">

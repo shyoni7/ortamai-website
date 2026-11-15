@@ -28,6 +28,8 @@ export interface CourseSyllabus {
   outcomes: Bilingual<string[]>;
   requirements: Bilingual<string[]>;
   sessions: SyllabusSession[];
+  /** Optional coded animation in the page hero, with the intro as its subtitles. */
+  heroDemo?: { kind: "claude-code"; captions: Bilingual<string[]> };
   /** Optional silent looping clip blended into the page hero. */
   heroVideo?: {
     src: string;
@@ -41,6 +43,21 @@ export interface CourseSyllabus {
 export const COURSE_SYLLABI: CourseSyllabus[] = [
   {
     slug: "claude-code-mastery",
+    heroDemo: {
+      kind: "claude-code",
+      captions: {
+        he: [
+          "שישה מפגשים מעשיים, מההתקנה הראשונה ועד מוצר עובד באוויר",
+          "בכל מפגש בונים משהו אמיתי",
+          "ובסוף: פרויקט גמר אישי לעסק או לרעיון שלכם",
+        ],
+        en: [
+          "Six hands-on sessions, from first install to a live product",
+          "Every session ends with something real",
+          "And at the end: your own capstone project",
+        ],
+      },
+    },
     sessionCount: 6,
     hoursPerSession: 5,
     totalHours: 30,
