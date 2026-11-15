@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Link, useParams } from 'wouter';
 import { ArrowLeft, ArrowRight, CheckCircle } from 'lucide-react';
 import { useLanguage } from '@/contexts/LanguageContext';
@@ -20,6 +20,23 @@ function CheckList({ items }: { items: string[] }) {
         </li>
       ))}
     </ul>
+  );
+}
+
+/** Silent looping hero clip. Stays on its poster frame when the visitor prefers reduced motion. */
+function HeroVideo({ video, label }: { video: { src: string; poster: string }; label: string }) {
+  const ref = useRef<HTMLVideoElement>(null);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    el.play().catch(() => { /* autoplay blocked: the poster stays */ });
+  }, []);
+  return (
+    <video ref={ref} className="syl-hero-video" poster={video.poster} muted loop playsInline
+      preload="metadata" aria-label={label}>
+      <source src={video.src} type="video/mp4" />
+    </video>
   );
 }
 
@@ -83,8 +100,18 @@ export default function CourseSyllabus() {
       />
       <div dir={dir}>
         {/* Hero */}
-        <section aria-labelledby="syllabus-title" style={{ background: 'var(--h-dark)' }}>
-          <div className="mx-auto max-w-7xl px-5 sm:px-8 py-12 md:py-20 text-start">
+        <section
+          aria-labelledby="syllabus-title"
+          className={syllabus.heroVideo ? 'syl-hero has-video' : 'syl-hero'}
+          style={{ background: 'var(--h-dark)' }}
+        >
+          {syllabus.heroVideo && (
+            <div className="syl-hero-media">
+              <HeroVideo video={syllabus.heroVideo} label={syllabus.heroVideo.alt[lang]} />
+              <span className="syl-hero-tag">{he ? 'נוצר כולו ב-AI' : 'Made entirely with AI'}</span>
+            </div>
+          )}
+          <div className="syl-hero-body mx-auto max-w-7xl px-5 sm:px-8 py-12 md:py-20 text-start">
             <Link href="/courses" className="inline-flex items-center gap-2 min-h-11 text-base font-medium" style={{ color: 'var(--h-on-dark)' }}>
               <BackArrow className="w-4 h-4" aria-hidden="true" />
               {he ? 'כל הקורסים' : 'All courses'}
@@ -101,7 +128,7 @@ export default function CourseSyllabus() {
                 {subtitle}
               </p>
             )}
-            <dl className="h-rise h-rise-3 syl-facts mt-8 md:mt-10 max-w-3xl">
+            <dl className="h-rise h-rise-3 syl-facts mt-8 md:mt-10">
               {facts.map(f => (
                 <div key={f.label} className="syl-fact flex flex-col-reverse justify-end">
                   <dt className="syl-fact-label">{f.label}</dt>

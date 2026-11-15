@@ -102,3 +102,40 @@
 }
 .syl-practice strong { color: var(--h-accent-ink); }
 @media (min-width: 1024px) { .syl-aside { position: sticky; top: 6.5rem; } }
+
+/* Syllabus hero with an embedded clip. The clip sits on the far side from the
+   text and dissolves into the dark ground, so it reads as part of the hero. */
+.syl-hero { position: relative; overflow: hidden; isolation: isolate; }
+.syl-hero-body { position: relative; z-index: 1; }
+.syl-hero-media { position: relative; z-index: 0; aspect-ratio: 16 / 9; }
+.syl-hero-video { display: block; width: 100%; height: 100%; object-fit: cover; }
+/* Phone: the clip is a banner above the text, fading out at the bottom. */
+.syl-hero-video {
+  -webkit-mask-image: linear-gradient(to bottom, #000 62%, transparent 100%);
+  mask-image: linear-gradient(to bottom, #000 62%, transparent 100%);
+}
+.syl-hero.has-video .syl-hero-body { padding-top: 0.5rem; }
+.syl-hero-tag {
+  position: absolute; inset-block-start: 0.9rem; inset-inline-end: 0.9rem;
+  padding: 0.3rem 0.7rem; border-radius: 999px;
+  font-size: 0.78rem; font-weight: 600; letter-spacing: 0.01em; color: #fff;
+  background: rgba(42, 18, 56, 0.6); border: 1px solid rgba(255, 255, 255, 0.22);
+}
+@supports (backdrop-filter: blur(1px)) { .syl-hero-tag { backdrop-filter: blur(8px); } }
+
+@media (min-width: 1024px) {
+  .syl-hero-media {
+    position: absolute; inset-block: 0; inset-inline-end: 0; width: 58%; aspect-ratio: auto;
+    --syl-fade: to left;
+  }
+  .syl-hero-video {
+    -webkit-mask-image: linear-gradient(var(--syl-fade), transparent 0%, #000 42%), linear-gradient(to bottom, #000 80%, transparent 100%);
+    mask-image: linear-gradient(var(--syl-fade), transparent 0%, #000 42%), linear-gradient(to bottom, #000 80%, transparent 100%);
+    -webkit-mask-composite: source-in; mask-composite: intersect;
+  }
+  [dir='ltr'] .syl-hero-media { --syl-fade: to right; }
+  .syl-hero.has-video .syl-hero-body { padding-top: 5rem; }
+  .syl-hero.has-video .syl-hero-body > * { max-width: 34rem; }
+  .syl-hero.has-video .syl-facts { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .syl-hero-tag { inset-block-start: auto; inset-block-end: 1.5rem; inset-inline-end: 1.5rem; }
+}

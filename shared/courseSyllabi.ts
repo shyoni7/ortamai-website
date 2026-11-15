@@ -28,6 +28,8 @@ export interface CourseSyllabus {
   outcomes: Bilingual<string[]>;
   requirements: Bilingual<string[]>;
   sessions: SyllabusSession[];
+  /** Optional silent looping clip blended into the page hero. */
+  heroVideo?: { src: string; poster: string; alt: Bilingual };
 }
 
 export const COURSE_SYLLABI: CourseSyllabus[] = [
@@ -212,6 +214,14 @@ export const COURSE_SYLLABI: CourseSyllabus[] = [
   },
   {
     slug: "ai-filmmaker-studio",
+    heroVideo: {
+      src: "/videos/ai-studio-hero.mp4",
+      poster: "/videos/ai-studio-hero.jpg",
+      alt: {
+        he: "סרטון אנימציה שנוצר ב-AI: בוסקו, כלב ראפר, נכנס לסטודיו הווידאו שלו ומתיישב לערוך סרט",
+        en: "AI-generated animation: Bosco, a rapper dog, walks into his video studio and sits down to edit a film",
+      },
+    },
     sessionCount: 6,
     hoursPerSession: 5,
     totalHours: 30,
