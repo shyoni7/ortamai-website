@@ -1,6 +1,7 @@
 import { Toaster } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
-import { Redirect, Route, Switch } from "wouter";
+import { useEffect } from "react";
+import { Redirect, Route, Switch, useLocation } from "wouter";
 import ErrorBoundary from "./components/ErrorBoundary";
 import { ThemeProvider } from "./contexts/ThemeContext";
 import { LanguageProvider } from "./contexts/LanguageContext";
@@ -32,9 +33,24 @@ function Router() {
   );
 }
 
+/**
+ * A new page opens at its top. Without this the browser keeps the scroll position
+ * of the page the visitor came from, so a link clicked halfway down a long page
+ * lands halfway down the next one. Links to an anchor (#...) are left alone.
+ */
+function ScrollToTop() {
+  const [pathname] = useLocation();
+  useEffect(() => {
+    if (window.location.hash) return;
+    window.scrollTo({ top: 0, left: 0, behavior: "instant" });
+  }, [pathname]);
+  return null;
+}
+
 function PublicRoutes() {
   return (
     <Layout>
+      <ScrollToTop />
       <Switch>
         <Route path="/" component={Home} />
         <Route path="/about" component={About} />
