@@ -6,11 +6,12 @@ import { DEMO_BACKDROP, DEMO_LABELS, demoDishes } from '@/data/demoDishes';
 const DishOrbitCarousel = lazy(() => import('@/components/ui/dish-orbit-carousel'));
 
 /**
- * Looping hero animation for the Claude Code course. A request for a restaurant
- * website is typed into a terminal, Claude works through its steps, and the site
- * comes together in a browser window: first a wireframe, then the real page, then
- * its menu, and finally the dishes start to move. The course intro runs
- * underneath as subtitles.
+ * Looping hero animation for the Claude Code course. It opens on a terminal alone,
+ * where a request for a restaurant website is typed. Only once the request is sent
+ * does a browser window appear beside it, and the site comes together inside:
+ * first a wireframe, then the real page, then its menu, and finally the dishes
+ * start to move. The browser is labelled as an example, so nobody takes the page
+ * for a restaurant's. The course intro runs underneath as subtitles.
  *
  * One clock drives the terminal, the browser and the subtitles, so they never
  * drift apart. Under reduced motion the finished state is shown, still.
@@ -19,6 +20,7 @@ const DishOrbitCarousel = lazy(() => import('@/components/ui/dish-orbit-carousel
 const LOOP = 16; // seconds
 const TYPE_START = 0.5;
 const TYPE_END = 3.2;
+const SUBMIT_AT = 3.45; // the request is sent: the terminal steps aside, the browser opens
 const FADE_OUT = 15.4;
 const DISH_EVERY = 2100; // ms between dishes once the site is animated
 
@@ -29,6 +31,7 @@ const COPY = {
     done: 'האתר של המסעדה באוויר',
     url: 'my-restaurant.co.il',
     live: 'באוויר',
+    example: 'דוגמה: אתר שתלמדו לבנות',
     label: 'אנימציה: בקשה אחת ל-Claude Code הופכת לאתר מסעדה חי, עם תפריט מנות מונפש',
   },
   en: {
@@ -37,19 +40,20 @@ const COPY = {
     done: 'Your restaurant site is live',
     url: 'my-restaurant.com',
     live: 'Live',
+    example: 'Example: a site you will learn to build',
     label: 'Animation: one request to Claude Code becomes a live restaurant website with an animated menu',
   },
 };
 
 /** When each step starts working and when it completes. */
 const STEPS = [
-  { start: 3.6, done: 5.0 }, // design: wireframe, then the real page
-  { start: 5.2, done: 6.6 }, // menu: dish card and thumbnails arrive
-  { start: 6.8, done: 8.0 }, // animations: the dishes start to turn
-  { start: 8.2, done: 9.2 }, // deploy: address bar and live badge
+  { start: 3.8, done: 5.3 }, // design: wireframe, then the real page
+  { start: 5.5, done: 6.9 }, // menu: dish card and thumbnails arrive
+  { start: 7.1, done: 8.3 }, // animations: the dishes start to turn
+  { start: 8.5, done: 9.5 }, // deploy: address bar and live badge
 ];
-const DONE_AT = 9.4;
-const WIREFRAME_AT = 3.9;
+const DONE_AT = 9.7;
+const WIREFRAME_AT = 4.3;
 
 export default function CodeDemoHero({ lang, captions }: { lang: 'he' | 'en'; captions: string[] }) {
   const copy = COPY[lang];
@@ -80,6 +84,7 @@ export default function CodeDemoHero({ lang, captions }: { lang: 'he' | 'en'; ca
   const on = (at: number) => (now >= at ? ' is-on' : '');
   const line = Math.min(captions.length - 1, Math.floor((t / LOOP) * captions.length));
 
+  const split = now >= SUBMIT_AT;
   const designed = now >= STEPS[0].done;
   const hasMenu = now >= STEPS[1].done;
   const animated = now >= STEPS[2].done;
@@ -99,7 +104,7 @@ export default function CodeDemoHero({ lang, captions }: { lang: 'he' | 'en'; ca
   return (
     <>
       <div
-        className={`cdh-stage${lang === 'he' ? ' is-rtl' : ''}${!still && now >= FADE_OUT ? ' is-leaving' : ''}`}
+        className={`cdh-stage${lang === 'he' ? ' is-rtl' : ''}${split ? ' is-split' : ''}${!still && now >= FADE_OUT ? ' is-leaving' : ''}`}
         role="img" aria-label={copy.label}
       >
         {/* Terminal */}
@@ -134,6 +139,7 @@ export default function CodeDemoHero({ lang, captions }: { lang: 'he' | 'en'; ca
 
         {/* Browser: the restaurant site being built */}
         <div className="cdh-win cdh-browser" dir="ltr">
+          <span className="cdh-tag" dir={lang === 'he' ? 'rtl' : 'ltr'}>{copy.example}</span>
           <div className="cdh-bar">
             <i /><i /><i />
             <span className={`cdh-url${live ? ' is-on' : ''}`}>
