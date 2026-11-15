@@ -87,8 +87,8 @@ export const DEFAULT_COURSES: CatalogCourse[] = [
   {
     slug: "ai-filmmaker-studio",
     section: "courses",
-    title: "להיות יוצר סרטים — סטודיו AI מקצועי",
-    titleEn: "Become a Filmmaker — Professional AI Studio",
+    title: "AI STUDIO - קורס ליוצרי סרטים ומדיה",
+    titleEn: "AI STUDIO - A Course for Film and Media Creators",
     subtitle: "6 מפגשים, 30 שעות. מתסריט ופרומפט לסרט מוגמר",
     subtitleEn: "6 sessions, 30 hours. From script and prompt to a finished film",
     description:
