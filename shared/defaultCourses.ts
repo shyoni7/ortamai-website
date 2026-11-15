@@ -60,31 +60,6 @@ export const DEFAULT_COURSES: CatalogCourse[] = [
     visible: true,
   },
   {
-    slug: "ai-beginners",
-    section: "courses",
-    title: "מה AI יכול לעשות בשבילך?",
-    titleEn: "What Can AI Do for You?",
-    subtitle: "כניסה קלה לעולם ה-AI — למתחילים, בלי רקע טכני",
-    subtitleEn: "An easy entry into the world of AI — for beginners, no technical background",
-    description:
-      "הקורס שהופך אתכם ממשתמשים סקרנים למי שעובדים עם AI ביום-יום: כתיבת פרומפטים, כלים מעשיים לעבודה ולעסק, ותרגול על משימות אמיתיות שלכם.",
-    descriptionEn:
-      "The course that turns curious users into everyday AI practitioners: prompt writing, practical tools for work and business, and hands-on practice on your own real tasks.",
-    highlights:
-      "בלי רקע טכני — מתחילים מאפס\nהכלים שחוסכים לכם שעות כל שבוע\nתרגול על המשימות האמיתיות שלכם",
-    highlightsEn:
-      "No technical background needed\nThe tools that save you hours every week\nPractice on your own real tasks",
-    price: 1500,
-    originalPrice: null,
-    priceUnit: "course",
-    badge: "למתחילים",
-    badgeEn: "Beginners",
-    audience: null,
-    audienceEn: null,
-    sortOrder: 2,
-    visible: true,
-  },
-  {
     slug: "ai-filmmaker-studio",
     section: "courses",
     title: "AI STUDIO - קורס ליוצרי סרטים ומדיה",
@@ -104,6 +79,31 @@ export const DEFAULT_COURSES: CatalogCourse[] = [
     priceUnit: "course",
     badge: "6 מפגשים",
     badgeEn: "6 sessions",
+    audience: null,
+    audienceEn: null,
+    sortOrder: 2,
+    visible: true,
+  },
+  {
+    slug: "ai-beginners",
+    section: "courses",
+    title: "מה AI יכול לעשות בשבילך?",
+    titleEn: "What Can AI Do for You?",
+    subtitle: "כניסה קלה לעולם ה-AI — למתחילים, בלי רקע טכני",
+    subtitleEn: "An easy entry into the world of AI — for beginners, no technical background",
+    description:
+      "הקורס שהופך אתכם ממשתמשים סקרנים למי שעובדים עם AI ביום-יום: כתיבת פרומפטים, כלים מעשיים לעבודה ולעסק, ותרגול על משימות אמיתיות שלכם.",
+    descriptionEn:
+      "The course that turns curious users into everyday AI practitioners: prompt writing, practical tools for work and business, and hands-on practice on your own real tasks.",
+    highlights:
+      "בלי רקע טכני — מתחילים מאפס\nהכלים שחוסכים לכם שעות כל שבוע\nתרגול על המשימות האמיתיות שלכם",
+    highlightsEn:
+      "No technical background needed\nThe tools that save you hours every week\nPractice on your own real tasks",
+    price: 1500,
+    originalPrice: null,
+    priceUnit: "course",
+    badge: "למתחילים",
+    badgeEn: "Beginners",
     audience: null,
     audienceEn: null,
     sortOrder: 3,
