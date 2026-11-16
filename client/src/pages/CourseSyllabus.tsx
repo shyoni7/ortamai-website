@@ -114,6 +114,7 @@ export default function CourseSyllabus() {
         title={he ? `${title}: סילבוס מלא` : `${title}: Full Syllabus`}
         description={syllabus.intro[lang]}
         canonical={`/courses/${slug}`}
+        ogImage={syllabus.ogImage}
         schema={{
           '@context': 'https://schema.org',
           '@type': 'Course',

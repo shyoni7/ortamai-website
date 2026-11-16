@@ -93,7 +93,7 @@ export default function Courses() {
   return (
     <>
       <SEO
-        title={isRtl ? 'קורסים ושיעורים | הזמנת מקום אונליין — ORTAM AI' : 'Courses & Lessons | Book Online — ORTAM AI'}
+        title={isRtl ? 'קורסי AI ושיעורים | הזמנת מקום אונליין' : 'AI Courses & Lessons | Book Online'}
         description={isRtl
           ? 'קורסי AI ו-Claude Code, שיעורים קבוצתיים ופרטיים ומסלולים חברתיים מסובסדים — הזמנת מקום אונליין. מ-0 ל-100 עם ORTAM AI.'
           : 'AI & Claude Code courses, group and private lessons, and subsidized community tracks — book your spot online with ORTAM AI.'}

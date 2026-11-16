@@ -60,6 +60,9 @@ export default function CodeDemoHero({ lang, captions }: { lang: 'he' | 'en'; ca
   const dishes = useMemo(() => demoDishes(lang), [lang]);
   const [t, setT] = useState(0);
   const [still, setStill] = useState(false);
+  // The live site is browser-only: it is left out of the pre-rendered HTML and mounts after load.
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
 
   useEffect(() => {
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
@@ -158,7 +161,7 @@ export default function CodeDemoHero({ lang, captions }: { lang: 'he' | 'en'; ca
             </div>
             {/* The real, live site. Decorative here, so it is kept out of the tab order. */}
             <div className="cdh-live-site" inert aria-hidden="true">
-              <Suspense fallback={null}>
+              {mounted && <Suspense fallback={null}>
                 <DishOrbitCarousel
                   dishes={dishes}
                   backdrop={DEMO_BACKDROP}
@@ -168,7 +171,7 @@ export default function CodeDemoHero({ lang, captions }: { lang: 'he' | 'en'; ca
                   scroll={false}
                   autoplay={animated && !still ? DISH_EVERY : undefined}
                 />
-              </Suspense>
+              </Suspense>}
             </div>
           </div>
         </div>
