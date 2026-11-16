@@ -150,10 +150,18 @@ function vitePluginManusDebugCollector(): Plugin {
   };
 }
 
-const plugins = [react(), tailwindcss(), jsxLocPlugin(), vitePluginManusRuntime(), vitePluginManusDebugCollector()];
+// The Manus runtime and debug collector are development tooling. Leaving them in
+// the production build inlined a 367 KB script into every HTML page.
+const devOnly = [vitePluginManusRuntime(), vitePluginManusDebugCollector()];
 
-export default defineConfig({
-  plugins,
+export default defineConfig(({ command }) => ({
+  // PRERENDER is set by scripts/prerender.ts, which loads the app through Vite's
+  // dev pipeline but must produce the same markup as the production bundle.
+  plugins: [
+    react(),
+    tailwindcss(),
+    ...(command === "serve" && !process.env.PRERENDER ? [jsxLocPlugin(), ...devOnly] : []),
+  ],
   resolve: {
     alias: {
       "@": path.resolve(import.meta.dirname, "client", "src"),
@@ -184,4 +192,4 @@ export default defineConfig({
       deny: ["**/.*"],
     },
   },
-});
+}));

@@ -1,11 +1,18 @@
 import { Link } from 'wouter';
 import { useLanguage } from '@/contexts/LanguageContext';
+import SEO from '@/components/SEO';
 
 export default function NotFound() {
   const { lang, dir } = useLanguage();
   const he = lang === 'he';
 
   return (
+    <>
+    <SEO
+      title={he ? 'העמוד לא נמצא' : 'Page not found'}
+      description={he ? 'העמוד שחיפשתם לא נמצא באתר ORTAM AI.' : 'The page you were looking for was not found on ORTAM AI.'}
+      noIndex
+    />
     <section dir={dir} className="min-h-[70svh] flex items-center" style={{ background: 'var(--h-dark)' }}>
       <div className="mx-auto max-w-3xl px-5 sm:px-8 py-20 text-start">
         <p className="font-extrabold text-white leading-none" style={{ fontFamily: 'Rubik, Heebo, sans-serif', fontSize: 'clamp(4rem, 14vw, 8rem)' }}>404</p>
@@ -19,5 +26,6 @@ export default function NotFound() {
         </div>
       </div>
     </section>
+    </>
   );
 }

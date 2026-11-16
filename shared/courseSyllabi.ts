@@ -28,6 +28,8 @@ export interface CourseSyllabus {
   outcomes: Bilingual<string[]>;
   requirements: Bilingual<string[]>;
   sessions: SyllabusSession[];
+  /** Share image for link previews (1200 x 630), a path under /images/og. */
+  ogImage?: string;
   /** Optional coded animation in the page hero, with the intro as its subtitles. */
   heroDemo?: { kind: "claude-code"; captions: Bilingual<string[]> };
   /** Optional silent looping clip blended into the page hero. */
@@ -43,6 +45,7 @@ export interface CourseSyllabus {
 export const COURSE_SYLLABI: CourseSyllabus[] = [
   {
     slug: "claude-code-mastery",
+    ogImage: "/images/og/claude-code.jpg",
     heroDemo: {
       kind: "claude-code",
       captions: {
@@ -237,6 +240,7 @@ export const COURSE_SYLLABI: CourseSyllabus[] = [
   },
   {
     slug: "ai-filmmaker-studio",
+    ogImage: "/images/og/ai-studio.jpg",
     heroVideo: {
       src: "/videos/ai-studio-hero.mp4",
       poster: "/videos/ai-studio-hero.jpg",

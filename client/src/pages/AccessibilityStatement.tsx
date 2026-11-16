@@ -1,11 +1,18 @@
 import React from 'react';
 import { useLanguage } from '@/contexts/LanguageContext';
+import SEO from '@/components/SEO';
 
 export default function AccessibilityStatement() {
   const { lang, dir } = useLanguage();
   const isRtl = lang === 'he';
 
   return (
+    <>
+    <SEO
+      title={lang === 'he' ? 'הצהרת נגישות' : 'Accessibility Statement'}
+      description={lang === 'he' ? 'הצהרת הנגישות של אתר ORTAM AI: התאמות הנגישות שבוצעו באתר ודרכי הפנייה בנושא נגישות.' : 'The ORTAM AI accessibility statement: the accessibility adjustments made on the site and how to contact us about accessibility.'}
+      canonical="/accessibility"
+    />
     <div dir={dir} className="min-h-screen">
       <section style={{ background: 'var(--h-dark)' }}>
         <div className="max-w-4xl mx-auto px-5 sm:px-8 py-16 md:py-24">
@@ -65,5 +72,6 @@ export default function AccessibilityStatement() {
         </div>
       </section>
     </div>
+    </>
   );
 }

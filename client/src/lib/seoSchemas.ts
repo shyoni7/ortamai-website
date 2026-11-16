@@ -11,9 +11,9 @@ export const organizationSchema = {
   name: 'ORTAM AI',
   alternateName: 'אורטם AI',
   url: BASE_URL,
-  logo: `${BASE_URL}/logo.png`,
+  logo: `${BASE_URL}/images/brand/ortam-logo.png`,
   description:
-    'ORTAM AI — המרכז לפיתוח AI בישראל. חממה טכנולוגית, קורסי AI לארגונים ועסקים, ומרכז השמה מוכוון AI.',
+    'ORTAM AI הוא מרכז הכשרות AI בתל אביב: קורסי AI והכשרות סייבר AI בכיתה, לארגונים ולאנשים פרטיים, ייעוץ אסטרטגיית AI לעסקים ומרכז השמה לבוגרים.',
   foundingDate: '2023',
   areaServed: 'IL',
   contactPoint: {
@@ -41,11 +41,6 @@ export const websiteSchema = {
   name: 'ORTAM AI',
   url: BASE_URL,
   inLanguage: ['he', 'en'],
-  potentialAction: {
-    '@type': 'SearchAction',
-    target: `${BASE_URL}/?q={search_term_string}`,
-    'query-input': 'required name=search_term_string',
-  },
 };
 
 export const consultingServiceSchema = {

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'wouter';
 import { useLanguage } from '@/contexts/LanguageContext';
+import SEO from '@/components/SEO';
 import { ArrowRight } from 'lucide-react';
 
 export default function PrivacyPolicy() {
@@ -8,6 +9,12 @@ export default function PrivacyPolicy() {
   const isRtl = lang === 'he';
 
   return (
+    <>
+    <SEO
+      title={lang === 'he' ? 'מדיניות פרטיות' : 'Privacy Policy'}
+      description={lang === 'he' ? 'מדיניות הפרטיות של ORTAM AI: איזה מידע נאסף באתר, איך משתמשים בו, היכן הוא נשמר ואיך פונים אלינו בנושא.' : 'The ORTAM AI privacy policy: what information the site collects, how it is used, where it is stored and how to contact us about it.'}
+      canonical="/privacy"
+    />
     <div className="min-h-screen" dir={isRtl ? 'rtl' : 'ltr'}>
       {/* Hero */}
       <section style={{ background: 'var(--h-dark)' }}>
@@ -105,5 +112,6 @@ export default function PrivacyPolicy() {
         </div>
       </section>
     </div>
+    </>
   );
 }

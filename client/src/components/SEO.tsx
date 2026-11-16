@@ -9,13 +9,14 @@ interface SEOProps {
   schema?: object | object[];
   /** noindex — set true for pages that should not appear in search results */
   noIndex?: boolean;
-  /** Open Graph image URL */
+  /** Share image: a path on this site (e.g. "/images/og/x.jpg") or a full URL */
   ogImage?: string;
 }
 
 const SITE_NAME = 'ORTAM AI';
 const BASE_URL = 'https://ortamai.com';
-const DEFAULT_OG_IMAGE = 'https://d2xsxph8kpxj0f.cloudfront.net/310519663445418346/oDFneUKwvw2xJYXYaumUdB/a00800906_______________ai______________1ztf6h7ulzz1cg0t1nwp_1_450c2a58.png';
+/** 1200 x 630 share card, served from this site so link previews can fetch it. */
+const DEFAULT_OG_IMAGE = '/images/og/default.jpg';
 
 export default function SEO({
   title,
@@ -25,8 +26,10 @@ export default function SEO({
   noIndex = false,
   ogImage = DEFAULT_OG_IMAGE,
 }: SEOProps) {
-  const fullTitle = `${title} | ${SITE_NAME}`;
+  // Some pages already name the brand in their title; do not say it twice.
+  const fullTitle = title.includes(SITE_NAME) ? title : `${title} | ${SITE_NAME}`;
   const canonicalUrl = canonical ? `${BASE_URL}${canonical}` : undefined;
+  const imageUrl = ogImage.startsWith('http') ? ogImage : `${BASE_URL}${ogImage}`;
 
   const schemas = schema
     ? Array.isArray(schema)
@@ -49,14 +52,16 @@ export default function SEO({
       <meta property="og:title" content={fullTitle} />
       <meta property="og:description" content={description} />
       {canonicalUrl && <meta property="og:url" content={canonicalUrl} />}
-      <meta property="og:image" content={ogImage} />
+      <meta property="og:image" content={imageUrl} />
+      <meta property="og:image:width" content="1200" />
+      <meta property="og:image:height" content="630" />
       <meta property="og:locale" content="he_IL" />
 
       {/* Twitter Card */}
       <meta name="twitter:card" content="summary_large_image" />
       <meta name="twitter:title" content={fullTitle} />
       <meta name="twitter:description" content={description} />
-      <meta name="twitter:image" content={ogImage} />
+      <meta name="twitter:image" content={imageUrl} />
 
       {/* JSON-LD Structured Data */}
       {schemas.map((s, i) => (
