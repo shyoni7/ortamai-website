@@ -85,6 +85,31 @@ export const DEFAULT_COURSES: CatalogCourse[] = [
     visible: true,
   },
   {
+    slug: "fde-ai-implementers",
+    section: "courses",
+    title: "קורס FDE - מטמיעי AI בארגונים",
+    titleEn: "FDE Course - AI Implementers for Organizations",
+    subtitle: "6 מפגשים, 30 שעות. מבעיה עסקית לפתרון AI שעובד בארגון",
+    subtitleEn: "6 sessions, 30 hours. From a business problem to an AI solution that works",
+    description:
+      "הכשרה מעשית לתפקיד Forward Deployed Engineer: הטמעת AI בארגון מקצה לקצה. אפיון, פיתוח עם AI, סוכני AI ואוטומציות, פיתוח מאובטח והכשרת עובדים.",
+    descriptionEn:
+      "Hands-on training for the Forward Deployed Engineer role: implementing AI in an organization end to end. Scoping, building with AI, AI agents and automations, secure development and employee training.",
+    highlights:
+      "מאפיון ועד פתרון AI שעובד בארגון\nסוכני AI, אוטומציות ופיתוח מאובטח\nפרויקט גמר על מקרה שימוש אמיתי",
+    highlightsEn:
+      "From scoping to an AI solution running in the organization\nAI agents, automations and secure development\nA capstone on a real use case",
+    price: 2900,
+    originalPrice: null,
+    priceUnit: "course",
+    badge: "6 מפגשים",
+    badgeEn: "6 sessions",
+    audience: null,
+    audienceEn: null,
+    sortOrder: 3,
+    visible: true,
+  },
+  {
     slug: "ai-beginners",
     section: "courses",
     title: "מה AI יכול לעשות בשבילך?",
@@ -106,7 +131,7 @@ export const DEFAULT_COURSES: CatalogCourse[] = [
     badgeEn: "Beginners",
     audience: null,
     audienceEn: null,
-    sortOrder: 3,
+    sortOrder: 4,
     visible: true,
   },
 
@@ -132,7 +157,7 @@ export const DEFAULT_COURSES: CatalogCourse[] = [
     badgeEn: "For business owners",
     audience: null,
     audienceEn: null,
-    sortOrder: 4,
+    sortOrder: 5,
     visible: true,
   },
   {
@@ -157,7 +182,7 @@ export const DEFAULT_COURSES: CatalogCourse[] = [
     badgeEn: "For security teams",
     audience: null,
     audienceEn: null,
-    sortOrder: 5,
+    sortOrder: 6,
     visible: true,
   },
 
