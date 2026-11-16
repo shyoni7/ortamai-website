@@ -15,6 +15,8 @@ export interface SyllabusSession {
   topics: Bilingual<string[]>;
   /** The hands-on outcome of the session. */
   practice: Bilingual;
+  /** Hours of this unit, when units differ in length (module-based courses). */
+  hours?: number;
 }
 
 export interface CourseSyllabus {
@@ -22,6 +24,8 @@ export interface CourseSyllabus {
   sessionCount: number;
   hoursPerSession: number;
   totalHours: number;
+  /** "module": the program is split into modules of different lengths rather than equal sessions. */
+  unit?: "session" | "module";
   format: Bilingual;
   intro: Bilingual;
   audience: Bilingual<string[]>;
@@ -444,56 +448,60 @@ export const COURSE_SYLLABI: CourseSyllabus[] = [
   },
   {
     slug: "fde-ai-implementers",
-    sessionCount: 6,
-    hoursPerSession: 5,
-    totalHours: 30,
+    unit: "module",
+    sessionCount: 10,
+    hoursPerSession: 0,
+    totalHours: 106,
     format: { he: "פרונטלי, בכיתה", en: "In person, in class" },
     intro: {
-      he: "קורס FDE (Forward Deployed Engineer) מכשיר מטמיעי AI: אנשי המקצוע שלוקחים בעיה עסקית והופכים אותה לפתרון AI שעובד בארגון. שישה מפגשים מעשיים על הטמעת AI מקצה לקצה: אפיון, פיתוח עם AI, סוכני AI ואוטומציות, פיתוח מאובטח והכשרת עובדים.",
-      en: "The FDE (Forward Deployed Engineer) course trains AI implementers: the professionals who take a business problem and turn it into an AI solution that works inside the organization. Six hands-on sessions covering AI implementation end to end: scoping, building with AI, AI agents and automations, secure development and employee training.",
+      he: "קורס FDE (Forward Deployed Engineer) מכשיר מטמיעי AI: אנשי המקצוע שלוקחים בעיה עסקית והופכים אותה לפתרון AI שעובד בארגון. 106 שעות מעשיות על הטמעת AI מקצה לקצה: אפיון, פיתוח עם AI, סוכני AI ואוטומציות, פיתוח מאובטח והכשרת עובדים.",
+      en: "The FDE (Forward Deployed Engineer) course trains AI implementers: the professionals who take a business problem and turn it into an AI solution that works inside the organization. 106 hands-on hours covering AI implementation end to end: scoping, building with AI, AI agents and automations, secure development and employee training.",
     },
     audience: {
       he: [
         "מפתחים ואנשי טכנולוגיה שרוצים להוביל הטמעת AI בארגונים",
         "אנשי תפעול, מערכות מידע ודיגיטל שאחראים על כלי AI בארגון",
         "יועצים ומנהלי פרויקטים שמלווים לקוחות בהטמעת AI",
-        "בוגרי קורס Claude Code או בעלי ניסיון בסיסי בפיתוח עם AI",
+        "מי שרוצה הסבה מקצועית לתפקיד מטמיע AI",
       ],
       en: [
         "Developers and technologists who want to lead AI implementation in organizations",
         "Operations, IT and digital people responsible for AI tools at work",
         "Consultants and project managers guiding clients through AI adoption",
-        "Graduates of the Claude Code course or people with basic experience building with AI",
+        "Career changers aiming for an AI implementer role",
       ],
     },
     outcomes: {
       he: [
         "מסמך אפיון ותוכנית הטמעת AI לארגון אמיתי",
-        "פיילוט עובד שמחובר לידע ולמערכות של הארגון",
+        "פתרון AI פרוס שמחובר לידע ולמערכות של הארגון",
         "סוכן AI ואוטומציה שמבצעים תהליך עבודה שלם",
         "שיטת עבודה לפיתוח מאובטח, בדיקות והכשרת עובדים",
+        "פרויקט גמר ותיק עבודות לתפקידי FDE ומטמיע AI",
       ],
       en: [
         "A scoping document and an AI implementation plan for a real organization",
-        "A working pilot connected to the organization's knowledge and systems",
+        "A deployed AI solution connected to the organization's knowledge and systems",
         "An AI agent and an automation that run a complete workflow",
         "A working method for secure development, testing and employee training",
+        "A capstone and a portfolio for FDE and AI implementer roles",
       ],
     },
     requirements: {
       he: [
         "מחשב נייד אישי",
         "מנוי Claude בתשלום (נדרש לעבודה עם Claude Code). המנוי נרכש בנפרד על ידי המשתתף ואינו כלול במחיר הקורס",
-        "היכרות בסיסית עם Claude Code או עם פיתוח בעזרת AI",
+        "ניסיון בעבודה עם מחשב וכלים דיגיטליים. אין צורך בניסיון קודם בתכנות",
       ],
       en: [
         "A personal laptop",
         "A paid Claude subscription (required for Claude Code). Purchased separately by the participant, not included in the course price",
-        "Basic familiarity with Claude Code or with building software using AI",
+        "Comfort with computers and digital tools. No prior programming experience needed",
       ],
     },
     sessions: [
       {
+        hours: 8,
         title: { he: "מהו FDE: אפיון והטמעת AI בארגון", en: "What an FDE does: scoping and implementing AI in an organization" },
         topics: {
           he: [
@@ -510,53 +518,100 @@ export const COURSE_SYLLABI: CourseSyllabus[] = [
           ],
         },
         practice: {
-          he: "מסמך אפיון למקרה שימוש אמיתי מהארגון שלכם",
-          en: "A scoping document for a real use case from your own organization",
+          he: "מסמך אפיון למקרה שימוש אמיתי מארגון",
+          en: "A scoping document for a real use case from an organization",
         },
       },
       {
-        title: { he: "פיתוח עם AI: Claude Code ווייב קודינג לפיילוט מהיר", en: "Building with AI: Claude Code and vibe coding for a fast pilot" },
+        hours: 16,
+        title: { he: "פיתוח עם AI: Claude Code ווייב קודינג", en: "Building with AI: Claude Code and vibe coding" },
         topics: {
           he: [
             "סביבת העבודה של מטמיע AI: Claude Code, טרמינל ו-Git",
             "וייב קודינג בצורה מקצועית: מפרומפט לקוד עובד, בלי לאבד שליטה",
+            "בניית אפליקציה מלאה: ממשק, שרת ומסד נתונים",
             "בניית פיילוט (POC) בתוך ימים במקום חודשים",
-            "עבודה עם API של מודלי שפה: פרומפטים, עלויות ובחירת מודל",
           ],
           en: [
             "The AI implementer's workspace: Claude Code, the terminal and Git",
             "Vibe coding done professionally: from prompt to working code without losing control",
+            "Building a full application: interface, server and database",
             "Building a pilot (POC) in days instead of months",
-            "Working with LLM APIs: prompts, costs and model choice",
           ],
         },
         practice: {
-          he: "פיילוט עובד ראשון למקרה השימוש שבחרתם",
-          en: "A first working pilot for the use case you chose",
+          he: "פיילוט עובד ראשון, באוויר",
+          en: "A first working pilot, live",
         },
       },
       {
-        title: { he: "חיבור ה-AI לידע ולמערכות של הארגון", en: "Connecting AI to the organization's knowledge and systems" },
+        hours: 8,
+        title: { he: "מודלי שפה, פרומפטים ועבודה עם API", en: "Language models, prompts and working with APIs" },
+        topics: {
+          he: [
+            "איך מודלי שפה עובדים, ומה הם לא יודעים לעשות",
+            "הנדסת פרומפטים למערכות: הוראות, דוגמאות ופלט מובנה",
+            "עבודה עם API של מודלים: עלויות, מהירות ובחירת מודל",
+            "שימוש בכלים (tool use) והרצה של משימות ארוכות",
+          ],
+          en: [
+            "How language models work, and what they cannot do",
+            "Prompt engineering for systems: instructions, examples and structured output",
+            "Working with model APIs: cost, speed and model choice",
+            "Tool use and running long tasks",
+          ],
+        },
+        practice: {
+          he: "שירות AI קטן שמקבל בקשה ומחזיר תשובה מובנית",
+          en: "A small AI service that takes a request and returns a structured answer",
+        },
+      },
+      {
+        hours: 12,
+        title: { he: "ידע ארגוני: RAG ונתונים", en: "Organizational knowledge: RAG and data" },
         topics: {
           he: [
             "RAG: איך נותנים למודל לענות מתוך המסמכים והנתונים של הארגון",
-            "חיבור למערכות קיימות: CRM, ERP, מייל, דרייב ומסדי נתונים",
-            "MCP וחיבורי API: לתת ל-AI כלים לפעול ולא רק לענות",
+            "הכנת מסמכים, חיפוש סמנטי ומסדי נתונים וקטוריים",
             "איכות נתונים, הרשאות ומה אסור שהמודל יראה",
+            "מדידת דיוק התשובות ושיפור שלהן",
           ],
           en: [
             "RAG: letting the model answer from the organization's own documents and data",
-            "Connecting to existing systems: CRM, ERP, email, drive and databases",
-            "MCP and API connections: giving AI tools to act, not only to answer",
+            "Preparing documents, semantic search and vector databases",
             "Data quality, permissions and what the model must never see",
+            "Measuring answer accuracy and improving it",
           ],
         },
         practice: {
-          he: "עוזר AI שעונה מתוך מסמכי הארגון ומחובר למערכת אחת לפחות",
-          en: "An AI assistant that answers from company documents and connects to at least one system",
+          he: "עוזר AI שעונה מתוך מסמכי הארגון, עם מקורות",
+          en: "An AI assistant that answers from company documents, with sources",
         },
       },
       {
+        hours: 8,
+        title: { he: "חיבור למערכות הארגון: API ו-MCP", en: "Connecting to company systems: APIs and MCP" },
+        topics: {
+          he: [
+            "חיבור למערכות קיימות: CRM, ERP, מייל, דרייב ומסדי נתונים",
+            "MCP: לתת ל-AI כלים לפעול ולא רק לענות",
+            "אימות, הרשאות וניהול סודות בחיבורים",
+            "עבודה מול צוותי IT ומערכות מידע של הלקוח",
+          ],
+          en: [
+            "Connecting to existing systems: CRM, ERP, email, drive and databases",
+            "MCP: giving AI tools to act, not only to answer",
+            "Authentication, permissions and secret management in integrations",
+            "Working with the customer's IT and information systems teams",
+          ],
+        },
+        practice: {
+          he: "חיבור הפיילוט לשתי מערכות ארגוניות",
+          en: "Connecting the pilot to two company systems",
+        },
+      },
+      {
+        hours: 16,
         title: { he: "סוכני AI ואוטומציות לתהליכי עבודה", en: "AI agents and automations for business workflows" },
         topics: {
           he: [
@@ -573,11 +628,12 @@ export const COURSE_SYLLABI: CourseSyllabus[] = [
           ],
         },
         practice: {
-          he: "סוכן AI שמבצע תהליך עבודה שלם מהארגון שלכם",
-          en: "An AI agent that runs a complete workflow from your organization",
+          he: "סוכן AI שמבצע תהליך עבודה שלם מקצה לקצה",
+          en: "An AI agent that runs a complete workflow end to end",
         },
       },
       {
+        hours: 12,
         title: { he: "פיתוח מאובטח, סייבר AI ובדיקות איכות", en: "Secure development, AI cyber security and quality testing" },
         topics: {
           he: [
@@ -594,29 +650,74 @@ export const COURSE_SYLLABI: CourseSyllabus[] = [
           ],
         },
         practice: {
-          he: "בדיקת אבטחה וסט בדיקות איכות לפיילוט שבניתם",
-          en: "A security review and a quality test suite for the pilot you built",
+          he: "בדיקת אבטחה וסט בדיקות איכות לפיילוט",
+          en: "A security review and a quality test suite for the pilot",
         },
       },
       {
-        title: { he: "עלייה לאוויר, הכשרת עובדים ופרויקט גמר", en: "Going live, employee training and the capstone" },
+        hours: 6,
+        title: { he: "מפיילוט לייצור: פריסה, ניטור ועלויות", en: "From pilot to production: deployment, monitoring and costs" },
         topics: {
           he: [
-            "מפיילוט לייצור: פריסה, ניטור, עלויות ותחזוקה",
-            "הכשרת עובדים וסדנאות AI פנימיות: איך גורמים לאנשים להשתמש באמת",
-            "ניהול שינוי ומדידת החזר השקעה (ROI) של הטמעת AI",
-            "הצגת הפתרון להנהלה ובניית תיק עבודות של מטמיע AI",
+            "פריסה בסביבת הלקוח: ענן, סביבות ושחרור גרסאות",
+            "ניטור, לוגים והתראות למערכות AI",
+            "שליטה בעלויות ובזמני תגובה",
+            "מסירה ללקוח: תיעוד, תחזוקה ותמיכה",
           ],
           en: [
-            "From pilot to production: deployment, monitoring, costs and maintenance",
-            "Employee training and internal AI workshops: getting people to really use it",
-            "Change management and measuring the ROI of an AI implementation",
-            "Presenting the solution to management and building an AI implementer portfolio",
+            "Deploying in the customer's environment: cloud, environments and releases",
+            "Monitoring, logs and alerts for AI systems",
+            "Keeping cost and response time under control",
+            "Handover to the customer: documentation, maintenance and support",
           ],
         },
         practice: {
-          he: "הצגת פרויקט הגמר: פתרון AI עובד, עם תוכנית הטמעה והכשרה",
-          en: "Capstone presentation: a working AI solution with a rollout and training plan",
+          he: "פתרון פרוס עם לוח ניטור ומסמך מסירה",
+          en: "A deployed solution with a monitoring dashboard and a handover document",
+        },
+      },
+      {
+        hours: 6,
+        title: { he: "הכשרת עובדים, סדנאות AI וניהול שינוי", en: "Employee training, AI workshops and change management" },
+        topics: {
+          he: [
+            "הכשרת עובדים: איך גורמים לאנשים להשתמש בפתרון באמת",
+            "בניית סדנאות AI פנימיות לצוותים ולמנהלים",
+            "ניהול שינוי והתמודדות עם התנגדויות",
+            "מדידת אימוץ והחזר השקעה (ROI) של הטמעת AI",
+          ],
+          en: [
+            "Employee training: getting people to really use the solution",
+            "Building internal AI workshops for teams and managers",
+            "Change management and handling resistance",
+            "Measuring adoption and the ROI of an AI implementation",
+          ],
+        },
+        practice: {
+          he: "תוכנית הכשרה והטמעה ל-90 הימים הראשונים",
+          en: "A training and adoption plan for the first 90 days",
+        },
+      },
+      {
+        hours: 14,
+        title: { he: "פרויקט גמר: הטמעת AI אמיתית מקצה לקצה", en: "Capstone: a real AI implementation end to end" },
+        topics: {
+          he: [
+            "בחירת ארגון ובעיה עסקית אמיתית",
+            "אפיון, בנייה, אבטחה ופריסה בליווי המנחים",
+            "הצגת הפתרון להנהלה: ערך עסקי, סיכונים ותוכנית המשך",
+            "בניית תיק עבודות והכנה לראיונות לתפקידי FDE ומטמיע AI",
+          ],
+          en: [
+            "Choosing an organization and a real business problem",
+            "Scoping, building, securing and deploying with mentor guidance",
+            "Presenting to management: business value, risks and next steps",
+            "Building a portfolio and preparing for FDE and AI implementer interviews",
+          ],
+        },
+        practice: {
+          he: "הצגת פרויקט הגמר: פתרון AI עובד בארגון",
+          en: "Capstone presentation: a working AI solution inside an organization",
         },
       },
     ],
