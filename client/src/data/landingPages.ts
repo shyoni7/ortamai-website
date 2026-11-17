@@ -176,10 +176,10 @@ export const LANDING_PAGES: LandingPage[] = [
         },
       },
       {
-        q: { he: 'מה קורס הוייב קודינג הכי מקיף שלכם?', en: 'What is your most comprehensive vibe coding course?' },
+        q: { he: 'מה קורס הוייב קודינג הכי מקיף?', en: 'What is the most comprehensive vibe coding course?' },
         a: {
-          he: '"לשלוט ב-Claude Code: מ-0 ל-100": 6 מפגשים, 30 שעות, 2,900 ש"ח, עם פרויקט גמר אישי שעובד באוויר. מי שרוצה להפוך את זה למקצוע ימשיך לקורס FDE של 106 שעות.',
-          en: '"Mastering Claude Code: 0 to 100": 6 sessions, 30 hours, 2,900 ILS, with a personal capstone that runs live. To turn it into a profession, continue to the 106-hour FDE course.',
+          he: 'קורס הוייב קודינג המקיף ביותר שלנו הוא "לשלוט ב-Claude Code: מ-0 ל-100": 6 מפגשים, 30 שעות, 2,900 ש"ח, עם פרויקט גמר אישי שעובד באוויר. מי שרוצה להפוך את זה למקצוע ימשיך לקורס FDE של 106 שעות.',
+          en: 'Our most comprehensive vibe coding course is "Mastering Claude Code: 0 to 100": 6 sessions, 30 hours, 2,900 ILS, with a personal capstone that runs live. To turn it into a profession, continue to the 106-hour FDE course.',
         },
       },
       {
