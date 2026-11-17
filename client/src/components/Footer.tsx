@@ -15,6 +15,15 @@ export default function Footer() {
     { href: '/contact', label: t.nav.contact },
   ];
 
+  const topics = [
+    { href: '/courses/claude-code-mastery', label: he ? 'קורס קלוד קוד' : 'Claude Code course' },
+    { href: '/vibe-coding', label: he ? 'וייב קודינג' : 'Vibe coding' },
+    { href: '/ai-video-creation', label: he ? 'קורס יצירת וידאו ב-AI' : 'AI video creation course' },
+    { href: '/courses/fde-ai-implementers', label: he ? 'קורס FDE - מטמיעי AI' : 'FDE course - AI implementers' },
+    { href: '/ai-workshops', label: he ? 'סדנאות AI והכשרת עובדים' : 'AI workshops and employee training' },
+    { href: '/secure-ai-development', label: he ? 'פיתוח מאובטח וסייבר AI' : 'Secure development and Cyber AI' },
+  ];
+
   return (
     <footer dir={dir} className="site-footer">
       <div className="max-w-7xl mx-auto px-5 sm:px-8 pt-14 pb-8 md:pt-16">
@@ -52,7 +61,18 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="mt-12 pt-6 border-t flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-sm" style={{ borderColor: 'var(--h-line)', color: 'var(--h-ink-2)' }}>
+        <nav aria-label={he ? 'נושאים' : 'Topics'} className="mt-10 pt-8 border-t" style={{ borderColor: 'var(--h-line)' }}>
+          <h2 className="site-footer-title">{he ? 'נושאים' : 'Topics'}</h2>
+          <ul className="mt-3 flex flex-wrap gap-x-6 gap-y-1">
+            {topics.map(link => (
+              <li key={link.href}>
+                <Link href={link.href} className="site-footer-link">{link.label}</Link>
+              </li>
+            ))}
+          </ul>
+        </nav>
+
+        <div className="mt-10 pt-6 border-t flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-sm" style={{ borderColor: 'var(--h-line)', color: 'var(--h-ink-2)' }}>
           <p>© {year} ORTAM AI. {t.footer.rights}</p>
           <div className="flex gap-6">
             <Link href="/accessibility" className="site-footer-link">{t.footer.accessibility}</Link>

@@ -11,6 +11,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { createServer } from "vite";
 import { COURSE_SYLLABI } from "../shared/courseSyllabi";
+import { LANDING_PAGES } from "../client/src/data/landingPages";
 
 const ROOT = path.resolve(import.meta.dirname, "..");
 const DIST = path.join(ROOT, "dist/public");
@@ -19,6 +20,7 @@ const DIST = path.join(ROOT, "dist/public");
 export const ROUTES = [
   "/", "/courses", ...COURSE_SYLLABI.map(s => `/courses/${s.slug}`),
   "/academy", "/consulting", "/placement", "/about", "/contact",
+  ...LANDING_PAGES.map(p => p.path),
   "/ai-guide", "/ai-guide/advanced", "/accessibility", "/privacy",
 ];
 

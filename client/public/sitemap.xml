@@ -31,6 +31,30 @@
     <priority>0.9</priority>
   </url>
   <url>
+    <loc>https://ortamai.com/vibe-coding</loc>
+    <lastmod>2026-11-17</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://ortamai.com/ai-workshops</loc>
+    <lastmod>2026-11-17</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://ortamai.com/ai-video-creation</loc>
+    <lastmod>2026-11-17</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://ortamai.com/secure-ai-development</loc>
+    <lastmod>2026-11-17</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://ortamai.com/academy</loc>
     <lastmod>2026-11-16</lastmod>
     <changefreq>monthly</changefreq>

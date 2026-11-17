@@ -20,6 +20,8 @@ import AiGuideAdvanced from "./pages/AiGuideAdvanced";
 import AccessibilityStatement from "./pages/AccessibilityStatement";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
 import NotFound from "./pages/NotFound";
+import Landing from "./pages/Landing";
+import { LANDING_PAGES } from "./data/landingPages";
 
 function Router() {
   return (
@@ -64,6 +66,9 @@ function PublicRoutes() {
         <Route path="/ai-guide/advanced" component={AiGuideAdvanced} />
         <Route path="/ai-guide" component={AiGuide} />
         <Route path="/accessibility" component={AccessibilityStatement} />
+        {LANDING_PAGES.map(page => (
+          <Route key={page.path} path={page.path}><Landing page={page} /></Route>
+        ))}
         <Route path="/privacy" component={PrivacyPolicy} />
         <Route path="/privacy-policy" component={PrivacyPolicy} />
         <Route component={NotFound} />

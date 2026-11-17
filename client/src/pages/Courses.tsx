@@ -6,6 +6,8 @@ import {
 import { Link } from 'wouter';
 import { useLanguage } from '@/contexts/LanguageContext';
 import SEO from '@/components/SEO';
+import FaqSection from '@/components/FaqSection';
+import { COURSES_FAQ, faqSchema } from '@/data/faqs';
 import { trpc } from '@/lib/trpc';
 import { DEFAULT_COURSES, type CatalogCourse } from '@shared/defaultCourses';
 import { getSyllabus } from '@shared/courseSyllabi';
@@ -95,9 +97,10 @@ export default function Courses() {
       <SEO
         title={isRtl ? 'קורסי AI ושיעורים | הזמנת מקום אונליין' : 'AI Courses & Lessons | Book Online'}
         description={isRtl
-          ? 'קורסי AI ו-Claude Code, שיעורים קבוצתיים ופרטיים ומסלולים חברתיים מסובסדים — הזמנת מקום אונליין. מ-0 ל-100 עם ORTAM AI.'
-          : 'AI & Claude Code courses, group and private lessons, and subsidized community tracks — book your spot online with ORTAM AI.'}
+          ? 'קורס AI למתחילים, קורס קלוד קוד (Claude Code), קורס יצירת וידאו, קורס FDE למטמיעי AI, סוכני AI ואוטומציות וסייבר AI. שיעורים בודדים ומסלולים מסובסדים.'
+          : 'A beginners AI course, the Claude Code course, an AI video creation course, the FDE course for AI implementers, AI agents and automations, and Cyber AI. Single lessons and subsidized tracks.'}
         canonical="/courses"
+        schema={faqSchema(COURSES_FAQ, lang)}
       />
       <div dir={dir}>
         {/* Hero */}
@@ -190,6 +193,8 @@ export default function Courses() {
             </div>
           </div>
         </section>
+
+        <FaqSection items={COURSES_FAQ} lang={lang} background="var(--h-paper)" />
 
         {orderTarget && (
           <OrderDialog target={orderTarget} isRtl={isRtl} dir={dir} lang={lang}
