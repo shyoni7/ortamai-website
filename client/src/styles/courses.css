@@ -324,3 +324,21 @@
   .cdh-live-site .dsh-card, .cdh-live-site .dsh-strip, .cdh-live-site .dsh-acts { transition: none; }
   .cdh-caret, .cdh-mark b, .cdh-wire > span { animation: none; }
 }
+
+/* ─── FAQ ─── */
+.faq-list { display: grid; gap: 0.75rem; }
+.faq-item { background: #FFFFFF; border: 1px solid var(--h-line); border-radius: 16px; padding: 0 1.25rem; }
+.faq-item summary { display: flex; align-items: center; justify-content: space-between; gap: 1rem; min-height: 3.75rem; padding: 0.9rem 0; cursor: pointer; list-style: none; }
+.faq-item summary::-webkit-details-marker { display: none; }
+.faq-item summary::after { content: "+"; flex: none; font-size: 1.5rem; line-height: 1; font-weight: 500; color: var(--h-accent-ink); transition: transform 0.2s ease; }
+.faq-item[open] summary::after { transform: rotate(45deg); }
+.faq-item summary:focus-visible { outline: 2px solid var(--h-accent-ink); outline-offset: 4px; border-radius: 8px; }
+.faq-item h3 { font-family: 'Rubik', 'Heebo', sans-serif; font-size: 1.125rem; font-weight: 700; line-height: 1.4; color: var(--h-ink); margin: 0; }
+.faq-item p { padding: 0 0 1.25rem; font-size: 1.0625rem; line-height: 1.7; color: var(--h-ink-2); max-width: 70ch; }
+@media (prefers-reduced-motion: reduce) { .faq-item summary::after { transition: none; } }
+
+/* ─── Topic pages: links to courses ─── */
+.lp-link { display: flex; flex-direction: column; gap: 0.5rem; height: 100%; padding: 1.5rem; text-decoration: none; }
+.lp-link-title { font-family: 'Rubik', 'Heebo', sans-serif; font-size: 1.25rem; font-weight: 700; line-height: 1.35; color: var(--h-ink); }
+.lp-link-note { color: var(--h-ink-2); line-height: 1.6; }
+.lp-link-go { margin-top: auto; padding-top: 0.75rem; display: inline-flex; align-items: center; gap: 0.4rem; font-weight: 600; color: var(--h-accent-ink); }

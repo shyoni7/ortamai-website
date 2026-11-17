@@ -3,6 +3,8 @@ import { Link, useParams } from 'wouter';
 import { ArrowLeft, ArrowRight, CheckCircle } from 'lucide-react';
 import { useLanguage } from '@/contexts/LanguageContext';
 import SEO from '@/components/SEO';
+import FaqSection from '@/components/FaqSection';
+import { SYLLABUS_FAQ, faqSchema } from '@/data/faqs';
 import { trpc } from '@/lib/trpc';
 import { DEFAULT_COURSES } from '@shared/defaultCourses';
 import { getSyllabus } from '@shared/courseSyllabi';
@@ -100,6 +102,7 @@ export default function CourseSyllabus() {
   const BackArrow = he ? ArrowRight : ArrowLeft;
 
   const modular = syllabus.unit === 'module';
+  const faq = SYLLABUS_FAQ[syllabus.slug];
   const facts = [
     { value: String(syllabus.sessions.length), label: modular ? (he ? 'מודולים' : 'modules') : (he ? 'מפגשים' : 'sessions') },
     { value: String(syllabus.totalHours), label: he ? 'שעות לימוד' : 'hours of study' },
@@ -118,7 +121,7 @@ export default function CourseSyllabus() {
         description={syllabus.intro[lang]}
         canonical={`/courses/${slug}`}
         ogImage={syllabus.ogImage}
-        schema={{
+        schema={[{
           '@context': 'https://schema.org',
           '@type': 'Course',
           name: title,
@@ -132,7 +135,7 @@ export default function CourseSyllabus() {
             courseMode: 'Onsite',
             courseWorkload: `PT${syllabus.totalHours}H`,
           },
-        }}
+        }, ...(faq ? [faqSchema(faq, lang)] : [])]}
       />
       <div dir={dir}>
         {/* Hero */}
@@ -277,6 +280,8 @@ export default function CourseSyllabus() {
             </div>
           </div>
         </section>
+
+        {faq && <FaqSection items={faq} lang={lang} />}
 
         {/* Close */}
         <section style={{ background: 'var(--h-dark)' }}>

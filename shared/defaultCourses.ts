@@ -42,7 +42,7 @@ export const DEFAULT_COURSES: CatalogCourse[] = [
     subtitle: "6 מפגשים, 30 שעות. מאפס מוחלט לבניית מוצרים אמיתיים",
     subtitleEn: "6 sessions, 30 hours. From absolute zero to building real products",
     description:
-      "המסלול המלא לשליטה ב-Claude Code — הכלי שמאפשר לכל אחד לבנות אפליקציות, אתרים ואוטומציות בעזרת AI. שישה מפגשים מעשיים, מהתקנה ראשונה ועד פרויקט אמיתי שעולה לאוויר.",
+      "קורס קלוד קוד מלא: המסלול לשליטה ב-Claude Code, הכלי שמאפשר לכל אחד לבנות אפליקציות, אתרים ואוטומציות בעזרת AI. שישה מפגשים מעשיים, מהתקנה ראשונה ועד פרויקט אמיתי שעולה לאוויר.",
     descriptionEn:
       "The complete path to mastering Claude Code — the tool that lets anyone build apps, websites and automations with AI. Six hands-on sessions, from first install to a real project going live.",
     highlights:

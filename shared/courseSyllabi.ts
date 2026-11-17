@@ -70,7 +70,7 @@ export const COURSE_SYLLABI: CourseSyllabus[] = [
     totalHours: 30,
     format: { he: "פרונטלי, בכיתה", en: "In person, in class" },
     intro: {
-      he: "שישה מפגשים מעשיים שלוקחים אתכם מההתקנה הראשונה ועד מוצר עובד באוויר. בכל מפגש בונים משהו אמיתי, ובמפגשים האחרונים כל משתתף בונה פרויקט גמר אישי לעסק או לרעיון שלו.",
+      he: "קורס קלוד קוד (Claude Code) מלא: שישה מפגשים מעשיים שלוקחים אתכם מההתקנה הראשונה ועד מוצר עובד באוויר. בכל מפגש בונים משהו אמיתי, ובמפגשים האחרונים כל משתתף בונה פרויקט גמר אישי לעסק או לרעיון שלו.",
       en: "Six hands-on sessions that take you from the first install to a working product online. Every session ends with something real, and in the final sessions each participant builds a personal capstone project for their own business or idea.",
     },
     audience: {
