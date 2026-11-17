@@ -99,10 +99,13 @@ export default function CourseSyllabus() {
   const Arrow = he ? ArrowLeft : ArrowRight;
   const BackArrow = he ? ArrowRight : ArrowLeft;
 
+  const modular = syllabus.unit === 'module';
   const facts = [
-    { value: String(syllabus.sessionCount), label: he ? 'מפגשים' : 'sessions' },
+    { value: String(syllabus.sessions.length), label: modular ? (he ? 'מודולים' : 'modules') : (he ? 'מפגשים' : 'sessions') },
     { value: String(syllabus.totalHours), label: he ? 'שעות לימוד' : 'hours of study' },
-    { value: he ? `${syllabus.hoursPerSession} שעות` : `${syllabus.hoursPerSession} hours`, label: he ? 'כל מפגש' : 'per session' },
+    modular
+      ? { value: he ? 'פרויקט גמר' : 'Capstone', label: he ? 'על מקרה אמיתי' : 'on a real case' }
+      : { value: he ? `${syllabus.hoursPerSession} שעות` : `${syllabus.hoursPerSession} hours`, label: he ? 'כל מפגש' : 'per session' },
     { value: he ? 'פרונטלי' : 'In person', label: he ? 'לימוד בכיתה' : 'classroom teaching' },
   ];
 
@@ -199,7 +202,9 @@ export default function CourseSyllabus() {
                     <span className="syl-num" aria-hidden="true">{i + 1}</span>
                     <div>
                       <p className="text-sm font-semibold mb-1" style={{ color: 'var(--h-ink-2)' }}>
-                        {he ? `מפגש ${i + 1} · ${syllabus.hoursPerSession} שעות` : `Session ${i + 1} · ${syllabus.hoursPerSession} hours`}
+                        {he
+                          ? `${modular ? 'מודול' : 'מפגש'} ${i + 1} · ${s.hours ?? syllabus.hoursPerSession} שעות`
+                          : `${modular ? 'Module' : 'Session'} ${i + 1} · ${s.hours ?? syllabus.hoursPerSession} hours`}
                       </p>
                       <h3 className="text-xl md:text-2xl font-bold leading-snug mb-4" style={{ color: 'var(--h-ink)' }}>
                         {s.title[lang]}
@@ -226,8 +231,8 @@ export default function CourseSyllabus() {
                     </p>
                     <p className="mt-2 text-[0.95rem]" style={{ color: 'var(--h-ink-2)' }}>
                       {he
-                        ? `למשתתף, לקורס המלא · ${syllabus.sessionCount} מפגשים, ${syllabus.totalHours} שעות`
-                        : `per participant, full course · ${syllabus.sessionCount} sessions, ${syllabus.totalHours} hours`}
+                        ? `למשתתף, לקורס המלא · ${syllabus.sessions.length} ${modular ? 'מודולים' : 'מפגשים'}, ${syllabus.totalHours} שעות`
+                        : `per participant, full course · ${syllabus.sessions.length} ${modular ? 'modules' : 'sessions'}, ${syllabus.totalHours} hours`}
                     </p>
                   </>
                 ) : (
